@@ -36,6 +36,6 @@ export function RezeptZutaten(props: any) {
 
 function getLebensmittelName(zutat: any) {
   if (!zutat.lebensmittel?.nameSingular) return zutat.lebensmittel?.name || 'Eintrag fehlt'
-  if (zutat.menge == 1 && zutat.einheit == 'St') return zutat.lebensmittel.nameSingular
+  if (zutat.menge === 1 && zutat.einheit === 'St') return zutat.lebensmittel.nameSingular
   return zutat.lebensmittel?.name || 'Eintrag fehlt'
 }
