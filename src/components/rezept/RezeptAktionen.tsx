@@ -1,7 +1,7 @@
 import {Button, Collapse, Table} from "react-bootstrap";
 import React, {useState} from "react";
 
-export function RezeptZutaten(props: any) {
+export function RezeptAktionen(props: any) {
   const {zutaten} = props
   const [open, setOpen] = useState(false);
   if (!Array.isArray(zutaten)) return (<pre>Zutaten: {JSON.stringify(zutaten, null, 2)}</pre>)
