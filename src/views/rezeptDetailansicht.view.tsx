@@ -4,13 +4,13 @@ import MainMenu from "../components/layout/navbar";
 import {Button} from "react-bootstrap";
 import {useQuery} from "react-query";
 import {rezeptDetail} from "../services/api/rezeptService";
+import {RezeptZutaten} from "../components/rezept/RezeptZutaten";
 
 export function RezeptDetailansicht() {
   let {rezeptId = ''} = useParams();
 
   const {
     isSuccess,
-    refetch,
     data: rezept
   } = useQuery(["rezept-detail", rezeptId], () => rezeptDetail(rezeptId),
     {
@@ -24,10 +24,11 @@ export function RezeptDetailansicht() {
           <h1>{rezept.name}</h1>
           <Link to='/rezepte'><Button>zurück</Button></Link>
           <hr/>
-          <pre>{JSON.stringify(rezept,null,2)}</pre>
+          <RezeptZutaten zutaten={rezept.zutaten}/>
       </>}
     </div>
     <hr/>
+    {/*<pre>{JSON.stringify(rezept.zutaten, null, 2)}</pre>*/}
   </>)
 
 }
