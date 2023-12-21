@@ -2,7 +2,7 @@ import React from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
-import {useAuth} from "../../services/AuthProvider";
+import {useAuth} from "../../services/contexts/AuthProvider";
 
 
 export function MainMenu() {

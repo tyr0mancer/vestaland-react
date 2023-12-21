@@ -1,7 +1,7 @@
 import React from "react";
 import {Button, Form} from "react-bootstrap";
 import {MainMenu} from "../components/layout/Navbar";
-import {useAuth} from "../services/AuthProvider";
+import {useAuth} from "../services/contexts/AuthProvider";
 import {useNavigate} from "react-router-dom";
 
 export function Login() {

@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
-import {useAuth} from "../../services/AuthProvider";
+import {useAuth} from "../../services/contexts/AuthProvider";
 
 export function BenutzerInfo() {
   const {logout} = useAuth()

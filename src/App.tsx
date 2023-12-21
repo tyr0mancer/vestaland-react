@@ -2,7 +2,8 @@ import React from "react";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import {MainRouter} from "./routes/MainRouter";
-import {AuthProvider} from "./services/AuthProvider";
+import {AuthProvider} from "./services/contexts/AuthProvider";
+import {GlobalContextProvider} from "./services/contexts/GlobalContextProvider";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style/index.css';
@@ -12,10 +13,13 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
+
     <AuthProvider>
-      <QueryClientProvider client={queryClient}>
-        <MainRouter/>
-      </QueryClientProvider>
+      <GlobalContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <MainRouter/>
+        </QueryClientProvider>
+      </GlobalContextProvider>
     </AuthProvider>
   );
 }
