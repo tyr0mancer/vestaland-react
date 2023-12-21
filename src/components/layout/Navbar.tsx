@@ -1,0 +1,41 @@
+import React from 'react';
+import {Navbar, Nav, Container} from 'react-bootstrap';
+import {Link, NavLink} from 'react-router-dom';
+import logo from '../../assets/images/logo.png';
+import {useAuth} from "../../services/AuthProvider";
+
+
+export function MainMenu() {
+  const {authToken} = useAuth()
+  const loggedIn = authToken !== null
+
+  return (<>
+    <Navbar bg="light" expand="lg" sticky="top">
+      <Container>
+        <Navbar.Brand as={NavLink} to="/"><img src={logo} alt="Vestaland Logo" style={{height: 64}}/></Navbar.Brand>
+        <Nav className="navbar-text-collapsed">
+          <Nav.Link as={NavLink} to="/rezepte">Rezepte</Nav.Link>
+          <Nav.Link as={NavLink} to="/lebensmittel">Lebensmittel</Nav.Link>
+        </Nav>
+        <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link as={NavLink} to="/rezepte">Rezepte</Nav.Link>
+            <Nav.Link as={NavLink} to="/lebensmittel">Lebensmittel</Nav.Link>
+          </Nav>
+          <hr/>
+
+          <Navbar.Text>
+            {loggedIn && <>
+                Angemeldet als: <Link to="/user">Mark Otto</Link>
+            </>}
+            {!loggedIn && <>
+                <Link to="/login">login</Link>
+            </>}
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  </>)
+}

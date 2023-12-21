@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import MainMenu from "../components/layout/navbar";
 import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {useQuery} from "react-query";
 import {rezeptSuche} from "../services/api/rezeptService";
 import {useDebounce} from "../hooks/use-debounce";
 import {Rezept} from "../models/rezept.model";
+import {MainMenu} from "../components/layout/Navbar";
 
 
 function handleSubmit(event: any) {
@@ -35,6 +35,7 @@ export function RezepteSuche() {
 
   return (<>
     <MainMenu/>
+
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formName">
         <Form.Label>Name</Form.Label>

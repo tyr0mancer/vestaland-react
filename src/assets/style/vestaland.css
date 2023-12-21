@@ -19,6 +19,31 @@ body {
     color: #FFC107 !important;
 }
 
+.nav-link.active {
+    font-size: larger;
+    color: darkgreen; /* Example: red text for active links */
+    font-weight: bold; /* Example: bold font for active links */
+    /* Add more styles as needed */
+}
+
+.navbar-text-collapsed .nav-link {
+    display: none;
+}
+.navbar-text-collapsed .nav-link.active {
+    display: block;
+}
+
+/* Hide text on screens larger than 992px */
+@media (min-width: 992px) {
+    .navbar-text-collapsed {
+        display: none;
+    }
+}
+
+
+
+
+
 /* Button-Anpassungen */
 .btn-primary {
     background-color: #4CAF50;

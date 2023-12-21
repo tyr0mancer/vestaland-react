@@ -3,14 +3,16 @@ import React, {createContext, useContext, useState} from 'react';
 type AuthContextType = {
   authToken: string | null,
   login: (newToken: string) => void,
-  logout: () => void
+  logout: () => void,
 
 }
 
 const AuthContext = createContext<AuthContextType>({
-  authToken: null, login: (newToken: string) => {
+  authToken: null,
+  login: (newToken: string) => {
     console.log(newToken)
-  }, logout: () => {
+  },
+  logout: () => {
   }
 });
 

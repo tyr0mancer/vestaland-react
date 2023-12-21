@@ -1,10 +1,10 @@
 import React from "react";
 import {Link, useParams} from "react-router-dom";
-import MainMenu from "../components/layout/navbar";
 import {Button} from "react-bootstrap";
 import {useQuery} from "react-query";
 import {rezeptDetail} from "../services/api/rezeptService";
 import {RezeptZutaten} from "../components/rezept/RezeptZutaten";
+import {MainMenu} from "../components/layout/Navbar";
 
 export function RezeptDetailansicht() {
   let {rezeptId = ''} = useParams();
