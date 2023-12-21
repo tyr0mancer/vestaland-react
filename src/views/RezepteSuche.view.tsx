@@ -8,6 +8,7 @@ import {RezeptSucheAusgabe} from "../components/rezept/RezeptSucheAusgabe";
 export function RezepteSucheView() {
   return (<>
     <MainMenu/>
+    <br/>
     <Container>
       <RezeptSuche/>
       <RezeptSucheAusgabe/>

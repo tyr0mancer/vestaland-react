@@ -1,14 +1,24 @@
-import React, {useContext} from "react";
+import React, {useContext, useEffect, useRef} from "react";
+import {useQuery} from "@tanstack/react-query";
+import {Button, Form, InputGroup} from "react-bootstrap";
+
+import globalContext from "../../services/contexts/globalContext";
+import {rezeptSuche} from "../../services/api/rezeptService";
 import {useDebounce} from "../../hooks/use-debounce";
 import {Rezept} from "../../models/rezept.model";
-import {rezeptSuche} from "../../services/api/rezeptService";
-import {Button, Form} from "react-bootstrap";
-import {useQuery} from "@tanstack/react-query";
-import globalContext from "../../services/contexts/globalContext";
 
 export function RezeptSuche() {
   const {rezeptSuche: searchQuery, setRezeptSuche} = useContext(globalContext)
   const searchQueryDebounced = useDebounce(searchQuery, 300)
+  const inputRef = useRef<HTMLInputElement>(null);
+
+
+  useEffect(() => {
+    // Schritt 4: Setzen des Fokus auf das Input-Element, sobald die Komponente geladen wurde
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []); // Leer-Array bedeutet, dass dieser Effekt nur beim ersten Rendern ausgeführt wird
 
 
   const {
@@ -17,7 +27,7 @@ export function RezeptSuche() {
     {
       queryKey: ["rezept-suche", searchQueryDebounced],
       queryFn: () => rezeptSuche(searchQueryDebounced),
-      enabled: searchQuery.length > 0, // Disable query if input is empty
+      enabled: searchQueryDebounced.length > 0, // Disable query if input is empty
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
@@ -32,11 +42,12 @@ export function RezeptSuche() {
   return (<>
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formName">
-        <Form.Label> </Form.Label>
-        <Form.Control type="text" placeholder="Name des Rezeptes" value={searchQuery || ''}
-                      onChange={handleInputChange}/>
+        <InputGroup>
+          <Form.Control ref={inputRef}  type="text" placeholder="Name des Rezeptes" value={searchQuery || ''}
+                        onChange={handleInputChange}/>
+          <Button variant="primary" onClick={() => refetch()}>Suche</Button>
+        </InputGroup>
       </Form.Group>
-      <Button onClick={() => refetch()}>Suche</Button>
     </Form>
     <hr/>
   </>);

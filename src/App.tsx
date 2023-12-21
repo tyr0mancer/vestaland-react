@@ -8,6 +8,7 @@ import {GlobalContextProvider} from "./services/contexts/GlobalContextProvider";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style/index.css';
 import './assets/style/vestaland.css';
+import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ function App() {
       <GlobalContextProvider>
         <QueryClientProvider client={queryClient}>
           <MainRouter/>
+          <ReactQueryDevtools/>
         </QueryClientProvider>
       </GlobalContextProvider>
     </AuthProvider>

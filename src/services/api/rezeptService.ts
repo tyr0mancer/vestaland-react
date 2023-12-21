@@ -1,4 +1,4 @@
-import {apiClient} from "./index";
+import {apiClient} from "./apiClient";
 import {Rezept} from "../../models/rezept.model";
 
 export const rezeptSuche = (searchQuery: string): Promise<Rezept[]> =>

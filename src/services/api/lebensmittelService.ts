@@ -1,4 +1,4 @@
-import {apiClient} from "./index";
+import {apiClient} from "./apiClient";
 import {Lebensmittel} from "../../models/lebensmittel.model";
 
 export const lebensmittelSuche = async (searchQuery: string): Promise<Lebensmittel[]> => {
