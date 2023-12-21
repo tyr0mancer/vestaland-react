@@ -5,7 +5,7 @@ import {RezeptDetailansicht} from "../views/rezeptDetailansicht.view";
 import {RezepteSucheView} from "../views/RezepteSuche.view";
 import {Startseite} from "../views/home.view";
 import {Login} from "../views/login.view";
-import {Benutzer} from "../views/user.view";
+import {BenutzerView} from "../views/Benutzer.view";
 
 export function MainRouter() {
   // <Route path="/" element={<Navigate replace to="/rezepte" />} />
@@ -19,7 +19,7 @@ export function MainRouter() {
         <Route path="/rezept/:rezeptId" element={<RezeptDetailansicht/>}/>
 
         <Route path="/login" element={<Login/>}/>
-        <Route path="/user" element={<Benutzer/>}/>
+        <Route path="/user" element={<BenutzerView/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -1,10 +1,10 @@
 import React from "react";
-import {MainMenu} from "../components/layout/Navbar";
 import {Button} from "react-bootstrap";
-import {useAuth} from "../services/AuthProvider";
 import {useNavigate} from "react-router-dom";
 
-export function Benutzer() {
+import {useAuth} from "../../services/AuthProvider";
+
+export function BenutzerInfo() {
   const {logout} = useAuth()
   const navigate = useNavigate()
 
@@ -14,9 +14,13 @@ export function Benutzer() {
   }
 
   return (<>
-    <MainMenu/>
-    <h1>Aktueller Benutzer</h1>
-
+    <h1>Hallo Mark Otto!</h1>
+    <h2>Hier kannst du</h2>
+    <ul>
+      <li>Deine Rezepte sehen</li>
+      <li>Deine Daten sehen</li>
+      <li>Dein Konto löschen</li>
+    </ul>
     <Button onClick={handleLogout}>abmelden</Button>
   </>);
 }

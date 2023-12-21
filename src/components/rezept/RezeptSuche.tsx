@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {useDebounce} from "../../hooks/use-debounce";
 import {Rezept} from "../../models/rezept.model";
 import {rezeptSuche} from "../../services/api/rezeptService";
-import {Button, Form, Row} from "react-bootstrap";
+import {Button, Container, Form, Row} from "react-bootstrap";
 import {useQuery} from "@tanstack/react-query";
 import {RezeptVorschau} from "./RezeptVorschau";
 
@@ -12,17 +12,18 @@ export function RezeptSuche() {
 
   const {
     isSuccess,
+    isLoading,
     refetch,
     data
   } = useQuery<Rezept[]>(
     {
       queryKey: ["rezept-suche", searchQueryDebounced],
       queryFn: () => rezeptSuche(searchQueryDebounced),
+      enabled: searchQuery.length > 0, // Disable query if input is empty
+      staleTime: 1000 * 60 * 5, // 5 minutes
 
       /*
-            enabled: searchQuery.length > 0, // Disable query if input is empty
             keepPreviousData: true, // Keep showing previous results until new ones are loaded
-            staleTime: 1000 * 60 * 5, // 5 minutes
             cacheTime: 1000 * 60 * 60, // 1 hour
       */
     });
@@ -35,20 +36,20 @@ export function RezeptSuche() {
     event.preventDefault()
   }
 
-  return (<>
-
+  return (<Container>
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formName">
-        <Form.Label>Name</Form.Label>
+        <Form.Label> </Form.Label>
         <Form.Control type="text" placeholder="Name des Rezeptes" onChange={handleInputChange}/>
       </Form.Group>
+      <Button onClick={() => refetch()}>Suche</Button>
     </Form>
-
     <hr/>
-    <Button onClick={() => refetch()}>Suche</Button>
+
     <Row>
+      {isLoading && <h1>Lädt...</h1>}
       {isSuccess && data.map(rezept => <RezeptVorschau key={rezept._id} rezept={rezept}/>)}
     </Row>
 
-  </>);
+  </Container>);
 }
