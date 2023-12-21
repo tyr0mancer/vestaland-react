@@ -24,7 +24,7 @@ export function RezeptDetailansicht() {
           <h1>{rezept.name}</h1>
           <Link to='/rezepte'><Button>zurück</Button></Link>
           <hr/>
-          <RezeptZutaten zutaten={rezept.zutaten}/>
+          <RezeptZutaten zutaten={rezept?.zutaten}/>
       </>}
     </div>
     <hr/>

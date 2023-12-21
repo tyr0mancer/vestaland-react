@@ -17,7 +17,7 @@ export function RezeptZutaten(props: any) {
     </Button>
     <Collapse in={open}>
       <div id="example-collapse-text">
-        <Table striped bordered hover size="sm">
+        <Table striped bordered hover size="sm" variant="dark">
           <tbody>
           {zutaten && zutaten.map((zutat: any) =>
             (<tr>

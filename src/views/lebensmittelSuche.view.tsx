@@ -3,7 +3,7 @@ import MainMenu from "../components/layout/navbar";
 import {Button, Form, ListGroup} from "react-bootstrap";
 import {useQuery} from "react-query";
 import {useDebounce} from "../hooks/use-debounce";
-import {lebensmittelSuche} from "../services/api";
+import {lebensmittelSuche} from "../services/api/lebensmittelService";
 
 
 function handleSubmit(event: any) {

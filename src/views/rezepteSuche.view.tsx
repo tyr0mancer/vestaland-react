@@ -1,10 +1,11 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import MainMenu from "../components/layout/navbar";
-import {Button, Form, ListGroup} from "react-bootstrap";
+import {Button, Card, Col, Form, Row} from "react-bootstrap";
 import {useQuery} from "react-query";
 import {rezeptSuche} from "../services/api/rezeptService";
 import {useDebounce} from "../hooks/use-debounce";
+import {Rezept} from "../models/rezept.model";
 
 
 function handleSubmit(event: any) {
@@ -15,6 +16,7 @@ function handleSubmit(event: any) {
 export function RezepteSuche() {
   const [searchQuery, setSearchQuery] = useState('')
   const searchQueryDebounced = useDebounce(searchQuery, 300)
+
   const {
     isSuccess,
     refetch,
@@ -42,11 +44,34 @@ export function RezepteSuche() {
 
     <hr/>
     <Button onClick={() => refetch()}>Suche</Button>
-    <ListGroup>
-      {isSuccess && data.map((rezept: any) => {
-        return (<Link key={rezept._id} to={`/rezept/${rezept._id}`}><ListGroup.Item>{rezept.name}</ListGroup.Item></Link>)
-      })}
-    </ListGroup>
+    <Row>
+      {isSuccess && data.map(rezept => <RezeptVorschau key={rezept._id} rezept={rezept}/>)}
+    </Row>
 
   </>);
 }
+
+
+function RezeptVorschau({rezept}: { rezept: Rezept }) {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate('/rezept/' + rezept._id);
+  }
+
+  return (
+    <Col>
+
+      <Card style={{width: '18rem'}} onClick={handleCardClick}>
+        <Card.Body>
+          <Card.Title>{rezept.name}</Card.Title>
+          <Card.Text>
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </Col>
+  );
+}
+

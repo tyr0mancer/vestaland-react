@@ -1,0 +1,54 @@
+/* Grundlegende Anpassungen */
+body {
+    background-color: #F5F5F5;
+    font-family: 'Arial', sans-serif;
+    background-image: url('../images/bg-rezept.png');
+    background-repeat: repeat;
+}
+
+/* Navbar-Anpassungen */
+.navbar {
+    background-color: #4CAF50;
+}
+
+.nav-link {
+    color: #388E3C !important;
+}
+
+.nav-link:hover {
+    color: #FFC107 !important;
+}
+
+/* Button-Anpassungen */
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.btn-primary:hover {
+    background-color: #388E3C;
+    border-color: #388E3C;
+}
+
+/* Card-Anpassungen */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Formular-Anpassungen */
+.form-control {
+    border: 1px solid #4CAF50;
+}
+
+.form-control:focus {
+    border-color: #388E3C;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+}
+
+/* Weitere Anpassungen nach Bedarf... */
