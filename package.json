@@ -1,6 +1,6 @@
 {
   "name": "vestaland",
-  "homepage": "https://vestaland.netlify.app/",
+  "homepage": "http://192.168.2.36:3000/",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
