@@ -1,10 +1,10 @@
 import React from "react";
 import {Link, useParams} from "react-router-dom";
 import {Button} from "react-bootstrap";
-import {useQuery} from "react-query";
 import {rezeptDetail} from "../services/api/rezeptService";
 import {RezeptZutaten} from "../components/rezept/RezeptZutaten";
 import {MainMenu} from "../components/layout/Navbar";
+import {useQuery} from "@tanstack/react-query";
 
 export function RezeptDetailansicht() {
   let {rezeptId = ''} = useParams();
@@ -12,10 +12,12 @@ export function RezeptDetailansicht() {
   const {
     isSuccess,
     data: rezept
-  } = useQuery(["rezept-detail", rezeptId], () => rezeptDetail(rezeptId),
+  } = useQuery(
     {
+      queryKey: ["rezept-detail", rezeptId],
+      queryFn: () => rezeptDetail(rezeptId),
       staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 60, // 1 hour
+      //cacheTime: 1000 * 60 * 60, // 1 hour
     });
   return (<>
     <MainMenu/>

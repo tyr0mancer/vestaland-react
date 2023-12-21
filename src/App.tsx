@@ -1,6 +1,7 @@
-import {QueryClient, QueryClientProvider} from 'react-query';
 import React from "react";
-import {MainRouter} from "./routes/router";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
+import {MainRouter} from "./routes/MainRouter";
 import {AuthProvider} from "./services/AuthProvider";
 
 import 'bootstrap/dist/css/bootstrap.min.css';

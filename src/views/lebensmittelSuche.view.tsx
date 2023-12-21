@@ -1,6 +1,7 @@
 import React, {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
 import {Button, Form, ListGroup} from "react-bootstrap";
-import {useQuery} from "react-query";
+
 import {useDebounce} from "../hooks/use-debounce";
 import {lebensmittelSuche} from "../services/api/lebensmittelService";
 import {MainMenu} from "../components/layout/Navbar";
@@ -18,12 +19,12 @@ export function LebensmittelSuche() {
     isSuccess,
     refetch,
     data
-  } = useQuery(["lebensmittel-suche", searchQueryDebounced], () => lebensmittelSuche(searchQueryDebounced),
+  } = useQuery(
     {
+      queryKey: ["lebensmittel-suche", searchQueryDebounced],
+      queryFn: () => lebensmittelSuche(searchQueryDebounced),
       enabled: searchQuery.length > 0, // Disable query if input is empty
-      keepPreviousData: true, // Keep showing previous results until new ones are loaded
       staleTime: 1000 * 60 * 5, // 5 minutes
-      cacheTime: 1000 * 60 * 60, // 1 hour
     });
 
   const handleInputChange = (event: any) => {
