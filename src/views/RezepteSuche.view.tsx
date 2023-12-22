@@ -7,7 +7,7 @@ import {RezeptSucheAusgabe} from "../components/rezept/RezeptSucheAusgabe";
 
 export function RezepteSucheView() {
   return (<>
-    <MainMenu/>
+    <MainMenu title="Rezepte Suchen"/>
     <Container className="main-layout">
       <RezeptSuche/>
       <RezeptSucheAusgabe/>

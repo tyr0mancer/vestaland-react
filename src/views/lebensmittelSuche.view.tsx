@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
-import {Button, Form, ListGroup} from "react-bootstrap";
+import {Button, Container, Form, ListGroup} from "react-bootstrap";
 
 import {useDebounce} from "../hooks/use-debounce";
 import {lebensmittelSuche} from "../services/api/lebensmittelService";
@@ -33,18 +33,20 @@ export function LebensmittelSuche() {
 
   return (<div>
     <MainMenu/>
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formName">
-        <Form.Label>Name</Form.Label>
-        <Form.Control type="text" placeholder="Name des Lebensmittels" onChange={handleInputChange}/>
-      </Form.Group>
+    <Container className="main-layout">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formName">
+          <Form.Label>Name</Form.Label>
+          <Form.Control type="text" placeholder="Name des Lebensmittels" onChange={handleInputChange}/>
+        </Form.Group>
 
-      <hr/>
-      <Button onClick={() => refetch()}>Suche</Button>
-      <ListGroup>
-        {isSuccess && data.map((lebensmittel: any) =>
-          <ListGroup.Item key={lebensmittel._id}>{lebensmittel._id} {lebensmittel.name}</ListGroup.Item>)}
-      </ListGroup>
-    </Form>
+        <hr/>
+        <Button onClick={() => refetch()}>Suche</Button>
+        <ListGroup>
+          {isSuccess && data.map((lebensmittel: any) =>
+            <ListGroup.Item key={lebensmittel._id}>{lebensmittel._id} {lebensmittel.name}</ListGroup.Item>)}
+        </ListGroup>
+      </Form>
+    </Container>
   </div>)
 }

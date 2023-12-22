@@ -29,14 +29,6 @@ body {
     font-weight: bold;
 }
 
-.navbar-text-collapsed .nav-link {
-    display: none;
-}
-
-.navbar-text-collapsed .nav-link.active {
-    display: block;
-}
-
 /* Hide text on screens larger than 992px */
 @media (min-width: 992px) {
     .navbar-text-collapsed {

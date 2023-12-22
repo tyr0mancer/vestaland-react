@@ -5,17 +5,16 @@ import logo from '../../assets/images/logo.png';
 import {useAuth} from "../../services/contexts/AuthProvider";
 
 
-export function MainMenu() {
+export function MainMenu({title}: { title?: string }) {
   const {authToken} = useAuth()
   const loggedIn = authToken !== null
 
   return (<>
-    <Navbar bg="light" expand="lg" sticky="top">
+    <Navbar expand="lg" sticky="top" className="navbar">
       <Container>
         <Navbar.Brand as={NavLink} to="/"><img src={logo} alt="Vestaland Logo" style={{height: 64}}/></Navbar.Brand>
         <Nav className="navbar-text-collapsed">
-          <Nav.Link as={NavLink} to="/rezepte">Rezepte</Nav.Link>
-          <Nav.Link as={NavLink} to="/lebensmittel">Lebensmittel</Nav.Link>
+          <h4><b>{title}</b></h4>
         </Nav>
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
 

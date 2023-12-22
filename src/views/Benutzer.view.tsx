@@ -6,7 +6,7 @@ import {BenutzerInfo} from "../components/benutzer/BenuzterInfo";
 
 export function BenutzerView() {
   return (<>
-    <MainMenu/>
+    <MainMenu title="Benutzer"/>
     <Container className="main-layout">
       <BenutzerInfo/>
     </Container>

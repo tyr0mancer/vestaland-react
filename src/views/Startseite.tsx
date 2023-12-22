@@ -5,7 +5,7 @@ import {Container} from "react-bootstrap";
 export function Startseite() {
 
   return (<>
-    <MainMenu/>
+    <MainMenu title="Vestaland"/>
     <Container className="main-layout">
       <h1>Startseite</h1>
       <ul>
