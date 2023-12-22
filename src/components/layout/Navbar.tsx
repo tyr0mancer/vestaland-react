@@ -23,9 +23,11 @@ export function MainMenu({title}: { title?: string }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={NavLink} to="/rezepte">Rezepte</Nav.Link>
-            <Nav.Link as={NavLink} to="/plan">Essensplan</Nav.Link>
-            <Nav.Link as={NavLink} to="/vorrat">Vorrat</Nav.Link>
-            <Nav.Link as={NavLink} to="/einkaufsliste">Einkaufsliste</Nav.Link>
+            {loggedIn && <>
+                <Nav.Link as={NavLink} to="/plan">Essensplan</Nav.Link>
+                <Nav.Link as={NavLink} to="/vorrat">Vorrat</Nav.Link>
+                <Nav.Link as={NavLink} to="/einkaufsliste">Einkaufsliste</Nav.Link>
+            </>}
           </Nav>
           <hr/>
 
