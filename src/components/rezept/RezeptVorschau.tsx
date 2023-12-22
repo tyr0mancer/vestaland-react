@@ -1,24 +1,34 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import {Card, Col} from "react-bootstrap";
-
+import {Badge, Card, Col} from "react-bootstrap";
 import {Rezept} from "../../models/rezept.model";
+import rezeptDummy1 from '../../assets/images/dummy/kastenbrot.png';
+import rezeptDummy2 from '../../assets/images/dummy/blumenhuhn.png';
 
 export function RezeptVorschau({rezept}: { rezept: Rezept }) {
   const navigate = useNavigate();
-
   const handleCardClick = () => {
     navigate('/rezept/' + rezept._id);
   }
 
   return (
     <Col>
-      <Card style={{width: '18rem'}} onClick={handleCardClick}>
+      <Card onClick={handleCardClick}>
+        {(rezept.name==='Blumenhuhn') && <img src={rezeptDummy2} alt={"Blumenhuhn"} height={100}/>}
+        {(rezept.name!=='Blumenhuhn') && <img src={rezeptDummy1} alt={"Kastenbrot"} height={100}/>}
         <Card.Body>
           <Card.Title>{rezept.name}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            <p>Text</p>
+
+            {(rezept.name==='Blumenhuhn') && <>
+                <Badge bg="secondary">Diätisch</Badge>
+            </>}
+            {(rezept.name!=='Blumenhuhn') && <>
+                <Badge bg="primary">Vorrat</Badge>
+                <Badge bg="secondary">Vegetarisch</Badge>
+            </>}
+
           </Card.Text>
         </Card.Body>
       </Card>
