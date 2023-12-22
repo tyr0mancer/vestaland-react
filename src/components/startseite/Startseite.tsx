@@ -4,17 +4,12 @@ import {Image} from "react-bootstrap";
 import {useAuth} from "../../services/contexts/AuthProvider";
 import startseiteBild from '../../assets/images/startseite.png';
 import startseiteBild2 from '../../assets/images/startseite2.png';
-import Webcam from "react-webcam";
 
 export function Startseite() {
   const {authToken} = useAuth()
   const loggedIn = authToken !== null
 
   return (<>
-    <Webcam
-      audio={false}
-      screenshotFormat="image/jpeg"
-    />
 
     {loggedIn && <>
         <h1>Startseite</h1>
