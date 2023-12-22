@@ -26,13 +26,19 @@ export function MainMenu({title}: { title?: string }) {
             <Nav.Link as={NavLink} to="/plan">Essensplan</Nav.Link>
             <Nav.Link as={NavLink} to="/vorrat">Vorrat</Nav.Link>
             <Nav.Link as={NavLink} to="/einkaufsliste">Einkaufsliste</Nav.Link>
-            {loggedIn && <><Nav.Link as={NavLink} to="/lebensmittel">Lebensmittel</Nav.Link></>}
           </Nav>
           <hr/>
 
+          {loggedIn && <>
+              <Nav>
+                  <Nav.Link as={NavLink} to="/lebensmittel">Adminbereich</Nav.Link>
+              </Nav>
+              <hr/>
+          </>}
+
           <Navbar.Text>
             {loggedIn && <>
-                Angemeldet als: <Link to="/user">Mark Otto</Link>
+                <Link to="/user">Mark Otto</Link>
             </>}
             {!loggedIn && <>
                 <Link to="/login"><img src={login} height={24} alt={"login"}/> anmelden</Link>

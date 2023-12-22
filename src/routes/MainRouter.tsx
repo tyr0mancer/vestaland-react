@@ -1,7 +1,7 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {LebensmittelSuche} from "../views/lebensmittelSuche.view";
-import {RezeptDetailansicht} from "../views/rezeptDetailansicht.view";
+import {RezeptDetailView} from "../views/RezeptDetailansicht.view";
 import {RezepteSucheView} from "../views/RezepteSuche.view";
 import {StartseiteView} from "../views/Startseite.view";
 import {Login} from "../views/login.view";
@@ -18,7 +18,7 @@ export function MainRouter() {
         <Route path="/" element={<StartseiteView/>}/>
         <Route path="/lebensmittel" element={<LebensmittelSuche/>}/>
         <Route path="/rezepte" element={<RezepteSucheView/>}/>
-        <Route path="/rezept/:rezeptId" element={<RezeptDetailansicht/>}/>
+        <Route path="/rezept/:rezeptId" element={<RezeptDetailView/>}/>
 
         <Route path="/login" element={<Login/>}/>
         <Route path="/user" element={<BenutzerView/>}/>
