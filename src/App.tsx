@@ -2,15 +2,13 @@ import React from "react";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import {MainRouter} from "./routes/MainRouter";
-import {AuthProvider} from "./services/contexts/AuthProvider";
-import {GlobalContextProvider} from "./services/contexts/GlobalContextProvider";
+import {AuthProvider} from "./services/auth/AuthProvider";
+import {GlobalContextProvider} from "./services/auth/GlobalContextProvider";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style/index.css';
 import './assets/style/vestaland.css';
 import './assets/style/startseite.css';
-
-import {ReactQueryDevtools} from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -21,7 +19,7 @@ function App() {
       <GlobalContextProvider>
         <QueryClientProvider client={queryClient}>
           <MainRouter/>
-          <ReactQueryDevtools/>
+          {/*<ReactQueryDevtools/>*/}
         </QueryClientProvider>
       </GlobalContextProvider>
     </AuthProvider>

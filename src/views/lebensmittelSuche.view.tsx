@@ -3,7 +3,7 @@ import {useQuery} from "@tanstack/react-query";
 import {Button, Container, Form, ListGroup} from "react-bootstrap";
 
 import {useDebounce} from "../hooks/use-debounce";
-import {lebensmittelSuche} from "../services/api/lebensmittelService";
+import {lebensmittelImport, lebensmittelSuche} from "../services/api/lebensmittelService";
 import {MainMenu} from "../components/layout/Navbar";
 
 
@@ -27,6 +27,14 @@ export function LebensmittelSuche() {
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
+
+  const importResponse = useQuery(
+    {
+      queryKey: ["lebensmittel-import"],
+      queryFn: lebensmittelImport,
+    });
+
+
   const handleInputChange = (event: any) => {
     setSearchQuery(event.target.value);
   };
@@ -42,6 +50,9 @@ export function LebensmittelSuche() {
 
         <hr/>
         <Button onClick={() => refetch()}>Suche</Button>
+
+        <Button onClick={() => importResponse.refetch()}>Import</Button>
+
         <ListGroup>
           {isSuccess && data.map((lebensmittel: any) =>
             <ListGroup.Item key={lebensmittel._id}>{lebensmittel._id} {lebensmittel.name}</ListGroup.Item>)}

@@ -2,19 +2,24 @@ import React from "react";
 import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
-import {useAuth} from "../../services/contexts/AuthProvider";
+import {useAuth} from "../../services/auth/AuthProvider";
 
 export function BenutzerInfo() {
-  const {logout} = useAuth()
+  const {logout, authInfo} = useAuth()
   const navigate = useNavigate()
 
-  const handleLogout = () => {
-    logout()
+  const handleLogout = async () => {
+    await logout()
     navigate('/login')
   }
 
+  const handleRefresh = () => {
+
+  }
+
   return (<>
-    <h1>Hallo Mark Otto!</h1>
+    <h1>Hallo {authInfo?._id}!</h1>
+    <p>{JSON.stringify(authInfo)}</p>
     <hr/>
     <h4>Hier kannst du</h4>
     <ul>
@@ -22,6 +27,7 @@ export function BenutzerInfo() {
       <li>Deine Daten sehen</li>
       <li>Dein Konto löschen</li>
     </ul>
+    <Button onClick={handleRefresh}>refresh Token</Button>
     <hr/>
     <Button onClick={handleLogout}>abmelden</Button>
   </>);

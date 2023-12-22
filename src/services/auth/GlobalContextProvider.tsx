@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import GlobalContext from "./globalContext";
+import GlobalContext from "../contexts/globalContext";
 
 export const GlobalContextProvider = ({children}: any) => {
   const [rezeptSuche, setRezeptSuche] = useState('');

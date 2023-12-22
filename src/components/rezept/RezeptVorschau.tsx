@@ -19,8 +19,14 @@ export function RezeptVorschau({rezept}: { rezept: Rezept }) {
         <Card.Body>
           <Card.Title>{rezept.name}</Card.Title>
           <Card.Text>
-            <p>Text</p>
-
+            {rezept.beschreibung}
+          </Card.Text>
+          <Card.Text>
+            {rezept.arbeitsschritte.length} Schritte
+            {rezept.zutaten.length} Zutaten
+            {rezept.hilfsmittel.length} Hilfsmittel
+          </Card.Text>
+          <Card.Text>
             {(rezept.name==='Blumenhuhn') && <>
                 <Badge bg="secondary">Diätisch</Badge>
             </>}
@@ -28,7 +34,6 @@ export function RezeptVorschau({rezept}: { rezept: Rezept }) {
                 <Badge bg="primary">Vorrat</Badge>
                 <Badge bg="secondary">Vegetarisch</Badge>
             </>}
-
           </Card.Text>
         </Card.Body>
       </Card>

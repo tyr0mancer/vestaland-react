@@ -4,12 +4,11 @@ import {Link, NavLink} from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import login from '../../assets/images/login.png';
 
-import {useAuth} from "../../services/contexts/AuthProvider";
+import {useAuth} from "../../services/auth/AuthProvider";
 
 
 export function MainMenu({title}: { title?: string }) {
-  const {authToken} = useAuth()
-  const loggedIn = authToken !== null
+  const {isAuthorized, authInfo} = useAuth()
 
   return (<>
     <Navbar expand="lg" sticky="top" className="navbar">
@@ -23,15 +22,15 @@ export function MainMenu({title}: { title?: string }) {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link as={NavLink} to="/rezepte">Rezepte</Nav.Link>
-            {loggedIn && <>
+            <Nav.Link as={NavLink} to="/einkaufsliste">Einkaufsliste</Nav.Link>
+            {isAuthorized() && <>
                 <Nav.Link as={NavLink} to="/plan">Essensplan</Nav.Link>
                 <Nav.Link as={NavLink} to="/vorrat">Vorrat</Nav.Link>
-                <Nav.Link as={NavLink} to="/einkaufsliste">Einkaufsliste</Nav.Link>
             </>}
           </Nav>
           <hr/>
 
-          {loggedIn && <>
+          {isAuthorized() && <>
               <Nav>
                   <Nav.Link as={NavLink} to="/lebensmittel">Adminbereich</Nav.Link>
               </Nav>
@@ -39,10 +38,10 @@ export function MainMenu({title}: { title?: string }) {
           </>}
 
           <Navbar.Text>
-            {loggedIn && <>
-                <Link to="/user">Mark Otto</Link>
+            {isAuthorized() && <>
+                <Link to="/user">{authInfo?.name}</Link>
             </>}
-            {!loggedIn && <>
+            {!isAuthorized() && <>
                 <Link to="/login"><img src={login} height={24} alt={"login"}/> anmelden</Link>
             </>}
           </Navbar.Text>
