@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {LebensmittelSuche} from "../views/lebensmittelSuche.view";
 import {RezeptDetailansicht} from "../views/rezeptDetailansicht.view";
 import {RezepteSucheView} from "../views/RezepteSuche.view";
-import {Startseite} from "../views/Startseite";
+import {StartseiteView} from "../views/Startseite.view";
 import {Login} from "../views/login.view";
 import {BenutzerView} from "../views/Benutzer.view";
 import {ErrorPageView} from "../views/ErrorPage.view";
@@ -15,7 +15,7 @@ export function MainRouter() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Startseite/>}/>
+        <Route path="/" element={<StartseiteView/>}/>
         <Route path="/lebensmittel" element={<LebensmittelSuche/>}/>
         <Route path="/rezepte" element={<RezepteSucheView/>}/>
         <Route path="/rezept/:rezeptId" element={<RezeptDetailansicht/>}/>

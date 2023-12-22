@@ -2,6 +2,8 @@ import React from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
+import login from '../../assets/images/login.png';
+
 import {useAuth} from "../../services/contexts/AuthProvider";
 
 
@@ -33,7 +35,7 @@ export function MainMenu({title}: { title?: string }) {
                 Angemeldet als: <Link to="/user">Mark Otto</Link>
             </>}
             {!loggedIn && <>
-                <Link to="/login">login</Link>
+                <Link to="/login"><img src={login} height={24} alt={"login"}/> anmelden</Link>
             </>}
           </Navbar.Text>
         </Navbar.Collapse>

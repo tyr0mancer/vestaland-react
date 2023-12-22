@@ -11,6 +11,10 @@ body {
     opacity: 0.8
 }
 
+a {
+    text-decoration: none;
+}
+
 /* Navbar-Anpassungen */
 .navbar {
     background-color: #b4f7b7;
