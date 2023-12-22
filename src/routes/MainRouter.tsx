@@ -6,6 +6,7 @@ import {RezepteSucheView} from "../views/RezepteSuche.view";
 import {Startseite} from "../views/home.view";
 import {Login} from "../views/login.view";
 import {BenutzerView} from "../views/Benutzer.view";
+import {ErrorPageView} from "../views/ErrorPage.view";
 
 export function MainRouter() {
   // <Route path="/" element={<Navigate replace to="/rezepte" />} />
@@ -20,6 +21,8 @@ export function MainRouter() {
 
         <Route path="/login" element={<Login/>}/>
         <Route path="/user" element={<BenutzerView/>}/>
+
+        <Route path="*" element={<ErrorPageView error={{code: 404, message: "Seite nicht gefunden."}}/>}/>
       </Routes>
     </BrowserRouter>
   );

@@ -43,9 +43,32 @@ export function RezeptSuche() {
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formName">
         <InputGroup>
-          <Form.Control ref={inputRef}  type="text" placeholder="Name des Rezeptes" value={searchQuery || ''}
+          <Form.Control ref={inputRef} type="text" placeholder="Name des Rezeptes" value={searchQuery || ''}
                         onChange={handleInputChange}/>
           <Button variant="primary" onClick={() => refetch()}>Suche</Button>
+        </InputGroup>
+      </Form.Group>
+
+      <Form.Group>
+        <Button variant="secondary">Eigene Rezepte</Button>
+        <Button variant="secondary">Favoriten</Button>
+        <hr/>
+        <InputGroup>
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="vegetarian-only"
+            label="Nur vegetarisches"
+          />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="storage-available"
+            label="Nur mit vorrätigen Zutaten"
+          />
+          <Form.Check // prettier-ignore
+            type="switch"
+            id="healthy-only"
+            label="Nur diätisch"
+          />
         </InputGroup>
       </Form.Group>
     </Form>
