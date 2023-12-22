@@ -3,7 +3,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {LebensmittelSuche} from "../views/lebensmittelSuche.view";
 import {RezeptDetailansicht} from "../views/rezeptDetailansicht.view";
 import {RezepteSucheView} from "../views/RezepteSuche.view";
-import {Startseite} from "../views/home.view";
+import {Startseite} from "../views/Startseite";
 import {Login} from "../views/login.view";
 import {BenutzerView} from "../views/Benutzer.view";
 import {ErrorPageView} from "../views/ErrorPage.view";

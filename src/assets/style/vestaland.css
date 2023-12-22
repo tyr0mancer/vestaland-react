@@ -1,6 +1,6 @@
 /* Grundlegende Anpassungen */
 body {
-    background-color: #fff;
+    background-color: #b4f7b7;
     font-family: 'Arial', sans-serif;
     background-image: url('../images/bg-rezept.png');
 
@@ -13,27 +13,26 @@ body {
 
 /* Navbar-Anpassungen */
 .navbar {
-    background-color: #4CAF50;
+    background-color: #b4f7b7;
 }
 
 .nav-link {
-    color: #388E3C !important;
+    color: #394d3a !important;
 }
 
 .nav-link:hover {
-    color: #FFC107 !important;
+    color: #388E3C !important;
 }
 
 .nav-link.active {
     font-size: larger;
-    color: darkgreen; /* Example: red text for active links */
-    font-weight: bold; /* Example: bold font for active links */
-    /* Add more styles as needed */
+    font-weight: bold;
 }
 
 .navbar-text-collapsed .nav-link {
     display: none;
 }
+
 .navbar-text-collapsed .nav-link.active {
     display: block;
 }
@@ -44,7 +43,6 @@ body {
         display: none;
     }
 }
-
 
 
 /* Button-Anpassungen */
@@ -59,11 +57,10 @@ body {
 }
 
 
-
 /* Card-Anpassungen */
 .card {
     border: none;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .card-header {
@@ -81,3 +78,10 @@ body {
     box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
 }
 
+
+/* Container */
+.main-layout {
+    background-color: #f0f0f0;
+    margin-top: 20px;
+    padding: 20px;
+}

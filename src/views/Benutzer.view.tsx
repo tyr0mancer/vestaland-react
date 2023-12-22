@@ -7,8 +7,7 @@ import {BenutzerInfo} from "../components/benutzer/BenuzterInfo";
 export function BenutzerView() {
   return (<>
     <MainMenu/>
-    <br/>
-    <Container>
+    <Container className="main-layout">
       <BenutzerInfo/>
     </Container>
   </>);

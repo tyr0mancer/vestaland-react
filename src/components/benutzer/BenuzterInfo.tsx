@@ -15,12 +15,14 @@ export function BenutzerInfo() {
 
   return (<>
     <h1>Hallo Mark Otto!</h1>
-    <h2>Hier kannst du</h2>
+    <hr/>
+    <h4>Hier kannst du</h4>
     <ul>
       <li>Deine Rezepte sehen</li>
       <li>Deine Daten sehen</li>
       <li>Dein Konto löschen</li>
     </ul>
+    <hr/>
     <Button onClick={handleLogout}>abmelden</Button>
   </>);
 }
