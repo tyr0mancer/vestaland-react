@@ -50,8 +50,10 @@ export function RezeptSuche() {
       </Form.Group>
 
       <Form.Group>
+{/*
         <Button variant="secondary">Eigene Rezepte</Button>
         <Button variant="secondary">Favoriten</Button>
+*/}
         <hr/>
         <InputGroup>
           <Form.Check // prettier-ignore
