@@ -38,7 +38,7 @@ apiClient.interceptors.response.use(
           console.log('Error while trying to refresh Token', error.response || error)
         })
     }
-    console.log('Other Error', error.response || error)
+    console.log( error.response || error)
     return Promise.reject(error);
   }
 );

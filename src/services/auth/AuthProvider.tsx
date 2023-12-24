@@ -26,12 +26,14 @@ export const AuthProvider = ({children}: any) => {
   const [error, setError] = useState<ApiErrorResponse | null>(null)
 
   useEffect(() => {
-    login(() => refreshService()).then(() => {
-      console.log("refreshing")
-    }).catch(err => {
-      console.log(err.response.data)
+    refresh(() => refreshService())
+      .then(() => {
+        console.log("refreshing Token")
+      }).catch(() => {
+      //console.log(err.response.data)
     })
   }, [])
+
 
 
   function login(LoginFn?: () => Promise<LoginResponse>) {
@@ -47,12 +49,25 @@ export const AuthProvider = ({children}: any) => {
             setError(() => error.response?.data)
             return reject(error)
           }
-          alert(error.message)
+          console.error(error)
           return reject(error)
         })
     })
-
   }
+
+
+  function refresh(refreshFn: () => Promise<LoginResponse>) {
+    return new Promise((resolve, reject) => {
+      refreshFn().then(res => {
+        setAuthInfo(() => res)
+        return resolve('RefreshToken')
+      })
+        .catch(error => {
+          return reject(error)
+        })
+    })
+  }
+
 
   async function logout(LogoutFn?: () => Promise<void>) {
     return new Promise(async (resolve) => {
