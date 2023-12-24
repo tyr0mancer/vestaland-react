@@ -1,9 +1,9 @@
 import React from "react";
 import {Container} from "react-bootstrap";
 
-import {MainMenu} from "../components/layout/Navbar";
-import {EinkaufsListe} from "../components/einkaufsliste/EinkaufsListe";
-import {RestrictedArea} from "../services/auth/RestricedArea";
+import {MainMenu} from "../../components/layout/Navbar";
+import {EinkaufsListe} from "../../components/einkaufsliste/EinkaufsListe";
+import {RestrictedArea} from "../../services/auth/RestricedArea";
 
 export function EinkaufsListeView() {
   return (<>

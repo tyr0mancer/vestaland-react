@@ -8,7 +8,7 @@ import rezeptDummy2 from '../../assets/images/dummy/blumenhuhn.png';
 export function RezeptVorschau({rezept}: { rezept: Rezept }) {
   const navigate = useNavigate();
   const handleCardClick = () => {
-    navigate('/rezept/' + rezept._id);
+    navigate('/rezepte/' + rezept._id);
   }
 
   return (

@@ -1,11 +1,7 @@
 // ThemeContext.js
 import React from 'react';
+import {globalContextDefaultValue, GlobalContextType} from "./GlobalContextProvider";
 
-type GlobalContextType = {
-  rezeptSuche: string
-  setRezeptSuche: (s: string) => void
-}
-
-const GlobalContext = React.createContext<GlobalContextType>({rezeptSuche: '', setRezeptSuche: (s: string) => {}});
+const GlobalContext = React.createContext<GlobalContextType>(globalContextDefaultValue);
 
 export default GlobalContext;

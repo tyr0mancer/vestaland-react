@@ -8,7 +8,7 @@ import globalContext from "../../services/contexts/globalContext";
 import {rezeptSuche} from "../../services/api/rezeptService";
 
 export function RezeptSucheAusgabe() {
-  const {rezeptSuche: searchQueryDebounced} = useContext(globalContext)
+  const {rezeptSucheQuery} = useContext(globalContext)
 
   const {
     isSuccess,
@@ -16,9 +16,8 @@ export function RezeptSucheAusgabe() {
     data
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", searchQueryDebounced],
-      queryFn: () => rezeptSuche(searchQueryDebounced),
-      enabled: searchQueryDebounced.length > 0, // Disable query if input is empty
+      queryKey: ["rezept-suche", rezeptSucheQuery.name],
+      queryFn: () => rezeptSuche(rezeptSucheQuery.name || "")
     });
 
 

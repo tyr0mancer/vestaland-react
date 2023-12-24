@@ -2,9 +2,9 @@ import React, {useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {Button, Container, Form, ListGroup} from "react-bootstrap";
 
-import {useDebounce} from "../hooks/use-debounce";
-import {lebensmittelImport, lebensmittelSuche} from "../services/api/lebensmittelService";
-import {MainMenu} from "../components/layout/Navbar";
+import {useDebounce} from "../../services/hooks/use-debounce";
+import {lebensmittelImport, lebensmittelSuche} from "../../services/api/lebensmittelService";
+import {MainMenu} from "../../components/layout/Navbar";
 
 
 function handleSubmit(event: any) {

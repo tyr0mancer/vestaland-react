@@ -2,8 +2,8 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {Container, Nav} from "react-bootstrap";
 
-import {MainMenu} from "../components/layout/Navbar";
-import {Startseite} from "../components/startseite/Startseite";
+import {MainMenu} from "../../components/layout/Navbar";
+import {Startseite} from "../../components/startseite/Startseite";
 
 export function StartseiteView() {
 

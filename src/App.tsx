@@ -3,7 +3,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import {MainRouter} from "./routes/MainRouter";
 import {AuthProvider} from "./services/auth/AuthProvider";
-import {GlobalContextProvider} from "./services/auth/GlobalContextProvider";
+import {GlobalContextProvider} from "./services/contexts/GlobalContextProvider";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/style/index.css';

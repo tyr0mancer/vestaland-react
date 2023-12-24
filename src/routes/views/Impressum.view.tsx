@@ -1,4 +1,4 @@
-import {MainMenu} from "../components/layout/Navbar";
+import {MainMenu} from "../../components/layout/Navbar";
 import {Container} from "react-bootstrap";
 import React from "react";
 

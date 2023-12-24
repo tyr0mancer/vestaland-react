@@ -1,8 +1,8 @@
 import React from "react";
 import {Container} from "react-bootstrap";
 
-import {MainMenu} from "../components/layout/Navbar";
-import {BenutzerInfo} from "../components/benutzer/BenuzterInfo";
+import {MainMenu} from "../../components/layout/Navbar";
+import {BenutzerInfo} from "../../components/benutzer/BenuzterInfo";
 
 export function BenutzerView() {
   return (<>
