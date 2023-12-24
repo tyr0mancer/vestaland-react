@@ -16,7 +16,6 @@ export const refreshService = async (): Promise<LoginResponse> => {
   return new Promise<LoginResponse>((resolve, reject) => {
     apiClient.post('/auth/refresh')
       .then(response => {
-        console.log("#####################################\nREFRESH!!!\n$$$$$$$$$$$$$$$$$$$$$$$$$$$")
         apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
         resolve(response.data as LoginResponse)
       })

@@ -30,7 +30,6 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       refreshClient.post('https://api.vestaland.de/api/auth/refresh')
         .then(response => {
-          console.log('could refresh Token', response.data)
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
           originalRequest.headers['Authorization'] = `Bearer ${response.data.authtoken}`;
           return apiClient(originalRequest); // Retry the original request with the new token
