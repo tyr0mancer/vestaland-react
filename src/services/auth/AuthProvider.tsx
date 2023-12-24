@@ -1,30 +1,46 @@
 import React, {createContext, useContext, useState} from 'react';
-import {BenutzerRolle, LoginResponse} from "./types";
+import {ApiErrorResponse, BenutzerRolle, LoginResponse} from "./types";
+import {isApiErrorResponse} from "../api/apiClient";
 
 type AuthContextType = {
   authInfo: LoginResponse | null,
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
   logout: (LogoutFn?: () => Promise<void>) => void
-  login: (LoginFn: () => Promise<LoginResponse>) => void
+  login: (LoginFn: () => Promise<LoginResponse>) => Promise<any>,
+  error?: ApiErrorResponse | null
 }
 
 const AuthContext = createContext<AuthContextType>({
   authInfo: null,
   logout: () => {
   },
-  login: () => {
-  },
+  login: () => new Promise(() => {
+  }),
   isAuthorized: () => false
 });
 
 export const AuthProvider = ({children}: any) => {
   const [authInfo, setAuthInfo] = useState<LoginResponse | null>(null);
+  const [error, setError] = useState<ApiErrorResponse | null>(null)
 
   function login(LoginFn?: () => Promise<LoginResponse>) {
-    if (!LoginFn) return
-    LoginFn().then(res => {
-      setAuthInfo(res)
+    return new Promise((resolve, reject) => {
+      if (!LoginFn) return reject("LoginFn missing")
+
+      LoginFn().then(res => {
+        setAuthInfo(() => res)
+        return resolve('LoggedIn')
+      })
+        .catch(error => {
+          if (isApiErrorResponse(error.response?.data)) {
+            setError(() => error.response?.data)
+            return reject(error)
+          }
+          alert(error.message)
+          return reject(error)
+        })
     })
+
   }
 
   async function logout(LogoutFn?: () => Promise<void>) {
@@ -48,7 +64,8 @@ export const AuthProvider = ({children}: any) => {
       authInfo,
       logout,
       login,
-      isAuthorized
+      isAuthorized,
+      error
     }}>
       {children}
     </AuthContext.Provider>

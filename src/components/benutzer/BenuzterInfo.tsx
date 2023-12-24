@@ -18,8 +18,7 @@ export function BenutzerInfo() {
   }
 
   return (<>
-    <h1>Hallo {authInfo?._id}!</h1>
-    <p>{JSON.stringify(authInfo)}</p>
+    <h1>Hallo {authInfo?.name}!</h1>
     <hr/>
     <h4>Hier kannst du</h4>
     <ul>
@@ -30,5 +29,7 @@ export function BenutzerInfo() {
     <Button onClick={handleRefresh}>refresh Token</Button>
     <hr/>
     <Button onClick={handleLogout}>abmelden</Button>
+    <hr/>
+    <p>{JSON.stringify(authInfo)}</p>
   </>);
 }

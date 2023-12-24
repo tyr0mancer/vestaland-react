@@ -9,10 +9,7 @@ export const loginService = async (username: string, password: string): Promise<
         console.log(response.data)
         resolve(response.data as LoginResponse)
       })
-      .catch(error => {
-        console.log(error.response || error)
-        reject(error)
-      })
+      .catch(reject)
   })
 
 };

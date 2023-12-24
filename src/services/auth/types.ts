@@ -13,7 +13,7 @@ export interface LoginResponse {
   authtoken: string,
   refreshtoken: string,
 }
-export interface ApiError {
+export interface ApiErrorResponse {
   status: number,
   message: string,
   description?: string,

@@ -5,7 +5,7 @@ import {loginService} from "../../services/api/authService";
 import {useNavigate} from "react-router-dom";
 
 export function LoginForm() {
-  const {login} = useAuth()
+  const {login, error} = useAuth()
 
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
@@ -13,10 +13,13 @@ export function LoginForm() {
 
   const handleLogin = (event: any) => {
     event.preventDefault()
-    login(() => loginService(username, password))
-    navigate('/user');
+    login(() => loginService(username, password)).then(() => {
+      navigate('/user');
+    }).catch(err => {
+      console.log(err)
+    })
   }
-  
+
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
   }
@@ -26,6 +29,7 @@ export function LoginForm() {
 
 
   return (<>
+  <h4>{error && error?.message}</h4>
     <Form onSubmit={handleLogin}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email Adresse</Form.Label>
