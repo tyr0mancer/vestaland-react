@@ -14,7 +14,6 @@ const queryClient = new QueryClient();
 
 function App() {
   return (
-
     <AuthProvider>
       <GlobalContextProvider>
         <QueryClientProvider client={queryClient}>

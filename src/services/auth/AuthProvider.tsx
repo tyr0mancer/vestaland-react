@@ -1,6 +1,7 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
 import {ApiErrorResponse, BenutzerRolle, LoginResponse} from "./types";
 import {isApiErrorResponse} from "../api/apiClient";
+import {refreshService} from "../api/authService";
 
 type AuthContextType = {
   authInfo: LoginResponse | null,
@@ -20,8 +21,18 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({children}: any) => {
+
   const [authInfo, setAuthInfo] = useState<LoginResponse | null>(null);
   const [error, setError] = useState<ApiErrorResponse | null>(null)
+
+  useEffect(() => {
+    login(() => refreshService()).then(() => {
+      console.log("refreshing")
+    }).catch(err => {
+      console.log(err.response.data)
+    })
+  }, [])
+
 
   function login(LoginFn?: () => Promise<LoginResponse>) {
     return new Promise((resolve, reject) => {
