@@ -1,12 +1,24 @@
-import React from "react";
-import {Link, useParams} from "react-router-dom";
+import React, {useContext, useEffect} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {useQuery} from "@tanstack/react-query";
 import {rezeptDetail} from "../../services/api/rezeptService";
 import {RezeptZutaten} from "./RezeptZutaten";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../services/contexts/types";
 
 export function RezeptDetail() {
   let {rezeptId = ''} = useParams();
+  const navigate = useNavigate();
+  const {dispatch} = useContext(StateContext) as StateContextType
+  useEffect(() => {
+    dispatch({type: ActionTypes.PUSH_REZEPT, payload: rezeptId})
+  }, [rezeptId])
+
+  function handleBackToSearch() {
+    dispatch({type: ActionTypes.PUSH_REZEPT, payload: ''})
+    navigate('/rezepte/');
+  }
 
   const {
     isLoading,
@@ -28,7 +40,7 @@ export function RezeptDetail() {
       <hr/>
       <RezeptZutaten zutaten={rezept?.zutaten}/>
       <hr/>
-      <Link to='/rezepte'><Button>zurück</Button></Link>
+      <Button onClick={handleBackToSearch}>zurück zur Suche</Button>
       <hr/>
       <pre>{JSON.stringify(rezept, null, 2)}</pre>
     </>)

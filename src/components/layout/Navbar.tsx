@@ -1,14 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap';
 import {Link, NavLink} from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import login from '../../assets/images/login.png';
 
 import {useAuth} from "../../services/auth/AuthProvider";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {StateContextType} from "../../services/contexts/types";
 
 
 export function MainMenu({title}: { title?: string }) {
   const {isAuthorized, authInfo} = useAuth()
+  const {state} = useContext(StateContext) as StateContextType
+  const rezeptUrl = state.aktuelleRezeptId ? "/rezepte/" + state.aktuelleRezeptId : "/rezepte/"
+
 
   return (<>
     <Navbar expand="lg" sticky="top" className="navbar">
@@ -21,7 +26,7 @@ export function MainMenu({title}: { title?: string }) {
 
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={NavLink} to="/rezepte">Rezepte</Nav.Link>
+            <Nav.Link as={NavLink} to={rezeptUrl}>Rezepte</Nav.Link>
             {isAuthorized() && <>
                 <Nav.Link as={NavLink} to="/einkaufsliste">Einkaufsliste</Nav.Link>
                 <Nav.Link as={NavLink} to="/plan">Essensplan</Nav.Link>
