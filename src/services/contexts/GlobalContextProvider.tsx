@@ -16,6 +16,8 @@ const rezeptSucheQueryDefault: RezeptSucheQuery = {
   healthy: false
 }
 
+
+
 //@todo getting too big, move to redux
 export type GlobalContextType = {
   aktuellesRezept: string | null
