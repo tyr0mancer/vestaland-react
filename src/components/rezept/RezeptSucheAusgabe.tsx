@@ -4,11 +4,12 @@ import {Row} from "react-bootstrap";
 
 import {Rezept} from "../../models/rezept.model";
 import {RezeptVorschau} from "./RezeptVorschau";
-import globalContext from "../../services/contexts/globalContext";
 import {rezeptSuche} from "../../services/api/rezeptService";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {StateContextType} from "../../services/contexts/types";
 
 export function RezeptSucheAusgabe() {
-  const {rezeptSucheQuery} = useContext(globalContext)
+  const {state} = useContext(StateContext) as StateContextType
 
   const {
     isSuccess,
@@ -16,10 +17,9 @@ export function RezeptSucheAusgabe() {
     data
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", rezeptSucheQuery.name],
-      queryFn: () => rezeptSuche(rezeptSucheQuery.name || "")
+      queryKey: ["rezept-suche", state.rezeptSucheQuery.name],
+      queryFn: () => rezeptSuche(state.rezeptSucheQuery.name)
     });
-
 
   return (<Row>
       {isLoading && <h1>Lädt...</h1>}
