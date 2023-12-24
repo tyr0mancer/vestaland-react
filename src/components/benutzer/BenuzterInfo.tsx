@@ -3,14 +3,20 @@ import {Button} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 
 import {useAuth} from "../../services/auth/AuthProvider";
+import {ApiErrorResponse} from "../../services/auth/types";
+import {logoutService} from "../../services/api/authService";
 
 export function BenutzerInfo() {
   const {logout, authInfo} = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
-    await logout()
-    navigate('/login')
+    logout(() => logoutService()).then(() => {
+      navigate('/');
+    }).catch((err: ApiErrorResponse) => {
+      console.log(err)
+    })
+
   }
 
   const handleRefresh = () => {

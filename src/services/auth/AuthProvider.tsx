@@ -6,15 +6,15 @@ import {refreshService} from "../api/authService";
 type AuthContextType = {
   authInfo: LoginResponse | null,
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
-  logout: (LogoutFn?: () => Promise<void>) => void
+  logout: (LogoutFn?: () => Promise<void>) => Promise<any>
   login: (LoginFn: () => Promise<LoginResponse>) => Promise<any>,
   error?: ApiErrorResponse | null
 }
 
 const AuthContext = createContext<AuthContextType>({
   authInfo: null,
-  logout: () => {
-  },
+  logout: () => new Promise(() => {
+  }),
   login: () => new Promise(() => {
   }),
   isAuthorized: () => false
@@ -55,9 +55,12 @@ export const AuthProvider = ({children}: any) => {
   }
 
   async function logout(LogoutFn?: () => Promise<void>) {
-    if (LogoutFn)
-      await LogoutFn()
-    setAuthInfo(null)
+    return new Promise(async (resolve) => {
+      if (LogoutFn)
+        await LogoutFn()
+      setAuthInfo(null)
+      return resolve('LoggedOut')
+    })
   }
 
   function isAuthorized(role?: BenutzerRolle) {

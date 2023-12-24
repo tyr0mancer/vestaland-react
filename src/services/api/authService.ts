@@ -22,3 +22,14 @@ export const refreshService = async (): Promise<LoginResponse> => {
       .catch(reject)
   })
 };
+
+export const logoutService = async (): Promise<any> => {
+  return new Promise<any>((resolve, reject) => {
+    apiClient.post('/auth/logout')
+      .then(() => {
+        apiClient.defaults.headers.common['Authorization'] = `Bearer `;
+        resolve('OK')
+      })
+      .catch(reject)
+  })
+};
