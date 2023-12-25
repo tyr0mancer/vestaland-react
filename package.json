@@ -1,7 +1,7 @@
 {
   "name": "vestaland",
   "homepage": "http://192.168.2.36:3000/",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.3",
