@@ -6,7 +6,6 @@ export const lebensmittelSuche = async (searchQuery: string): Promise<Lebensmitt
   return response.data;
 };
 
-
-export const lebensmittelImport = async (): Promise<any> => {
-  return await apiClient.post(`/lebensmittel/import`, [])
+export const lebensmittelDelete = async (id: string): Promise<any> => {
+  return await apiClient.delete(`/lebensmittel/` + id)
 };

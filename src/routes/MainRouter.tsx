@@ -1,6 +1,5 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {LebensmittelSuche} from "./views/lebensmittelSuche.view";
 import {RezeptDetailView} from "./views/RezeptDetailansicht.view";
 import {RezepteSucheView} from "./views/RezepteSuche.view";
 import {StartseiteView} from "./views/Startseite.view";
@@ -9,6 +8,7 @@ import {BenutzerView} from "./views/Benutzer.view";
 import {ErrorPageView} from "./views/ErrorPage.view";
 import {ImpressumView} from "./views/Impressum.view";
 import {EinkaufsListeView} from "./views/EinkaufsListe.view";
+import {AdminView} from "./views/Admin.view";
 
 export function MainRouter() {
   // <Route path="/" element={<Navigate replace to="/rezepte" />} />
@@ -17,7 +17,6 @@ export function MainRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<StartseiteView/>}/>
-        <Route path="/lebensmittel" element={<LebensmittelSuche/>}/>
         <Route path="/rezepte" element={<RezepteSucheView/>}/>
         <Route path="/rezepte/:rezeptId" element={<RezeptDetailView/>}/>
         <Route path="/einkaufsliste" element={<EinkaufsListeView/>}/>
@@ -26,6 +25,8 @@ export function MainRouter() {
         <Route path="/user" element={<BenutzerView/>}/>
 
         <Route path="/impressum" element={<ImpressumView/>}/>
+        <Route path="/admin/*" element={<AdminView/>}/>
+
         <Route path="*" element={<ErrorPageView error={{code: 404, message: "Seite nicht gefunden."}}/>}/>
       </Routes>
     </BrowserRouter>

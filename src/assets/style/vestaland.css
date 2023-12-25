@@ -33,6 +33,19 @@ a {
     font-weight: bold;
 }
 
+
+.navbar-second {
+    background-color: #394d3a;
+}
+
+.navbar-second .nav-link {
+    color: #b4f7b7 !important;
+}
+
+.nav-link:hover {
+    color: #388E3C !important;
+}
+
 /* Hide text on screens larger than 992px */
 @media (min-width: 992px) {
     .navbar-text-collapsed {

@@ -1,10 +1,10 @@
-import {MainMenu} from "../../components/layout/Navbar";
+import {NavbarMain} from "../../components/layout/NavbarMain";
 import {Container} from "react-bootstrap";
 import React from "react";
 
 export function ImpressumView() {
   return (<>
-    <MainMenu title="Vestaland"/>
+    <NavbarMain title="Vestaland"/>
     <Container className="main-layout">
       <h1>Anbieterkennung</h1>
       <p>Icons: <a target="_blank" href="https://www.flaticon.com/authors/eucalyp" rel="noopener noreferrer">flaticon.com/authors/eucalyp</a></p>

@@ -2,7 +2,7 @@ import React from "react";
 import {NavLink} from "react-router-dom";
 import {Container, Nav} from "react-bootstrap";
 
-import {MainMenu} from "../../components/layout/Navbar";
+import {NavbarMain} from "../../components/layout/NavbarMain";
 import {Startseite} from "../../components/startseite/Startseite";
 
 export function StartseiteView() {
@@ -10,7 +10,7 @@ export function StartseiteView() {
   return (<>
     <div className="page-container">
       <div className="content-wrap">
-        <MainMenu title="Vestaland"/>
+        <NavbarMain title="Vestaland"/>
         <Container className="main-layout">
           <Startseite/>
         </Container>

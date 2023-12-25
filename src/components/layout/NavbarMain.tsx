@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Navbar, Nav, Container} from 'react-bootstrap';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import login from '../../assets/images/login.png';
 
@@ -9,7 +9,7 @@ import {StateContext} from "../../services/contexts/StateProvider";
 import {StateContextType} from "../../services/contexts/types";
 
 
-export function MainMenu({title}: { title?: string }) {
+export function NavbarMain({title}: { title?: string }) {
   const {isAuthorized, authInfo} = useAuth()
   const {state} = useContext(StateContext) as StateContextType
   const rezeptUrl = state.aktuelleRezeptId ? "/rezepte/" + state.aktuelleRezeptId : "/rezepte/"
@@ -37,18 +37,17 @@ export function MainMenu({title}: { title?: string }) {
 
           {isAuthorized() && <>
               <Nav>
-                  <Nav.Link as={NavLink} to="/lebensmittel">Adminbereich</Nav.Link>
+                  <Nav.Link as={NavLink} to="/admin">Adminbereich</Nav.Link>
               </Nav>
               <hr/>
           </>}
 
           <Navbar.Text>
-            {isAuthorized() && <>
-                <Link to="/user">{authInfo?.name}</Link>
-            </>}
-            {!isAuthorized() && <>
-                <Link to="/login"><img src={login} height={24} alt={"login"}/> anmelden</Link>
-            </>}
+            <Nav>
+              {isAuthorized() && <Nav.Link as={NavLink} to="/user">Hier: {authInfo?.name}</Nav.Link>}
+              {!isAuthorized() &&
+                  <Nav.Link as={NavLink} to="/login"><img src={login} height={24} alt={"login"}/> anmelden</Nav.Link>}
+            </Nav>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>
