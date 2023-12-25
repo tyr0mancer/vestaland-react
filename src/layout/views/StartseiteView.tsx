@@ -5,7 +5,7 @@ import {useAuth} from "../../services/auth/AuthProvider";
 import startseiteBild from '../../assets/images/startseite.png';
 import startseiteBild2 from '../../assets/images/startseite2.png';
 
-export function Startseite() {
+export function StartseiteView() {
   const {isAuthorized} = useAuth()
 
   return (<>

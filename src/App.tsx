@@ -1,7 +1,7 @@
 import React from "react";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
-import {MainRouter} from "./routes/MainRouter";
+import {MainRouter} from "./layout/MainRouter";
 import {AuthProvider} from "./services/auth/AuthProvider";
 import {StateProvider} from "./services/contexts/StateProvider";
 
