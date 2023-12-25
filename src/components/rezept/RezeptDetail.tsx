@@ -13,7 +13,7 @@ export function RezeptDetail() {
   const {dispatch} = useContext(StateContext) as StateContextType
   useEffect(() => {
     dispatch({type: ActionTypes.PUSH_REZEPT, payload: rezeptId})
-  }, [rezeptId])
+  }, [rezeptId, dispatch])
 
   function handleBackToSearch() {
     dispatch({type: ActionTypes.PUSH_REZEPT, payload: ''})
