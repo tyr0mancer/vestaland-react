@@ -152,6 +152,7 @@ export function NavbarMain() {
                         style={{color: '#394d3a'}}
                         textAlign="center">{page.name}</Typography>
                     </MenuItem>)
+                  return (<></>)
                 }
               )}
             </Menu>
@@ -190,7 +191,7 @@ export function NavbarMain() {
           <Box sx={{flexGrow: 0}}>
             {!isAuthorized() && <Tooltip title="Open settings">
                 <IconButton sx={{p: 0}}>
-                    <Link to="/login"><LoginIcon style={{color: "#394d3a"}} /></Link>
+                    <Link to="/login"><LoginIcon style={{color: "#394d3a"}}/></Link>
                 </IconButton>
             </Tooltip>}
 
