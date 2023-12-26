@@ -12,6 +12,7 @@ import {NavbarMain} from "./wrapper/NavBarNew";
 import {Container} from "react-bootstrap";
 import {StartseiteView} from "./views/StartseiteView";
 import {FooterMain} from "./wrapper/FooterMain";
+import {RezeptForm} from "../components/rezept/RezeptForm";
 
 export function MainRouter() {
   // <Route path="/" element={<Navigate replace to="/rezepte" />} />
@@ -34,6 +35,7 @@ export function MainLayout() {
       <Routes>
         <Route path="/" element={<StartseiteView/>}/>
         <Route path="/rezepte" element={<RezepteSucheView/>}/>
+        <Route path="/rezepte/neu" element={<RezeptForm/>}/>
         <Route path="/rezepte/:rezeptId" element={<RezeptDetailView/>}/>
         <Route path="/einkaufsliste" element={<EinkaufsListeView/>}/>
 

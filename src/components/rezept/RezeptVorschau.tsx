@@ -23,7 +23,7 @@ export function RezeptVorschau({rezept}: { rezept: Rezept }) {
           </Card.Text>
           <Card.Text>
 
-            {rezept.arbeitsschritte.length} Schritte
+            {rezept.kochschritte?.length} Schritte
             {rezept.zutaten.length} Zutaten
             {rezept.hilfsmittel.length} Hilfsmittel
           </Card.Text>
