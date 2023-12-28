@@ -40,6 +40,11 @@ export function NavbarMain() {
       target: 'rezepte'
     },
     {
+      name: 'Neues Rezept',
+      target: 'rezepte/editor',
+      restricted: true
+    },
+    {
       name: 'Einkaufslisten',
       target: 'einkaufsliste',
       restricted: true
