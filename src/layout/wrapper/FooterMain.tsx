@@ -50,17 +50,17 @@ export function FooterMain() {
       disabled: !isAuthorized()
     })
 
-    if (rezeptEdit !== null && isAuthorized()) {
-      newFooter.push({
-        label: "Editieren",
-        icon: EditIcon,
-        to: 'rezepte/editor'
-      })
-    } else if (rezeptCooking !== null && isAuthorized()) {
+    if (rezeptCooking !== null && isAuthorized()) {
       newFooter.push({
         label: "Kochen",
         icon: CookingIcon,
-        to: 'rezepte/cooking'
+        to: 'rezept-cooking'
+      })
+    } else if (rezeptEdit !== null && isAuthorized()) {
+      newFooter.push({
+        label: "Editieren",
+        icon: EditIcon,
+        to: 'rezept-editor'
       })
     } else newFooter.push({
       label: "Scanner",

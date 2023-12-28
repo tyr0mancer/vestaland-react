@@ -7,10 +7,15 @@ import {useDebounce} from "../../services/hooks/use-debounce";
 import {Rezept} from "../../models/rezept.model";
 import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../services/contexts/types";
 import {StateContext} from "../../services/contexts/StateProvider";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
+import AddIcon from "@mui/icons-material/AddCircle";
+import {useAuth} from "../../services/auth/AuthProvider";
+import {BenutzerRolle} from "../../services/auth/types";
 
 export function RezeptSuche() {
+  const {isAuthorized} = useAuth();
+  const navigate = useNavigate();
   const {state, dispatch} = useContext(StateContext) as StateContextType
   const [rezeptQuery, setRezeptQuery] = useState<RezeptSucheQuery>(state.rezeptSucheQuery)
   const rezeptQueryDebounced = useDebounce<RezeptSucheQuery>(rezeptQuery, 300)
@@ -66,6 +71,7 @@ export function RezeptSuche() {
 
       <Form.Group>
         <InputGroup>
+          {isAuthorized(BenutzerRolle.BENUTZER) && <Button onClick={() => {   navigate('/rezept-editor')       }}><AddIcon/></Button>}
           <Form.Check
             type="switch"
             id="vegetarian-only"
@@ -91,6 +97,6 @@ export function RezeptSuche() {
     </Form>
     <hr/>
 
-    <Button component={Link} to={'/rezepte/editor'}>Neu</Button>
+    <Button component={Link} to={'rezept-editor'}>Neu</Button>
   </>);
 }

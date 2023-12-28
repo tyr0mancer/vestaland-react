@@ -6,6 +6,8 @@ import {rezeptDetail} from "../../services/api/rezeptService";
 import {RezeptZutaten} from "./RezeptZutaten";
 import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
+import useLocalStorage from "use-local-storage";
+import {Rezept} from "../../models/rezept.model";
 
 export function RezeptDetail() {
 
@@ -30,8 +32,17 @@ export function RezeptDetail() {
       queryKey: ["rezept-detail", rezeptId],
       queryFn: () => rezeptDetail(rezeptId),
       staleTime: 1000 * 60 * 5, // 5 minutes
-      //cacheTime: 1000 * 60 * 60, // 1 hour
     });
+
+  const [rezeptCooking, setRezeptCooking] = useLocalStorage<Rezept | null>("rezept_cooking", null)
+
+  function startCooking() {
+    if (rezeptCooking)
+      alert("overwrite")
+    setRezeptCooking(rezept)
+    navigate('/rezept-cooking/')
+  }
+
 
   if (isLoading) return (<>Lädt...</>)
 
@@ -42,6 +53,7 @@ export function RezeptDetail() {
       <RezeptZutaten zutaten={rezept?.zutaten}/>
       <hr/>
       <Button onClick={handleBackToSearch}>zurück zur Suche</Button>
+      <Button onClick={startCooking}>Jetzt kochen</Button>
       <hr/>
       <pre>{JSON.stringify(rezept, null, 2)}</pre>
     </>)

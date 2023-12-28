@@ -39,24 +39,26 @@ export function NavbarMain() {
       name: 'Rezepte',
       target: 'rezepte'
     },
-    {
-      name: 'Neues Rezept',
-      target: 'rezepte/editor',
-      restricted: true
-    },
+    /*
+        {
+          name: 'Neues Rezept',
+          target: 'rezept-editor',
+          restricted: true
+        },
+    */
     {
       name: 'Einkaufslisten',
       target: 'einkaufsliste',
       restricted: true
     },
     {
-      name: 'Vorrat',
-      target: 'vorrat',
+      name: 'Essensplan',
+      target: 'essensplan',
       restricted: true
     },
     {
-      name: 'Essensplan',
-      target: 'essensplan',
+      name: 'Lagerhaltung',
+      target: 'lagerhaltung',
       restricted: true
     }
   ];

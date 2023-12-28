@@ -14,6 +14,7 @@ import {StartseiteView} from "./views/StartseiteView";
 import {FooterMain} from "./wrapper/FooterMain";
 import {RezeptForm} from "../components/rezept/RezeptForm";
 import {NavbarMain} from "./wrapper/NavBarMain";
+import {RezeptCooking} from "../components/rezept/RezeptCooking";
 
 export function MainRouter() {
   // <Route path="/" element={<Navigate replace to="/rezepte" />} />
@@ -36,7 +37,8 @@ export function MainLayout() {
       <Routes>
         <Route path="/" element={<StartseiteView/>}/>
         <Route path="/rezepte" element={<RezepteSucheView/>}/>
-        <Route path="/rezepte/editor" element={<RezeptForm/>}/>
+        <Route path="/rezept-editor" element={<RezeptForm/>}/>
+        <Route path="/rezept-cooking" element={<RezeptCooking/>}/>
         <Route path="/rezepte/:rezeptId" element={<RezeptDetailView/>}/>
         <Route path="/einkaufsliste" element={<EinkaufsListeView/>}/>
 

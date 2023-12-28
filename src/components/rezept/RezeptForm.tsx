@@ -8,6 +8,8 @@ import useLocalStorage from "use-local-storage";
 import {HilfsmittelPicker} from "../form-elements/HilfsmittelPicker";
 import {LebensmittelPicker} from "../form-elements/LebensmittelPicker";
 import {Lebensmittel} from "../../models/lebensmittel.model";
+import Button from "@mui/material/Button";
+import {useNavigate} from "react-router-dom";
 
 export const RezeptForm = () => {
   const [rezeptCache, setRezeptCache] = useLocalStorage<Rezept | null>("rezept_editor", null)
@@ -30,6 +32,8 @@ export const RezeptForm = () => {
   }
 
 
+
+
   return (<>
       <Formik<Rezept>
         initialValues={rezeptCache || new Rezept()}
@@ -44,7 +48,14 @@ export const RezeptForm = () => {
 };
 
 const InnerForm = () => {
+  const navigate = useNavigate();
   const formik = useFormikContext<Rezept>();
+
+  const handleCancel = () => {
+    setRezeptCache(() => null)
+    navigate('/rezepte')
+    formik.resetForm()
+  }
 
   // speichert aktuellen Stand lokal und offline Verfügbar
   const [, setRezeptCache] = useLocalStorage<Rezept | null>("rezept_editor", null)
@@ -57,6 +68,7 @@ const InnerForm = () => {
       <Field name="portionen"/>
       <KochSchritteForm name="kochschritte" values={formik.values.kochschritte}/>
       <button type="submit">Speichern</button>
+      <Button type={"button"} onClick={handleCancel}>Abbrechen</Button>
     </Form>
   )
 };
