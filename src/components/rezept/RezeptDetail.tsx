@@ -34,11 +34,13 @@ export function RezeptDetail() {
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
-  const [rezeptCooking, setRezeptCooking] = useLocalStorage<Rezept | null>("rezept_cooking", null)
+  const [, setRezeptCooking] = useLocalStorage<Rezept | null>("rezept_cooking", null)
 
   function startCooking() {
+/*
     if (rezeptCooking)
       alert("overwrite")
+*/
     setRezeptCooking(rezept)
     navigate('/rezept-cooking/')
   }
