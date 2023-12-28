@@ -5,14 +5,28 @@ import {Zutat} from "../../models/zutat.model";
 import Box from "@mui/material/Box";
 import {Hilfsmittel} from "../../models/hilfsmittel.model";
 import useLocalStorage from "use-local-storage";
+import {HilfsmittelPicker} from "../form-elements/HilfsmittelPicker";
+import {LebensmittelPicker} from "../form-elements/LebensmittelPicker";
+import {Lebensmittel} from "../../models/lebensmittel.model";
 
 export const RezeptForm = () => {
-  const [rezeptCache,] = useLocalStorage<Rezept | null>("rezept_editor", null)
+  const [rezeptCache, setRezeptCache] = useLocalStorage<Rezept | null>("rezept_editor", null)
 
   const handleSave = (rezept: Rezept) => {
+    rezept.zutaten = []
+    rezept.hilfsmittel = []
+
+    rezept.kochschritte.map((k => {
+      k.zutaten.map(z => rezept.zutaten.push(z))
+      k.hilfsmittel.map(hm => rezept.hilfsmittel.push(hm))
+    }))
+
     if (!rezept._id) {
     } else {
+      //rezept._id = 'neueIDxzy'
     }
+
+    setRezeptCache(() => rezept)
   }
 
 
@@ -24,6 +38,7 @@ export const RezeptForm = () => {
       >
         <InnerForm/>
       </Formik>
+      <pre>{JSON.stringify(rezeptCache, null, 2)}</pre>
     </>
   );
 };
@@ -70,7 +85,6 @@ function KochSchritteForm({name, values: kochschritte}: FieldArrayFormProps<Koch
               public meta?: KochschrittMeta;
               */}
 
-
               <ZutatenForm name={`${name}[${index}][zutaten]`} values={item.zutaten}/>
               <HilfsmittelForm name={`${name}[${index}][hilfsmittel]`} values={item.hilfsmittel}/>
               <button type="button" onClick={() => arrayHelpers.remove(index)}>
@@ -100,8 +114,10 @@ function ZutatenForm({name, values: zutaten}: FieldArrayFormProps<Zutat>) {
               <Field name={`${name}[${index}][menge]`}/>
 
               <Field name={`${name}[${index}][einheit]`}/>
-              <Field name={`${name}[${index}][lebensmittel]`}/>
-
+              <LebensmittelPicker
+                name={`${name}[${index}][lebensmittel]`}
+                values={zutat.lebensmittel || new Lebensmittel()}
+              />
               <button type="button" onClick={() => arrayHelpers.remove(index)}>
                 - Zutat
               </button>
@@ -125,9 +141,10 @@ function HilfsmittelForm({name, values}: FieldArrayFormProps<Hilfsmittel>) {
         <div>
           {values.map((hilfsmittel: Hilfsmittel, index: number) => (
             <div key={index}>
-
-              <HilfsmittelPicker/>
-
+              <HilfsmittelPicker
+                name={`${name}[${index}]`}
+                values={hilfsmittel}
+              />
               <button type="button" onClick={() => arrayHelpers.remove(index)}>
                 - HM
               </button>
@@ -140,11 +157,4 @@ function HilfsmittelForm({name, values}: FieldArrayFormProps<Hilfsmittel>) {
       )}
     />
   );
-}
-
-
-function HilfsmittelPicker() {
-  return (<>
-    <b>HilfsmittelPicker</b>
-  </>)
 }

@@ -137,17 +137,14 @@ export function NavbarMain() {
                 display: {xs: 'block', md: 'none'},
               }}
             >
-              {pages.map((page) => {
-                  if (!page.restricted || isAuthorized())
-                    return (<MenuItem key={page.target} onClick={handleCloseNavMenu}>
-                      <Typography
-                        component={Link}
-                        to={`/${page.target}`}
-                        style={{color: '#394d3a'}}
-                        textAlign="center">{page.name}</Typography>
-                    </MenuItem>)
-                  return (<></>)
-                }
+              {pages.filter(page => !page.restricted || isAuthorized()).map((page) => (
+                <MenuItem key={page.target} onClick={handleCloseNavMenu}>
+                  <Typography
+                    component={Link}
+                    to={`/${page.target}`}
+                    style={{color: '#394d3a'}}
+                    textAlign="center">{page.name}</Typography>
+                </MenuItem>)
               )}
             </Menu>
           </Box>
@@ -172,6 +169,7 @@ export function NavbarMain() {
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
               <Button
+                key={page.target}
                 className={'main-nav-button'}
                 component={Link}
                 to={`/${page.target}`}
@@ -211,14 +209,11 @@ export function NavbarMain() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (<>
-                  {isAuthorized(setting.requiredRole) &&
-                      <MenuItem key={setting.target} onClick={handleCloseUserMenu}>
-                          <Typography component={Link} to={setting.target}
-                                      textAlign="center">{setting.name}</Typography>
-                      </MenuItem>}
-                </>
-              ))}
+              {settings.filter(setting => isAuthorized(setting.requiredRole)).map((setting) => (
+                <MenuItem key={setting.target} onClick={handleCloseUserMenu}>
+                  <Typography component={Link} to={setting.target}
+                              textAlign="center">{setting.name}</Typography>
+                </MenuItem>))}
             </Menu>
           </Box>
         </Toolbar>

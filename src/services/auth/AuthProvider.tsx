@@ -28,7 +28,7 @@ export const AuthProvider = ({children}: any) => {
   useEffect(() => {
     refresh(() => refreshService())
       .then(() => {
-        console.log("refreshing Token")
+        //console.log("refreshing Token")
       }).catch(() => {
       //console.log(err.response.data)
     })

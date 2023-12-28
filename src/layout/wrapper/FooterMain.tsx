@@ -51,13 +51,14 @@ export function FooterMain() {
         style={{backgroundColor: '#b4f7b7'}}
         showLabels
       >
-        {footerState.map(entry => (<>
+        {footerState.map((entry, index) => (
           <BottomNavigationAction
+            key={index}
             component={Link} to={entry.to || ""}
             label={entry.label} icon={<entry.icon/>}
             disabled={entry.disabled}
             style={!entry.disabled ? {color: '#394d3a'} : {color: '#ccc'}}/>
-        </>))}
+        ))}
       </BottomNavigation>
     </Paper>)
 
