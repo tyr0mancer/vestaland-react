@@ -8,7 +8,7 @@ const rezeptSucheQueryDefault: RezeptSucheQuery = {
   name: '',
   myRecipes: false,
   vegetarian: false,
-  healthy: false
+  healthy: false,
 }
 
 const defaultState: State = {

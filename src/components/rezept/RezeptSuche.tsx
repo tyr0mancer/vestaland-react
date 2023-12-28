@@ -1,12 +1,14 @@
 import React, {useContext, useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
-import {Button, Form, InputGroup} from "react-bootstrap";
+import {Form, InputGroup} from "react-bootstrap";
 
 import {rezeptSuche} from "../../services/api/rezeptService";
 import {useDebounce} from "../../services/hooks/use-debounce";
 import {Rezept} from "../../models/rezept.model";
 import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../services/contexts/types";
 import {StateContext} from "../../services/contexts/StateProvider";
+import {Link} from "react-router-dom";
+import Button from "@mui/material/Button";
 
 export function RezeptSuche() {
   const {state, dispatch} = useContext(StateContext) as StateContextType
@@ -51,12 +53,13 @@ export function RezeptSuche() {
 
 
   return (<>
+
     <Form onSubmit={handleSubmit}>
       <Form.Group className="mb-3" controlId="formName">
         <InputGroup>
           <Form.Control type="text" placeholder="Name des Rezeptes"
                         value={rezeptQuery.name} onChange={handleNameChange}/>
-          <Button variant="primary" onClick={() => refetch()}>Suche</Button>
+          <Button onClick={() => refetch()}>Suche</Button>
         </InputGroup>
       </Form.Group>
       <hr/>
@@ -87,5 +90,7 @@ export function RezeptSuche() {
       </Form.Group>
     </Form>
     <hr/>
+
+    <Button component={Link} to={'/rezepte/neu'}>Neu</Button>
   </>);
 }
