@@ -16,6 +16,11 @@ a {
 }
 
 /* Navbar-Anpassungen */
+.main-nav-button.active {
+    font-size: larger;
+    font-weight: bold;
+}
+
 .navbar {
     background-color: #b4f7b7;
 }

@@ -8,11 +8,12 @@ import {ErrorPageView} from "./views/ErrorPage.view";
 import {ImpressumView} from "./views/Impressum.view";
 import {EinkaufsListeView} from "./views/EinkaufsListe.view";
 import {AdminView} from "./views/Admin.view";
-import {NavbarMain} from "./wrapper/NavBarNew";
+
 import {Container} from "react-bootstrap";
 import {StartseiteView} from "./views/StartseiteView";
 import {FooterMain} from "./wrapper/FooterMain";
 import {RezeptForm} from "../components/rezept/RezeptForm";
+import {NavbarMain} from "./wrapper/NavBarMain";
 
 export function MainRouter() {
   // <Route path="/" element={<Navigate replace to="/rezepte" />} />

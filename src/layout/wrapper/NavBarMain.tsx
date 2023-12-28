@@ -172,10 +172,11 @@ export function NavbarMain() {
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
             {pages.map((page) => (
               <Button
+                className={'main-nav-button'}
                 component={Link}
                 to={`/${page.target}`}
                 onClick={handleCloseNavMenu}
-                sx={{my: 2, color: 'white', display: 'block'}}
+                sx={{my: 2, color: '#394d3a', display: 'block'}}
               >
                 {page.name}
               </Button>
