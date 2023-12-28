@@ -1,59 +1,50 @@
-import React, {useContext, useEffect} from 'react';
-import {Field, FieldArray, FieldArrayRenderProps, Form, Formik, useFormik,} from 'formik';
-import {Kochschritt, KochschrittMeta, Rezept} from "../../models/rezept.model";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../services/contexts/types";
+import React, {useEffect} from 'react';
+import {Field, FieldArray, FieldArrayRenderProps, Form, Formik, useFormikContext,} from 'formik';
+import {Kochschritt, Rezept} from "../../models/rezept.model";
 import {Zutat} from "../../models/zutat.model";
 import Box from "@mui/material/Box";
 import {Hilfsmittel} from "../../models/hilfsmittel.model";
-import {useDebounce} from "../../services/hooks/use-debounce";
+import useLocalStorage from "use-local-storage";
 
 export const RezeptForm = () => {
-  const {state, dispatch} = useContext(StateContext) as StateContextType
-
-  useEffect(() => {
-    dispatch({type: ActionTypes.PUSH_REZEPT, payload: 'neu'})
-  }, [])
-
-  const debouncedRezept = useDebounce<Rezept | undefined>(state.aktuellesRezept, 200)
+  const [rezeptCache,] = useLocalStorage<Rezept | null>("rezept_editor", null)
 
   const handleSave = (rezept: Rezept) => {
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
-    console.log('speichern', rezept)
-    if (rezept._id) {
-      // Put mutation
-    }
-    else {
-      // Post mutation
+    if (!rezept._id) {
+    } else {
     }
   }
 
-  const formik = useFormik<Rezept>({
-    initialValues: state.aktuellesRezept || new Rezept(),
-    enableReinitialize: true,
-    onSubmit: handleSave,
-  });
 
   return (<>
       <Formik<Rezept>
-        initialValues={state.aktuellesRezept || new Rezept()}
-        onSubmit={rezept => dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})}
+        initialValues={rezeptCache || new Rezept()}
+        onSubmit={handleSave}
+        enableReinitialize
       >
-        {({values: rezept}) => (
-          <Form>
-            <Field name="name"/>
-            <Field name="portionen"/>
-            <KochSchritteForm name="kochschritte" values={rezept.kochschritte}/>
-            <button type="submit">Submit</button>
-          </Form>
-        )}
+        <InnerForm/>
       </Formik>
-      <hr/>
-      <pre>{JSON.stringify(state.aktuellesRezept)}</pre>
     </>
   );
 };
 
+const InnerForm = () => {
+  const formik = useFormikContext<Rezept>();
+
+  // speichert aktuellen Stand lokal und offline Verfügbar
+  const [, setRezeptCache] = useLocalStorage<Rezept | null>("rezept_editor", null)
+  useEffect(() => {
+    setRezeptCache(formik.values)
+  }, [formik.values, setRezeptCache]);
+
+  return (<Form>
+      <Field name="name"/>
+      <Field name="portionen"/>
+      <KochSchritteForm name="kochschritte" values={formik.values.kochschritte}/>
+      <button type="submit">Speichern</button>
+    </Form>
+  )
+};
 
 interface FieldArrayFormProps<T> {
   name: string;
@@ -149,7 +140,7 @@ function HilfsmittelForm({name, values}: FieldArrayFormProps<Hilfsmittel>) {
       )}
     />
   );
-};
+}
 
 
 function HilfsmittelPicker() {

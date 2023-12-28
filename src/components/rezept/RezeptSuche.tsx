@@ -91,6 +91,6 @@ export function RezeptSuche() {
     </Form>
     <hr/>
 
-    <Button component={Link} to={'/rezepte/neu'}>Neu</Button>
+    <Button component={Link} to={'/rezepte/editor'}>Neu</Button>
   </>);
 }

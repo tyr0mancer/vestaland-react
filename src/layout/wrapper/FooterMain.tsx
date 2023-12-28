@@ -1,20 +1,49 @@
-import React, {useContext} from "react";
+import React, {useEffect, useState} from "react";
 
-import {BottomNavigationAction, Paper} from "@mui/material";
+import {BottomNavigationAction, Paper, SvgIconTypeMap} from "@mui/material";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import RecipeIcon from "@mui/icons-material/MenuBook";
 import ShoppingIcon from "@mui/icons-material/ShoppingCart";
 import ScannerIcon from "@mui/icons-material/QrCodeScanner";
-import {useAuth} from "../../services/auth/AuthProvider";
 import {Link} from "react-router-dom";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {StateContextType} from "../../services/contexts/types";
+import useLocalStorage from "use-local-storage";
+import {Rezept} from "../../models/rezept.model";
+import {OverridableComponent} from "@mui/material/OverridableComponent";
 
+interface FooterState {
+  icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string; }
+  label: string
+  to?: string
+  disabled?: boolean
+}
 
 export function FooterMain() {
-  const {isAuthorized} = useAuth()
-  const {state} = useContext(StateContext) as StateContextType
-  const rezepteTarget = state.aktuelleRezeptId ? "rezepte/" + state.aktuelleRezeptId : "rezepte"
+
+  const [footerState, setFooterState] = useState<FooterState[]>([])
+  const [rezeptCache,] = useLocalStorage<Rezept | null>("rezept_editor", null)
+
+  useEffect(() => {
+
+    let rezeptTarget = "rezepte"
+    if (rezeptCache !== null) {
+      rezeptTarget += rezeptCache._id ? `/${rezeptCache._id}` : '/editor'
+    }
+
+    setFooterState([{
+      label: "Rezepte",
+      icon: RecipeIcon,
+      to: rezeptTarget
+    }, {
+      label: "Einkaufsliste",
+      icon: ShoppingIcon,
+      to: "einkaufsliste"
+    }, {
+      label: "Scanner (tbc)",
+      icon: ScannerIcon,
+      disabled: true
+    }
+    ])
+  }, [])
 
   return (
     <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
@@ -22,9 +51,13 @@ export function FooterMain() {
         style={{backgroundColor: '#b4f7b7'}}
         showLabels
       >
-        <BottomNavigationAction component={Link} to={rezepteTarget} label="Rezepte" icon={<RecipeIcon/>} style={{color: '#394d3a'}}/>
-        <BottomNavigationAction component={Link} to={'einkaufsliste'} label="Einkaufsliste" icon={<ShoppingIcon/>} disabled={!isAuthorized()} style={{color: '#394d3a'}}/>
-        <BottomNavigationAction label="Scanner" icon={<ScannerIcon/>} disabled={true} style={{color: '#394d3a'}}/>
+        {footerState.map(entry => (<>
+          <BottomNavigationAction
+            component={Link} to={entry.to || ""}
+            label={entry.label} icon={<entry.icon/>}
+            disabled={entry.disabled}
+            style={!entry.disabled ? {color: '#394d3a'} : {color: '#ccc'}}/>
+        </>))}
       </BottomNavigation>
     </Paper>)
 

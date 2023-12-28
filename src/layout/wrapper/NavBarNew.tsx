@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import AppBar from '@mui/material/AppBar';
@@ -19,9 +18,7 @@ import LoginIcon from '@mui/icons-material/Login';
 
 
 import logo from "../../assets/images/logo.png";
-import {StateContext} from "../../services/contexts/StateProvider";
 import {BenutzerRolle} from "../../services/auth/types";
-import {StateContextType} from "../../services/contexts/types";
 import {useAuth} from "../../services/auth/AuthProvider";
 
 
@@ -35,15 +32,12 @@ type Page = {
 
 export function NavbarMain() {
 
-  const {state} = useContext(StateContext) as StateContextType
-  const rezepteTarget = state.aktuelleRezeptId ? "rezepte/" + state.aktuelleRezeptId : "rezepte"
-
   const {isAuthorized} = useAuth()
 
   const pages: Page[] = [
     {
       name: 'Rezepte',
-      target: rezepteTarget
+      target: 'rezepte'
     },
     {
       name: 'Einkaufslisten',

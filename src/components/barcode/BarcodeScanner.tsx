@@ -12,7 +12,6 @@ const BarcodeScanner = () => {
       const codeReader = new BrowserMultiFormatReader();
       codeReader.decodeFromImage(undefined, imageSrc)
         .then((result: any) => {
-          alert('It fraking worked!!!')
           setBarcode(result.text);
         })
         .catch(() => {

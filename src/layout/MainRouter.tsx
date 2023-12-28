@@ -35,7 +35,7 @@ export function MainLayout() {
       <Routes>
         <Route path="/" element={<StartseiteView/>}/>
         <Route path="/rezepte" element={<RezepteSucheView/>}/>
-        <Route path="/rezepte/neu" element={<RezeptForm/>}/>
+        <Route path="/rezepte/editor" element={<RezeptForm/>}/>
         <Route path="/rezepte/:rezeptId" element={<RezeptDetailView/>}/>
         <Route path="/einkaufsliste" element={<EinkaufsListeView/>}/>
 
