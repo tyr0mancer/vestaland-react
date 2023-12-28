@@ -8,15 +8,16 @@ import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
 
 export function RezeptDetail() {
+
   let {rezeptId = ''} = useParams();
   const navigate = useNavigate();
   const {dispatch} = useContext(StateContext) as StateContextType
   useEffect(() => {
-    dispatch({type: ActionTypes.PUSH_REZEPT, payload: rezeptId})
+    dispatch({type: ActionTypes.SET_REZEPT_CURRENT_ID, payload: rezeptId})
   }, [rezeptId, dispatch])
 
   function handleBackToSearch() {
-    dispatch({type: ActionTypes.PUSH_REZEPT, payload: ''})
+    dispatch({type: ActionTypes.SET_REZEPT_CURRENT_ID, payload: ''})
     navigate('/rezepte/');
   }
 

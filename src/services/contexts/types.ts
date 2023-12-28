@@ -16,14 +16,12 @@ export interface State {
 
 }
 export enum ActionTypes {
-  PUSH_REZEPT = 'remember-current-Rezept-ID',
-  SET_REZEPT_SUCHE = 'set-rezept-suche',
-  SET_REZEPT_EDIT = 'set-rezept-edit'
+  SET_REZEPT_CURRENT_ID = 'setze-Rezept-ID-des-aktuellen-Rezeptes',
+  SET_REZEPT_SUCHE = 'set-rezept-suche'
 }
 
 export type Action =
-  | { type: ActionTypes.SET_REZEPT_EDIT, payload: Rezept }
-  | { type: ActionTypes.PUSH_REZEPT, payload: string }
+  | { type: ActionTypes.SET_REZEPT_CURRENT_ID, payload: string }
   | { type: ActionTypes.SET_REZEPT_SUCHE, payload: RezeptSucheQuery }
 
 // Weitere Aktionstypen...

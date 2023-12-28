@@ -4,7 +4,7 @@ import {RezeptDetail} from "../../components/rezept/RezeptDetail";
 export function RezeptDetailView() {
 
   return (<>
-      <RezeptDetail/>
+    <RezeptDetail/>
   </>)
 
 }

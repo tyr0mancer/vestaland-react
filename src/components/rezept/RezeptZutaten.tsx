@@ -19,8 +19,8 @@ export function RezeptZutaten(props: any) {
       <div id="example-collapse-text">
         <Table striped bordered hover size="sm" variant="dark">
           <tbody>
-          {zutaten && zutaten.map((zutat: any) =>
-            (<tr>
+          {zutaten && zutaten.map((zutat: any, index) =>
+            (<tr key={index}>
               <td style={{width: 0}}>{zutat.menge}</td>
               <td style={{width: 0}}>{zutat.einheit}</td>
               <td>{getLebensmittelName(zutat)}</td>
