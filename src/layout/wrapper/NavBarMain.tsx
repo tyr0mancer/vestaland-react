@@ -172,7 +172,7 @@ export function NavbarMain() {
           >
           </Typography>
           <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-            {pages.map((page) => (
+            {pages.filter(page => !page.restricted || isAuthorized()).map((page) => (
               <Button
                 key={page.target}
                 className={'main-nav-button'}
