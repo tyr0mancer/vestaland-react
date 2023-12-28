@@ -70,7 +70,7 @@ export function FooterMain() {
 
 
     setFooter(newFooter)
-  }, [rezeptEdit, setFooter, state.aktuelleRezeptId, isAuthorized])
+  }, [rezeptEdit, setFooter, state.aktuelleRezeptId, isAuthorized, rezeptCooking])
 
   return (
     <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
