@@ -16,7 +16,7 @@ export const RezeptForm = () => {
     rezept.zutaten = []
     rezept.hilfsmittel = []
 
-    rezept.kochschritte.map((k => {
+    rezept.kochschritte.forEach((k => {
       k.zutaten.map(z => rezept.zutaten.push(z))
       k.hilfsmittel.map(hm => rezept.hilfsmittel.push(hm))
     }))
