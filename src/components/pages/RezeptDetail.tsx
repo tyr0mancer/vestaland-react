@@ -7,6 +7,9 @@ import {RezeptZutaten} from "./rezept/RezeptZutaten";
 import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
 import {useAuth} from "../../services/auth/AuthProvider";
+import {ConfirmDialogButton} from "../form-elements/ConfirmDialogButton";
+import DialogTitle from "@mui/material/DialogTitle";
+import {DialogContent, DialogContentText} from "@mui/material";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();
@@ -38,12 +41,9 @@ export function RezeptDetail() {
 
 
   function startCooking() {
-    if (rezeptCooking)
-      alert("overwrite")
-    //alert(rezept?.name||'nothing')
     dispatch({type: ActionTypes.SET_REZEPT_COOK, payload: rezept})
-    //setRezeptCooking(rezept)
-    navigate('/rezept-cooking/')
+    dispatch({type: ActionTypes.SET_KOCHSTATUS, payload: {kochschrittIndex: -1, kochschrittFokus: false}})
+    navigate('/rezept-cooking')
   }
 
 
@@ -61,7 +61,13 @@ export function RezeptDetail() {
 
   if (isSuccess)
     return (<>
-      <h1>{rezept.name}</h1>
+      <h1>
+        {isOwner(rezept._id) && <Button onClick={editRecipe}>editieren</Button>}
+
+
+        {rezept.name} <Button onClick={handleBackToSearch}>zurück</Button></h1>
+
+
       <Row>
         <Col>{rezept.bild && <img src={'https://api.vestaland.de/public/uploads/' + rezept.bild?.fileName} height={200}
                                   alt={rezept.bild.name}/>}</Col>
@@ -71,10 +77,20 @@ export function RezeptDetail() {
       </Row>
 
       <hr/>
-      <Button onClick={handleBackToSearch}>zurück zur Suche</Button>
-      <Button onClick={startCooking}>Jetzt kochen</Button>
 
-      {isOwner(rezept._id) && <Button onClick={editRecipe}>editieren</Button>}
+      <ConfirmDialogButton
+        label={'Jetzt kochen'}
+        onConfirm={startCooking}
+        labelReject={`Nein, ${rezeptCooking?.name} weiter kochen`}
+        autoConfirm={() => {
+          return rezept && !rezeptCooking?.name
+        }}
+      >{rezeptCooking && <><DialogTitle>Es wird bereits ein Rezept ({rezeptCooking?.name})
+          gekocht.</DialogTitle>
+          <DialogContent><DialogContentText>Dieses stoppen und
+              stattdessen {rezept?.name} kochen?</DialogContentText></DialogContent>
+      </>}</ConfirmDialogButton>
+
 
       <hr/>
       {rezept.kochschritte.map((kochschritt, index) => <div key={index}>

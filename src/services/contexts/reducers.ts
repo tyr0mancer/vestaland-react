@@ -12,6 +12,10 @@ export const reducer = (state: State, action: Action): State => {
       return {...state, rezeptCooking: action.payload};
     case ActionTypes.SET_REZEPT_EDIT:
       return {...state, rezeptEditing: action.payload};
+    case ActionTypes.SET_KOCHSTATUS:
+      localStorage.setItem('kochstatus', JSON.stringify(action.payload));
+      return {...state, kochstatus: action.payload};
+
     default:
       return state;
   }

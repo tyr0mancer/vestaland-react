@@ -36,9 +36,8 @@ export function ConfirmDialogButton({
       </Button>
       <Dialog onClose={() => setOpen(false)} open={open}>
         {children}
-        <button onClick={onConfirm}>{labelConfirm}</button>
-        <button onClick={() => setOpen(false)}>{labelReject}</button>
-
+        <Button variant="contained" color={"warning"}  onClick={onConfirm}>{labelConfirm}</Button>
+        {labelReject && <Button color={"success"} variant="contained" onClick={() => setOpen(false)}>{labelReject}</Button>}
       </Dialog>
     </>
   );

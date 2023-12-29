@@ -14,6 +14,10 @@ const rezeptSucheQueryDefault: RezeptSucheQuery = {
 const defaultState: State = {
   rezeptSucheQuery: rezeptSucheQueryDefault,
   rezeptHistory: [],
+  kochstatus: {
+    kochschrittFokus: false,
+    kochschrittIndex: -1
+  }
 }
 
 
@@ -23,12 +27,14 @@ export const StateProvider = ({children}: any) => {
   const initialState = () => {
     const rezeptCookingString = localStorage.getItem('rezept_cooking');
     const rezeptEditString = localStorage.getItem('rezept_editor');
+    const kochstatusString = localStorage.getItem('kochstatus');
 
-    //return rezeptCookingString ? {...defaultState, rezeptCooking: JSON.parse(rezeptCookingString)} : defaultState;
+
     return {
       ...defaultState,
-      rezeptCooking: rezeptCookingString ? JSON.parse(rezeptCookingString) : undefined,
-      rezeptEditing: rezeptEditString ? JSON.parse(rezeptEditString) : undefined
+      rezeptCooking: rezeptCookingString ? JSON.parse(rezeptCookingString) : defaultState.rezeptCooking,
+      rezeptEditing: rezeptEditString ? JSON.parse(rezeptEditString) : defaultState.rezeptEditing,
+      kochstatus: kochstatusString ? JSON.parse(kochstatusString) : defaultState.kochstatus
     }
   };
   const [state, dispatch] = useReducer(reducer, initialState());

@@ -19,6 +19,7 @@ export interface State {
   rezeptSucheQuery: RezeptSucheQuery,
   rezeptViewing?: Rezept
   rezeptCooking?: Rezept,
+  kochstatus: Kochstatus,
   rezeptEditing?: Rezept
 }
 
@@ -27,7 +28,8 @@ export enum ActionTypes {
   PUSH_REZEPT_ID = 'PUSH_REZEPT_ID',
   SET_REZEPT_VIEW = 'SET_REZEPT_VIEW',
   SET_REZEPT_COOK = 'SET_REZEPT_COOK',
-  SET_REZEPT_EDIT = 'SET_REZEPT_EDIT'
+  SET_REZEPT_EDIT = 'SET_REZEPT_EDIT',
+  SET_KOCHSTATUS = 'SET_KOCHSTATUS'
 }
 
 
@@ -37,6 +39,7 @@ export type Action =
   | { type: ActionTypes.SET_REZEPT_VIEW, payload?: Rezept }
   | { type: ActionTypes.SET_REZEPT_COOK, payload?: Rezept }
   | { type: ActionTypes.SET_REZEPT_EDIT, payload?: Rezept }
+  | { type: ActionTypes.SET_KOCHSTATUS, payload: Kochstatus }
 
 // Weitere Aktionstypen...
 
