@@ -27,18 +27,12 @@ export const RezeptForm = () => {
     const handleSave = (rezept: Rezept) => {
       rezept.zutaten = rezept.kochschritte.reduce(zutatenReducer, [])
       rezept.hilfsmittel = rezept.kochschritte.reduce(hilfsmittelReducer, [])
-
-      if (!rezept._id) {
-      } else {
-        //rezept._id = 'neueIDxzy'
-      }
-
       localStorage.setItem('rezept_editor', JSON.stringify(rezept));
       dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
     }
 
-
     return (<>
+        <textarea value={JSON.stringify(rezeptEditing, null, 2)} readOnly={true}/>
         <Formik<Rezept>
           initialValues={rezeptEditing || new Rezept()}
           onSubmit={handleSave}
@@ -46,7 +40,6 @@ export const RezeptForm = () => {
         >
           <InnerForm/>
         </Formik>
-        <pre>rezeptEditing {JSON.stringify(rezeptEditing, null, 2)}</pre>
       </>
     );
   }
