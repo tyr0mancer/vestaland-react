@@ -3,7 +3,7 @@ import React from "react";
 import {useAuth} from "../../services/auth/AuthProvider";
 import {ErrorPageView} from "./ErrorPage.view";
 import {Container} from "@mui/material";
-import {NavBarRezeptEditor} from "../wrapper/NavBarRezeptEditor";
+import {NavBarRezeptEditor} from "./wrapper/NavBarRezeptEditor";
 
 interface EditorViewProps {
   roleRequired?: BenutzerRolle;

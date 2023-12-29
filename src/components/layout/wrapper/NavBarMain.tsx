@@ -17,9 +17,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import LoginIcon from '@mui/icons-material/Login';
 
 
-import logo from "../../assets/images/logo.png";
-import {BenutzerRolle} from "../../services/auth/types";
-import {useAuth} from "../../services/auth/AuthProvider";
+import logo from "../../../assets/images/logo.png";
+import {BenutzerRolle} from "../../../services/auth/types";
+import {useAuth} from "../../../services/auth/AuthProvider";
 
 
 type Page = {

@@ -1,9 +1,9 @@
 import React from "react";
 import {useAuth} from "../../services/auth/AuthProvider";
 import {ErrorPageView} from "./ErrorPage.view";
-import {NavbarMain} from "../wrapper/NavBarMain";
+import {NavbarMain} from "./wrapper/NavBarMain";
 import {Container} from "react-bootstrap";
-import {FooterMain} from "../wrapper/FooterMain";
+import {FooterMain} from "./wrapper/FooterMain";
 import {BenutzerRolle} from "../../services/auth/types";
 
 interface DefaultViewProps {

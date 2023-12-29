@@ -1,22 +1,22 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import {ErrorPageView} from "./views/ErrorPage.view";
-import {EditorView} from "./views/Editor.view";
-import {DefaultView} from "./views/Default.view";
+import {ErrorPageView} from "./components/layout/ErrorPage.view";
+import {EditorView} from "./components/layout/Editor.view";
+import {DefaultView} from "./components/layout/Default.view";
 
-import {RezepteSuche} from "../components/pages/RezepteSuche";
-import {Impressum} from "../components/pages/Impressum";
-import {AdminView} from "./views/Admin.view";
-import {Startseite} from "../components/pages/Startseite";
-import {KocheRezept} from "../components/pages/KocheRezept";
+import {RezepteSuche} from "./components/pages/RezepteSuche";
+import {Impressum} from "./components/pages/Impressum";
+import {AdminView} from "./components/layout/Admin.view";
+import {Startseite} from "./components/pages/Startseite";
+import {KocheRezept} from "./components/pages/KocheRezept";
 
 
-import {RezeptForm} from "../components/pages/rezept/RezeptForm";
-import {EinkaufsListe} from "../components/pages/EinkaufsListe";
-import {BenutzerInfo} from "../components/pages/BenuzterInfo";
-import {LoginForm} from "../components/pages/benutzer/LoginForm";
-import {RezeptDetail} from "../components/pages/rezept/RezeptDetail";
+import {RezeptForm} from "./components/pages/rezept/RezeptForm";
+import {EinkaufsListe} from "./components/pages/EinkaufsListe";
+import {BenutzerInfo} from "./components/pages/BenuzterInfo";
+import {LoginForm} from "./components/pages/benutzer/LoginForm";
+import {RezeptDetail} from "./components/pages/rezept/RezeptDetail";
 
 export function MainRouter() {
   return (

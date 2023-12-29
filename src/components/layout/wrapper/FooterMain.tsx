@@ -9,9 +9,9 @@ import EditIcon from "@mui/icons-material/EditNote";
 import CookingIcon from "@mui/icons-material/Blender";
 import {Link} from "react-router-dom";
 import {OverridableComponent} from "@mui/material/OverridableComponent";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {StateContextType} from "../../services/contexts/types";
-import {useAuth} from "../../services/auth/AuthProvider";
+import {StateContext} from "../../../services/contexts/StateProvider";
+import {StateContextType} from "../../../services/contexts/types";
+import {useAuth} from "../../../services/auth/AuthProvider";
 
 interface FooterItem {
   icon: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string; }

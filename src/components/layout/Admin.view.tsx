@@ -1,10 +1,10 @@
 import React from "react";
 import {RestrictedArea} from "../../services/auth/RestricedArea";
-import {NavbarAdmin} from "../wrapper/NavbarAdmin";
+import {NavbarAdmin} from "./wrapper/NavbarAdmin";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {UserAdmin} from "../../components/pages/admin/UserAdmin";
-import {LebensmittelAdmin} from "../../components/pages/admin/LebensmittelAdmin";
-import {HilfsmittelAdmin} from "../../components/pages/admin/HilfsmittelAdmin";
+import {UserAdmin} from "../pages/admin/UserAdmin";
+import {LebensmittelAdmin} from "../pages/admin/LebensmittelAdmin";
+import {HilfsmittelAdmin} from "../pages/admin/HilfsmittelAdmin";
 import {BenutzerRolle} from "../../services/auth/types";
 
 export function AdminView() {
