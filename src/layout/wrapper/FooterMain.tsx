@@ -23,6 +23,7 @@ interface FooterItem {
 export function FooterMain() {
   const {state} = useContext(StateContext) as StateContextType
   const [footer, setFooter] = useState<FooterItem[]>([])
+  const MAX_LENGTH = 3;
 
   const {isAuthorized,} = useAuth()
 
@@ -47,19 +48,21 @@ export function FooterMain() {
       disabled: !isAuthorized()
     })
 
-    if (state.rezeptCooking) {
+    if (newFooter.length < MAX_LENGTH && state.rezeptCooking)
       newFooter.push({
         label: state.rezeptCooking.name,
         icon: CookingIcon,
         to: 'rezept-cooking'
       })
-    } else if (state.rezeptEditing  && isAuthorized()) {
+    if (newFooter.length < MAX_LENGTH && state.rezeptEditing && isAuthorized())
       newFooter.push({
         label: state.rezeptEditing.name || "Editieren",
         icon: EditIcon,
         to: 'rezept-editor'
       })
-    } else newFooter.push({
+
+    if (newFooter.length < MAX_LENGTH)
+       newFooter.push({
       label: "Scanner",
       icon: ScannerIcon,
       disabled: true
