@@ -33,7 +33,7 @@ export function RezeptDetail() {
       dispatch({type: ActionTypes.PUSH_REZEPT_ID, payload: {_id: rezept._id || '', name: rezept.name}})
   }, [rezept, dispatch])
 
-  
+
   function startCooking() {
     if (rezeptCooking)
       alert("overwrite")
@@ -55,7 +55,17 @@ export function RezeptDetail() {
       <Button onClick={handleBackToSearch}>zurück zur Suche</Button>
       <Button onClick={startCooking}>Jetzt kochen</Button>
       <hr/>
-      <pre>{JSON.stringify(rezept, null, 2)}</pre>
+      {rezept.kochschritte.map((kochschritt, index) => <div key={index}>
+        {kochschritt.name}
+        <ul>
+          {kochschritt.zutaten.map((zutat, index) => <li key={index}>{zutat.menge} {zutat.einheit} {zutat.lebensmittel?.name}</li>)}
+        </ul>
+        <ul>
+          {kochschritt.hilfsmittel.map((hilfsmittel, index) => <li key={index}>{hilfsmittel.name}</li>)}
+        </ul>
+      </div>)}
+
+      {/*<pre>{JSON.stringify(rezept, null, 2)}</pre>*/}
     </>)
 
   return (<>Fehler</>)

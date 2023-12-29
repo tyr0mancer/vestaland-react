@@ -13,38 +13,44 @@ import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
 
 export const RezeptForm = () => {
-  const {state: {rezeptEditing}} = useContext(StateContext) as StateContextType
+    const {state: {rezeptEditing}, dispatch} = useContext(StateContext) as StateContextType
 
-  const handleSave = (rezept: Rezept) => {
-    rezept.zutaten = []
-    rezept.hilfsmittel = []
-
-    rezept.kochschritte.forEach((k => {
-      k.zutaten.forEach(z => rezept.zutaten.push(z))
-      k.hilfsmittel.forEach(hm => rezept.hilfsmittel.push(hm))
-    }))
-
-    if (!rezept._id) {
-    } else {
-      //rezept._id = 'neueIDxzy'
+    const zutatenReducer = (zutaten: Zutat[], kochschritt: Kochschritt) => {
+      return kochschritt.zutaten.reduce((bisherigeListe, zutat) => {
+        return [...bisherigeListe, zutat]
+      }, zutaten)
+    }
+    const hilfsmittelReducer = (hilfsmittel: Hilfsmittel[], kochschritt: Kochschritt) => {
+      return [...hilfsmittel, ...kochschritt.hilfsmittel]
     }
 
-    localStorage.setItem('rezept_editor', JSON.stringify(rezept));
+    const handleSave = (rezept: Rezept) => {
+      rezept.zutaten = rezept.kochschritte.reduce(zutatenReducer, [])
+      rezept.hilfsmittel = rezept.kochschritte.reduce(hilfsmittelReducer, [])
+
+      if (!rezept._id) {
+      } else {
+        //rezept._id = 'neueIDxzy'
+      }
+
+      localStorage.setItem('rezept_editor', JSON.stringify(rezept));
+      dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
+    }
+
+
+    return (<>
+        <Formik<Rezept>
+          initialValues={rezeptEditing || new Rezept()}
+          onSubmit={handleSave}
+          enableReinitialize
+        >
+          <InnerForm/>
+        </Formik>
+        <pre>rezeptEditing {JSON.stringify(rezeptEditing, null, 2)}</pre>
+      </>
+    );
   }
-
-
-  return (<>
-      <Formik<Rezept>
-        initialValues={rezeptEditing || new Rezept()}
-        onSubmit={handleSave}
-        enableReinitialize
-      >
-        <InnerForm/>
-      </Formik>
-      <pre>rezeptEditing {JSON.stringify(rezeptEditing, null, 2)}</pre>
-    </>
-  );
-};
+;
 
 const InnerForm = () => {
   const navigate = useNavigate();
@@ -86,7 +92,7 @@ function KochSchritteForm({name, values: kochschritte}: FieldArrayFormProps<Koch
           {kochschritte.map((item: Kochschritt, index: number) => (
 
             <Box style={{backgroundColor: "#ccc", border: "2px solid green", margin: "20px 0"}} key={index}>
-              <p>Aktion: <Field name={`${name}[${index}][aktion]`}/></p>
+              <p>Aktion: <Field name={`${name}[${index}][name]`}/></p>
               <p>Beschreibung: <Field name={`${name}[${index}][beschreibung]`}/></p>
               <p>Dauer: <Field name={`${name}[${index}][dauer]`}/></p>
 

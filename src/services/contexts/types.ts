@@ -44,3 +44,10 @@ export interface StateContextType {
   state: State;
   dispatch: React.Dispatch<Action>;
 }
+
+
+export interface Kochstatus {
+  kochschrittFokus: string | false,
+  kochschrittIndex: number,
+  etd?: Date
+}
