@@ -9,20 +9,34 @@ export interface RezeptSucheQuery {
   myRecipes: boolean
 }
 
-export interface State {
-  aktuelleRezeptId?: string | null
-  rezeptSucheQuery: RezeptSucheQuery,
-  aktuellesRezept?: Rezept
+export interface RezeptHistory {
+  _id: string,
+  name: string
+}
 
+export interface State {
+  rezeptHistory: RezeptHistory[],
+  rezeptSucheQuery: RezeptSucheQuery,
+  rezeptViewing?: Rezept
+  rezeptCooking?: Rezept,
+  rezeptEditing?: Rezept
 }
+
 export enum ActionTypes {
-  SET_REZEPT_CURRENT_ID = 'setze-Rezept-ID-des-aktuellen-Rezeptes',
-  SET_REZEPT_SUCHE = 'set-rezept-suche'
+  SET_REZEPT_SUCHE = 'SET_REZEPT_SUCHE',
+  PUSH_REZEPT_ID = 'PUSH_REZEPT_ID',
+  SET_REZEPT_VIEW = 'SET_REZEPT_VIEW',
+  SET_REZEPT_COOK = 'SET_REZEPT_COOK',
+  SET_REZEPT_EDIT = 'SET_REZEPT_EDIT'
 }
+
 
 export type Action =
-  | { type: ActionTypes.SET_REZEPT_CURRENT_ID, payload: string }
   | { type: ActionTypes.SET_REZEPT_SUCHE, payload: RezeptSucheQuery }
+  | { type: ActionTypes.PUSH_REZEPT_ID, payload: RezeptHistory }
+  | { type: ActionTypes.SET_REZEPT_VIEW, payload?: Rezept }
+  | { type: ActionTypes.SET_REZEPT_COOK, payload?: Rezept }
+  | { type: ActionTypes.SET_REZEPT_EDIT, payload?: Rezept }
 
 // Weitere Aktionstypen...
 

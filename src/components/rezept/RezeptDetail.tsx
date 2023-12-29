@@ -11,18 +11,9 @@ import {Rezept} from "../../models/rezept.model";
 
 export function RezeptDetail() {
 
-  let {rezeptId = ''} = useParams();
+  const {rezeptId = ''} = useParams();
   const navigate = useNavigate();
   const {dispatch} = useContext(StateContext) as StateContextType
-  useEffect(() => {
-    dispatch({type: ActionTypes.SET_REZEPT_CURRENT_ID, payload: rezeptId})
-  }, [rezeptId, dispatch])
-
-  function handleBackToSearch() {
-    dispatch({type: ActionTypes.SET_REZEPT_CURRENT_ID, payload: ''})
-    navigate('/rezepte/');
-  }
-
   const {
     isLoading,
     isSuccess,
@@ -34,13 +25,21 @@ export function RezeptDetail() {
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
-  const [, setRezeptCooking] = useLocalStorage<Rezept | null>("rezept_cooking", null)
+  function handleBackToSearch() {
+    dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: undefined})
+    navigate('/rezepte/');
+  }
+
+  useEffect(() => {
+    dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: rezept})
+  }, [rezept, dispatch])
+
+  const [rezeptCooking, setRezeptCooking] = useLocalStorage<Rezept | null>("rezept_cooking", null)
 
   function startCooking() {
-/*
     if (rezeptCooking)
       alert("overwrite")
-*/
+    //alert(rezept?.name||'nothing')
     setRezeptCooking(rezept)
     navigate('/rezept-cooking/')
   }

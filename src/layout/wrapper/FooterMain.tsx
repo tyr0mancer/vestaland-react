@@ -33,10 +33,10 @@ export function FooterMain() {
 
     const newFooter: FooterItem[] = []
 
-    state.aktuelleRezeptId ? newFooter.push({
-      label: 'Rezept',
+    state.rezeptViewing ? newFooter.push({
+      label: state.rezeptViewing.name,
       icon: RecipeIcon,
-      to: 'rezepte/' + state.aktuelleRezeptId
+      to: 'rezepte/' + state.rezeptViewing._id
     }) : newFooter.push({
       label: "Rezeptbuch",
       icon: RecipeIcon,
@@ -70,7 +70,7 @@ export function FooterMain() {
 
 
     setFooter(newFooter)
-  }, [rezeptEdit, setFooter, state.aktuelleRezeptId, isAuthorized, rezeptCooking])
+  }, [rezeptEdit, setFooter, state, isAuthorized, rezeptCooking])
 
   return (
     <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>

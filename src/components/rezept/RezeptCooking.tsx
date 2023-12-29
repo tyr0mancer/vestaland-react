@@ -6,7 +6,7 @@ import {Rezept} from "../../models/rezept.model";
 export function RezeptCooking() {
 
 
-  const [rezept,] = useLocalStorage<Rezept | null>("rezept_cooking", null)
+  const [rezept,] = useLocalStorage<Rezept | null>("rezept_cooking", new Rezept())
 
   if (rezept)
     return (<>

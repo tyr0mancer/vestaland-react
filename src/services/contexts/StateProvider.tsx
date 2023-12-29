@@ -12,7 +12,8 @@ const rezeptSucheQueryDefault: RezeptSucheQuery = {
 }
 
 const defaultState: State = {
-  rezeptSucheQuery: rezeptSucheQueryDefault
+  rezeptSucheQuery: rezeptSucheQueryDefault,
+  rezeptHistory: []
 }
 
 
@@ -20,6 +21,7 @@ export const StateContext = React.createContext<StateContextType | undefined>(un
 
 export const StateProvider = ({children}: any) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
+
 
   return (
     <StateContext.Provider value={{state, dispatch}}>
