@@ -13,3 +13,18 @@ export const rezeptDetail = async (rezeptId: string): Promise<Rezept> => {
   const response = await apiClient.get(`/rezept/${rezeptId}`)
   return response.data;
 };
+
+
+export const rezeptPost = (rezept?: Rezept): Promise<Rezept> =>
+  new Promise<Rezept>((resolve, reject) =>
+    apiClient.post(`/rezept`, rezept)
+      .then(({data}) => resolve(data))
+      .catch(error => reject(error))
+  )
+
+export const rezeptPut = (rezept?: Rezept): Promise<Rezept> =>
+  new Promise<Rezept>((resolve, reject) =>
+    apiClient.put(`/rezept/${rezept?._id}`, rezept)
+      .then(({data}) => resolve(data))
+      .catch(error => reject(error))
+  )

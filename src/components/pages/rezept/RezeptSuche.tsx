@@ -71,7 +71,7 @@ export function RezeptSuche() {
 
       <Form.Group>
         <InputGroup>
-          {isAuthorized(BenutzerRolle.BENUTZER) && <Button onClick={() => {   navigate('/rezept-editor')       }}><AddIcon/></Button>}
+          {isAuthorized(BenutzerRolle.BENUTZER) && <Button onClick={() => { navigate('/rezept-editor') }}><AddIcon/></Button>}
           <Form.Check
             type="switch"
             id="vegetarian-only"

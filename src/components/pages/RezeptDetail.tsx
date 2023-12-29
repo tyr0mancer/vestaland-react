@@ -1,13 +1,13 @@
 import React, {useContext, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {Button} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import {useQuery} from "@tanstack/react-query";
-import {rezeptDetail} from "../../../services/api/rezeptService";
-import {RezeptZutaten} from "./RezeptZutaten";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
-import {useAuth} from "../../../services/auth/AuthProvider";
-import {BenutzerRolle} from "../../../services/auth/types";
+import {rezeptDetail} from "../../services/api/rezeptService";
+import {RezeptZutaten} from "./rezept/RezeptZutaten";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../services/contexts/types";
+import {useAuth} from "../../services/auth/AuthProvider";
+import {BenutzerRolle} from "../../services/auth/types";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();
@@ -47,11 +47,15 @@ export function RezeptDetail() {
     navigate('/rezept-cooking/')
   }
 
-  const mayEdit = rezept?.author?._id && rezept.author._id === authInfo?._id || isAuthorized(BenutzerRolle.ADMIN)
+  const mayEdit = (rezept?.author?._id && rezept.author._id === authInfo?._id) || isAuthorized(BenutzerRolle.ADMIN)
 
   const editRecipe = () => {
-    if (!rezept?._id) return
-    navigate('/rezept-editor/' + rezept._id);
+    //localStorage.setItem('rezept_editor', JSON.stringify(rezept));
+
+    if (!rezept) return
+    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
+    //localStorage.setItem('rezept_cooking', JSON.stringify(rezept));
+    navigate('/rezept-editor');
   }
 
 
@@ -60,8 +64,14 @@ export function RezeptDetail() {
   if (isSuccess)
     return (<>
       <h1>{rezept.name}</h1>
-      <hr/>
-      <RezeptZutaten zutaten={rezept?.zutaten}/>
+      <Row>
+        <Col>{rezept.bild && <img src={'https://api.vestaland.de/public/uploads/' + rezept.bild?.fileName} height={200}
+                                  alt={rezept.bild.name}/>}</Col>
+        <Col>
+          <RezeptZutaten zutaten={rezept?.zutaten}/>
+        </Col>
+      </Row>
+
       <hr/>
       <Button onClick={handleBackToSearch}>zurück zur Suche</Button>
       <Button onClick={startCooking}>Jetzt kochen</Button>

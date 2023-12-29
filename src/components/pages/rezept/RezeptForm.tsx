@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {StateContext} from "../../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../../services/contexts/types";
+import {rezeptPost, rezeptPut} from "../../../services/api/rezeptService";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 export const RezeptForm = () => {
     const {state: {rezeptEditing}, dispatch} = useContext(StateContext) as StateContextType
@@ -30,9 +32,46 @@ export const RezeptForm = () => {
       localStorage.setItem('rezept_editor', JSON.stringify(rezept));
       dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
     }
+    const navigate = useNavigate()
+
+
+    const {mutate: neuesRezept} = useMutation({
+      mutationFn: () => rezeptPost(rezeptEditing)
+    });
+    const {mutate: updateRezept} = useMutation({
+      mutationFn: () => rezeptPut(rezeptEditing)
+    });
+
+    const queryClient = useQueryClient();
+
+
+    const handlePublish = async () => {
+      if (!rezeptEditing) return
+      handleSave(rezeptEditing)
+
+      //await queryClient.invalidateQueries({queryKey: ["rezepte-suche"]})
+
+      if (rezeptEditing._id) {
+        updateRezept()
+        queryClient.invalidateQueries({
+          queryKey: ["rezept-detail", rezeptEditing?._id]
+        }).then(() => {
+          navigate('/rezepte/' + rezeptEditing._id)
+        })
+        //navigate('/rezepte')
+      } else {
+        neuesRezept()
+        navigate('/rezepte')
+      }
+    }
 
     return (<>
         <textarea value={JSON.stringify(rezeptEditing, null, 2)} readOnly={true}/>
+        {rezeptEditing?.bild &&
+            <img src={'https://api.vestaland.de/public/uploads/' + rezeptEditing.bild?.fileName} height={200}
+                 alt={rezeptEditing.bild.name}/>}
+        <button type="button" onClick={handlePublish}>Publish</button>
+
         <Formik<Rezept>
           initialValues={rezeptEditing || new Rezept()}
           onSubmit={handleSave}
@@ -113,69 +152,69 @@ function KochSchritteForm({name, values: kochschritte}: FieldArrayFormProps<Koch
               </button>
             </Box>
 
-            ))}
+          ))}
           <hr/>
           <button type="button" onClick={() => arrayHelpers.insert(kochschritte.length, new Kochschritt())}>
             neuer Kochschritt
           </button>
         </div>
       )}
-      />
-      );
-      }
+    />
+  );
+}
 
-      function ZutatenForm({name, values: zutaten}: FieldArrayFormProps<Zutat>) {
-      return (
-      <FieldArray
+function ZutatenForm({name, values: zutaten}: FieldArrayFormProps<Zutat>) {
+  return (
+    <FieldArray
       name={name}
       render={arrayHelpers => (
-      <div>
-    {zutaten.map((zutat: Zutat, index: number) => (
-      <div key={index}>
-      <Field name={`${name}[${index}][menge]`}/>
-
-      <Field name={`${name}[${index}][einheit]`}/>
-      <LebensmittelPicker
-      name={`${name}[${index}][lebensmittel]`}
-      values={zutat.lebensmittel || new Lebensmittel()}
-      />
-      <button type="button" onClick={() => arrayHelpers.remove(index)}>
-      - Zutat
-      </button>
-      </div>
-      ))}
-      <button type="button" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
-      + Zutat
-      </button>
-      </div>
-      )}
-      />
-      )
-    }
-
-
-      function HilfsmittelForm({name, values}: FieldArrayFormProps<Hilfsmittel>) {
-        return (
-        <FieldArray
-        name={name}
-        render={arrayHelpers => (
         <div>
-      {values.map((hilfsmittel: Hilfsmittel, index: number) => (
-        <div key={index}>
-        <HilfsmittelPicker
-        name={`${name}[${index}]`}
-        values={hilfsmittel}
-        />
-        <button type="button" onClick={() => arrayHelpers.remove(index)}>
-        - HM
-        </button>
+          {zutaten.map((zutat: Zutat, index: number) => (
+            <div key={index}>
+              <Field name={`${name}[${index}][menge]`}/>
+
+              <Field name={`${name}[${index}][einheit]`}/>
+              <LebensmittelPicker
+                name={`${name}[${index}][lebensmittel]`}
+                values={zutat.lebensmittel || new Lebensmittel()}
+              />
+              <button type="button" onClick={() => arrayHelpers.remove(index)}>
+                - Zutat
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
+            + Zutat
+          </button>
         </div>
-        ))}
-        <button type="button" onClick={() => arrayHelpers.insert(values.length, new Hilfsmittel())}>
-        + HM
-        </button>
+      )}
+    />
+  )
+}
+
+
+function HilfsmittelForm({name, values}: FieldArrayFormProps<Hilfsmittel>) {
+  return (
+    <FieldArray
+      name={name}
+      render={arrayHelpers => (
+        <div>
+          {values.map((hilfsmittel: Hilfsmittel, index: number) => (
+            <div key={index}>
+              <HilfsmittelPicker
+                name={`${name}[${index}]`}
+                values={hilfsmittel}
+              />
+              <button type="button" onClick={() => arrayHelpers.remove(index)}>
+                - HM
+              </button>
+            </div>
+          ))}
+          <button type="button" onClick={() => arrayHelpers.insert(values.length, new Hilfsmittel())}>
+            + HM
+          </button>
         </div>
-        )}
-        />
-        );
-      }
+      )}
+    />
+  );
+}

@@ -16,7 +16,7 @@ import {RezeptForm} from "./components/pages/rezept/RezeptForm";
 import {EinkaufsListe} from "./components/pages/EinkaufsListe";
 import {BenutzerInfo} from "./components/pages/BenuzterInfo";
 import {LoginForm} from "./components/pages/benutzer/LoginForm";
-import {RezeptDetail} from "./components/pages/rezept/RezeptDetail";
+import {RezeptDetail} from "./components/pages/RezeptDetail";
 
 export function MainRouter() {
   return (
