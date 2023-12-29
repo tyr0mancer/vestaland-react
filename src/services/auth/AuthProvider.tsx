@@ -6,6 +6,7 @@ import {refreshService} from "../api/authService";
 type AuthContextType = {
   authInfo: LoginResponse | null,
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
+  isOwner: (userId?: string) => boolean,
   logout: (LogoutFn?: () => Promise<void>) => Promise<any>
   login: (LoginFn: () => Promise<LoginResponse>) => Promise<any>,
   error?: ApiErrorResponse | null
@@ -17,7 +18,9 @@ const AuthContext = createContext<AuthContextType>({
   }),
   login: () => new Promise(() => {
   }),
-  isAuthorized: () => false
+  isAuthorized: () => false,
+  isOwner: () => false
+
 });
 
 export const AuthProvider = ({children}: any) => {
@@ -33,7 +36,6 @@ export const AuthProvider = ({children}: any) => {
       //console.log(err.response.data)
     })
   }, [])
-
 
 
   function login(LoginFn?: () => Promise<LoginResponse>) {
@@ -87,6 +89,12 @@ export const AuthProvider = ({children}: any) => {
     return (authInfo.rollen && authInfo.rollen.includes(role))
   }
 
+  function isOwner(ownerId?: string) {
+    if (!authInfo?.rollen) return false
+    if (authInfo.rollen.includes(BenutzerRolle.ADMIN)) return true
+    if (!authInfo.rollen.includes(BenutzerRolle.BENUTZER)) return false
+    return (authInfo._id === ownerId)
+  }
 
   return (
     <AuthContext.Provider value={{
@@ -94,7 +102,8 @@ export const AuthProvider = ({children}: any) => {
       logout,
       login,
       isAuthorized,
-      error
+      error,
+      isOwner
     }}>
       {children}
     </AuthContext.Provider>

@@ -30,7 +30,7 @@ export function RezeptSuche() {
     {
       queryKey: ["rezept-suche", rezeptQueryDebounced.name],
       queryFn: () => rezeptSuche(rezeptQueryDebounced.name),
-      enabled: (rezeptQueryDebounced.name.length > 0),
+      enabled: (rezeptQueryDebounced.name.length > 1),
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
@@ -71,8 +71,12 @@ export function RezeptSuche() {
 
       <Form.Group>
         <InputGroup>
-          {isAuthorized(BenutzerRolle.BENUTZER) && <Button onClick={() => { navigate('/rezept-editor') }}><AddIcon/></Button>}
+          {isAuthorized(BenutzerRolle.BENUTZER) && <Button onClick={() => {
+            navigate('/rezept-editor')
+          }}><AddIcon/></Button>}
+
           <Form.Check
+            disabled={true}
             type="switch"
             id="vegetarian-only"
             label="Nur vegetarisches"
@@ -80,6 +84,7 @@ export function RezeptSuche() {
             onChange={handleVegetarianCheck}
           />
           <Form.Check
+            disabled={true}
             type="switch"
             id="healthy-only"
             label="Nur diätisch"

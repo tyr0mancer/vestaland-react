@@ -7,12 +7,11 @@ import {RezeptZutaten} from "./rezept/RezeptZutaten";
 import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
 import {useAuth} from "../../services/auth/AuthProvider";
-import {BenutzerRolle} from "../../services/auth/types";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();
   const navigate = useNavigate();
-  const {isAuthorized, authInfo} = useAuth();
+  const {isOwner} = useAuth();
 
   const {state: {rezeptCooking}, dispatch} = useContext(StateContext) as StateContextType
   const {
@@ -47,7 +46,6 @@ export function RezeptDetail() {
     navigate('/rezept-cooking/')
   }
 
-  const mayEdit = (rezept?.author?._id && rezept.author._id === authInfo?._id) || isAuthorized(BenutzerRolle.ADMIN)
 
   const editRecipe = () => {
     //localStorage.setItem('rezept_editor', JSON.stringify(rezept));
@@ -76,7 +74,7 @@ export function RezeptDetail() {
       <Button onClick={handleBackToSearch}>zurück zur Suche</Button>
       <Button onClick={startCooking}>Jetzt kochen</Button>
 
-      {mayEdit && <Button onClick={editRecipe}>editieren</Button>}
+      {isOwner(rezept._id) && <Button onClick={editRecipe}>editieren</Button>}
 
       <hr/>
       {rezept.kochschritte.map((kochschritt, index) => <div key={index}>
