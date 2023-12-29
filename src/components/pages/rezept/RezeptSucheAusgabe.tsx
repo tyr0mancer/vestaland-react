@@ -38,6 +38,19 @@ export function RezeptSucheAusgabe() {
             )}
           </Grid>
       }
+      {/*
+      <hr/>
+      <h5>zuletzt angesehen:</h5>
+      <hr/>
+      <Grid container spacing={{xs: 1, md: 2}} columns={{xs: 8, sm: 12, md: 24}}>
+        {state.rezeptHistory.map((entry, index) =>
+          <Grid item xs={2} sm={4} md={4} key={index}>
+            <Link to={`/rezepte/${entry._id}`}><b>{entry.name}</b></Link>
+          </Grid>
+        )}
+      </Grid>
+      */}
+
     </div>
   );
 }
