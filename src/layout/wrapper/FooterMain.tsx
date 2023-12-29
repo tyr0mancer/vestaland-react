@@ -34,17 +34,17 @@ export function FooterMain() {
     state.rezeptViewing ? newFooter.push({
       label: state.rezeptViewing.name,
       icon: RecipeIcon,
-      to: 'rezepte/' + state.rezeptViewing._id
+      to: '/rezepte/' + state.rezeptViewing._id
     }) : newFooter.push({
       label: "Rezeptbuch",
       icon: RecipeIcon,
-      to: 'rezepte'
+      to: '/rezepte'
     })
 
     newFooter.push({
       label: "Einkaufsliste",
       icon: ShoppingIcon,
-      to: "einkaufsliste",
+      to: "/einkaufsliste",
       disabled: !isAuthorized()
     })
 
@@ -52,13 +52,13 @@ export function FooterMain() {
       newFooter.push({
         label: state.rezeptCooking.name,
         icon: CookingIcon,
-        to: 'rezept-cooking'
+        to: '/rezept-cooking'
       })
     if (newFooter.length < MAX_LENGTH && state.rezeptEditing && isAuthorized())
       newFooter.push({
         label: state.rezeptEditing.name || "Editieren",
         icon: EditIcon,
-        to: 'rezept-editor'
+        to: '/rezept-editor'
       })
 
     if (newFooter.length < MAX_LENGTH)
