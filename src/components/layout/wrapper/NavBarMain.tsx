@@ -59,11 +59,11 @@ export function NavbarMain() {
   const settings: Page[] = [
     {
       name: 'Benutzerkonto',
-      target: 'user'
+      target: '/user'
     },
     {
       name: 'Adminbereich',
-      target: 'admin',
+      target: '/admin',
       requiredRole: BenutzerRolle.ADMIN
     }
   ]
@@ -183,13 +183,13 @@ export function NavbarMain() {
             </Box>
 
             <Box sx={{flexGrow: 0}}>
-              {!isAuthorized() && <Tooltip title="Open settings">
+              {!isAuthorized() && <Tooltip title="Anmelden">
                   <IconButton sx={{p: 0}}>
                       <Link to="/login"><LoginIcon style={{color: "#394d3a"}}/></Link>
                   </IconButton>
               </Tooltip>}
 
-              {isAuthorized() && <Tooltip title="Open settings">
+              {isAuthorized() && <Tooltip title="Benutzerbereich">
                   <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                       <AccountIcon style={{color: "#394d3a"}}/>
                   </IconButton>

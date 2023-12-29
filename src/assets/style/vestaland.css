@@ -26,6 +26,11 @@ a {
     background-color: #b4f7b7;
 }
 
+.main-nav.admin {
+    background-color: #394d3a;
+    color: #b4f7b7;
+}
+
 .main-nav-button.active {
     font-size: larger;
     font-weight: bold;

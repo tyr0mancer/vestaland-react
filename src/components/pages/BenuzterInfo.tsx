@@ -19,23 +19,16 @@ export function BenutzerInfo() {
 
   }
 
-  const handleRefresh = () => {
-
-  }
-
   return (<>
     <h1>Hallo {authInfo?.name}!</h1>
     <hr/>
     <h4>Hier kannst du</h4>
     <ul>
-      <li>Deine Rezepte sehen</li>
-      <li>Deine Daten sehen</li>
-      <li>Dein Konto löschen</li>
+      <li>Deine Daten</li>
+      <li>Deine Rezepte</li>
+      <li>Konto löschen</li>
     </ul>
-    <Button onClick={handleRefresh}>refresh Token</Button>
     <hr/>
     <Button onClick={handleLogout}>abmelden</Button>
-    <hr/>
-    <p>{JSON.stringify(authInfo)}</p>
   </>);
 }

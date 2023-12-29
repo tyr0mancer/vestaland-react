@@ -3,7 +3,7 @@ import React from "react";
 import {useAuth} from "../../services/auth/AuthProvider";
 import {ErrorPageView} from "./ErrorPage.view";
 import {Container} from "@mui/material";
-import {NavBarRezeptEditor} from "./wrapper/NavBarRezeptEditor";
+import {NavbarMain} from "./wrapper/NavBarMain";
 
 interface EditorViewProps {
   roleRequired?: BenutzerRolle;
@@ -19,7 +19,7 @@ export const EditorView: React.FC<EditorViewProps> = ({children, roleRequired, l
 
   return (
     <>
-      <NavBarRezeptEditor/>
+      <NavbarMain/>
       <Container className="main-layout">
         {children}
       </Container>
