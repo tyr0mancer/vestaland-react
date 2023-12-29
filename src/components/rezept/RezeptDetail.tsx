@@ -6,14 +6,11 @@ import {rezeptDetail} from "../../services/api/rezeptService";
 import {RezeptZutaten} from "./RezeptZutaten";
 import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
-import useLocalStorage from "use-local-storage";
-import {Rezept} from "../../models/rezept.model";
 
 export function RezeptDetail() {
-
   const {rezeptId = ''} = useParams();
   const navigate = useNavigate();
-  const {dispatch} = useContext(StateContext) as StateContextType
+  const {state: {rezeptCooking}, dispatch} = useContext(StateContext) as StateContextType
   const {
     isLoading,
     isSuccess,
@@ -32,15 +29,17 @@ export function RezeptDetail() {
 
   useEffect(() => {
     dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: rezept})
+    if (rezept)
+      dispatch({type: ActionTypes.PUSH_REZEPT_ID, payload: {_id: rezept._id || '', name: rezept.name}})
   }, [rezept, dispatch])
 
-  const [rezeptCooking, setRezeptCooking] = useLocalStorage<Rezept | null>("rezept_cooking", null)
-
+  
   function startCooking() {
     if (rezeptCooking)
       alert("overwrite")
     //alert(rezept?.name||'nothing')
-    setRezeptCooking(rezept)
+    dispatch({type: ActionTypes.SET_REZEPT_COOK, payload: rezept})
+    //setRezeptCooking(rezept)
     navigate('/rezept-cooking/')
   }
 

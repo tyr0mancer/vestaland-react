@@ -8,7 +8,9 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    opacity: 0.8
+    opacity: 0.8;
+
+    padding-top: 60px;
 }
 
 a {
@@ -16,13 +18,17 @@ a {
 }
 
 /* Navbar-Anpassungen */
+.main-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #b4f7b7;
+}
+
 .main-nav-button.active {
     font-size: larger;
     font-weight: bold;
-}
-
-.navbar {
-    background-color: #b4f7b7;
 }
 
 .nav-link {

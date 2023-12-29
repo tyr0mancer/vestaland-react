@@ -8,8 +8,6 @@ import ScannerIcon from "@mui/icons-material/QrCodeScanner";
 import EditIcon from "@mui/icons-material/EditNote";
 import CookingIcon from "@mui/icons-material/Blender";
 import {Link} from "react-router-dom";
-import useLocalStorage from "use-local-storage";
-import {Rezept} from "../../models/rezept.model";
 import {OverridableComponent} from "@mui/material/OverridableComponent";
 import {StateContext} from "../../services/contexts/StateProvider";
 import {StateContextType} from "../../services/contexts/types";
@@ -25,8 +23,7 @@ interface FooterItem {
 export function FooterMain() {
   const {state} = useContext(StateContext) as StateContextType
   const [footer, setFooter] = useState<FooterItem[]>([])
-  const [rezeptCooking,] = useLocalStorage<Rezept | null>("rezept_cooking", null)
-  const [rezeptEdit,] = useLocalStorage<Rezept | null>("rezept_editor", null)
+
   const {isAuthorized,} = useAuth()
 
   useEffect(() => {
@@ -50,15 +47,15 @@ export function FooterMain() {
       disabled: !isAuthorized()
     })
 
-    if (rezeptCooking !== null && isAuthorized()) {
+    if (state.rezeptCooking) {
       newFooter.push({
-        label: "Kochen",
+        label: state.rezeptCooking.name,
         icon: CookingIcon,
         to: 'rezept-cooking'
       })
-    } else if (rezeptEdit !== null && isAuthorized()) {
+    } else if (state.rezeptEditing  && isAuthorized()) {
       newFooter.push({
-        label: "Editieren",
+        label: state.rezeptEditing.name || "Editieren",
         icon: EditIcon,
         to: 'rezept-editor'
       })
@@ -70,7 +67,7 @@ export function FooterMain() {
 
 
     setFooter(newFooter)
-  }, [rezeptEdit, setFooter, state, isAuthorized, rezeptCooking])
+  }, [setFooter, state, isAuthorized])
 
   return (
     <Paper sx={{position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>

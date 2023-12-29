@@ -13,14 +13,25 @@ const rezeptSucheQueryDefault: RezeptSucheQuery = {
 
 const defaultState: State = {
   rezeptSucheQuery: rezeptSucheQueryDefault,
-  rezeptHistory: []
+  rezeptHistory: [],
 }
 
 
 export const StateContext = React.createContext<StateContextType | undefined>(undefined);
 
 export const StateProvider = ({children}: any) => {
-  const [state, dispatch] = useReducer(reducer, defaultState);
+  const initialState = () => {
+    const rezeptCookingString = localStorage.getItem('rezept_cooking');
+    const rezeptEditString = localStorage.getItem('rezept_editor');
+
+    //return rezeptCookingString ? {...defaultState, rezeptCooking: JSON.parse(rezeptCookingString)} : defaultState;
+    return {
+      ...defaultState,
+      rezeptCooking: rezeptCookingString ? JSON.parse(rezeptCookingString) : undefined,
+      rezeptEditing: rezeptEditString ? JSON.parse(rezeptEditString) : undefined
+    }
+  };
+  const [state, dispatch] = useReducer(reducer, initialState());
 
 
   return (

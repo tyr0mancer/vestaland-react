@@ -39,13 +39,6 @@ export function NavbarMain() {
       name: 'Rezepte',
       target: 'rezepte'
     },
-    /*
-        {
-          name: 'Neues Rezept',
-          target: 'rezept-editor',
-          restricted: true
-        },
-    */
     {
       name: 'Einkaufslisten',
       target: 'einkaufsliste',
@@ -94,9 +87,10 @@ export function NavbarMain() {
     setAnchorElUser(null);
   };
 
+  //<AppBar position="static" style={{backgroundColor: '#b4f7b7'}}>
   return (
-    <AppBar position="static" style={{backgroundColor: '#b4f7b7'}}>
-      <Container maxWidth="xl">
+    <AppBar position="static">
+      <Container maxWidth="xl" className={'main-nav'}>
         <Toolbar disableGutters>
           <Typography
             variant="h6"

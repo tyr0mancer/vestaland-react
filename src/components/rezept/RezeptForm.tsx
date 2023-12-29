@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Field, FieldArray, FieldArrayRenderProps, Form, Formik, useFormikContext,} from 'formik';
 import {Kochschritt, Rezept} from "../../models/rezept.model";
 import {Zutat} from "../../models/zutat.model";
 import Box from "@mui/material/Box";
 import {Hilfsmittel} from "../../models/hilfsmittel.model";
-import useLocalStorage from "use-local-storage";
 import {HilfsmittelPicker} from "../form-elements/HilfsmittelPicker";
 import {LebensmittelPicker} from "../form-elements/LebensmittelPicker";
 import {Lebensmittel} from "../../models/lebensmittel.model";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../services/contexts/types";
 
 export const RezeptForm = () => {
-  const [rezeptCache, setRezeptCache] = useLocalStorage<Rezept | null>("rezept_editor", null)
+  const {state: {rezeptEditing}} = useContext(StateContext) as StateContextType
 
   const handleSave = (rezept: Rezept) => {
     rezept.zutaten = []
@@ -28,21 +29,19 @@ export const RezeptForm = () => {
       //rezept._id = 'neueIDxzy'
     }
 
-    setRezeptCache(() => rezept)
+    localStorage.setItem('rezept_editor', JSON.stringify(rezept));
   }
-
-
 
 
   return (<>
       <Formik<Rezept>
-        initialValues={rezeptCache || new Rezept()}
+        initialValues={rezeptEditing || new Rezept()}
         onSubmit={handleSave}
         enableReinitialize
       >
         <InnerForm/>
       </Formik>
-      <pre>{JSON.stringify(rezeptCache, null, 2)}</pre>
+      <pre>rezeptEditing {JSON.stringify(rezeptEditing, null, 2)}</pre>
     </>
   );
 };
@@ -50,18 +49,16 @@ export const RezeptForm = () => {
 const InnerForm = () => {
   const navigate = useNavigate();
   const formik = useFormikContext<Rezept>();
+  const {dispatch} = useContext(StateContext) as StateContextType
 
   const handleCancel = () => {
-    setRezeptCache(() => null)
+    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
     navigate('/rezepte')
-    formik.resetForm()
   }
 
-  // speichert aktuellen Stand lokal und offline Verfügbar
-  const [, setRezeptCache] = useLocalStorage<Rezept | null>("rezept_editor", null)
   useEffect(() => {
-    setRezeptCache(formik.values)
-  }, [formik.values, setRezeptCache]);
+    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: formik.values})
+  }, [formik.values, dispatch]);
 
   return (<Form>
       <Field name="name"/>

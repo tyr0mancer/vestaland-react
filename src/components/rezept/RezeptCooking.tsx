@@ -1,20 +1,24 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
 import {RezeptZutaten} from "./RezeptZutaten";
-import useLocalStorage from "use-local-storage";
-import {Rezept} from "../../models/rezept.model";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {StateContextType} from "../../services/contexts/types";
 
 export function RezeptCooking() {
+  const {state: {rezeptCooking}} = useContext(StateContext) as StateContextType
+
+  useEffect(() => {
+    if (rezeptCooking)
+      localStorage.setItem('rezept_cooking', JSON.stringify(rezeptCooking));
+  }, [rezeptCooking])
 
 
-  const [rezept,] = useLocalStorage<Rezept | null>("rezept_cooking", new Rezept())
-
-  if (rezept)
+  if (rezeptCooking)
     return (<>
-      <h1>{rezept.name}</h1>
+      <h1>{rezeptCooking.name}</h1>
       <hr/>
-      <RezeptZutaten zutaten={rezept?.zutaten}/>
+      <RezeptZutaten zutaten={rezeptCooking?.zutaten}/>
       <hr/>
-      <pre>{JSON.stringify(rezept, null, 2)}</pre>
+      <pre>{JSON.stringify(rezeptCooking, null, 2)}</pre>
     </>)
 
   return (<>Fehler</>)
