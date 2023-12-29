@@ -29,7 +29,7 @@ export function KocheRezept() {
       return setProgress(100)
     const result = kochstatus.kochschrittIndex / rezeptCooking?.kochschritte?.length * 100
     setProgress(result)
-  }, [kochstatus])
+  }, [kochstatus, rezeptCooking, setProgress])
 
 
   if (rezeptCooking)
