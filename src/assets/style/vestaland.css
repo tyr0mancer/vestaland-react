@@ -110,3 +110,9 @@ a {
     margin-top: 20px;
     padding: 20px;
 }
+
+
+
+.aktueller-kochschritt {
+    background-color: lightblue !important;
+}

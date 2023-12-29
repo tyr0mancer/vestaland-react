@@ -12,7 +12,7 @@ import {Startseite} from "./components/pages/Startseite";
 import {KocheRezept} from "./components/pages/KocheRezept";
 
 
-import {RezeptForm} from "./components/pages/rezept/RezeptForm";
+import {RezeptForm} from "./components/pages/RezeptForm";
 import {EinkaufsListe} from "./components/pages/EinkaufsListe";
 import {BenutzerInfo} from "./components/pages/BenuzterInfo";
 import {LoginForm} from "./components/pages/benutzer/LoginForm";

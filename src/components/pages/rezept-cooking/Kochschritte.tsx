@@ -38,10 +38,20 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
   }
 
   const setIndex = (neuerKochschrittIndex: number) => {
+    console.log('index', neuerKochschrittIndex)
+    const restZeit = kochschritte.filter((k, index) => (index >= neuerKochschrittIndex)).reduce((a, c) => {
+      return a + (c.gesamtdauer || 0)
+    }, 0)
+
+    const etd = getDateInFuture(restZeit)
+
+    // calculate time left
+
     dispatch({
       type: ActionTypes.SET_KOCHSTATUS, payload: {
         ...kochstatus,
-        kochschrittFokus: 'panel'+neuerKochschrittIndex,
+        etd,
+        kochschrittFokus: 'panel' + neuerKochschrittIndex,
         kochschrittIndex: neuerKochschrittIndex
       }
     })
@@ -59,6 +69,7 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
 
       {kochschritte.map((kochschritt, index) =>
         <Accordion key={index} expanded={kochstatus.kochschrittFokus === 'panel' + index}
+                   className={(index !== kochstatus.kochschrittIndex) ? '' : 'aktueller-kochschritt'}
                    onChange={handleChange('panel' + index)}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon/>}
@@ -72,7 +83,7 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
               sx={{color: 'text.secondary'}}>
               {kochschritt.zutaten.reduce(kochschrittLebensmittelReducer, '')}
               {kochschritt.hilfsmittel.reduce(kochschrittHilfsmittelReducer, '')}
-              {kochschritt.dauer && <i>{kochschritt.dauer} Minuten</i>}
+              {kochschritt.gesamtdauer && <i>{kochschritt.gesamtdauer} Minuten</i>}
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
@@ -82,8 +93,11 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
                 {kochschritt.zutaten.map((zutat, index) => <ListItem disablePadding
                                                                      key={index}>{zutat.menge} {zutat.einheit} {zutat.lebensmittel?.name}</ListItem>)}
               </List>
-              {kochstatus.kochschrittIndex === index &&
+              {index === kochstatus.kochschrittIndex &&
                   <Button onClick={() => setIndex(index + 1)}>Abschließen</Button>
+              }
+              {index === (kochstatus.kochschrittIndex - 1) &&
+                  <Button onClick={() => setIndex(index)}>Reopen</Button>
               }
             </Typography>
           </AccordionDetails>
@@ -91,4 +105,11 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
       )}
     </div>
   );
+}
+
+
+export function getDateInFuture(minutes: number) {
+  const now = new Date();
+  const millisecondsToAdd = minutes * 60 * 1000;
+  return new Date(now.getTime() + millisecondsToAdd);
 }

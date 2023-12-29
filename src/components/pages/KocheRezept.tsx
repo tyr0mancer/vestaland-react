@@ -35,9 +35,9 @@ export function KocheRezept() {
   if (rezeptCooking)
     return (<>
       <h1>{rezeptCooking.name}</h1>
+      {kochstatus.etd && <h2>ETD: {kochstatus.etd?.toString()}</h2>}
+      {!kochstatus.etd && <h2>Gesamtdauer {rezeptCooking.gesamtdauer} Minuten</h2>}
       <LinearProgress variant="determinate" value={progress}/>
-
-
       <hr/>
       <RezeptZutaten zutaten={rezeptCooking?.zutaten}/>
       <hr/>

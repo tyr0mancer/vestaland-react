@@ -1,34 +1,66 @@
 import React, {useContext, useEffect} from 'react';
 import {Field, FieldArray, FieldArrayRenderProps, Form, Formik, useFormikContext,} from 'formik';
-import {Kochschritt, Rezept} from "../../../models/rezept.model";
-import {Zutat} from "../../../models/zutat.model";
+import {Kochschritt, Rezept} from "../../models/rezept.model";
+import {Zutat} from "../../models/zutat.model";
 import Box from "@mui/material/Box";
-import {Hilfsmittel} from "../../../models/hilfsmittel.model";
-import {HilfsmittelPicker} from "../../form-elements/HilfsmittelPicker";
-import {LebensmittelPicker} from "../../form-elements/LebensmittelPicker";
-import {Lebensmittel} from "../../../models/lebensmittel.model";
+import {Hilfsmittel} from "../../models/hilfsmittel.model";
+import {HilfsmittelPicker} from "../form-elements/HilfsmittelPicker";
+import {LebensmittelPicker} from "../form-elements/LebensmittelPicker";
+import {Lebensmittel} from "../../models/lebensmittel.model";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
-import {rezeptPost, rezeptPut} from "../../../services/api/rezeptService";
+import {StateContext} from "../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../services/contexts/types";
+import {rezeptPost, rezeptPut} from "../../services/api/rezeptService";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
+
+
+interface KochschrittSummary {
+  arbeitszeit: number,
+  wartezeit: number,
+  gesamtdauer: number,
+  zutaten: Zutat[],
+  hilfsmittel: Hilfsmittel[]
+}
+
+const kochschrittSummaryDefault: KochschrittSummary = {
+  arbeitszeit: 0,
+  wartezeit: 0,
+  gesamtdauer: 0,
+  zutaten: [],
+  hilfsmittel: []
+}
+
+const kochschrittReducer = (summary: KochschrittSummary, kochschritt: Kochschritt) => {
+  let zutaten = kochschritt.zutaten.reduce((bisherigeListe, zutat) => {
+    return [...bisherigeListe, zutat]
+  }, summary.zutaten)
+
+  let hilfsmittel = [...summary.hilfsmittel, ...kochschritt.hilfsmittel]
+  let arbeitszeit = summary.arbeitszeit + (kochschritt?.arbeitszeit || 0)
+  let wartezeit = summary.wartezeit + (kochschritt?.wartezeit || 0)
+  let gesamtdauer = summary.wartezeit + (kochschritt?.gesamtdauer || arbeitszeit + wartezeit)
+
+  return {
+    arbeitszeit,
+    wartezeit,
+    gesamtdauer,
+    zutaten,
+    hilfsmittel
+  }
+}
+
 
 export const RezeptForm = () => {
     const {state: {rezeptEditing}, dispatch} = useContext(StateContext) as StateContextType
 
-    const zutatenReducer = (zutaten: Zutat[], kochschritt: Kochschritt) => {
-      return kochschritt.zutaten.reduce((bisherigeListe, zutat) => {
-        return [...bisherigeListe, zutat]
-      }, zutaten)
-    }
-    const hilfsmittelReducer = (hilfsmittel: Hilfsmittel[], kochschritt: Kochschritt) => {
-      return [...hilfsmittel, ...kochschritt.hilfsmittel]
-    }
-
     const handleSave = (rezept: Rezept) => {
-      rezept.zutaten = rezept.kochschritte.reduce(zutatenReducer, [])
-      rezept.hilfsmittel = rezept.kochschritte.reduce(hilfsmittelReducer, [])
+      const kochschritteSummary = rezept.kochschritte.reduce(kochschrittReducer, kochschrittSummaryDefault)
+      rezept.zutaten = kochschritteSummary.zutaten
+      rezept.hilfsmittel = kochschritteSummary.hilfsmittel
+      rezept.gesamtdauer = kochschritteSummary.gesamtdauer
+      rezept.arbeitszeit = kochschritteSummary.arbeitszeit
+      rezept.wartezeit = kochschritteSummary.wartezeit
       localStorage.setItem('rezept_editor', JSON.stringify(rezept));
       dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
     }
@@ -126,7 +158,9 @@ function KochSchritteForm({name, values: kochschritte}: FieldArrayFormProps<Koch
             <Box style={{backgroundColor: "#ccc", border: "2px solid green", margin: "20px 0"}} key={index}>
               <p>Aktion: <Field name={`${name}[${index}][name]`}/></p>
               <p>Beschreibung: <Field name={`${name}[${index}][beschreibung]`}/></p>
-              <p>Dauer: <Field name={`${name}[${index}][dauer]`}/></p>
+              <p>Dauer: <Field type="number" name={`${name}[${index}][gesamtdauer]`}/></p>
+              <p>Arbeitszeit: <Field type="number" name={`${name}[${index}][arbeitszeit]`}/></p>
+              <p>Wartezeit: <Field type="number" name={`${name}[${index}][wartezeit]`}/></p>
 
               {/*
               public meta?: KochschrittMeta;

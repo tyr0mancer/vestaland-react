@@ -11,7 +11,9 @@ export class KochschrittMeta {
 export class Kochschritt {
   public name: string = "";
   public beschreibung?: string;
-  public dauer?: number;
+  public gesamtdauer?: number;
+  public arbeitszeit?: number;
+  public wartezeit?: number;
   public zutaten: Zutat[] = [];
   public hilfsmittel: Hilfsmittel[] = [];
   public meta?: KochschrittMeta;
@@ -28,6 +30,9 @@ export class Rezept {
   public name: string = '';
   public beschreibung?: string;
   public portionen: number = 1;
+  public gesamtdauer?: number;
+  public arbeitszeit?: number;
+  public wartezeit?: number;
   public author?: Benutzer;
   public bild?: Datei;
   public zutaten: Zutat[] = [];
