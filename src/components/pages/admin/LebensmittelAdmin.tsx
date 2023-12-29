@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Button, Container, Form, InputGroup, ListGroup} from "react-bootstrap";
 
-import {useDebounce} from "../../services/hooks/use-debounce";
-import {lebensmittelDelete, lebensmittelSuche} from "../../services/api/lebensmittelService";
+import {useDebounce} from "../../../services/hooks/use-debounce";
+import {lebensmittelDelete, lebensmittelSuche} from "../../../services/api/lebensmittelService";
 import {FaFileCircleMinus, FaPenToSquare} from "react-icons/fa6";
 
 

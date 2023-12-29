@@ -1,16 +1,16 @@
 import React, {useContext, useEffect} from 'react';
 import {Field, FieldArray, FieldArrayRenderProps, Form, Formik, useFormikContext,} from 'formik';
-import {Kochschritt, Rezept} from "../../models/rezept.model";
-import {Zutat} from "../../models/zutat.model";
+import {Kochschritt, Rezept} from "../../../models/rezept.model";
+import {Zutat} from "../../../models/zutat.model";
 import Box from "@mui/material/Box";
-import {Hilfsmittel} from "../../models/hilfsmittel.model";
-import {HilfsmittelPicker} from "../form-elements/HilfsmittelPicker";
-import {LebensmittelPicker} from "../form-elements/LebensmittelPicker";
-import {Lebensmittel} from "../../models/lebensmittel.model";
+import {Hilfsmittel} from "../../../models/hilfsmittel.model";
+import {HilfsmittelPicker} from "../../form-elements/HilfsmittelPicker";
+import {LebensmittelPicker} from "../../form-elements/LebensmittelPicker";
+import {Lebensmittel} from "../../../models/lebensmittel.model";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/types";
 
 export const RezeptForm = () => {
     const {state: {rezeptEditing}, dispatch} = useContext(StateContext) as StateContextType

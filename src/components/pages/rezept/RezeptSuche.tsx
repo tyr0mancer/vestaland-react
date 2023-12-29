@@ -2,16 +2,16 @@ import React, {useContext, useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {Form, InputGroup} from "react-bootstrap";
 
-import {rezeptSuche} from "../../services/api/rezeptService";
-import {useDebounce} from "../../services/hooks/use-debounce";
-import {Rezept} from "../../models/rezept.model";
-import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../services/contexts/types";
-import {StateContext} from "../../services/contexts/StateProvider";
+import {rezeptSuche} from "../../../services/api/rezeptService";
+import {useDebounce} from "../../../services/hooks/use-debounce";
+import {Rezept} from "../../../models/rezept.model";
+import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/StateProvider";
 import {Link, useNavigate} from "react-router-dom";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/AddCircle";
-import {useAuth} from "../../services/auth/AuthProvider";
-import {BenutzerRolle} from "../../services/auth/types";
+import {useAuth} from "../../../services/auth/AuthProvider";
+import {BenutzerRolle} from "../../../services/auth/types";
 
 export function RezeptSuche() {
   const {isAuthorized} = useAuth();

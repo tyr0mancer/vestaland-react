@@ -5,10 +5,10 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import useLocalStorage from "use-local-storage";
-import {Kochstatus} from "../../services/contexts/types";
-import {Kochschritt} from "../../models/rezept.model";
-import {Zutat} from "../../models/zutat.model";
-import {Hilfsmittel} from "../../models/hilfsmittel.model";
+import {Kochstatus} from "../../../services/contexts/types";
+import {Kochschritt} from "../../../models/rezept.model";
+import {Zutat} from "../../../models/zutat.model";
+import {Hilfsmittel} from "../../../models/hilfsmittel.model";
 
 interface KochschritteProps {
   kochschritte: Kochschritt[]

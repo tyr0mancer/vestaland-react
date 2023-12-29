@@ -1,7 +1,7 @@
 import {Button, Form} from "react-bootstrap";
 import React, {useState} from "react";
-import {useAuth} from "../../services/auth/AuthProvider";
-import {loginService} from "../../services/api/authService";
+import {useAuth} from "../../../services/auth/AuthProvider";
+import {loginService} from "../../../services/api/authService";
 import {useNavigate} from "react-router-dom";
 
 export function LoginForm() {

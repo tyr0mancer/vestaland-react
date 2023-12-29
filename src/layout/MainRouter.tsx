@@ -1,24 +1,24 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {RezeptDetailView} from "./views/RezeptDetailansicht.view";
-import {RezepteSucheView} from "./views/RezepteSuche.view";
-import {Login} from "./views/login.view";
-import {BenutzerView} from "./views/Benutzer.view";
-import {ErrorPageView} from "./views/ErrorPage.view";
-import {ImpressumView} from "./views/Impressum.view";
-import {EinkaufsListeView} from "./views/EinkaufsListe.view";
-import {AdminView} from "./views/Admin.view";
 
-import {Container} from "react-bootstrap";
-import {StartseiteView} from "./views/StartseiteView";
-import {FooterMain} from "./wrapper/FooterMain";
-import {RezeptForm} from "../components/rezept/RezeptForm";
-import {NavbarMain} from "./wrapper/NavBarMain";
-import {RezeptCookingView} from "./views/RezeptCooking.view";
+import {ErrorPageView} from "./views/ErrorPage.view";
+import {EditorView} from "./views/Editor.view";
+import {DefaultView} from "./views/Default.view";
+
+import {RezepteSuche} from "../components/pages/RezepteSuche";
+import {Impressum} from "../components/pages/Impressum";
+import {AdminView} from "./views/Admin.view";
+import {Startseite} from "../components/pages/Startseite";
+import {KocheRezept} from "../components/pages/KocheRezept";
+
+
+import {RezeptForm} from "../components/pages/rezept/RezeptForm";
+import {EinkaufsListe} from "../components/pages/EinkaufsListe";
+import {BenutzerInfo} from "../components/pages/BenuzterInfo";
+import {LoginForm} from "../components/pages/benutzer/LoginForm";
+import {RezeptDetail} from "../components/pages/rezept/RezeptDetail";
 
 export function MainRouter() {
-  // <Route path="/" element={<Navigate replace to="/rezepte" />} />
-
   return (
     <BrowserRouter>
       <Routes>
@@ -31,28 +31,27 @@ export function MainRouter() {
 export function MainLayout() {
 
   return (<>
-    <NavbarMain/>
+    <Routes>
+      <Route path="/" element={<DefaultView children={<Startseite/>}/>}/>
 
-    <Container className="main-layout">
-      <Routes>
-        <Route path="/" element={<StartseiteView/>}/>
-        <Route path="/rezepte" element={<RezepteSucheView/>}/>
-        <Route path="/rezept-editor" element={<RezeptForm/>}/>
-        <Route path="/rezept-cooking" element={<RezeptCookingView/>}/>
-        <Route path="/rezepte/:rezeptId" element={<RezeptDetailView/>}/>
-        <Route path="/einkaufsliste" element={<EinkaufsListeView/>}/>
+      <Route path="/rezepte" element={<DefaultView children={<RezepteSuche/>}/>}/>
+      <Route path="/rezepte/:rezeptId" element={<DefaultView children={<RezeptDetail/>}/>}/>
 
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/user" element={<BenutzerView/>}/>
+      <Route path="/rezept-editor" element={<EditorView children={<RezeptForm/>}/>}/>
 
-        <Route path="/impressum" element={<ImpressumView/>}/>
-        <Route path="/admin/*" element={<AdminView/>}/>
+      <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
+      <Route path="/einkaufsliste" element={<DefaultView children={<EinkaufsListe/>} loginRequired={true}/>}/>
 
-        <Route path="*" element={<ErrorPageView error={{code: 404, message: "Seite nicht gefunden."}}/>}/>
-      </Routes>
-    </Container>
+      <Route path="/login" element={<DefaultView children={<LoginForm/>}/>}/>
+      <Route path="/user" element={<DefaultView children={<BenutzerInfo/>}/>}/>
+      <Route path="/impressum" element={<DefaultView children={<Impressum/>}/>}/>
 
-    <FooterMain/>
+      <Route path="/admin/*" element={<AdminView/>}/>
+
+      <Route path="*" element={<ErrorPageView error={{code: 404, message: "Seite nicht gefunden."}}/>}/>
+    </Routes>
   </>);
 }
+
+
 

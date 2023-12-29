@@ -2,10 +2,10 @@ import React, {useContext, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import {useQuery} from "@tanstack/react-query";
-import {rezeptDetail} from "../../services/api/rezeptService";
+import {rezeptDetail} from "../../../services/api/rezeptService";
 import {RezeptZutaten} from "./RezeptZutaten";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/types";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();

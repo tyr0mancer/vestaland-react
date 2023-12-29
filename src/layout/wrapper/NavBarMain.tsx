@@ -87,138 +87,139 @@ export function NavbarMain() {
     setAnchorElUser(null);
   };
 
-  //<AppBar position="static" style={{backgroundColor: '#b4f7b7'}}>
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl" className={'main-nav'}>
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            noWrap
-            component={Link}
-            to="/"
-            sx={{
-              mr: 2,
-              display: {xs: 'none', md: 'flex'},
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-          </Typography>
-
-          <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon style={{color: "#394d3a"}}/>
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+    <div>
+      <AppBar position="static" style={{width: "100%", backgroundColor: '#f00'}}>
+        <Container maxWidth="xl" className={'main-nav'}>
+          <Toolbar disableGutters>
+            <Typography
+              variant="h6"
+              noWrap
+              component={Link}
+              to="/"
               sx={{
-                display: {xs: 'block', md: 'none'},
+                mr: 2,
+                display: {xs: 'none', md: 'flex'},
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
             >
-              {pages.filter(page => !page.restricted || isAuthorized()).map((page) => (
-                <MenuItem key={page.target} onClick={handleCloseNavMenu}>
-                  <Typography
-                    component={Link}
-                    to={`/${page.target}`}
-                    style={{color: '#394d3a'}}
-                    textAlign="center">{page.name}</Typography>
-                </MenuItem>)
-              )}
-            </Menu>
-          </Box>
-          <Link to={'/'}><img src={logo} alt="Vestaland Logo" style={{height: 48}}/></Link>
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: {xs: 'flex', md: 'none'},
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-          </Typography>
-          <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-            {pages.filter(page => !page.restricted || isAuthorized()).map((page) => (
-              <Button
-                key={page.target}
-                className={'main-nav-button'}
-                component={Link}
-                to={`/${page.target}`}
-                onClick={handleCloseNavMenu}
-                sx={{my: 2, color: '#394d3a', display: 'block'}}
+            </Typography>
+
+            <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {page.name}
-              </Button>
-            ))}
-          </Box>
-
-          <Box sx={{flexGrow: 0}}>
-            {!isAuthorized() && <Tooltip title="Open settings">
-                <IconButton sx={{p: 0}}>
-                    <Link to="/login"><LoginIcon style={{color: "#394d3a"}}/></Link>
-                </IconButton>
-            </Tooltip>}
-
-            {isAuthorized() && <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                    <AccountIcon style={{color: "#394d3a"}}/>
-                </IconButton>
-            </Tooltip>}
-            <Menu
-              sx={{mt: '45px'}}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                <MenuIcon style={{color: "#394d3a"}}/>
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: {xs: 'block', md: 'none'},
+                }}
+              >
+                {pages.filter(page => !page.restricted || isAuthorized()).map((page) => (
+                  <MenuItem key={page.target} onClick={handleCloseNavMenu}>
+                    <Typography
+                      component={Link}
+                      to={`/${page.target}`}
+                      style={{color: '#394d3a'}}
+                      textAlign="center">{page.name}</Typography>
+                  </MenuItem>)
+                )}
+              </Menu>
+            </Box>
+            <Link to={'/'}><img src={logo} alt="Vestaland Logo" style={{height: 48}}/></Link>
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href="#app-bar-with-responsive-menu"
+              sx={{
+                mr: 2,
+                display: {xs: 'flex', md: 'none'},
+                flexGrow: 1,
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              {settings.filter(setting => isAuthorized(setting.requiredRole)).map((setting) => (
-                <MenuItem key={setting.target} onClick={handleCloseUserMenu}>
-                  <Typography component={Link} to={setting.target}
-                              textAlign="center">{setting.name}</Typography>
-                </MenuItem>))}
-            </Menu>
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+            </Typography>
+            <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
+              {pages.filter(page => !page.restricted || isAuthorized()).map((page) => (
+                <Button
+                  key={page.target}
+                  className={'main-nav-button'}
+                  component={Link}
+                  to={`/${page.target}`}
+                  onClick={handleCloseNavMenu}
+                  sx={{my: 2, color: '#394d3a', display: 'block'}}
+                >
+                  {page.name}
+                </Button>
+              ))}
+            </Box>
+
+            <Box sx={{flexGrow: 0}}>
+              {!isAuthorized() && <Tooltip title="Open settings">
+                  <IconButton sx={{p: 0}}>
+                      <Link to="/login"><LoginIcon style={{color: "#394d3a"}}/></Link>
+                  </IconButton>
+              </Tooltip>}
+
+              {isAuthorized() && <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                      <AccountIcon style={{color: "#394d3a"}}/>
+                  </IconButton>
+              </Tooltip>}
+              <Menu
+                sx={{mt: '45px'}}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.filter(setting => isAuthorized(setting.requiredRole)).map((setting) => (
+                  <MenuItem key={setting.target} onClick={handleCloseUserMenu}>
+                    <Typography component={Link} to={setting.target}
+                                textAlign="center">{setting.name}</Typography>
+                  </MenuItem>))}
+              </Menu>
+            </Box>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
   );
 }

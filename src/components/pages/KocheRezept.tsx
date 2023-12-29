@@ -1,12 +1,12 @@
 import React, {useContext, useEffect} from "react";
-import {RezeptZutaten} from "../../components/rezept/RezeptZutaten";
+import {RezeptZutaten} from "./rezept/RezeptZutaten";
 import {StateContext} from "../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../services/contexts/types";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {Kochschritte} from "../../components/rezept-cooking/Kochschritte";
+import {Kochschritte} from "./rezept-cooking/Kochschritte";
 
-export function RezeptCookingView() {
+export function KocheRezept() {
   const {state: {rezeptCooking}, dispatch} = useContext(StateContext) as StateContextType
   const navigate = useNavigate();
 

@@ -1,8 +1,8 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 import {Badge, Card, Col} from "react-bootstrap";
-import {Rezept} from "../../models/rezept.model";
-import rezeptDummy1 from '../../assets/images/dummy/kastenbrot.png';
+import {Rezept} from "../../../models/rezept.model";
+import rezeptDummy1 from '../../../assets/images/dummy/kastenbrot.png';
 
 export function RezeptVorschau({rezept}: { rezept: Rezept }) {
   const navigate = useNavigate();

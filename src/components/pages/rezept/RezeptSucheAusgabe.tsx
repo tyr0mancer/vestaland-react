@@ -2,11 +2,11 @@ import React, {useContext} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {Row} from "react-bootstrap";
 
-import {Rezept} from "../../models/rezept.model";
+import {Rezept} from "../../../models/rezept.model";
 import {RezeptVorschau} from "./RezeptVorschau";
-import {rezeptSuche} from "../../services/api/rezeptService";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {StateContextType} from "../../services/contexts/types";
+import {rezeptSuche} from "../../../services/api/rezeptService";
+import {StateContext} from "../../../services/contexts/StateProvider";
+import {StateContextType} from "../../../services/contexts/types";
 
 export function RezeptSucheAusgabe() {
   const {state} = useContext(StateContext) as StateContextType
