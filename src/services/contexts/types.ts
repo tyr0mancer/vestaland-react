@@ -3,7 +3,7 @@ import React from "react";
 import {Rezept} from "../../models/rezept.model";
 
 export interface RezeptSucheQuery {
-  name: string,
+  rezeptName: string,
   vegetarian: boolean,
   healthy: boolean,
   myRecipes: boolean

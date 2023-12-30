@@ -1,110 +1,42 @@
-import React, {useContext, useEffect, useState} from "react";
-import {useQuery} from "@tanstack/react-query";
-import {Form, InputGroup} from "react-bootstrap";
+import React, {useContext} from 'react';
+import {Formik} from 'formik';
 
-import {rezeptSuche} from "../../../services/api/rezeptService";
-import {useDebounce} from "../../../services/hooks/use-debounce";
-import {Rezept} from "../../../models/rezept.model";
-import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../services/contexts/types";
 import {StateContext} from "../../../services/contexts/StateProvider";
-import {Link, useNavigate} from "react-router-dom";
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/AddCircle";
-import {useAuth} from "../../../services/auth/AuthProvider";
-import {BenutzerRolle} from "../../../services/auth/types";
+import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../services/contexts/types";
+import {RezeptSucheForm} from './RezeptSucheForm';
+import {useQuery} from "@tanstack/react-query";
+import {Rezept} from "../../../models/rezept.model";
+import {rezeptSuche} from "../../../services/api/rezeptService";
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
 
+
 export function RezeptSuche() {
-  const {isAuthorized} = useAuth();
-  const navigate = useNavigate();
-  const {state, dispatch} = useContext(StateContext) as StateContextType
-  const [rezeptQuery, setRezeptQuery] = useState<RezeptSucheQuery>(state.rezeptSucheQuery)
-  const rezeptQueryDebounced = useDebounce<RezeptSucheQuery>(rezeptQuery, 300)
-
-  useEffect(() => {
-    dispatch({type: ActionTypes.SET_REZEPT_SUCHE, payload: rezeptQueryDebounced})
-  }, [dispatch, rezeptQueryDebounced])
-
+  const {state: {rezeptSucheQuery}, dispatch} = useContext(StateContext) as StateContextType
   const {
     refetch
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", rezeptQueryDebounced.name],
-      queryFn: () => rezeptSuche(rezeptQueryDebounced.name),
-      enabled: (rezeptQueryDebounced.name.length > 1),
+      queryKey: ["rezept-suche", rezeptSucheQuery?.rezeptName || ''],
+      queryFn: () => rezeptSuche(rezeptSucheQuery.rezeptName),
+      enabled: (rezeptSucheQuery.rezeptName.length > 1),
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
-  const handleNameChange = (event: any) => {
-    setRezeptQuery(q => {
-      return {...q, name: event.target.value}
-    })
-  };
-
-  const handleVegetarianCheck = (event: any) => {
-    setRezeptQuery(q => {
-      return {...q, vegetarian: event.target.checked}
-    })
-  };
-
-  const handleHealthyCheck = (event: any) => {
-    setRezeptQuery(q => {
-      return {...q, healthy: event.target.checked}
-    })
-  };
-
-  function handleSubmit(event: any) {
-    event.preventDefault()
+  async function handleSubmit(rezeptSucheQuery: RezeptSucheQuery) {
+    dispatch({type: ActionTypes.SET_REZEPT_SUCHE, payload: rezeptSucheQuery})
+    await refetch()
   }
 
-
-  return (<>
-
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="mb-3" controlId="formName">
-        <InputGroup>
-          <Form.Control type="text" placeholder="Name des Rezeptes"
-                        value={rezeptQuery.name} onChange={handleNameChange}/>
-          <Button onClick={() => refetch()}>Suche</Button>
-        </InputGroup>
-      </Form.Group>
-      <hr/>
-
-      <Form.Group>
-        <InputGroup>
-          {isAuthorized(BenutzerRolle.BENUTZER) && <Button onClick={() => {
-            navigate('/rezept-editor')
-          }}><AddIcon/></Button>}
-
-          <Form.Check
-            disabled={true}
-            type="switch"
-            id="vegetarian-only"
-            label="Nur vegetarisches"
-            checked={rezeptQuery.vegetarian}
-            onChange={handleVegetarianCheck}
-          />
-          <Form.Check
-            disabled={true}
-            type="switch"
-            id="healthy-only"
-            label="Nur diätisch"
-            checked={rezeptQuery.healthy}
-            onChange={handleHealthyCheck}
-          />
-          <Form.Check
-            disabled={true}
-            type="switch"
-            id="storage-available"
-            label="Nur mit vorrätigen Zutaten"
-          />
-        </InputGroup>
-      </Form.Group>
-    </Form>
-    <hr/>
-
-    <Button component={Link} to={'rezept-editor'}>Neu</Button>
-    <RezeptSucheAusgabe/>
-
-  </>);
+  return (
+    <>
+      <Formik<RezeptSucheQuery>
+        initialValues={rezeptSucheQuery}
+        onSubmit={handleSubmit}
+        enableReinitialize
+      >
+        <RezeptSucheForm/>
+      </Formik>
+      <RezeptSucheAusgabe/>
+    </>
+  );
 }

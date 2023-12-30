@@ -30,7 +30,7 @@ export function RezeptDetail() {
 
   function handleBackToSearch() {
     dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: undefined})
-    navigate('/rezepte/');
+    navigate('/rezepte');
   }
 
   useEffect(() => {

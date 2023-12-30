@@ -6,7 +6,7 @@ import {StateContext} from "../../../services/contexts/StateProvider";
 import {StateContextType} from "../../../services/contexts/types";
 import {ErrorPage} from "../ErrorPage";
 import LoadingIcon from '@mui/icons-material/HourglassBottom';
-import {RezeptCard} from "../rezept/RezeptCard";
+import {RezeptCard} from "./RezeptCard";
 import {Grid} from "@mui/material";
 
 export function RezeptSucheAusgabe() {
@@ -20,8 +20,8 @@ export function RezeptSucheAusgabe() {
     data
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", state.rezeptSucheQuery.name],
-      enabled: (state.rezeptSucheQuery.name.length > 1),
+      queryKey: ["rezept-suche", state.rezeptSucheQuery.rezeptName],
+      enabled: false,
     });
 
   if (isError)
@@ -30,7 +30,7 @@ export function RezeptSucheAusgabe() {
     return <LoadingIcon/>
   return (<div>
       {isSuccess &&
-          <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
+          <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 16}}>
             {data.map((rezept, index) =>
               <Grid item xs={2} sm={4} md={4} key={index}>
                 <RezeptCard key={rezept._id} rezept={rezept}/>
