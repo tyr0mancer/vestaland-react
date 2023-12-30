@@ -12,6 +12,23 @@ export const loginService = async (username: string, password: string): Promise<
   })
 };
 
+export type RegisterUserType = {
+  name: string,
+  email: string,
+  password: string
+}
+export const registerService = async (newUser: RegisterUserType): Promise<LoginResponse> => {
+  return new Promise<LoginResponse>((resolve, reject) => {
+    apiClient.post('/auth/register', newUser)
+      .then(response => {
+        apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
+        resolve(response.data as LoginResponse)
+      })
+      .catch(reject)
+  })
+};
+
+
 export const refreshService = async (): Promise<LoginResponse> => {
   return new Promise<LoginResponse>((resolve, reject) => {
     apiClient.post('/auth/refresh')
