@@ -9,7 +9,7 @@ export function NavbarMain() {
     <>
       {/*Handy Bildschirm*/}
       <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-        <AppBar position="fixed" color="secondary">
+        <AppBar position="fixed" color="secondary" className={'main-nav'}>
           <NavbarMainMobile/>
         </AppBar>
       </Box>

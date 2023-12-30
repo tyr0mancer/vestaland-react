@@ -14,8 +14,24 @@ a {
     color: inherit;
 }
 
+
 /* Main Container (Default-View) */
 .main-content {
-    margin: 65px 0;
+    margin: 60px 0;
     padding-top: 1px;
+}
+
+/* Tablets */
+@media (min-width: 600px) {
+    .main-content {
+        margin: 70px 0;
+    }
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+    .main-content {
+        margin-top: 85px;
+        margin-bottom: 10px;
+    }
 }
