@@ -98,17 +98,15 @@ export function NavbarMainMobile() {
 
         {isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
-                <Typography component={Link}
-                            to={'/user'}
-                            textAlign="center"><PersonIcon/> Mein Vestaland</Typography>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/user'}><PersonIcon/> <span>Mein Vestaland</span></Typography>
             </MenuItem>
         }
 
         {isAuthorized(BenutzerRolle.ADMIN) &&
             <MenuItem onClick={handleCloseNavMenu}>
-                <Typography component={Link}
-                            to={'/admin'}
-                            textAlign="center"><AdminPanelSettingsIcon/> Admin-Bereich</Typography>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/admin'}><AdminPanelSettingsIcon/> <span>Admin-Bereich</span></Typography>
             </MenuItem>
         }
       </Menu>
