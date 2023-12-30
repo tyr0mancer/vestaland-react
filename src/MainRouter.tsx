@@ -8,9 +8,8 @@ import {DefaultView} from "./components/layout/Default.view";
 import {RezepteSuche} from "./components/pages/RezepteSuche";
 import {Impressum} from "./components/pages/Impressum";
 import {AdminView} from "./components/layout/Admin.view";
-import {Startseite} from "./components/pages/Startseite";
+import {Startseite} from "./components/pages/startseite/Startseite";
 import {KocheRezept} from "./components/pages/KocheRezept";
-
 
 import {RezeptForm} from "./components/pages/RezeptForm";
 import {EinkaufsListe} from "./components/pages/EinkaufsListe";

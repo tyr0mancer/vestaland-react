@@ -4,11 +4,11 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {MainRouter} from "./MainRouter";
 import {AuthProvider} from "./services/auth/AuthProvider";
 import {StateProvider} from "./services/contexts/StateProvider";
+import {ThemeProvider} from '@mui/material/styles';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {themeMUI} from "./assets/style/themeMUI";
 import './assets/style/index.css';
 import './assets/style/vestaland.css';
-import './assets/style/startseite.css';
 
 const queryClient = new QueryClient();
 
@@ -17,7 +17,9 @@ function App() {
     <AuthProvider>
       <StateProvider>
         <QueryClientProvider client={queryClient}>
-          <MainRouter/>
+          <ThemeProvider theme={themeMUI}>
+            <MainRouter/>
+          </ThemeProvider>
           {/*<ReactQueryDevtools/>*/}
         </QueryClientProvider>
       </StateProvider>

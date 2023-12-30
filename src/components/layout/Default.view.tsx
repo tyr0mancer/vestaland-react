@@ -1,10 +1,11 @@
 import React from "react";
+import {Paper} from "@mui/material";
+
 import {useAuth} from "../../services/auth/AuthProvider";
-import {ErrorPageView} from "./ErrorPage.view";
-import {NavbarMain} from "./wrapper/NavBarMain";
-import {Container} from "react-bootstrap";
-import {FooterMain} from "./wrapper/FooterMain";
 import {BenutzerRolle} from "../../services/auth/types";
+import {ErrorPageView} from "./ErrorPage.view";
+import {FooterMain} from "./wrapper/FooterMain";
+import {NavbarMain} from "./wrapper/NavbarMain";
 
 interface DefaultViewProps {
   roleRequired?: BenutzerRolle;
@@ -20,10 +21,10 @@ export const DefaultView: React.FC<DefaultViewProps> = ({children, roleRequired,
 
   return (
     <>
-      <NavbarMain />
-      <Container className="main-layout">
+      <NavbarMain/>
+      <Paper>
         {children}
-      </Container>
+      </Paper>
       <FooterMain/>
     </>
   );

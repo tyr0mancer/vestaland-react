@@ -1,7 +1,7 @@
 import React from "react";
-import {NavbarMain} from "./wrapper/NavBarMain";
 import {Container} from "react-bootstrap";
 import {FooterMain} from "./wrapper/FooterMain";
+import {NavbarMain} from "./wrapper/NavbarMain";
 
 export function ErrorPageView({error}: any) {
   return (<div>
