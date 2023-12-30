@@ -5,15 +5,14 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import InfoIcon from "@mui/icons-material/Info";
 import {Menu, MenuItem} from "@mui/material";
 
 import Logo from "../../../assets/images/logo.png";
 import {useAuth} from "../../../services/auth/AuthProvider";
 import {StateContext} from "../../../services/contexts/StateProvider";
 import {StateContextType} from "../../../services/contexts/types";
-import MenuIcon from "@mui/icons-material/Menu";
 import {BenutzerRolle} from "../../../services/auth/types";
+import LoginIcon from "@mui/icons-material/Login";
 
 export function NavbarMainDesktop() {
   const {isAuthorized} = useAuth()
@@ -63,7 +62,7 @@ export function NavbarMainDesktop() {
         sx={{mr: 2}}
         onClick={handleOpenNavMenu}
       >
-        <MenuIcon/>
+        <LoginIcon/>
       </IconButton>
 
       <Menu
@@ -85,8 +84,8 @@ export function NavbarMainDesktop() {
         <MenuItem onClick={handleCloseNavMenu}>
           {!isAuthorized(BenutzerRolle.BENUTZER) &&
               <Typography component={Link}
-                          to={'/'}
-                          textAlign="center"><InfoIcon/> Anmelden</Typography>
+                          to={'/login'}
+                          textAlign="center">Anmelden</Typography>
           }
         </MenuItem>
 
