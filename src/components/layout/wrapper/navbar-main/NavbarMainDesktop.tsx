@@ -11,6 +11,8 @@ import {useAuth} from "../../../../services/auth/AuthProvider";
 import {BenutzerRolle} from "../../../../services/auth/types";
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import PersonIcon from "@mui/icons-material/Person";
 
 export function NavbarMainDesktop() {
   const {isAuthorized} = useAuth()
@@ -74,12 +76,26 @@ export function NavbarMainDesktop() {
         onClose={handleCloseNavMenu}
       >
 
-        {!isAuthorized(BenutzerRolle.BENUTZER) &&
+        {!isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
                 <Typography className={'menu-item'} component={Link}
                             to={'/login'}> <LoginIcon/> <span>Anmelden</span></Typography>
             </MenuItem>
         }
+
+        {isAuthorized() &&
+            <MenuItem onClick={handleCloseNavMenu}>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/user'}><PersonIcon/> <span>Mein Vestaland</span></Typography>
+            </MenuItem>
+        }
+        {isAuthorized(BenutzerRolle.ADMIN) &&
+            <MenuItem onClick={handleCloseNavMenu}>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/admin'}><AdminPanelSettingsIcon/> <span>Admin-Bereich</span></Typography>
+            </MenuItem>
+        }
+
 
       </Menu>
     </Toolbar>
