@@ -1,5 +1,5 @@
 import React from "react";
-import {Paper} from "@mui/material";
+import {Container, Paper} from "@mui/material";
 
 import {useAuth} from "../../services/auth/AuthProvider";
 import {BenutzerRolle} from "../../services/auth/types";
@@ -22,9 +22,11 @@ export const DefaultView: React.FC<DefaultViewProps> = ({children, roleRequired,
   return (
     <>
       <NavbarMain/>
-      <Paper>
-        {children}
-      </Paper>
+      <Container >
+        <Paper className={'main-content'}>
+          {children}
+        </Paper>
+      </Container>
       <FooterMain/>
     </>
   );

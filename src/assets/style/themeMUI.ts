@@ -1,14 +1,9 @@
 import {createTheme} from "@mui/material/styles";
+import { deepmerge } from '@mui/utils';
 
-export const themeMUI = createTheme({
-  palette: {
-    primary: {
-      main: '#394d3a',
-    },
-    secondary: {
-      main: '#b4f7b7',
-    }
-  },
+
+
+const footerTheme = createTheme({
   components: {
     MuiBottomNavigation: {
       styleOverrides: {
@@ -31,3 +26,18 @@ export const themeMUI = createTheme({
     },
   },
 });
+
+export const colorTheme = createTheme({
+  palette: {
+    primary: {
+      main: '#394d3a',
+    },
+    secondary: {
+      main: '#b4f7b7',
+    }
+  }
+});
+
+
+export const themeMUI = createTheme(deepmerge(footerTheme, colorTheme));
+
