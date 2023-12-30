@@ -5,22 +5,21 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
-import StorageIcon from '@mui/icons-material/Warehouse';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
 import InfoIcon from '@mui/icons-material/Info';
-import LoginIcon from '@mui/icons-material/Login';
+import EditNoteIcon from '@mui/icons-material/EditNote';
 import BlenderIcon from '@mui/icons-material/Blender';
 
 import {Divider, Menu, MenuItem} from "@mui/material";
 import {Link} from "react-router-dom";
-import {useAuth} from "../../../services/auth/AuthProvider";
-import {BenutzerRolle} from "../../../services/auth/types";
+import {useAuth} from "../../../../services/auth/AuthProvider";
+import {BenutzerRolle} from "../../../../services/auth/types";
 import {useContext} from "react";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {StateContextType} from "../../../services/contexts/types";
-
+import {StateContext} from "../../../../services/contexts/StateProvider";
+import {StateContextType} from "../../../../services/contexts/types";
 
 export function NavbarMainMobile() {
   const {isAuthorized} = useAuth()
@@ -63,24 +62,26 @@ export function NavbarMainMobile() {
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
       >
+
         <MenuItem onClick={handleCloseNavMenu}>
-          <Typography component={Link}
-                      to={'/'}
-                      textAlign="center"><InfoIcon/> Über Vestaland</Typography>
+          <Typography className={'menu-item'} component={Link}
+                      to={'/'}><InfoIcon/> <span>Über Vestaland</span>
+          </Typography>
         </MenuItem>
 
         {isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
-                <Typography component={Link}
-                            to={'/lagerhaltung'}
-                            textAlign="center"><StorageIcon/> Lagerhaltung</Typography>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/lagerhaltung'}><InventoryIcon/> <span>Lagerhaltung</span>
+                </Typography>
             </MenuItem>
         }
+
         {isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
-                <Typography component={Link}
-                            to={'/rezept-editor'}
-                            textAlign="center"><NoteAddIcon/> Rezept Editor</Typography>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/rezept-editor'}><EditNoteIcon/> <span>Rezept Editor</span>
+                </Typography>
             </MenuItem>
         }
 
@@ -89,9 +90,9 @@ export function NavbarMainMobile() {
 
         {!isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
-                <Typography component={Link}
-                            to={'/login'}
-                            textAlign="center"><LoginIcon/> Anmelden</Typography>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/login'}><NoteAddIcon/> <span>Anmelden</span>
+                </Typography>
             </MenuItem>
         }
 
@@ -114,7 +115,7 @@ export function NavbarMainMobile() {
 
 
       {rezeptCooking && <>
-          <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
+          <Typography variant="h5" component="div" sx={{flexGrow: 1}}>
             {rezeptCooking.name}
           </Typography>
           <Button color="secondary" variant="contained" component={Link}

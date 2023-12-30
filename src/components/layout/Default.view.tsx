@@ -4,8 +4,8 @@ import {Container, Paper} from "@mui/material";
 import {useAuth} from "../../services/auth/AuthProvider";
 import {BenutzerRolle} from "../../services/auth/types";
 import {ErrorPageView} from "./ErrorPage.view";
-import {FooterMain} from "./wrapper/FooterMain";
-import {NavbarMain} from "./wrapper/NavbarMain";
+import {FooterMain} from "./wrapper/footer-main/FooterMain";
+import {NavbarMain} from "./wrapper/navbar-main/NavbarMain";
 
 interface DefaultViewProps {
   roleRequired?: BenutzerRolle;

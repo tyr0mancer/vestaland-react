@@ -5,6 +5,7 @@ import {NavbarMainMobile} from "./NavbarMainMobile";
 import {NavbarMainDesktop} from "./NavbarMainDesktop";
 
 export function NavbarMain() {
+
   return (
     <>
       {/*Handy Bildschirm*/}

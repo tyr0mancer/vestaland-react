@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {useContext} from "react";
 import {Link} from "react-router-dom";
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -7,16 +6,14 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import {Menu, MenuItem} from "@mui/material";
 
-import Logo from "../../../assets/images/logo.png";
-import {useAuth} from "../../../services/auth/AuthProvider";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {StateContextType} from "../../../services/contexts/types";
-import {BenutzerRolle} from "../../../services/auth/types";
+import Logo from "../../../../assets/images/logo.png";
+import {useAuth} from "../../../../services/auth/AuthProvider";
+import {BenutzerRolle} from "../../../../services/auth/types";
 import LoginIcon from "@mui/icons-material/Login";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export function NavbarMainDesktop() {
   const {isAuthorized} = useAuth()
-  const {state: {rezeptCooking}} = useContext(StateContext) as StateContextType
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const handleCloseNavMenu = () => {
@@ -49,10 +46,6 @@ export function NavbarMainDesktop() {
       }
     </Typography>
 
-    {rezeptCooking &&
-        <Link to={'/rezept-cooking'}>{rezeptCooking?.name}</Link>
-    }
-
     <Toolbar>
       <IconButton
         size="large"
@@ -62,7 +55,7 @@ export function NavbarMainDesktop() {
         sx={{mr: 2}}
         onClick={handleOpenNavMenu}
       >
-        <LoginIcon/>
+        <AccountCircleIcon/>
       </IconButton>
 
       <Menu
@@ -81,13 +74,12 @@ export function NavbarMainDesktop() {
         onClose={handleCloseNavMenu}
       >
 
-        <MenuItem onClick={handleCloseNavMenu}>
-          {!isAuthorized(BenutzerRolle.BENUTZER) &&
-              <Typography component={Link}
-                          to={'/login'}
-                          textAlign="center">Anmelden</Typography>
-          }
-        </MenuItem>
+        {!isAuthorized(BenutzerRolle.BENUTZER) &&
+            <MenuItem onClick={handleCloseNavMenu}>
+                <Typography className={'menu-item'} component={Link}
+                            to={'/login'}> <LoginIcon/> <span>Anmelden</span></Typography>
+            </MenuItem>
+        }
 
       </Menu>
     </Toolbar>

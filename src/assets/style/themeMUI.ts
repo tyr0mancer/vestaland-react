@@ -1,23 +1,15 @@
 import {createTheme} from "@mui/material/styles";
 import {deepmerge} from '@mui/utils';
 
+export const COLOR_PRIMARY = '#394d3a'
+export const COLOR_SECONDARY = '#b4f7b7'
 
 const footerTheme = createTheme({
   components: {
-    MuiTypography: {
-      styleOverrides: {
-        root: {
-          marginBottom: '16px',
-        },
-        h1: {
-          marginBottom: '20px',
-        },
-      },
-    },
     MuiBottomNavigation: {
       styleOverrides: {
         root: {
-          backgroundColor: '#b4f7b7',
+          backgroundColor: COLOR_SECONDARY,
         },
       },
     },
@@ -25,7 +17,7 @@ const footerTheme = createTheme({
       styleOverrides: {
         root: {
           '&.Mui-selected': {
-            color: '#394d3a',
+            color: COLOR_PRIMARY,
           },
           '&.Mui-disabled': {
             color: '#aaa',
@@ -39,11 +31,31 @@ const footerTheme = createTheme({
 export const colorTheme = createTheme({
   palette: {
     primary: {
-      main: '#394d3a',
+      main: COLOR_PRIMARY,
     },
     secondary: {
-      main: '#b4f7b7',
+      main: COLOR_SECONDARY,
     }
+  },
+  typography: {
+    h1: {
+      fontSize: '2.6rem',
+    },
+    h2: {
+      fontSize: '2.1rem',
+    },
+    h3: {
+      fontSize: '1.7rem',
+    },
+    h4: {
+      fontSize: '1.4rem',
+    },
+    h5: {
+      fontSize: '1.2rem',
+    },
+    h6: {
+      fontSize: '1.1rem',
+    },
   }
 });
 

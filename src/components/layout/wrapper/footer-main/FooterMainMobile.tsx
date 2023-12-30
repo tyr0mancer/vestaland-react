@@ -8,14 +8,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingIcon from "@mui/icons-material/ShoppingCart";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-import {useAuth} from "../../../services/auth/AuthProvider";
+import {useAuth} from "../../../../services/auth/AuthProvider";
 
 
-export function FooterMain() {
+export function FooterMainMobile() {
   const {isAuthorized,} = useAuth()
 
   return (
-
     <Box sx={{position: 'fixed', bottom: 0, left: 0, right: 0, display: {xs: 'block', md: 'none'}}}>
       <BottomNavigation value={useLocation().pathname} className={'main-footer'}>
         <BottomNavigationAction
