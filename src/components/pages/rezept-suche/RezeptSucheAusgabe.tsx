@@ -6,7 +6,7 @@ import {StateContext} from "../../../services/contexts/StateProvider";
 import {StateContextType} from "../../../services/contexts/types";
 import {ErrorPage} from "../ErrorPage";
 import LoadingIcon from '@mui/icons-material/HourglassBottom';
-import {RezeptCard} from "./RezeptCard";
+import {RezeptCard} from "../rezept/RezeptCard";
 import {Grid} from "@mui/material";
 
 export function RezeptSucheAusgabe() {

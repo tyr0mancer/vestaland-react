@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/AddCircle";
 import {useAuth} from "../../../services/auth/AuthProvider";
 import {BenutzerRolle} from "../../../services/auth/types";
+import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
 
 export function RezeptSuche() {
   const {isAuthorized} = useAuth();
@@ -103,5 +104,7 @@ export function RezeptSuche() {
     <hr/>
 
     <Button component={Link} to={'rezept-editor'}>Neu</Button>
+    <RezeptSucheAusgabe/>
+
   </>);
 }

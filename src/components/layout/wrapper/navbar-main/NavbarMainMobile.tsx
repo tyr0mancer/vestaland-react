@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import InventoryIcon from '@mui/icons-material/Inventory';
-import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import LoginIcon from '@mui/icons-material/Login';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
 import InfoIcon from '@mui/icons-material/Info';
@@ -91,7 +91,7 @@ export function NavbarMainMobile() {
         {!isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
                 <Typography className={'menu-item'} component={Link}
-                            to={'/login'}><NoteAddIcon/> <span>Anmelden</span>
+                            to={'/login'}><LoginIcon/> <span>Anmelden</span>
                 </Typography>
             </MenuItem>
         }

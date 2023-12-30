@@ -9,7 +9,7 @@ import {Menu, MenuItem} from "@mui/material";
 import Logo from "../../../../assets/images/logo.png";
 import {useAuth} from "../../../../services/auth/AuthProvider";
 import {BenutzerRolle} from "../../../../services/auth/types";
-import LoginIcon from "@mui/icons-material/Login";
+import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export function NavbarMainDesktop() {
