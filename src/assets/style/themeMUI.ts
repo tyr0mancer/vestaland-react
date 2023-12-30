@@ -1,10 +1,19 @@
 import {createTheme} from "@mui/material/styles";
-import { deepmerge } from '@mui/utils';
-
+import {deepmerge} from '@mui/utils';
 
 
 const footerTheme = createTheme({
   components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          marginBottom: '16px',
+        },
+        h1: {
+          marginBottom: '20px',
+        },
+      },
+    },
     MuiBottomNavigation: {
       styleOverrides: {
         root: {
