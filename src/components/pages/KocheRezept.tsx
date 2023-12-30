@@ -18,6 +18,7 @@ export function KocheRezept() {
   }, [rezeptCooking])
 
   const handleStop = () => {
+    localStorage.setItem('rezept_cooking', '');
     dispatch({type: ActionTypes.SET_REZEPT_COOK, payload: undefined})
     navigate('/rezepte')
   }
