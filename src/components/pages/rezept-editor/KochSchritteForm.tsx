@@ -1,14 +1,12 @@
 import {Field, FieldArray, FieldArrayRenderProps} from "formik";
 import {Kochschritt} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
-import {Zutat} from "../../../models/zutat.model";
-import {LebensmittelPicker} from "../../form-elements/LebensmittelPicker";
-import {Lebensmittel} from "../../../models/lebensmittel.model";
-import {Hilfsmittel} from "../../../models/hilfsmittel.model";
-import {HilfsmittelPicker} from "../../form-elements/HilfsmittelPicker";
 import React from "react";
+import {ZutatenForm} from "./ZutatenForm";
+import {HilfsmittelForm} from "./HilfsmittelForm";
 
-interface FieldArrayFormProps<T> {
+//@todo umziehen
+export interface FieldArrayFormProps<T> {
   name: string;
   values: T[];
   push?: FieldArrayRenderProps['push'];
@@ -58,62 +56,6 @@ export function KochSchritteForm({name, values: kochschritte}: FieldArrayFormPro
           <hr/>
           <button type="button" onClick={() => arrayHelpers.insert(kochschritte.length, new Kochschritt())}>
             neuer Kochschritt
-          </button>
-        </div>
-      )}
-    />
-  );
-}
-
-function ZutatenForm({name, values: zutaten}: FieldArrayFormProps<Zutat>) {
-  return (
-    <FieldArray
-      name={name}
-      render={arrayHelpers => (
-        <div>
-          {zutaten.map((zutat: Zutat, index: number) => (
-            <div key={index}>
-              <Field name={`${name}[${index}][menge]`}/>
-
-              <Field name={`${name}[${index}][einheit]`}/>
-              <LebensmittelPicker
-                name={`${name}[${index}][lebensmittel]`}
-                values={zutat.lebensmittel || new Lebensmittel()}
-              />
-              <button type="button" onClick={() => arrayHelpers.remove(index)}>
-                - Zutat
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
-            + Zutat
-          </button>
-        </div>
-      )}
-    />
-  )
-}
-
-
-function HilfsmittelForm({name, values}: FieldArrayFormProps<Hilfsmittel>) {
-  return (
-    <FieldArray
-      name={name}
-      render={arrayHelpers => (
-        <div>
-          {values.map((hilfsmittel: Hilfsmittel, index: number) => (
-            <div key={index}>
-              <HilfsmittelPicker
-                name={`${name}[${index}]`}
-                values={hilfsmittel}
-              />
-              <button type="button" onClick={() => arrayHelpers.remove(index)}>
-                - HM
-              </button>
-            </div>
-          ))}
-          <button type="button" onClick={() => arrayHelpers.insert(values.length, new Hilfsmittel())}>
-            + HM
           </button>
         </div>
       )}
