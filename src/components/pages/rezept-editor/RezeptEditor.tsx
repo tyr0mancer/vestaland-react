@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Form, Formik} from "formik";
-import {Button, Typography} from "@mui/material";
+import {Button, Container, Grid, Typography} from "@mui/material";
 
 import {StateContext} from "../../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../../services/contexts/types";
@@ -33,19 +33,25 @@ export function RezeptEditor() {
   useEffect(() => {
     if (!isSuccess || !data) return
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: data})
+    localStorage.setItem('rezept_editor', JSON.stringify(data));
   }, [data, isSuccess])
 
+  const queryClient = useQueryClient();
 
   const {mutate, isPending: isSaving} = useMutation<Rezept>({
     mutationFn: () => rezeptEditing?._id ? rezeptPutService(rezeptEditing) : rezeptPostService(rezeptEditing),
-    onSuccess: (res) => {
-      navigate('/rezept-editor/' + res._id)
+    onSuccess: async (res) => {
+      await queryClient.invalidateQueries({queryKey: ["rezepte-suche"]})
+      queryClient.invalidateQueries({queryKey: ["rezept-detail", res._id]})
+        .then(() => navigate('/rezepte/' + res._id))
     }
   });
 
-  const handlePublish = () => {
-    handleSave()
+  const handlePublish = (rezept: Rezept) => {
+    handleSave(rezept)
     mutate()
+
+
   }
 
   const handleNew = () => {
@@ -54,8 +60,9 @@ export function RezeptEditor() {
     navigate('/rezept-editor/')
   }
 
-  const handleSave = () => {
-    localStorage.setItem('rezept_editor', JSON.stringify(rezeptEditing));
+  const handleSave = (rezept: Rezept) => {
+    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
+    localStorage.setItem('rezept_editor', JSON.stringify(rezept));
   }
 
   if (isLoading) return (<LoadingButton/>)
@@ -65,33 +72,47 @@ export function RezeptEditor() {
       initialValues={rezeptEditing || new Rezept()}
       onSubmit={handlePublish}
       enableReinitialize
-    ><Form>
+    >
+      {({values: rezept}) => {
+        return (
 
-      <Typography variant="h2" borderBottom={1} marginBottom={3}>Rezept-Editor</Typography>
-      <p>{JSON.stringify(rezeptEditing)}</p>
+          <Form>
+            <Container sx={{backgroundColor: 'primary.main', padding: '5px'}}>
+              <Grid columnSpacing={1} container>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="h2" color={'secondary'}>
+                    {!rezeptEditing?._id && <>Neues Rezept</>}
+                    {rezeptEditing?._id && <>Rezept bearbeiten</>}
+                  </Typography>
+                </Grid>
 
+                <Grid item xs={4} md={2}>
+                  <Button color={'secondary'} variant={'outlined'} fullWidth
+                          onClick={handleNew} startIcon={<AppRegistrationIcon color={'secondary'}/>}>Neu</Button>
+                </Grid>
 
-      <Button startIcon={<AppRegistrationIcon/>} color={'secondary'} onClick={handleNew}
-              variant={'contained'}>Neues Rezept</Button>
-      <Button color={'primary'} onClick={handleSave}
-              startIcon={<SaveIcon color="primary"/>} variant={'outlined'}>Speichern</Button>
+                <Grid item xs={4} md={2}>
+                  <Button color={'secondary'} variant={'contained'} fullWidth
+                          onClick={() => handleSave(rezept)} startIcon={<SaveIcon color="primary"/>}>Save</Button>
+                </Grid>
+                <Grid item xs={4} md={2}>
+                  {isSaving &&
+                      <Button color={'secondary'} variant={'contained'} fullWidth disabled={true}
+                              type={'submit'} startIcon={<PublishIcon/>}>...</Button>
+                  }
+                  {!isSaving &&
+                      <Button color={'secondary'} variant={'contained'} fullWidth
+                              type={'submit'} startIcon={<PublishIcon/>}>Upload</Button>
+                  }
+                </Grid>
+              </Grid>
+            </Container>
 
+            <hr/>
 
-      {isSaving &&
-          <Button startIcon={<PublishIcon color={'disabled'}/>} color={'primary'} disabled={true}
-                  variant={'contained'}>...speichert</Button>
-
-      }
-      {!isSaving &&
-          <Button type={'submit'} startIcon={<PublishIcon/>} color={'primary'}
-                  variant={'contained'}>Veröffentlichen</Button>
-      }
-
-
-      <hr/>
-
-      <RezeptEditorForm/>
-    </Form>
+            <RezeptEditorForm/>
+          </Form>)
+      }}
     </Formik>)
 
 }
