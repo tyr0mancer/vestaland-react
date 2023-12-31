@@ -1,8 +1,12 @@
 import {createTheme} from "@mui/material/styles";
 import {deepmerge} from '@mui/utils';
 
-export const COLOR_PRIMARY = '#394d3a'
-export const COLOR_SECONDARY = '#b4f7b7'
+
+export const COLOR_PRIMARY = '#064D0B' // ehem 394d3a
+export const COLOR_SECONDARY = '#94CE98' // ehem b4f7b7
+export const COLOR_TERTIARY = '#76A2A4'
+
+// https://paletton.com/#uid=32Q0u0kjomE93zhearQo9hStIcm // Basis ist #388E3E
 
 const footerTheme = createTheme({
   components: {

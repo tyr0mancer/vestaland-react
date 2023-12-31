@@ -21,20 +21,20 @@ export function FooterMainMobile() {
           component={Link} to={"/rezepte"}
           label={"Kochbuch"}
           value={'/rezepte'}
-          icon={<SearchIcon/>}
+          icon={<SearchIcon color={'primary'}/>}
         />
         <BottomNavigationAction
           component={Link} to={"/einkaufsliste"}
           label={"Einkaufsliste"}
           value={'/einkaufsliste'}
-          icon={<ShoppingIcon/>}
+          icon={<ShoppingIcon color={'primary'}/>}
           disabled={!isAuthorized()}
         />
         <BottomNavigationAction
           component={Link} to={"/essensplan"}
           label={"Essensplan"}
           value={'/essensplan'}
-          icon={<CalendarMonthIcon/>}
+          icon={<CalendarMonthIcon color={'primary'}/>}
           disabled={!isAuthorized()}
         />
       </BottomNavigation>

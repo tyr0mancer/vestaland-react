@@ -111,7 +111,6 @@ export function NavbarMainMobile() {
         }
       </Menu>
 
-
       {rezeptCooking && <>
           <Typography variant="h5" component="div" sx={{flexGrow: 1}}>
             {rezeptCooking.name}

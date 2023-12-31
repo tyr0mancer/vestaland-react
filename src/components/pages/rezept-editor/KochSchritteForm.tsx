@@ -18,10 +18,10 @@ export function KochSchritteForm({name, values: kochschritte}: FieldArrayFormPro
     <FieldArray
       name={name}
       render={arrayHelpers => (
-        <div>
+        <>
           {kochschritte.map((item: Kochschritt, index: number) => (
 
-            <Box style={{backgroundColor: "#ccc", border: "2px solid green", margin: "20px 0"}} key={index}>
+            <Box key={index} className={'kochschritt-form-box'}>
               <p>Aktion: <Field name={`${name}[${index}][name]`}/></p>
               <p>Beschreibung: <Field name={`${name}[${index}][beschreibung]`}/></p>
               <p>Dauer: <Field type="number" name={`${name}[${index}][gesamtdauer]`}/></p>
@@ -29,11 +29,39 @@ export function KochSchritteForm({name, values: kochschritte}: FieldArrayFormPro
               <p>Wartezeit: <Field type="number" name={`${name}[${index}][wartezeit]`}/></p>
 
               {/*
-              public meta?: KochschrittMeta;
+
+              meta.temperatur number
+              meta.hitze string
+
+export enum KochschrittTypus {
+  FREITEXT = 'FREITEXT',
+  SCHNEIDEN = 'schneiden',
+  AUFHITZEN = 'aufhitzen',
+  BRATEN = 'braten',
+  HEISS_BRATEN = 'scharf anbraten',
+  PUTZEN = 'putzen',
+}
+
+export class Kochschritt {
+  public name: string = "";
+  public typus: KochschrittTypus = KochschrittTypus.FREITEXT;
+
+  public beschreibung?: string;
+  public videoUrl?: string;
+  public repeating?: boolean;
+  public gesamtdauer?: number;
+  public arbeitszeit?: number;
+  public wartezeit?: number;
+  public zutaten: Zutat[] = [];
+  public hilfsmittel: Hilfsmittel[] = [];
+  public meta?: KochschrittMeta;
+}
               */}
 
               <ZutatenForm name={`${name}[${index}][zutaten]`} values={item.zutaten}/>
               <HilfsmittelForm name={`${name}[${index}][hilfsmittel]`} values={item.hilfsmittel}/>
+
+
               <button type="button" onClick={() => arrayHelpers.remove(index)}>
                 - Kochschritt entfernen
               </button>
@@ -57,7 +85,7 @@ export function KochSchritteForm({name, values: kochschritte}: FieldArrayFormPro
           <button type="button" onClick={() => arrayHelpers.insert(kochschritte.length, new Kochschritt())}>
             neuer Kochschritt
           </button>
-        </div>
+        </>
       )}
     />
   );
