@@ -34,7 +34,7 @@ export function RezeptEditor() {
     if (!isSuccess || !data) return
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: data})
     localStorage.setItem('rezept_editor', JSON.stringify(data));
-  }, [data, isSuccess])
+  }, [data, isSuccess, dispatch])
 
   const queryClient = useQueryClient();
 
