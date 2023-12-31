@@ -12,9 +12,9 @@ import {KocheRezept} from "./components/pages/KocheRezept";
 
 import {RezeptForm} from "./components/pages/RezeptForm";
 import {EinkaufsListe} from "./components/pages/EinkaufsListe";
-import {BenutzerInfo} from "./components/pages/BenuzterInfo";
+import {BenutzerInfo} from "./components/pages/benutzer/BenuzterInfo";
 import {LoginForm} from "./components/pages/benutzer/LoginForm";
-import {RezeptDetail} from "./components/pages/RezeptDetail";
+import {RezeptDetail} from "./components/pages/rezept-detail/RezeptDetail";
 import {RezeptSuche} from "./components/pages/rezept-suche/RezeptSuche";
 
 export function MainRouter() {

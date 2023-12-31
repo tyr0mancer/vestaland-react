@@ -1,9 +1,9 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
 
-import {useAuth} from "../../services/auth/AuthProvider";
-import {ApiErrorResponse} from "../../services/auth/types";
-import {logoutService} from "../../services/api/authService";
+import {useAuth} from "../../../services/auth/AuthProvider";
+import {ApiErrorResponse} from "../../../services/auth/types";
+import {logoutService} from "../../../services/api/authService";
 import {Button} from "@mui/material";
 
 export function BenutzerInfo() {
