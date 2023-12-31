@@ -12,6 +12,7 @@ import {
   Grid,
   List,
   ListItem,
+  Paper,
   TableBody, TableCell, TableRow,
   Typography
 } from "@mui/material";
@@ -86,14 +87,21 @@ export function RezeptDetail() {
                      alt={rezept.name}
                      title={rezept.name}
                 />}
-          </Grid>
-          <Grid item xs={12} md={3}>
-
             <Typography variant="body1" gutterBottom>
               {rezept?.beschreibung}
             </Typography>
+          </Grid>
+          <Grid item xs={12} md={3}>
 
             <TableBody>
+              <TableRow>
+                <TableCell align="left">
+                  <Typography variant="h4" gutterBottom>
+                    {rezept.portionen} Port.
+                  </Typography>
+                </TableCell>
+                <TableCell align="left"><StartCooking rezept={rezept}/></TableCell>
+              </TableRow>
               <TableRow>
                 <TableCell align="left">Gesamtdauer:</TableCell>
                 <TableCell align="left">{rezept.gesamtdauer} Minuten</TableCell>
@@ -103,7 +111,6 @@ export function RezeptDetail() {
                 <TableCell align="left">{rezept.arbeitszeit} Minuten</TableCell>
               </TableRow>
             </TableBody>
-            <StartCooking rezept={rezept}/>
 
           </Grid>
           <Grid item xs={12} md={3}>
@@ -131,11 +138,11 @@ export function RezeptDetail() {
 
 
 function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
-  return (<>
+  return (<Paper style={{marginTop: 40}}>
+    <hr/>
     <Typography variant="h3" gutterBottom>
       Zubereitung
     </Typography>
-    <hr/>
     <TableBody>
 
       {kochschritte.map((kochschritt, index) =>
@@ -181,5 +188,5 @@ function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
       )}
 
     </TableBody>
-  </>)
+  </Paper>)
 }
