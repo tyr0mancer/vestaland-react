@@ -9,13 +9,14 @@ export class KochschrittMeta {
 }
 
 export enum KochschrittTypus {
-  FREITEXT = 'FREITEXT',
+  FREITEXT = '',
   SCHNEIDEN = 'schneiden',
-  AUFHITZEN = 'aufhitzen',
+  AUFHEIZEN = 'aufheizen',
   BRATEN = 'braten',
   HEISS_BRATEN = 'scharf anbraten',
   PUTZEN = 'putzen',
 }
+
 
 export class Kochschritt {
   public name: string = "";
