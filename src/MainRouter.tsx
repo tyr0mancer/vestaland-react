@@ -2,20 +2,19 @@ import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
 import {ErrorPageView} from "./components/layout/ErrorPage.view";
-import {EditorView} from "./components/layout/Editor.view";
 import {DefaultView} from "./components/layout/Default.view";
 
 import {Impressum} from "./components/pages/Impressum";
 import {AdminView} from "./components/layout/Admin.view";
 import {Startseite} from "./components/pages/startseite/Startseite";
-import {KocheRezept} from "./components/pages/KocheRezept";
+import {KocheRezept} from "./components/pages/rezept-cooking/KocheRezept";
 
-import {RezeptForm} from "./components/pages/RezeptForm";
 import {EinkaufsListe} from "./components/pages/EinkaufsListe";
 import {BenutzerInfo} from "./components/pages/benutzer/BenuzterInfo";
 import {LoginForm} from "./components/pages/benutzer/LoginForm";
 import {RezeptDetail} from "./components/pages/rezept-detail/RezeptDetail";
 import {RezeptSuche} from "./components/pages/rezept-suche/RezeptSuche";
+import {RezeptEditor} from "./components/pages/rezept-editor/RezeptEditor";
 
 export function MainRouter() {
   return (
@@ -36,7 +35,8 @@ export function MainLayout() {
       <Route path="/rezepte" element={<DefaultView children={<RezeptSuche/>}/>}/>
       <Route path="/rezepte/:rezeptId" element={<DefaultView children={<RezeptDetail/>}/>}/>
 
-      <Route path="/rezept-editor" element={<EditorView children={<RezeptForm/>}/>}/>
+      <Route path="/rezept-editor" element={<DefaultView children={<RezeptEditor/>}/>}/>
+      <Route path="/rezept-editor/:rezeptId" element={<DefaultView children={<RezeptEditor/>}/>}/>
 
       <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
       <Route path="/einkaufsliste" element={<DefaultView children={<EinkaufsListe/>} loginRequired={true}/>}/>

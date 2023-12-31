@@ -54,9 +54,11 @@ export function RezeptDetail() {
 
 
   const editRecipe = () => {
-    if (!rezept) return
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
-    navigate('/rezept-editor');
+    /*
+        if (!rezept) return
+        dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
+    */
+    navigate('/rezept-editor/' + rezept?._id);
   }
 
 

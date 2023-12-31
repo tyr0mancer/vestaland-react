@@ -1,17 +1,17 @@
 import React, {useContext, useEffect} from 'react';
 import {Field, FieldArray, FieldArrayRenderProps, Form, Formik, useFormikContext,} from 'formik';
-import {Kochschritt, Rezept} from "../../models/rezept.model";
-import {Zutat} from "../../models/zutat.model";
+import {Kochschritt, Rezept} from "../../../models/rezept.model";
+import {Zutat} from "../../../models/zutat.model";
 import Box from "@mui/material/Box";
-import {Hilfsmittel} from "../../models/hilfsmittel.model";
-import {HilfsmittelPicker} from "../form-elements/HilfsmittelPicker";
-import {LebensmittelPicker} from "../form-elements/LebensmittelPicker";
-import {Lebensmittel} from "../../models/lebensmittel.model";
+import {Hilfsmittel} from "../../../models/hilfsmittel.model";
+import {HilfsmittelPicker} from "../../form-elements/HilfsmittelPicker";
+import {LebensmittelPicker} from "../../form-elements/LebensmittelPicker";
+import {Lebensmittel} from "../../../models/lebensmittel.model";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
-import {StateContext} from "../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../services/contexts/types";
-import {rezeptPost, rezeptPut} from "../../services/api/rezeptService";
+import {StateContext} from "../../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/types";
+import {rezeptPostService, rezeptPutService} from "../../../services/api/rezeptService";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 
 
@@ -68,10 +68,10 @@ export const RezeptForm = () => {
 
 
     const {mutate: neuesRezept} = useMutation({
-      mutationFn: () => rezeptPost(rezeptEditing)
+      mutationFn: () => rezeptPostService(rezeptEditing)
     });
     const {mutate: updateRezept} = useMutation({
-      mutationFn: () => rezeptPut(rezeptEditing)
+      mutationFn: () => rezeptPutService(rezeptEditing)
     });
 
     const queryClient = useQueryClient();
