@@ -5,10 +5,7 @@ import {RezeptSucheQuery, State, StateContextType} from "./types";
 
 
 const rezeptSucheQueryDefault: RezeptSucheQuery = {
-  rezeptName: '',
-  myRecipes: false,
-  vegetarian: false,
-  healthy: false,
+  rezeptName: ''
 }
 
 const defaultState: State = {

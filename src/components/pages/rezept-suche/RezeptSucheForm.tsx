@@ -50,24 +50,36 @@ export function RezeptSucheForm() {
           type="checkbox"
           name="healthy"
           as={FormControlLabel}
-          control={<Checkbox/>}
+          value={true}
+          control={<Checkbox checked={formik.values.healthy}/>}
           label="nur gesundes Essen"
         />
         <Field
           type="checkbox"
-          name="vegetarian"
+          name="vegetarisch"
           as={FormControlLabel}
-          control={<Checkbox/>}
+          value={true}
+          control={<Checkbox checked={formik.values.vegetarisch}/>}
           label="nur vegetarisches"
+        />
+        <Field
+          type="checkbox"
+          name="soulfood"
+          as={FormControlLabel}
+          value={true}
+          control={<Checkbox checked={formik.values.soulfood}/>}
+          label="nur Soulfood"
         />
         <Field
           type="checkbox"
           name="myRecipes"
           as={FormControlLabel}
-          control={<Checkbox/>}
+          value={true}
+          control={<Checkbox checked={formik.values.myRecipes}/>}
           label="nur meine eigenen Rezepte"
         />
       </AccordionDetails>
     </Accordion>
   </Form>)
 }
+

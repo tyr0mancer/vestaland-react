@@ -5,6 +5,7 @@ import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
 import {ActionTypes, StateContextType} from "../../../services/contexts/types";
 import {StateContext} from "../../../services/contexts/StateProvider";
 import {getFileUrl} from "../../../services/api/fileService";
+import {KochSchritteForm} from "./KochSchritteForm";
 
 
 export function RezeptEditorForm() {
@@ -34,11 +35,11 @@ export function RezeptEditorForm() {
 
       <Grid item xs={6} md={2}>
         <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="gesamtdauer" label="gesamtdauer"/>
+               name="gesamtdauer" label="Gesamtdauer"/>
       </Grid>
       <Grid item xs={6} md={2}>
         <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="arbeitszeit" label="arbeitszeit"/>
+               name="arbeitszeit" label="Arbeitszeit"/>
       </Grid>
       <Grid item xs={12} md={8}>
         <Field as={TextField} type="text" variant="outlined" fullWidth
@@ -54,27 +55,31 @@ export function RezeptEditorForm() {
         </>}
       </Grid>
       <Grid item xs={12} md={8}>
+
         <Field
           type="checkbox"
-          name="vegetarisch"
           as={FormControlLabel}
-          control={<Checkbox/>}
+          value={true}
+          name="meta.vegetarisch"
+          control={<Checkbox checked={formik.values.meta?.vegetarisch}/>}
           label="Vegetarisch"
         />
 
         <Field
           type="checkbox"
-          name="healthy"
           as={FormControlLabel}
-          control={<Checkbox/>}
+          value={true}
+          name="meta.healthy"
+          control={<Checkbox checked={formik.values.meta?.healthy}/>}
           label="Diätisch"
         />
 
         <Field
           type="checkbox"
-          name="soulfood"
           as={FormControlLabel}
-          control={<Checkbox/>}
+          value={true}
+          name="meta.soulfood"
+          control={<Checkbox checked={formik.values.meta?.soulfood}/>}
           label="Soulfood"
         />
       </Grid>
@@ -83,14 +88,11 @@ export function RezeptEditorForm() {
     </Grid>
 
     <hr/>
+
+    <KochSchritteForm name="kochschritte" values={formik.values.kochschritte}/>
     <pre>{JSON.stringify(formik.values, null, 2)}</pre>
 
   </>)
 
 }
 
-/*
-public bild?: Datei;
-public kochschritte: Kochschritt[] = [];
-
-*/

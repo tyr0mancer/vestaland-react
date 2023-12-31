@@ -4,9 +4,10 @@ import {Rezept} from "../../models/rezept.model";
 
 export interface RezeptSucheQuery {
   rezeptName: string,
-  vegetarian: boolean,
-  healthy: boolean,
-  myRecipes: boolean
+  vegetarisch?: boolean,
+  healthy?: boolean,
+  myRecipes?: boolean,
+  soulfood?: boolean,
 }
 
 export interface RezeptHistory {
