@@ -1,5 +1,5 @@
 const BASE_URL = 'https://api.vestaland.de/public/uploads/'
-const DUMMY = 'https://api.vestaland.de/public/uploads/7f657b4fe779a981.webp'
+const DUMMY = 'https://api.vestaland.de/public/platzhalter.jpg'
 
 export function getFileUrl(filename?: string) {
   if (!filename)
