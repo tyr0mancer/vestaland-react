@@ -128,7 +128,7 @@ export function RezeptDetail() {
         <RezeptKochschritte kochschritte={rezept.kochschritte}/>
 
         <hr/>
-        {isOwner(rezept.author?._id) &&
+        {isOwner(rezept.autor?._id) &&
             <StartCooking rezept={rezept}/>
         }
 

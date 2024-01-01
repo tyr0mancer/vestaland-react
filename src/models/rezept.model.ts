@@ -42,13 +42,13 @@ export class RezeptMeta {
 export class Rezept {
   public _id?: string;
   public name: string = '';
-  public quelleUrl?: string;
+  public quelleUrl: string[] = [];
   public beschreibung?: string;
   public portionen: number = 1;
   public gesamtdauer?: number;
   public arbeitszeit?: number;
   public wartezeit?: number;
-  public author?: Benutzer;
+  public autor?: Benutzer;
   public bild?: Datei;
   public zutaten: Zutat[] = [];
   public hilfsmittel: Hilfsmittel[] = [];

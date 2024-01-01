@@ -15,6 +15,7 @@ import {LoginForm} from "./components/pages/benutzer/LoginForm";
 import {RezeptDetail} from "./components/pages/rezept-detail/RezeptDetail";
 import {RezeptSuche} from "./components/pages/rezept-suche/RezeptSuche";
 import {RezeptEditor} from "./components/pages/rezept-editor/RezeptEditor";
+import {FormikForm} from "./components/pages/rezept-editor-neu/RezeptEditor";
 
 export function MainRouter() {
   return (
@@ -35,7 +36,7 @@ export function MainLayout() {
       <Route path="/rezepte" element={<DefaultView children={<RezeptSuche/>}/>}/>
       <Route path="/rezepte/:rezeptId" element={<DefaultView children={<RezeptDetail/>}/>}/>
 
-      <Route path="/rezept-editor" element={<DefaultView children={<RezeptEditor/>}/>}/>
+      <Route path="/rezept-editor" element={<DefaultView children={<FormikForm/>}/>}/>
       <Route path="/rezept-editor/:rezeptId" element={<DefaultView children={<RezeptEditor/>}/>}/>
 
       <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
