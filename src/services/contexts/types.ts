@@ -8,6 +8,7 @@ export interface RezeptSucheQuery {
   healthy?: boolean,
   myRecipes?: boolean,
   soulfood?: boolean,
+  zutaten?: string[]
 }
 
 export interface RezeptHistory {

@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
-import {BottomNavigationAction, Box, Typography, BottomNavigation} from "@mui/material";
+import {BottomNavigationAction, Box, BottomNavigation} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import {StateContext} from "../../../../services/contexts/StateProvider";
 import {StateContextType} from "../../../../services/contexts/types";
@@ -18,9 +18,6 @@ export function FooterMainDesktop() {
           label={"Kochbuch"}
           icon={<SearchIcon/>}
         />
-        <Typography variant={"h5"}>
-          {rezeptCooking.name}
-        </Typography>
 
       </BottomNavigation>
     </Box>

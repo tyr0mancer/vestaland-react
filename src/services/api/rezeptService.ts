@@ -1,12 +1,26 @@
 import {apiClient} from "./apiClient";
 import {Rezept} from "../../models/rezept.model";
+import {RezeptSucheQuery} from "../contexts/types";
 
-export const rezeptSuche = (searchQuery: string): Promise<Rezept[]> =>
-  new Promise<Rezept[]>(resolve =>
-    apiClient.get(`/rezept?name=${searchQuery}`)
-      .then(({data}) => resolve(data)
-      )
+export const rezeptSuche = (query: RezeptSucheQuery): Promise<Rezept[]> => {
+
+  let queryString = `name=${query.rezeptName}`
+  if (query.vegetarisch)
+    queryString += `&vegetarisch=1`
+  if (query.healthy)
+    queryString += `&healthy=1`
+  if (query.myRecipes)
+    queryString += `&myRecipes=1`
+  if (query.soulfood)
+    queryString += `&soulfood=1`
+  if (query.zutaten)
+    queryString += `zutaten=${query.zutaten.toString()}`
+
+  return new Promise<Rezept[]>(resolve =>
+    apiClient.get(`/rezept?${queryString}`)
+      .then(({data}) => resolve(data))
   )
+}
 
 
 export const rezeptDetail = async (rezeptId: string): Promise<Rezept> => {

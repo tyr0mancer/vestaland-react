@@ -16,9 +16,9 @@ export function RezeptSuche() {
     refetch
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", rezeptSucheQuery?.rezeptName || ''],
-      queryFn: () => rezeptSuche(rezeptSucheQuery.rezeptName),
-      enabled: (rezeptSucheQuery.rezeptName.length > 1),
+      queryKey: ["rezept-suche", rezeptSucheQuery.rezeptName],
+      queryFn: () => rezeptSuche(rezeptSucheQuery),
+      enabled: (rezeptSucheQuery.rezeptName.length > 0),
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
@@ -35,8 +35,10 @@ export function RezeptSuche() {
         enableReinitialize
       >
         <RezeptSucheForm/>
+
       </Formik>
       <RezeptSucheAusgabe/>
+
     </>
   );
 }

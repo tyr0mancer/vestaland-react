@@ -13,9 +13,9 @@ export function RezeptZutaten({zutaten}: { zutaten: Zutat[] }) {
               key={index}
               sx={{'&:last-child td, &:last-child th': {border: 0}}}
             >
+              <TableCell align="left">{getLebensmittelName(row)}</TableCell>
               <TableCell align="right">{row.menge}</TableCell>
               <TableCell align="left">{row.einheit}</TableCell>
-              <TableCell align="left">{getLebensmittelName(row)}</TableCell>
             </TableRow>
           ))}
         </TableBody>

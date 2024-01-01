@@ -1,18 +1,20 @@
 import axios from 'axios';
 import {ApiErrorResponse} from "../auth/types";
+import config from "../../config";
 
-// @ todo use .env
-//require('dotenv').config()
-//baseURL: 'http://167.172.190.167:3000/api'
+
+const baseURL = config.apiBaseUrl
+
+
 const apiClient = axios.create({
-  baseURL: 'https://api.vestaland.de/api',
+  baseURL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   }
 });
 const refreshClient = axios.create({
-  baseURL: 'https://api.vestaland.de/api',
+  baseURL,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -38,7 +40,7 @@ apiClient.interceptors.response.use(
           console.log('Error while trying to refresh Token', error.response || error)
         })
     }
-    console.log( error.response || error)
+    console.log(error.response || error)
     return Promise.reject(error);
   }
 );
