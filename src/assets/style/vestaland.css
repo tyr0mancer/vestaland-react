@@ -77,15 +77,16 @@ img.startseite.right {
 /* Rezept Suche */
 
 .rezept-suche-card {
-    background-color: #FFD8B7 !important;
-    margin-top: 20px;
+    border: 1px solid #004400;
+    background-color: #E4FDE4 !important;
+
 }
 
 /* Rezept Edit */
 
 .kochschritt-form-box {
-    background-color: #76A2A4;
-    border: 2px solid #064D0B;
+    background-color: #669999;
+    border: 3px solid #004400;
     border-radius: 5px;
 
     padding: 5px;

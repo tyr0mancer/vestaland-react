@@ -23,7 +23,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
 import {RezeptHilfsmittel} from "./RezeptHilfsmittel";
-import {MetaInfo} from "../rezept-suche/RezeptCard";
+import {MetaInfoIcons} from "../rezept-suche/RezeptCard";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();
@@ -89,7 +89,7 @@ export function RezeptDetail() {
                  alt={rezept.name}
                  title={rezept.name}
             />
-            <MetaInfo meta={rezept.meta} fontSize={'large'}/>
+            <MetaInfoIcons meta={rezept.meta} fontSize={'large'}/>
             <Typography variant="body1" gutterBottom>
               {rezept?.beschreibung}
             </Typography>

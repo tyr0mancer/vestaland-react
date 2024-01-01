@@ -2,12 +2,12 @@ import {createTheme} from "@mui/material/styles";
 import {deepmerge} from '@mui/utils';
 
 
-export const COLOR_PRIMARY = '#064D0B' // ehem 394d3a
-export const COLOR_SECONDARY = '#94CE98' // ehem b4f7b7
-export const COLOR_TERTIARY = '#76A2A4'
-export const COLOR_LIGHT = '#FFD8B7'
+export const COLOR_PRIMARY = '#004400'
+export const COLOR_SECONDARY = '#B8F5BA'
+export const COLOR_TERTIARY = '#669999'
+export const COLOR_LIGHT = '#E2FBFB'
 
-// https://paletton.com/#uid=32Q0u0kjomE93zhearQo9hStIcm // Basis ist #388E3E
+// https://paletton.com/#uid=52P0u0k7UUa3cZA5wXlaiQ5cFL3
 
 const footerTheme = createTheme({
   components: {

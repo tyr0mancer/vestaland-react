@@ -36,6 +36,7 @@ export function RezeptSuche() {
       >
         <RezeptSucheForm/>
       </Formik>
+      <br/>
       <RezeptSucheAusgabe/>
     </>
   );

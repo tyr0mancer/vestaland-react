@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import {Rezept, RezeptMeta} from "../../../models/rezept.model";
 import {getFileUrl} from "../../../services/api/fileService";
 import {Link} from "react-router-dom";
-import FilterVintageIcon from '@mui/icons-material/FilterVintage';
+import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
@@ -25,7 +25,7 @@ export function RezeptCard({rezept}: { rezept: Rezept }) {
         />
         <CardContent style={{padding: 5}}>
           <Typography gutterBottom variant="h5" component="div">
-            {rezept.name} <MetaInfo meta={rezept.meta} fontSize={'small'}/>
+            {rezept.name} <MetaInfoIcons meta={rezept.meta} fontSize={'small'}/>
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {rezept.beschreibung}
@@ -38,12 +38,12 @@ export function RezeptCard({rezept}: { rezept: Rezept }) {
 }
 
 
-export function MetaInfo({meta, fontSize = 'medium'}: { meta?: RezeptMeta, fontSize?: 'small' | 'medium' | 'large' }) {
+export function MetaInfoIcons({meta, fontSize = 'medium'}: { meta?: RezeptMeta, fontSize?: 'small' | 'medium' | 'large' }) {
 
   return (<>
     {meta?.vegetarisch &&
         <span title={'Das Rezept ist vegetarisch'}>
-            <FilterVintageIcon color={'primary'} fontSize={fontSize}/>
+            <LocalFloristIcon color={'primary'} fontSize={fontSize}/>
         </span>
     }
     {meta?.healthy &&

@@ -20,21 +20,21 @@ export function Startseite() {
       className={'startseite left'}
     />
 
+
+    <Typography variant="h6" gutterBottom>
+      Mit "Vestaland" können Sie nicht nur eine Vielzahl an köstlichen Rezepten finden und erstellen, sondern auch Ihren
+      Kochprozess durch eine strukturierte Darstellung vereinfachen. Zusätzlich bietet unsere App praktische Funktionen
+      zur Verwaltung Ihres Vorrats, zur Erstellung von Essensplänen und zum Verwalten von Einkaufslisten. Tauchen Sie
+      ein in die Welt des Kochens und erleben Sie, wie "Vestaland" Ihr kulinarisches Erlebnis bereichert!
+    </Typography>
     <img
       className={'startseite right'}
       src={startseiteBild2}
       alt={'Eine Kochapp hilft in der Küche'}
       loading="lazy"
     />
-    <Typography variant="body1" gutterBottom>
-      Mit "Vestaland" können Sie nicht nur eine Vielzahl an köstlichen Rezepten finden und erstellen, sondern auch Ihren
-      Kochprozess durch eine strukturierte Darstellung vereinfachen. Zusätzlich bietet unsere App praktische Funktionen
-      zur Verwaltung Ihres Vorrats, zur Erstellung von Essensplänen und zum Verwalten von Einkaufslisten. Tauchen Sie
-      ein in die Welt des Kochens und erleben Sie, wie "Vestaland" Ihr kulinarisches Erlebnis bereichert!
-    </Typography>
-
-    <Typography variant="body1">
-      Sollten Sie Fragen oder Anregungen haben, kontaktieren Sie uns bitte via E-Mail unter <strong>info@vestaland.de</strong>.
+    <Typography variant="h6">
+      Sollten Sie Fragen oder Anregungen haben, kontaktieren Sie uns bitte via E-Mail unter <strong>info@vestaland.de</strong>
     </Typography>
 
 
