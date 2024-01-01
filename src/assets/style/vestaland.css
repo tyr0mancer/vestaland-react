@@ -77,7 +77,8 @@ img.startseite.right {
 /* Rezept Suche */
 
 .rezept-suche-card {
-    background-color: #94CE98 !important;
+    background-color: #FFD8B7 !important;
+    margin-top: 20px;
 }
 
 /* Rezept Edit */

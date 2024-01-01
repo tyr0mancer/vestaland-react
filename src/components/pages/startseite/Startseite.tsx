@@ -9,9 +9,8 @@ export function Startseite() {
   return (<>
 
     <Typography variant="h6" gutterBottom>
-      Herzlich willkommen bei <strong>Vestaland</strong>, Ihrer
-      innovativen <strong>Koch-App</strong>, die Sie Schritt für Schritt zu kulinarischen
-      Meisterwerken führt!
+      Willkommen bei <strong>"Vestaland"</strong> – Ihrer persönlichen Kochassistenz-App! Diese App ist im Rahmen eines
+      Studienprojekts entstanden und steht Ihnen vollkommen kostenfrei zur Verfügung.
     </Typography>
 
     <img
@@ -21,31 +20,23 @@ export function Startseite() {
       className={'startseite left'}
     />
 
-    <Typography variant="body1" gutterBottom>
-      Mit Vestaland haben Sie nicht nur Zugriff auf eine Vielzahl inspirierender Rezepte,
-      sondern auch auf intelligente Funktionen, die das <strong>Kochen vereinfachen</strong> und bereichern
-    </Typography>
-
-    <Typography variant="body1">
-      Planen Sie Ihre Mahlzeiten vorausschauend mit dem <strong>Essensplaner</strong>. Entdecken Sie neue Rezepte, die
-      zu Ihrem Geschmack und Ihren Ernährungsgewohnheiten passen, und organisieren Sie Ihre Mahlzeiten effizient
-      für die kommende Woche.
-    </Typography>
-
     <img
       className={'startseite right'}
       src={startseiteBild2}
       alt={'Eine Kochapp hilft in der Küche'}
       loading="lazy"
     />
-
-    <Typography variant="body1">
-      Vestaland ist mehr als nur eine Koch-App – es ist Ihr <strong>persönlicher Küchenassistent</strong>,
-      der Ihnen hilft, jeden Tag etwas Besonderes zu zaubern. Starten Sie jetzt und erleben Sie, wie einfach und
-      freudvoll Kochen sein kann!
+    <Typography variant="body1" gutterBottom>
+      Mit "Vestaland" können Sie nicht nur eine Vielzahl an köstlichen Rezepten finden und erstellen, sondern auch Ihren
+      Kochprozess durch eine strukturierte Darstellung vereinfachen. Zusätzlich bietet unsere App praktische Funktionen
+      zur Verwaltung Ihres Vorrats, zur Erstellung von Essensplänen und zum Verwalten von Einkaufslisten. Tauchen Sie
+      ein in die Welt des Kochens und erleben Sie, wie "Vestaland" Ihr kulinarisches Erlebnis bereichert!
     </Typography>
 
-    <Types/>
+    <Typography variant="body1">
+      Sollten Sie Fragen oder Anregungen haben, kontaktieren Sie uns bitte via E-Mail unter <strong>info@vestaland.de</strong>.
+    </Typography>
+
 
   </>)
 }

@@ -5,6 +5,7 @@ import {deepmerge} from '@mui/utils';
 export const COLOR_PRIMARY = '#064D0B' // ehem 394d3a
 export const COLOR_SECONDARY = '#94CE98' // ehem b4f7b7
 export const COLOR_TERTIARY = '#76A2A4'
+export const COLOR_LIGHT = '#FFD8B7'
 
 // https://paletton.com/#uid=32Q0u0kjomE93zhearQo9hStIcm // Basis ist #388E3E
 

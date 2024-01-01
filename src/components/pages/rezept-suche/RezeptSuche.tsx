@@ -35,10 +35,8 @@ export function RezeptSuche() {
         enableReinitialize
       >
         <RezeptSucheForm/>
-
       </Formik>
       <RezeptSucheAusgabe/>
-
     </>
   );
 }

@@ -13,7 +13,6 @@ export function RezeptSucheAusgabe() {
   const {state} = useContext(StateContext) as StateContextType
 
   const {
-    isSuccess,
     isLoading,
     isError,
     error,
@@ -28,17 +27,15 @@ export function RezeptSucheAusgabe() {
     return <ErrorPage error={error}/>
   if (isLoading)
     return <LoadingIcon/>
-  return (<div>
-      {isSuccess &&
-          <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 16}}>
-            {data.map((rezept, index) =>
-              <Grid item xs={2} sm={4} md={4} key={index}>
-                <RezeptCard key={rezept._id} rezept={rezept}/>
-              </Grid>
-            )}
-          </Grid>
-      }
-      {/*
+  return (<Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 16}}>
+    {data?.map((rezept, index) =>
+      <Grid item xs={2} sm={4} md={4} key={index}>
+        <RezeptCard key={rezept._id} rezept={rezept}/>
+      </Grid>
+    )}
+  </Grid>)
+
+/*
       <hr/>
       <h5>zuletzt angesehen:</h5>
       <hr/>
@@ -49,8 +46,7 @@ export function RezeptSucheAusgabe() {
           </Grid>
         )}
       </Grid>
-      */}
+*/
 
-    </div>
-  );
+
 }

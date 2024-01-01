@@ -23,6 +23,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
 import {RezeptHilfsmittel} from "./RezeptHilfsmittel";
+import {MetaInfo} from "../rezept-suche/RezeptCard";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();
@@ -84,26 +85,21 @@ export function RezeptDetail() {
 
         <Grid container spacing={2}>
           <Grid item xs={12} md={3}>
-            {rezept.bild &&
-                <img src={getFileUrl(rezept.bild?.fileName)} height={150} width={'100%'}
-                     alt={rezept.name}
-                     title={rezept.name}
-                />}
+            <img src={getFileUrl(rezept.bild?.fileName)} height={150} width={'100%'}
+                 alt={rezept.name}
+                 title={rezept.name}
+            />
+            <MetaInfo meta={rezept.meta} fontSize={'large'}/>
             <Typography variant="body1" gutterBottom>
               {rezept?.beschreibung}
             </Typography>
           </Grid>
           <Grid item xs={12} md={3}>
 
+            <Typography variant="h4" gutterBottom textAlign={'center'}>
+              {rezept.portionen} Portionen
+            </Typography>
             <TableBody>
-              <TableRow>
-                <TableCell align="left">
-                  <Typography variant="h4" gutterBottom>
-                    {rezept.portionen} Port.
-                  </Typography>
-                </TableCell>
-                <TableCell align="left"><StartCooking rezept={rezept}/></TableCell>
-              </TableRow>
               <TableRow>
                 <TableCell align="left">Gesamtdauer:</TableCell>
                 <TableCell align="left">{rezept.gesamtdauer} Minuten</TableCell>
@@ -131,6 +127,10 @@ export function RezeptDetail() {
 
         <RezeptKochschritte kochschritte={rezept.kochschritte}/>
 
+        <hr/>
+        {isOwner(rezept.author?._id) &&
+            <StartCooking rezept={rezept}/>
+        }
 
       </Box>)
 
