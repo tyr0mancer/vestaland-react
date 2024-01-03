@@ -9,7 +9,6 @@ import {ActionTypes, StateContextType} from "../../../services/contexts/types";
 import {StateContext} from "../../../services/contexts/StateProvider";
 import {rezeptDetail} from "../../../services/api/rezeptService";
 import {LoadingPage} from "../service-pages/LoadingPage";
-import {ControlPanel} from "./ControlPanel";
 import {RezeptEditorTabs} from "./RezeptEditorTabs";
 
 
