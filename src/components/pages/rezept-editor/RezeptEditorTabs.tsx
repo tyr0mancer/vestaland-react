@@ -1,11 +1,14 @@
 import React from "react";
-import {Box, Tab, Tabs} from "@mui/material";
-import {RezeptEditorForm} from "./RezeptEditorForm";
+import {Grid, Tab, Tabs} from "@mui/material";
+import {OverviewForm} from "./OverviewForm";
 import {KochschritteForm} from "./KochschritteForm";
+import {ControlPanel} from "./ControlPanel";
+import {SimpleTabPanel} from "../../layout/SimpleTabPanel";
 
 
 /**
- * TS Doc Info
+ * Tab Navigation zwischen übersicht und Kochschritten
+ *
  * @component RezeptEditorTabs
  */
 export function RezeptEditorTabs(): React.ReactElement {
@@ -16,51 +19,25 @@ export function RezeptEditorTabs(): React.ReactElement {
   };
 
   return (
-    <Box sx={{width: '100%'}}>
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={8} md={10}>
+          <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+            <Tab label="Übersicht"/>
+            <Tab label="Kochschritte"/>
+          </Tabs>
+        </Grid>
+        <Grid item xs={4} md={2} textAlign={'right'}>
+          <ControlPanel/>
+        </Grid>
+      </Grid>
 
-      <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Rezept Übersicht" {...a11yProps(0)} />
-          <Tab label="Kochschritte" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <CustomTabPanel value={value} index={0}>
-        <RezeptEditorForm/>
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={1}>
+      <SimpleTabPanel value={value} index={0}>
+        <OverviewForm/>
+      </SimpleTabPanel>
+      <SimpleTabPanel value={value} index={1}>
         <KochschritteForm/>
-      </CustomTabPanel>
-    </Box>
+      </SimpleTabPanel>
+    </>
   );
-}
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function CustomTabPanel(props: TabPanelProps) {
-  const {children, value, index, ...other} = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      style={{paddingTop: 20}}
-      {...other}
-    >
-      {value === index && (children)}
-    </div>
-  );
-}
-
-
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
 }

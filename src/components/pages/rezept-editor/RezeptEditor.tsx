@@ -14,7 +14,14 @@ import {RezeptEditorTabs} from "./RezeptEditorTabs";
 
 
 /**
- * TS Doc Info
+ * Hauptkomponente des Rezept-Editors
+ * beinhaltet <Formik/> Wurzel und ermittelt initialValue per API Call bzw. Cache
+ *
+ * @see RezeptEditorTabs
+ * @see ControlPanel
+ * @see OverviewForm
+ * @see KochschritteForm
+ *
  * @component RezeptEditor
  */
 export function RezeptEditor(): React.ReactElement {
@@ -58,7 +65,6 @@ export function RezeptEditor(): React.ReactElement {
       {() => {
         return (
           <Form>
-            <ControlPanel/>
             <RezeptEditorTabs/>
           </Form>)
       }}

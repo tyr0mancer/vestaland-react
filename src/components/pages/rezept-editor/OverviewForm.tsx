@@ -7,9 +7,9 @@ import {Rezept} from "../../../models/rezept.model";
 
 /**
  * TS Doc Info
- * @component RezeptEditorForm
+ * @component OverviewForm
  */
-export function RezeptEditorForm(): React.ReactElement {
+export function OverviewForm(): React.ReactElement {
   const formik = useFormikContext<Rezept>();
 
   return (<>
