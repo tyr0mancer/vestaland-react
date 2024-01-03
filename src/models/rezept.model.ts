@@ -19,8 +19,14 @@ export enum KochschrittTypus {
 
 
 export class Kochschritt {
+
+  constructor(zutaten?: Zutat[]) {
+    if (zutaten)
+      this.zutaten = zutaten
+  }
+
   public name: string = "";
-  public typus: KochschrittTypus = KochschrittTypus.FREITEXT;
+  public aktion?: KochschrittAktion;
 
   public beschreibung?: string;
   public videoUrl?: string;
@@ -54,4 +60,9 @@ export class Rezept {
   public hilfsmittel: Hilfsmittel[] = [];
   public kochschritte: Kochschritt[] = [];
   public meta?: RezeptMeta;
+}
+
+export class KochschrittAktion {
+  public aktionName: string = '';
+  public aktionIcon?: string;
 }

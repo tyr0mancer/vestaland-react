@@ -48,7 +48,7 @@ export function HilfsmittelPicker({name, values}: HilfsmittelPickerProps) {
     renderInput={(params) => (
       <TextField
         {...params}
-        label="Asynchronous"
+        label="Hilfsmittel"
         onChange={(e) => setInput(e.target.value)}
         InputProps={{
           ...params.InputProps,

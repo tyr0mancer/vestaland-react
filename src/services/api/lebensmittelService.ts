@@ -1,4 +1,4 @@
-import {apiClient} from "./apiClient";
+import {apiClient, postServiceWrapper} from "./apiClient";
 import {Lebensmittel} from "../../models/lebensmittel.model";
 
 export const lebensmittelSuche = async (searchQuery: string): Promise<Lebensmittel[]> => {
@@ -6,6 +6,13 @@ export const lebensmittelSuche = async (searchQuery: string): Promise<Lebensmitt
   return response.data;
 };
 
-export const lebensmittelDelete = async (id: string): Promise<any> => {
+export const lebensmittelDeleteService = async (id: string): Promise<any> => {
   return await apiClient.delete(`/lebensmittel/` + id)
 };
+
+export const lebensmittelPutService = async (id: string, lebensmittel: Lebensmittel): Promise<Lebensmittel> => {
+  return await apiClient.put(`/lebensmittel/` + id, lebensmittel)
+};
+
+export const lebensmittelPostService = postServiceWrapper<Lebensmittel>((lebensmittel: Lebensmittel) => apiClient.post(`/lebensmittel`, lebensmittel))
+

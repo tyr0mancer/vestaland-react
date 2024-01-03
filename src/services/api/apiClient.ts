@@ -51,4 +51,23 @@ function isApiErrorResponse(obj: any): obj is ApiErrorResponse {
     && typeof obj.message === 'string';
 }
 
-export {apiClient, isApiErrorResponse}
+
+type ApiFunction<T> = (body: T) => Promise<{ data: T }>;
+
+function postServiceWrapper<T>(apiFunc: ApiFunction<T>): (body: T) => Promise<T> {
+  return (body: T) => new Promise<T>((resolve, reject) =>
+    apiFunc(body)
+      .then(({data}) => resolve(data))
+      .catch(error => reject(error))
+  );
+}
+
+function putServiceWrapper<T>(apiFunc: ApiFunction<T>): (body: T) => Promise<T> {
+  return (body: T) => new Promise<T>((resolve, reject) =>
+    apiFunc(body)
+      .then(({data}) => resolve(data))
+      .catch(error => reject(error))
+  );
+}
+
+export {apiClient, isApiErrorResponse, postServiceWrapper, putServiceWrapper}

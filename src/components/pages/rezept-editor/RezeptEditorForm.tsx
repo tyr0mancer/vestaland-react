@@ -1,22 +1,16 @@
-import React, {useContext, useEffect} from "react";
+import React from "react";
 import {Field, useFormikContext} from "formik";
-import {Rezept} from "../../../models/rezept.model";
 import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
-import {StateContext} from "../../../services/contexts/StateProvider";
 import {getFileUrl} from "../../../services/api/fileService";
-import {KochSchritteForm} from "./KochSchritteForm";
+import {Rezept} from "../../../models/rezept.model";
 
 
-export function RezeptEditorForm() {
+/**
+ * TS Doc Info
+ * @component RezeptEditorForm
+ */
+export function RezeptEditorForm(): React.ReactElement {
   const formik = useFormikContext<Rezept>();
-  const {dispatch} = useContext(StateContext) as StateContextType
-
-
-  useEffect(() => {
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: formik.values})
-  }, [formik.values, dispatch]);
-
 
   return (<>
     <Grid columnSpacing={1} rowSpacing={2} container>
@@ -43,7 +37,7 @@ export function RezeptEditorForm() {
       </Grid>
       <Grid item xs={12} md={8}>
         <Field as={TextField} type="text" variant="outlined" fullWidth
-               name="quelleUrl" label="Quelle"/>
+               name="quelleUrl[0]" label="Quelle"/>
       </Grid>
 
       <Grid item xs={12} md={4} textAlign={'center'}>
@@ -86,13 +80,5 @@ export function RezeptEditorForm() {
 
 
     </Grid>
-
-    <hr/>
-
-    <KochSchritteForm name="kochschritte" values={formik.values.kochschritte}/>
-    <pre>{JSON.stringify(formik.values, null, 2)}</pre>
-
   </>)
-
 }
-

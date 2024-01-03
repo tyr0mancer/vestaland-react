@@ -1,118 +1,67 @@
 import React, {useContext, useEffect} from "react";
-import {useNavigate, useParams} from "react-router-dom";
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {useParams} from "react-router-dom";
+import {useQuery} from "@tanstack/react-query";
 import {Form, Formik} from "formik";
-import {Button, Container, Grid, Typography} from "@mui/material";
+import {useLocalStorage} from '@react-hooks-library/core'
+import LoadingIcon from "@mui/icons-material/HourglassBottom";
 
 import {StateContext} from "../../../services/contexts/StateProvider";
 import {ActionTypes, StateContextType} from "../../../services/contexts/types";
+import {ErrorPage} from "../ErrorPage";
+import {ControlPanel} from "./ControlPanel";
+
 import {Rezept} from "../../../models/rezept.model";
-import {RezeptEditorForm} from "./RezeptEditorForm";
-import {rezeptDetail, rezeptPostService, rezeptPutService} from "../../../services/api/rezeptService";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
-import LoadingButton from "@mui/lab/LoadingButton";
-import SaveIcon from '@mui/icons-material/Save';
-import PublishIcon from '@mui/icons-material/Publish';
+import {rezeptDetail} from "../../../services/api/rezeptService";
+import {RezeptEditorTabs} from "./RezeptEditorTabs";
 
-export function RezeptEditor() {
-  const navigate = useNavigate()
 
-  const {state: {rezeptEditing}, dispatch} = useContext(StateContext) as StateContextType
-  const params = useParams();
-  const {
-    isLoading,
-    isSuccess,
-    data
-  } = useQuery(
+/**
+ * TS Doc Info
+ * @component RezeptEditor
+ */
+export function RezeptEditor(): React.ReactElement {
+  const {state: {rezeptEditing: rezeptState}, dispatch} = useContext(StateContext) as StateContextType
+
+  const [rezeptLocal, setRezeptLocal] = useLocalStorage<Rezept | undefined>(
+    'rezeptLocal',
+    undefined
+  )
+  const {rezeptId} = useParams();
+  const {data: rezeptApi, isLoading, isError, error} = useQuery(
     {
-      queryKey: ["rezept-detail", params.rezeptId],
-      queryFn: () => rezeptDetail(params.rezeptId || ''),
-      enabled: !!params.rezeptId
+      queryKey: ["rezept-detail", rezeptId],
+      queryFn: () => rezeptDetail(rezeptId || ''),
+      enabled: !!rezeptId
     });
 
   useEffect(() => {
-    if (!isSuccess || !data) return
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: data})
-    localStorage.setItem('rezept_editor', JSON.stringify(data));
-  }, [data, isSuccess, dispatch])
+    if (!rezeptApi) return
+    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezeptApi})
+    setRezeptLocal(undefined)
+  }, [rezeptApi])
 
-  const queryClient = useQueryClient();
-
-  const {mutate, isPending: isSaving} = useMutation<Rezept>({
-    mutationFn: () => rezeptEditing?._id ? rezeptPutService(rezeptEditing) : rezeptPostService(rezeptEditing),
-    onSuccess: async (res) => {
-      await queryClient.invalidateQueries({queryKey: ["rezepte-suche"]})
-      queryClient.invalidateQueries({queryKey: ["rezept-detail", res._id]})
-        .then(() => navigate('/rezepte/' + res._id))
-    }
-  });
-
-  const handlePublish = (rezept: Rezept) => {
-    handleSave(rezept)
-    mutate()
+  const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || new Rezept()
 
 
-  }
+  if (isError)
+    return <ErrorPage error={error}/>
 
-  const handleNew = () => {
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: new Rezept()})
-    localStorage.setItem('rezept_editor', JSON.stringify(new Rezept()));
-    navigate('/rezept-editor/')
-  }
-
-  const handleSave = (rezept: Rezept) => {
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
-    localStorage.setItem('rezept_editor', JSON.stringify(rezept));
-  }
-
-  if (isLoading) return (<LoadingButton/>)
+  if (isLoading || !initialValues)
+    return <LoadingIcon/>
 
   return (
     <Formik<Rezept>
-      initialValues={rezeptEditing || new Rezept()}
-      onSubmit={handlePublish}
+      initialValues={initialValues}
+      onSubmit={() => {
+      }}
       enableReinitialize
     >
-      {({values: rezept}) => {
+      {() => {
         return (
-
           <Form>
-            <Container sx={{backgroundColor: 'primary.main', padding: '5px'}}>
-              <Grid columnSpacing={1} container>
-                <Grid item xs={12} md={6}>
-                  <Typography variant="h2" color={'secondary'}>
-                    {!rezeptEditing?._id && <>Neues Rezept</>}
-                    {rezeptEditing?._id && <>Rezept bearbeiten</>}
-                  </Typography>
-                </Grid>
-
-                <Grid item xs={4} md={2}>
-                  <Button color={'secondary'} variant={'outlined'} fullWidth
-                          onClick={handleNew} startIcon={<AppRegistrationIcon color={'secondary'}/>}>Neu</Button>
-                </Grid>
-
-                <Grid item xs={4} md={2}>
-                  <Button color={'secondary'} variant={'contained'} fullWidth
-                          onClick={() => handleSave(rezept)} startIcon={<SaveIcon color="primary"/>}>Save</Button>
-                </Grid>
-                <Grid item xs={4} md={2}>
-                  {isSaving &&
-                      <Button color={'secondary'} variant={'contained'} fullWidth disabled={true}
-                              type={'submit'} startIcon={<PublishIcon/>}>...</Button>
-                  }
-                  {!isSaving &&
-                      <Button color={'secondary'} variant={'contained'} fullWidth
-                              type={'submit'} startIcon={<PublishIcon/>}>Upload</Button>
-                  }
-                </Grid>
-              </Grid>
-            </Container>
-
-            <hr/>
-
-            <RezeptEditorForm/>
+            <ControlPanel/>
+            <RezeptEditorTabs/>
           </Form>)
       }}
     </Formik>)
-
 }

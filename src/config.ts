@@ -6,7 +6,10 @@ interface Config {
   port: number;
 }
 
-const devMode = Boolean(process.env.DEV_MODE) || false
+const devMode = Boolean(process.env.REACT_APP_DEV_MODE) || false
+
+if (devMode)
+  console.log("DevMode aktiv")
 
 const config: Config = {
   apiBaseUrl: (devMode ? process.env.REACT_APP_API_BASE_URL_DEV : process.env.REACT_APP_API_BASE_URL) || 'https://api.vestaland.de/api',

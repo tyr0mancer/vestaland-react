@@ -1,4 +1,9 @@
 export class Lebensmittel {
+  constructor(name: string = '') {
+    this.name = name
+  }
+
+
   public _id?: string;
   public kategorie?: string
   public name: string = ""
