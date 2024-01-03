@@ -38,7 +38,7 @@ export function RezeptEditor(): React.ReactElement {
     if (!rezeptApi) return
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezeptApi})
     setRezeptLocal(undefined)
-  }, [rezeptApi])
+  }, [rezeptApi,dispatch, setRezeptLocal])
 
   const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || new Rezept()
 
