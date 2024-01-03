@@ -21,13 +21,13 @@ export function RezeptEditorTabs(): React.ReactElement {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={8} md={10}>
+        <Grid item xs={7} md={10}>
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
-            <Tab label="Übersicht"/>
-            <Tab label="Kochschritte"/>
+            <Tab label="Main"/>
+            <Tab label="Anleitung"/>
           </Tabs>
         </Grid>
-        <Grid item xs={4} md={2} textAlign={'right'}>
+        <Grid item xs={5} md={2} textAlign={'right'}>
           <ControlPanel/>
         </Grid>
       </Grid>

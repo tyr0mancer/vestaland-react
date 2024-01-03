@@ -1,6 +1,6 @@
-import {Kochschritt} from "../../models/rezept.model";
-import {Zutat} from "../../models/zutat.model";
-import {Hilfsmittel} from "../../models/hilfsmittel.model";
+import {Kochschritt} from "../models/rezept.model";
+import {Zutat} from "../models/zutat.model";
+import {Hilfsmittel} from "../models/hilfsmittel.model";
 
 
 interface KochschrittSummary {

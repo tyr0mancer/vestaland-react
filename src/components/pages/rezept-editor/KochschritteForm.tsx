@@ -2,7 +2,7 @@ import React from "react";
 import {FieldArray, useFormikContext} from "formik";
 import {Kochschritt, Rezept} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
-import {Button, IconButton} from "@mui/material";
+import {Button, Grid, IconButton} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -39,7 +39,17 @@ export function KochschritteForm(): React.ReactElement {
                           onClick={() => arrayHelpers.move(index, index + 1)}>
                 <ArrowCircleDownIcon/>
               </IconButton>
-              <ZutatenForm name={`${name}[${index}][zutaten]`} values={kochschritt.zutaten}/>
+
+              <Grid container>
+                <Grid item xs={12} md={8}>
+                  <ZutatenForm name={`${name}[${index}][zutaten]`} values={kochschritt.zutaten}/>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  Freitext, Aktion-Picker
+                </Grid>
+              </Grid>
+
+
             </Box>
           ))}
           <hr/>

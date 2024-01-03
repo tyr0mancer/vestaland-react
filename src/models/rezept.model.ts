@@ -8,18 +8,7 @@ export class KochschrittMeta {
   public hitze?: string;
 }
 
-export enum KochschrittTypus {
-  FREITEXT = '',
-  SCHNEIDEN = 'schneiden',
-  AUFHEIZEN = 'aufheizen',
-  BRATEN = 'braten',
-  HEISS_BRATEN = 'scharf anbraten',
-  PUTZEN = 'putzen',
-}
-
-
 export class Kochschritt {
-
   constructor(zutaten?: Zutat[]) {
     if (zutaten)
       this.zutaten = zutaten

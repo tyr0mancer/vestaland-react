@@ -13,7 +13,7 @@ import {
   Typography
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {useDebounce} from "../../../services/hooks/use-debounce";
+import {useDebounce} from "../../../services/use-debounce";
 import {useAuth} from "../../../services/auth/AuthProvider";
 
 export function RezeptSucheForm() {

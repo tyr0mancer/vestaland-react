@@ -2,10 +2,12 @@ import {Zutat} from "../../../models/zutat.model";
 import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
 import {Lebensmittel} from "../../../models/lebensmittel.model";
 import React, {useRef} from "react";
-import {Button, Card, IconButton, Select, TextField} from "@mui/material";
+import {Box, Button, Card, Grid, IconButton, MenuItem, Select, TextField} from "@mui/material";
 import {LebensmittelPicker} from "../../form-elements/LebensmittelPicker";
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import MenuIcon from '@mui/icons-material/Menu';
+import {EinheitProperties} from "../../../services/einheitenService";
 
 //@todo umziehen
 export interface ZutatenFormProps<T> {
@@ -20,8 +22,9 @@ export function ZutatenForm({name, values: zutaten}: ZutatenFormProps<Zutat[]>) 
     <FieldArray
       name={name}
       render={arrayHelpers => (
-        <div>
+        <Box>
           {zutaten.map((zutat: Zutat, index: number) =>
+
             <ZutatenPicker key={index} index={index} name={`${name}[${index}]`} values={zutat}
                            arrayHelpers={arrayHelpers}/>
           )}
@@ -32,7 +35,7 @@ export function ZutatenForm({name, values: zutaten}: ZutatenFormProps<Zutat[]>) 
           <Button variant="contained" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
             neues Hilfsmittel
           </Button>
-        </div>
+        </Box>
       )}
     />
   )
@@ -52,54 +55,74 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = async (lebensmittel: Lebensmittel) => {
-    if (!lebensmittel?.defaultUnit) return
-    await setFieldValue(`${name}[einheit]`, lebensmittel.defaultUnit)
+    if (lebensmittel?.defaultEinheit)
+      await setFieldValue(`${name}[einheit]`, lebensmittel.defaultEinheit)
+    if (lebensmittel?.defaultMenge)
+      await setFieldValue(`${name}[menge]`, lebensmittel.defaultMenge)
 
+    // @todo big NO-NO ursache für nebenl. problem finden!!!
     setTimeout(() => inputRef.current?.select(), 500);
   }
 
 
-  return (<Card>
-    <IconButton
-      tabIndex={1}
-      aria-label="delete"
-      onClick={() => arrayHelpers.remove(index)}
-    >
-      <DeleteForeverIcon color="warning"/>
-    </IconButton>
+  return (<Card style={{paddingTop: 15}}>
+
+    <Grid container>
+      <Grid item xs={6} md={6} style={{display: 'flex', alignItems: 'center'}}>
+        <IconButton
+          size={'small'}
+          tabIndex={1}
+          aria-label="delete"
+          onClick={() => arrayHelpers.remove(index)}
+        ><DeleteForeverIcon color="warning"/></IconButton>
+
+        <LebensmittelPicker
+          onChange={handleChange}
+          name={`${name}[lebensmittel]`}
+          values={values.lebensmittel || new Lebensmittel()}
+        />
 
 
-    <LebensmittelPicker
-      onChange={handleChange}
-      name={`${name}[lebensmittel]`}
-      values={values.lebensmittel || new Lebensmittel()}
-    />
+      </Grid>
+      <Grid item xs={3} md={2}>
+        <Field as={Select}
+               fullWidth
+               size={'small'}
+               variant="outlined"
+               name={`${name}[einheit]`}
+               labelId="Einheit"
+        >
+          {Object.entries(EinheitProperties).map(([key, value]) =>
+            <MenuItem key={key} value={key}>{value.fullName}</MenuItem>)}
+        </Field>
+      </Grid>
 
-    <Field as={Select}
-           variant="outlined"
-           name={`${name}[einheit]`}
-           label="Einheit"
-    />
-    <Field as={TextField} type="text" variant="outlined"
-           inputRef={inputRef}
-           name={`${name}[menge]`} label="Menge"/>
+      <Grid item xs={2} md={2}>
+        <Field as={TextField} type="number" variant="outlined"
+               size={'small'}
+               inputRef={inputRef}
+               name={`${name}[menge]`} label="Menge"/>
+      </Grid>
 
-    <Button
-      startIcon={<SubdirectoryArrowLeftIcon/>}
-      variant="outlined"
-      onClick={() => arrayHelpers.insert(index + 1, new Zutat())}
-    />
+      <Grid item xs={12} md={1} sx={{display: {xs: 'none', md: 'flex'}}}>
+        <IconButton
+          size={'small'}
+          aria-label="Zutat einfügen"
+          onClick={() => arrayHelpers.insert(index + 1, new Zutat())}
+        ><SubdirectoryArrowLeftIcon/></IconButton>
+      </Grid>
+
+      <Grid item xs={1} md={12} sx={{display: {xs: 'flex', md: 'none'}}}>
+        <IconButton
+          tabIndex={2}
+          size={'small'}
+          aria-label="Zutat verschieben"
+
+        ><MenuIcon/></IconButton>
+      </Grid>
 
 
-    {/*
-    <Field as={Button}
-           startIcon={<LoginIcon/>}
-           label={'+++'}
-           tabIndex={3}
-           variant="outlined"
-           onClick={() => arrayHelpers.insert(index + 1, new Zutat())}
-    />*/}
-
+    </Grid>
 
   </Card>)
 }

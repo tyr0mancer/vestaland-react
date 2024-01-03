@@ -6,3 +6,4 @@ export class Zutat {
   public einheit: string = "St";
   public menge: number = 1;
 }
+
