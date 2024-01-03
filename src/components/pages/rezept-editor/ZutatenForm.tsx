@@ -10,14 +10,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {EinheitProperties} from "../../../services/einheitenService";
 
 //@todo umziehen
-export interface ZutatenFormProps<T> {
+export interface FieldProps<T> {
   name: string;
   values: T;
 
-  //... more optional attributes
 }
 
-export function ZutatenForm({name, values: zutaten}: ZutatenFormProps<Zutat[]>) {
+export function ZutatenForm({name, values: zutaten}: FieldProps<Zutat[]>) {
   return (
     <FieldArray
       name={name}
@@ -70,8 +69,8 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
     <Grid container>
       <Grid item xs={6} md={6} style={{display: 'flex', alignItems: 'center'}}>
         <IconButton
-          size={'small'}
           tabIndex={1}
+          size={'small'}
           aria-label="delete"
           onClick={() => arrayHelpers.remove(index)}
         ><DeleteForeverIcon color="warning"/></IconButton>
@@ -81,11 +80,19 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
           name={`${name}[lebensmittel]`}
           values={values.lebensmittel || new Lebensmittel()}
         />
+      </Grid>
 
 
+      {/* Einheit und Menge */}
+      <Grid item xs={2} md={2}>
+        <Field as={TextField} type="number" variant="outlined"
+               size={'small'}
+               inputRef={inputRef}
+               name={`${name}[menge]`} label="Menge"/>
       </Grid>
       <Grid item xs={3} md={2}>
         <Field as={Select}
+               inputProps={{ tabIndex: 2 }}
                fullWidth
                size={'small'}
                variant="outlined"
@@ -97,12 +104,6 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
         </Field>
       </Grid>
 
-      <Grid item xs={2} md={2}>
-        <Field as={TextField} type="number" variant="outlined"
-               size={'small'}
-               inputRef={inputRef}
-               name={`${name}[menge]`} label="Menge"/>
-      </Grid>
 
       <Grid item xs={12} md={1} sx={{display: {xs: 'none', md: 'flex'}}}>
         <IconButton
@@ -114,7 +115,6 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
 
       <Grid item xs={1} md={12} sx={{display: {xs: 'flex', md: 'none'}}}>
         <IconButton
-          tabIndex={2}
           size={'small'}
           aria-label="Zutat verschieben"
 

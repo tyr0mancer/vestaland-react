@@ -1,11 +1,14 @@
 export enum Einheit {
   ST = "St",
   DZ = "dz",
-  LB = "lb",
   G = "g",
   KG = "kg",
+  LB = "lb",
   ML = "ml",
+  TL = "TL",
+  EL = "EL",
   L = "l",
+  CUP = "cp"
 }
 
 
@@ -23,5 +26,9 @@ export const EinheitProperties: { [key in Einheit]: EinheitProperty } = {
   [Einheit.LB]: {fullName: 'Pound', variant: Einheit.G, base: 454},
   [Einheit.ML]: {fullName: 'Milliliter', variant: Einheit.ML, base: 1},
   [Einheit.L]: {fullName: 'Liter', variant: Einheit.ML, base: 1000},
+  [Einheit.TL]: {fullName: 'Teelöffel', variant: Einheit.ML, base: 5},
+  [Einheit.EL]: {fullName: 'Esslöffel', variant: Einheit.ML, base: 15},
+  [Einheit.CUP]: {fullName: 'US Cup', variant: Einheit.ML, base: 236},
+
 } as const; // for immutability
 
