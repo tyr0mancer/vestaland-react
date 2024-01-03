@@ -22,7 +22,7 @@ export function ControlPanel(): React.ReactElement {
     // Form hasnt been touched
     if (!Object.keys(formik.touched).length) return
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: debouncedFormValue})
-  }, [debouncedFormValue, formik.touched]);
+  }, [debouncedFormValue, formik.touched, dispatch]);
 
 
   const [, setRezeptLocal] = useLocalStorage<Rezept | undefined>(
