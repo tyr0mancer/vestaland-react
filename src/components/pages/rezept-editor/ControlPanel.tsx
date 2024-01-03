@@ -13,11 +13,10 @@ import {useNavigate} from "react-router-dom";
  * @component ControlPanel
  */
 export function ControlPanel(): React.ReactElement {
-  const {dispatch} = useContext(StateContext) as StateContextType
   const formik = useFormikContext<Rezept>();
-  const debouncedFormValue = useDebounce<Rezept>(formik.values, 200)
-  const navigate = useNavigate();
 
+  const debouncedFormValue = useDebounce<Rezept>(formik.values, 200)
+  const {dispatch} = useContext(StateContext) as StateContextType
   useEffect(() => {
     // Form hasnt been touched
     if (!Object.keys(formik.touched).length) return
@@ -30,10 +29,12 @@ export function ControlPanel(): React.ReactElement {
     undefined
   )
 
+  /* Speichere Formular im Local Storage */
   const handleSave = () => {
     setRezeptLocal(formik.values)
   }
 
+  const navigate = useNavigate();
   const handlePublish = () => {
     alert(JSON.stringify(formik.values))
 

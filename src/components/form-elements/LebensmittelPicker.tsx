@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {Field, useField, useFormikContext} from "formik";
-import {lebensmittelPostService, lebensmittelSuche} from "../../services/api/lebensmittelService";
+import {lebensmittelPostService, lebensmittelSucheService} from "../../services/api/lebensmittelService";
 import {Lebensmittel} from "../../models/lebensmittel.model";
 import {AddOptionDialog} from "./AddOptionDialog";
 
@@ -30,7 +30,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
   } = useQuery(
     {
       queryKey: ["lebensmittel-suche", input],
-      queryFn: () => lebensmittelSuche(input),
+      queryFn: () => lebensmittelSucheService(input),
       enabled: input.length > 1,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });

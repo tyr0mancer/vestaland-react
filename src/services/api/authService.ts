@@ -1,6 +1,9 @@
 import {apiClient} from "./apiClient";
 import {LoginResponse} from "../auth/types";
 
+
+
+
 export const loginService = async (username: string, password: string): Promise<LoginResponse> => {
   return new Promise<LoginResponse>((resolve, reject) => {
     apiClient.post('/auth/login', {username, password})
@@ -11,6 +14,7 @@ export const loginService = async (username: string, password: string): Promise<
       .catch(reject)
   })
 };
+
 
 export type RegisterUserType = {
   name: string,
