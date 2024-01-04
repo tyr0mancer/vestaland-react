@@ -38,16 +38,16 @@ export function RezeptEditor(): React.ReactElement {
   const {state: {rezeptEditing: rezeptState}, dispatch} = useContext(StateContext) as StateContextType
 
   /* Prio 3: rezeptLocal - Falls im Local Storage 'rezeptLocal' gesetzt ist */
-  const [rezeptLocal, setRezeptLocal] = useLocalStorage<Rezept | undefined>(
+  const [rezeptLocal, setRezeptLocal] = useLocalStorage<Rezept | null>(
     'rezeptLocal',
-    undefined
+    null
   )
 
   /* Falls API Aufruf Editor-Form ändert, Global State und Local Storage anpassen (caching) */
   useEffect(() => {
     if (!rezeptApi) return
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezeptApi})
-    setRezeptLocal(undefined)
+    setRezeptLocal(null)
   }, [rezeptApi, dispatch, setRezeptLocal])
 
   /* Priorisierung wie oben beschrieben */

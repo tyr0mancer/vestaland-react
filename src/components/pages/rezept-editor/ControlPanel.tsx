@@ -34,9 +34,9 @@ export function ControlPanel(): React.ReactElement {
 
 
   /* Speichere Entwurf im Local Storage */
-  const [, setRezeptLocal] = useLocalStorage<Rezept | undefined>(
+  const [, setRezeptLocal] = useLocalStorage<Rezept | null>(
     'rezeptLocal',
-    undefined
+    null
   )
   const handleSaveDraft = () => {
     setRezeptLocal(formik.values)
@@ -44,7 +44,7 @@ export function ControlPanel(): React.ReactElement {
 
   /* Setze Formular zurück */
   const handleNew = () => {
-    setRezeptLocal(undefined)
+    setRezeptLocal(null)
     formik.setValues(new Rezept()).then(
       () => dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
     )
@@ -55,8 +55,8 @@ export function ControlPanel(): React.ReactElement {
   const handlePublish = () => {
     alert(JSON.stringify(formik.values))
 
-    // reducer
-    setRezeptLocal(undefined)
+    // @todo reducer+mutate
+    setRezeptLocal(null)
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
     navigate('/rezepte/' + formik.values._id)
   }

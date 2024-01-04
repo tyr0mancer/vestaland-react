@@ -1,27 +1,25 @@
 import React, {useState} from "react";
-import {
-  Autocomplete,
-  Button,
-  CircularProgress,
-  TextField
-} from "@mui/material";
-import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
-import {lebensmittelPostService, lebensmittelSucheService} from "../../services/api/lebensmittelService";
-import {Lebensmittel} from "../../models/lebensmittel.model";
+import {useQuery} from "@tanstack/react-query";
+import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 import {AddOptionDialog} from "./AddOptionDialog";
-import {LebensmittelNeuForm} from "./LebensmittelNeuForm";
+import {KochschrittAktion} from "../../models/rezept.model";
+import {kochschrittConfigFindService, kochschrittConfigPostService} from "../../services/api/rezeptService";
+import {KochschrittAktionNeuForm} from "./KochschrittAktionNeuForm";
 
-interface LebensmittelPickerProps {
+interface KochschrittAktionPickerProps {
   name: string;
-  values: Lebensmittel;
-  onChange?: (value: Lebensmittel) => void
-
+  values: KochschrittAktion;
+  onChange?: (value: KochschrittAktion) => void
 }
 
-export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerProps) {
+/**
+ * TS Doc Info
+ * @component KochschrittAktionPicker
+ */
+export function KochschrittAktionPicker({name, values, onChange}: KochschrittAktionPickerProps) {
   const {setFieldValue} = useFormikContext();
-  const [field,] = useField<Lebensmittel>(name);
+  const [field,] = useField<KochschrittAktion>(name);
   const [openModal, setOpenModal] = React.useState<boolean>(false);
   const [input, setInput] = useState('');
 
@@ -30,15 +28,12 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
     data
   } = useQuery(
     {
-      queryKey: ["lebensmittel-suche", input],
-      queryFn: () => lebensmittelSucheService(input),
-      enabled: input.length > 1,
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      queryKey: ["config-aktion"],
+      queryFn: () => kochschrittConfigFindService(''),
+      staleTime: 1000 * 60 * 15, // 15 minutes
     });
 
-  const getOptionLabel = (option: Lebensmittel) => option.nameDetail || option.name
-
-  const handleChange = async (values: Lebensmittel | null) => {
+  const handleChange = async (values: KochschrittAktion | null) => {
     if (!values) {
       return
     }
@@ -49,15 +44,13 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
 
   return (<>
       <Autocomplete
-        style={{flexGrow: 1}} // Lässt das Autocomplete den restlichen Platz einnehmen
-        autoSelect={true}
-
         {...field}
-        size={'small'}
+        id="kochschritt-picker"
+        size={'medium'}
         multiple={false}
         value={values}
-        isOptionEqualToValue={(option, value) => option.name === value?.name}
-        getOptionLabel={getOptionLabel}
+        isOptionEqualToValue={(option, value) => option.aktionName === value?.aktionName}
+        getOptionLabel={option => option.aktionName}
         options={data || []}
         onChange={(event, newValue) => handleChange(newValue)}
         loading={isLoading}
@@ -71,9 +64,8 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
 
         renderInput={(params) => (
           <TextField
-            autoFocus
             {...params}
-            label="Lebensmittel"
+            label="Aktion"
             onChange={(e) => setInput(e.target.value)}
             InputProps={{
               ...params.InputProps,
@@ -88,16 +80,15 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
         )}
       />
 
-      <AddOptionDialog<Lebensmittel>
-        title={'Neues Lebensmittel in DB anlegen'}
+      <AddOptionDialog<KochschrittAktion>
+        title={'Neue Aktion in DB anlegen'}
         open={openModal} handleClose={() => setOpenModal(false)}
         onAdded={handleChange}
-        initialValues={new Lebensmittel(input)}
-        mutationFn={lebensmittelPostService}
+        initialValues={new KochschrittAktion(input)}
+        mutationFn={kochschrittConfigPostService}
       >
-        <LebensmittelNeuForm open={openModal}/>
+        <KochschrittAktionNeuForm open={openModal}/>
       </AddOptionDialog>
     </>
   );
 }
-

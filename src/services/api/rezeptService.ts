@@ -1,5 +1,5 @@
 import {apiClient} from "./apiClient";
-import {Rezept} from "../../models/rezept.model";
+import {KochschrittAktion, Rezept} from "../../models/rezept.model";
 import {RezeptSucheQuery} from "../contexts/types";
 
 export const rezeptSuche = (query: RezeptSucheQuery): Promise<Rezept[]> => {
@@ -42,3 +42,11 @@ export const rezeptPutService = (rezept?: Rezept): Promise<Rezept> =>
       .then(({data}) => resolve(data))
       .catch(error => reject(error))
   )
+
+
+
+export const kochschrittConfigFindService = async (searchQuery: string): Promise<KochschrittAktion[]> =>
+  apiClient.get(`/config/aktionen/?aktionName=${searchQuery}`).then(res => res.data)
+
+export const kochschrittConfigPostService = async (body: KochschrittAktion): Promise<KochschrittAktion> =>
+  apiClient.post(`/config/aktionen/`, body).then(res => res.data)

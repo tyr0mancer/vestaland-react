@@ -1,14 +1,17 @@
-import React from "react";
-import {FieldArray, useFormikContext} from "formik";
-import {Kochschritt, Rezept} from "../../../models/rezept.model";
+import React, {useState} from "react";
+import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
+import {Kochschritt, KochschrittAktion,  Rezept} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
-import {Button, Grid, IconButton} from "@mui/material";
+import {Button, Grid, IconButton, TextField} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import {ZutatenForm} from "./ZutatenForm";
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import {FieldProps, ZutatenForm} from "./ZutatenForm";
 import {Zutat} from "../../../models/zutat.model";
+import {RezeptKochschritt} from "../rezept-detail/RezeptKochschritt";
+import {KochschrittAktionPicker} from "../../form-elements/KochschrittAktionPicker";
 
 /**
  * TS Doc Info
@@ -17,6 +20,30 @@ import {Zutat} from "../../../models/zutat.model";
 export function KochschritteForm(): React.ReactElement {
   const formik = useFormikContext<Rezept>()
   const name = 'kochschritte'
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1)
+
+  const handleInsert = (arrayHelpers: FieldArrayRenderProps) => {
+    arrayHelpers.insert(formik.values.kochschritte.length, new Kochschritt([new Zutat()]))
+    setSelectedIndex(formik.values.kochschritte.length)
+  }
+  const handleMoveUp = (arrayHelpers: FieldArrayRenderProps, index: number) => {
+    arrayHelpers.move(index, index - 1)
+    if (index === selectedIndex)
+      setSelectedIndex(index - 1)
+    else if (index === selectedIndex + 1)
+      setSelectedIndex(index)
+  }
+  const handleMoveDown = (arrayHelpers: FieldArrayRenderProps, index: number) => {
+    arrayHelpers.move(index, index + 1)
+    if (index == selectedIndex)
+      setSelectedIndex(index + 1)
+    else if (index === selectedIndex - 1)
+      setSelectedIndex(index)
+  }
+  const handleDelete = (arrayHelpers: FieldArrayRenderProps, index: number) => {
+    arrayHelpers.remove(index)
+    setSelectedIndex(-1)
+  }
 
   return (
     <FieldArray
@@ -26,39 +53,90 @@ export function KochschritteForm(): React.ReactElement {
           {formik.values.kochschritte.map((kochschritt: Kochschritt, index: number) => (
 
             <Box key={index} className={'kochschritt-form-box'}>
-              <IconButton aria-label="delete" onClick={() => arrayHelpers.remove(index)}>
+
+              {/* Control-Buttons */}
+              <IconButton aria-label="delete" onClick={() => handleDelete(arrayHelpers, index)}>
                 <RemoveCircleIcon/>
               </IconButton>
-              <IconButton aria-label="delete"
-                          disabled={index === 0}
-                          onClick={() => arrayHelpers.move(index, index - 1)}>
+              <IconButton aria-label="delete" disabled={index === 0}
+                          onClick={() => handleMoveUp(arrayHelpers, index)}>
                 <ArrowCircleUpIcon/>
               </IconButton>
-              <IconButton aria-label="delete"
-                          disabled={index === formik.values.kochschritte.length - 1}
-                          onClick={() => arrayHelpers.move(index, index + 1)}>
+              <IconButton aria-label="delete" disabled={index === formik.values.kochschritte.length - 1}
+                          onClick={() => handleMoveDown(arrayHelpers, index)}>
                 <ArrowCircleDownIcon/>
               </IconButton>
 
-              <Grid container>
-                <Grid item xs={12} md={8}>
-                  <ZutatenForm name={`${name}[${index}][zutaten]`} values={kochschritt.zutaten}/>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                  Freitext, Aktion-Picker
-                </Grid>
-              </Grid>
+              <IconButton aria-label="edit" disabled={index === selectedIndex}
+                          onClick={() => setSelectedIndex(index)}>
+                <ModeEditIcon/>
+              </IconButton>
 
+              {/* Control-Buttons */}
+              {selectedIndex === index &&
+                  <KochschrittForm index={index} name={`${name}[${index}]`} values={kochschritt}/>
+              }
+
+              {selectedIndex !== index &&
+                  <RezeptKochschritt kochschritt={kochschritt}/>
+              }
 
             </Box>
           ))}
           <hr/>
           <Button variant={'contained'} color={'primary'} startIcon={<AddBoxIcon/>}
-                  onClick={() => arrayHelpers.insert(formik.values.kochschritte.length, new Kochschritt([new Zutat()]))}>
+                  onClick={() => handleInsert(arrayHelpers)}>
             neuer Kochschritt
           </Button>
         </>
       )}
     />
   );
+}
+
+
+function KochschrittForm({values: kochschritt, name}: FieldProps<Kochschritt>) {
+
+  return (<Grid container spacing={2}>
+    <Grid item xs={12} md={8}>
+      <ZutatenForm name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
+    </Grid>
+    <Grid item xs={12} md={4}>
+      <KochschrittAktionPicker
+        name={`${name}[aktion]`} values={kochschritt.aktion || new KochschrittAktion()}/>
+
+      <Box mt={1}>
+        <Field as={TextField} type="text" variant="outlined" mt={2}
+               fullWidth
+               multiline={true}
+               name={`${name}[beschreibung]`} label="Kommentar"/>
+      </Box>
+
+      <Box display="flex" justifyContent="space-between" mt={1}>
+        <Box flexGrow={1}>
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 size={'small'}
+                 name={`${name}[gesamtdauer]`} label="Gesamtdauer (Min)"/>
+        </Box>
+        <Box flexGrow={1}>
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 size={'small'}
+                 name={`${name}[arbeitszeit]`} label="Arbeitszeit (Min)"/>
+        </Box>
+        <Box flexGrow={1}>
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 size={'small'}
+                 name={`${name}[wartezeit]`} label="Wartezeit (Min)"/>
+        </Box>
+      </Box>
+
+      <Box mt={1}>
+        <Field as={TextField} type="text" variant="outlined"
+               fullWidth
+               name={`${name}[videoUrl]`} label="URL"/>
+      </Box>
+
+    </Grid>
+
+  </Grid>)
 }

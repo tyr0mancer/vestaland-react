@@ -13,7 +13,7 @@ import {EinheitProperties} from "../../../services/einheitenService";
 export interface FieldProps<T> {
   name: string;
   values: T;
-
+  index?: number;
 }
 
 export function ZutatenForm({name, values: zutaten}: FieldProps<Zutat[]>) {
@@ -83,7 +83,7 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
       </Grid>
 
 
-      {/* Einheit und Menge */}
+      {/* Menge und Einheit */}
       <Grid item xs={2} md={2}>
         <Field as={TextField} type="number" variant="outlined"
                size={'small'}
@@ -92,7 +92,7 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
       </Grid>
       <Grid item xs={3} md={2}>
         <Field as={Select}
-               inputProps={{ tabIndex: 2 }}
+               inputProps={{tabIndex: 2}}
                fullWidth
                size={'small'}
                variant="outlined"
@@ -100,7 +100,7 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
                labelId="Einheit"
         >
           {Object.entries(EinheitProperties).map(([key, value]) =>
-            <MenuItem key={key} value={key}>{value.fullName}</MenuItem>)}
+            <MenuItem dense={true} key={key} value={key}>{value.fullName}</MenuItem>)}
         </Field>
       </Grid>
 

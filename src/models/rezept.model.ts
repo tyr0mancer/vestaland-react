@@ -14,18 +14,19 @@ export class Kochschritt {
       this.zutaten = zutaten
   }
 
-  public name: string = "";
   public aktion?: KochschrittAktion;
-
   public beschreibung?: string;
   public videoUrl?: string;
   public repeating?: boolean;
   public gesamtdauer?: number;
   public arbeitszeit?: number;
   public wartezeit?: number;
+  public meta?: KochschrittMeta;
   public zutaten: Zutat[] = [];
   public hilfsmittel: Hilfsmittel[] = [];
-  public meta?: KochschrittMeta;
+
+  //@todo remove
+  public name: string = "";
 }
 
 export class RezeptMeta {
@@ -52,6 +53,10 @@ export class Rezept {
 }
 
 export class KochschrittAktion {
+  constructor(aktionName?: string) {
+    if (aktionName)
+      this.aktionName = aktionName
+  }
   public aktionName: string = '';
   public aktionIcon?: string;
 }
