@@ -110,13 +110,6 @@ function KochschrittForm({values: kochschritt, name}: FieldProps<Kochschritt>) {
       <KochschrittAktionPicker
         name={`${name}[aktion]`} values={kochschritt.aktion || new KochschrittAktion()}/>
 
-      <Box mt={1}>
-        <Field as={TextField} type="text" variant="outlined" mt={2}
-               fullWidth
-               multiline={true}
-               name={`${name}[beschreibung]`} label="Kommentar"/>
-      </Box>
-
       <Box display="flex" justifyContent="space-between" mt={1}>
         <Box flexGrow={1}>
           <Field as={TextField} type="number" variant="outlined" fullWidth
@@ -133,6 +126,13 @@ function KochschrittForm({values: kochschritt, name}: FieldProps<Kochschritt>) {
                  size={'small'}
                  name={`${name}[wartezeit]`} label="Wartezeit (Min)"/>
         </Box>
+      </Box>
+
+      <Box mt={1}>
+        <Field as={TextField} type="text" variant="outlined" mt={2}
+               fullWidth
+               multiline={true}
+               name={`${name}[beschreibung]`} label="Kommentar"/>
       </Box>
 
       <Box mt={1}>
