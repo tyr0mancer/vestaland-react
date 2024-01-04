@@ -6,7 +6,7 @@ import {Ref, TimeStamps} from "./types";
 import {Kochschritt} from "./kochschritt.model";
 
 
-interface RezeptMeta {
+export interface RezeptMeta {
   vegetarisch?: boolean;
   healthy?: boolean;
   soulfood?: boolean;

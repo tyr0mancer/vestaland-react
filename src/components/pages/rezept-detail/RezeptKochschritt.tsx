@@ -1,5 +1,5 @@
 import React from "react";
-import {Kochschritt} from "../../../models/rezept.model";
+import {Kochschritt} from "../../../models/kochschritt.model";
 
 interface RezeptKochschrittProps {
   kochschritt: Kochschritt

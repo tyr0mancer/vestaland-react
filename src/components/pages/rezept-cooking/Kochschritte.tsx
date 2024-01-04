@@ -6,7 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ActionTypes, StateContextType} from "../../../services/contexts/types";
-import {Kochschritt} from "../../../models/rezept.model";
+import {Kochschritt} from "../../../models/kochschritt.model";
 import {Zutat} from "../../../models/zutat.model";
 import {Hilfsmittel} from "../../../models/hilfsmittel.model";
 import {StateContext} from "../../../services/contexts/StateProvider";
@@ -77,7 +77,7 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
             id="panel1bh-header"
           >
             <Typography sx={{width: '33%', flexShrink: 0}}>
-              {kochschritt.name}
+              {kochschritt.aktion?.aktionName}
             </Typography>
             <Typography
               sx={{color: 'text.secondary'}}>

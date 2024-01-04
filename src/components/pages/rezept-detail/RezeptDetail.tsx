@@ -18,7 +18,7 @@ import {
 } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {getFileUrl} from "../../../services/api/fileService";
-import {Kochschritt} from "../../../models/rezept.model";
+import {Kochschritt} from "../../../models/kochschritt.model";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
@@ -102,11 +102,11 @@ export function RezeptDetail() {
             <TableBody>
               <TableRow>
                 <TableCell align="left">Gesamtdauer:</TableCell>
-                <TableCell align="left">{rezept.gesamtdauer} Minuten</TableCell>
+                <TableCell align="left">{rezept?.berechneteGesamtdauer} Minuten</TableCell>
               </TableRow>
               <TableRow>
                 <TableCell align="left">Arbeitszeit:</TableCell>
-                <TableCell align="left">{rezept.arbeitszeit} Minuten</TableCell>
+                <TableCell align="left">{rezept?.berechneteArbeitszeit} Minuten</TableCell>
               </TableRow>
             </TableBody>
 
@@ -149,7 +149,7 @@ function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
 
       {kochschritte.map((kochschritt, index) =>
         <TableRow key={index}>
-          <TableCell align="left" valign="top">{kochschritt.name}</TableCell>
+          <TableCell align="left" valign="top">{kochschritt.aktion?.aktionName}</TableCell>
           <TableCell align="left">
             <List>
               {kochschritt.zutaten.map((zutat, index) =>

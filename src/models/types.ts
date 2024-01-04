@@ -5,4 +5,4 @@ export class TimeStamps {
   public updatedAt?: Date;
 }
 
-export type Ref<T> = T | string //ObjectId
+export type Ref<T> = T // | string //ObjectId

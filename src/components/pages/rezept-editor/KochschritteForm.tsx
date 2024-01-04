@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
-import {Kochschritt, KochschrittAktion, Rezept} from "../../../models/rezept.model";
+import {Rezept} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
 import {Button, Grid, IconButton, TextField} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
@@ -12,6 +12,8 @@ import {FieldProps, ZutatenForm} from "./ZutatenForm";
 import {Zutat} from "../../../models/zutat.model";
 import {RezeptKochschritt} from "../rezept-detail/RezeptKochschritt";
 import {KochschrittAktionPicker} from "../../form-elements/KochschrittAktionPicker";
+import {Kochschritt} from "../../../models/kochschritt.model";
+import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
 
 /**
  * TS Doc Info

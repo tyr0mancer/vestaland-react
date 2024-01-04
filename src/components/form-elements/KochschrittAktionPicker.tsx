@@ -3,7 +3,7 @@ import {useField, useFormikContext} from "formik";
 import {useQuery} from "@tanstack/react-query";
 import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 import {AddOptionDialog} from "./AddOptionDialog";
-import {KochschrittAktion} from "../../models/rezept.model";
+import {KochschrittAktion} from "../../models/kochschritt-aktion.model";
 import {kochschrittConfigFindService, kochschrittConfigPostService} from "../../services/api/rezeptService";
 import {KochschrittAktionNeuForm} from "./KochschrittAktionNeuForm";
 
