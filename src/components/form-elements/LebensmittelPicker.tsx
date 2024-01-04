@@ -1,16 +1,12 @@
 import React, {useState} from "react";
-import {
-  Autocomplete,
-  Button,
-  CircularProgress,
-  TextField
-} from "@mui/material";
+import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
 import {lebensmittelPostService, lebensmittelSucheService} from "../../services/api/lebensmittelService";
 import {Lebensmittel} from "../../models/lebensmittel.model";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {LebensmittelNeuForm} from "./LebensmittelNeuForm";
+import {Einheit} from "../../services/einheitenService";
 
 interface LebensmittelPickerProps {
   name: string;
@@ -70,6 +66,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
         }
 
         renderInput={(params) => (
+
           <TextField
             autoFocus
             {...params}
@@ -85,6 +82,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
               ),
             }}
           />
+
         )}
       />
 
@@ -92,7 +90,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
         title={'Neues Lebensmittel in DB anlegen'}
         open={openModal} handleClose={() => setOpenModal(false)}
         onAdded={handleChange}
-        initialValues={{name: input} as Lebensmittel}
+        initialValues={{name: input, defaultEinheit: Einheit.ST} as Lebensmittel}
         mutationFn={lebensmittelPostService}
       >
         <LebensmittelNeuForm open={openModal}/>

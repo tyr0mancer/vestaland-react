@@ -5,12 +5,16 @@ import {useAuth} from "../../../services/auth/AuthProvider";
 import {ApiErrorResponse} from "../../../services/auth/types";
 import {logoutService} from "../../../services/api/authService";
 import {Button} from "@mui/material";
+import {customConfirm} from "../../../services/customConfirm";
 
 export function BenutzerInfo() {
   const {logout, authInfo} = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
+    const result = await customConfirm({label: 'are you sure?'})
+    if (!result) return
+
     logout(() => logoutService()).then(() => {
       navigate('/');
     }).catch((err: ApiErrorResponse) => {

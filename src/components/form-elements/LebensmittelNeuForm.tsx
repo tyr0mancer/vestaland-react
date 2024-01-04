@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import {Field} from "formik";
-import {Box, FormGroup, MenuItem, Select, TextField} from "@mui/material";
+import {Box, FormGroup, MenuItem, Select, TextField, Tooltip, Typography} from "@mui/material";
 import {EinheitProperties} from "../../services/einheitenService";
 
 interface LebensmittelNeuFormProps {
@@ -68,14 +68,44 @@ export function LebensmittelNeuForm({open}: LebensmittelNeuFormProps) {
 
       <Box display="flex" justifyContent="space-between">
         <Box flexGrow={1} marginRight={1}>
-          <Field as={TextField} type="text" variant="outlined" fullWidth
-                 name="density" label="Dichte"/>
+          <Tooltip title={"Gramm pro Kubikzentimeter bzw kg pro Liter. " +
+            "Beispiel: Mehl hat eine Dichte von 0.7 - das heißt das ein kg Mehl etwa 1,5 L Volumen haben, oder 1 L Mehl etwa 0,7 kg wiegt."}
+                   arrow={true} placement={'top-start'}>
+
+            <Field as={TextField} type="text" variant="outlined" fullWidth
+                   name="density" label="Dichte"/>
+          </Tooltip>
 
         </Box>
         <Box flexGrow={1}>
           <Field as={TextField} type="text" variant="outlined" fullWidth
                  name="unitWeight" label="Stückgewicht (g)"/>
 
+        </Box>
+      </Box>
+
+      <Typography variant="h4">Nährwerte pro 100ml bzw. g</Typography>
+
+      <Box display="flex" justifyContent="space-between">
+        <Box flexGrow={1} marginRight={1}>
+          <Field as={TextField} type="text" variant="outlined" fullWidth
+                 name="nutrients.proteine" label="Proteine"/>
+        </Box>
+        <Box flexGrow={1} marginRight={1}>
+          <Field as={TextField} type="text" variant="outlined" fullWidth
+                 name="nutrients.fett" label="Fett"/>
+        </Box>
+        <Box flexGrow={1} marginRight={1}>
+          <Field as={TextField} type="text" variant="outlined" fullWidth
+                 name="nutrients.kohlenhydrate" label="Kohlenhydrate"/>
+        </Box>
+        <Box flexGrow={1} marginRight={1}>
+          <Field as={TextField} type="text" variant="outlined" fullWidth
+                 name="nutrients.zucker" label="Zucker"/>
+        </Box>
+        <Box flexGrow={1}>
+          <Field as={TextField} type="text" variant="outlined" fullWidth
+                 name="nutrients.ballaststoffe" label="Ballaststoffe"/>
         </Box>
       </Box>
 
@@ -89,6 +119,6 @@ public kategorie?: string
 
 // Gramm pro Kubikzentimeter bzw kg pro Liter
 // Beispiel: Mehl hat eine Dichte von 0.7 - das heißt das ein kg Mehl etwa 1,5 L Volumen haben, oder 1 L Mehl,
-etwa 0,7 kg wiegt.
+
 public density?: number
 public unitWeight?: number*/
