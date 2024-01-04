@@ -1,7 +1,7 @@
 import {Einheit} from "../services/einheitenService";
+import {TimeStamps} from "./types";
 
-export class Lebensmittel {
-  public _id?: string;
+export class Lebensmittel extends TimeStamps {
   public kategorie?: string
   public name: string = ""
   public nameDetail?: string

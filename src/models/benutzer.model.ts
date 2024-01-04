@@ -1,7 +1,7 @@
 import {BenutzerRolle} from "../services/auth/types";
-import {MongoDocumentFields} from "./types";
+import {TimeStamps} from "./types";
 
-export class Benutzer extends MongoDocumentFields {
+export class Benutzer extends TimeStamps {
   public name: string = '';
   public email: string = '';
   public password: string = '';
