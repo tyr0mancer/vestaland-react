@@ -35,7 +35,7 @@ export function KochschritteForm(): React.ReactElement {
   }
   const handleMoveDown = (arrayHelpers: FieldArrayRenderProps, index: number) => {
     arrayHelpers.move(index, index + 1)
-    if (index == selectedIndex)
+    if (index === selectedIndex)
       setSelectedIndex(index + 1)
     else if (index === selectedIndex - 1)
       setSelectedIndex(index)
