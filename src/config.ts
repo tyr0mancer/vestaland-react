@@ -1,4 +1,5 @@
 interface Config {
+  devMode:boolean;
   apiBaseUrl: string;
   imgBaseUrl: string;
 
@@ -12,6 +13,7 @@ if (devMode)
   console.log("DevMode aktiv")
 
 const config: Config = {
+  devMode,
   apiBaseUrl: (devMode ? process.env.REACT_APP_API_BASE_URL_DEV : process.env.REACT_APP_API_BASE_URL) || 'https://api.vestaland.de/api',
   imgBaseUrl: (devMode ? process.env.REACT_APP_IMG_BASE_URL_DEV : process.env.REACT_APP_IMG_BASE_URL) || 'https://api.vestaland.de/api',
 

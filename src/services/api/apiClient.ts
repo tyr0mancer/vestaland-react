@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {ApiErrorResponse} from "../auth/types";
 import config from "../../config";
+import {z} from "zod";
 
 const baseURL = config.apiBaseUrl
 const apiClient = axios.create({
@@ -19,7 +20,11 @@ const refreshClient = axios.create({
 });
 
 apiClient.interceptors.response.use(
-  response => response,
+  (response) => {
+    if (config.devMode)
+      console.log(response)
+    return response;
+  },
   async (error) => {
     const originalRequest = error.config;
 
@@ -34,6 +39,29 @@ apiClient.interceptors.response.use(
         })
         .catch(error => console.error('Error while trying to refresh Token', error.response || error))
     }
+
+
+    if (error.response && error.response.status === 400) {
+      /* check for ZOD Errors */
+
+      try {
+        const zodErrorSchema = z.object({
+          error: z.string(),
+          details: z.array(z.string()),
+        });
+
+        const parsedError = zodErrorSchema.parse(error.response.data);
+
+        console.error('Zod Error:', parsedError);
+
+      } catch (zodError) {
+
+        // That was no ZOD
+        console.error('Error parsing Zod error:', zodError);
+      }
+    }
+
+
     return Promise.reject(error);
   }
 );

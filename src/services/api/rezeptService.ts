@@ -6,6 +6,7 @@ import {RezeptSucheQuery} from "../contexts/types";
 
 export const rezeptSuche = (query: RezeptSucheQuery): Promise<Rezept[]> => {
 
+  //@todo iterate RezeptMeta
   let queryString = `name=${query.rezeptName}`
   if (query.vegetarisch)
     queryString += `&vegetarisch=1`
