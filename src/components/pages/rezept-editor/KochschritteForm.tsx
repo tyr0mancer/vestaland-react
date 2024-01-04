@@ -8,12 +8,13 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import {FieldProps, ZutatenForm} from "./ZutatenForm";
+import {ZutatenForm} from "./ZutatenForm";
 import {Zutat} from "../../../models/zutat.model";
 import {RezeptKochschritt} from "../rezept-detail/RezeptKochschritt";
 import {KochschrittAktionPicker} from "../../form-elements/KochschrittAktionPicker";
 import {Kochschritt} from "../../../models/kochschritt.model";
 import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
+import {CustomFieldProps} from "../../form-elements/types";
 
 /**
  * TS Doc Info
@@ -102,7 +103,7 @@ export function KochschritteForm(): React.ReactElement {
 
 
 
-function KochschrittForm({values: kochschritt, name}: FieldProps<Kochschritt>) {
+function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschritt>) {
 
   return (<Grid container spacing={2}>
     <Grid item xs={12} md={8}>

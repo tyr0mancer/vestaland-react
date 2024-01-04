@@ -8,7 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {ActionTypes, StateContextType} from "../../../services/contexts/types";
 import {Kochschritt} from "../../../models/kochschritt.model";
 import {Zutat} from "../../../models/zutat.model";
-import {Hilfsmittel} from "../../../models/hilfsmittel.model";
+import {Utensil} from "../../../models/utensil.model";
 import {StateContext} from "../../../services/contexts/StateProvider";
 import List from '@mui/material/List';
 import {ListItem} from "@mui/material";
@@ -33,8 +33,8 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
   const kochschrittLebensmittelReducer = (s: string, z: Zutat) => {
     return s + z.lebensmittel?.name + ','
   }
-  const kochschrittHilfsmittelReducer = (s: string, h: Hilfsmittel) => {
-    return s + h.name + ','
+  const kochschrittUtensilReducer = (s: string, h: Utensil) => {
+    return s + h.utensilName + ','
   }
 
   const setIndex = (neuerKochschrittIndex: number) => {
@@ -82,7 +82,7 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
             <Typography
               sx={{color: 'text.secondary'}}>
               {kochschritt.zutaten.reduce(kochschrittLebensmittelReducer, '')}
-              {kochschritt.hilfsmittel.reduce(kochschrittHilfsmittelReducer, '')}
+              {kochschritt.utensilien.reduce(kochschrittUtensilReducer, '')}
               {kochschritt.gesamtdauer && <i>{kochschritt.gesamtdauer} Minuten</i>}
             </Typography>
           </AccordionSummary>

@@ -1,16 +1,12 @@
 import React, {useState} from "react";
 import {Autocomplete, CircularProgress, TextField} from "@mui/material";
-import {Hilfsmittel} from "../../models/hilfsmittel.model";
-import {hilfsmittelSuche} from "../../services/api/hilfsmittelService";
+import {Utensil} from "../../models/utensil.model";
+import {utensilienSucheService} from "../../services/api/utensilService";
 import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
+import {CustomFieldProps} from "./types";
 
-interface HilfsmittelPickerProps {
-  name: string;
-  values: Hilfsmittel;
-}
-
-export function HilfsmittelPicker({name, values}: HilfsmittelPickerProps) {
+export function UtensilPicker({name, values}: CustomFieldProps<Utensil>) {
   const {setFieldValue} = useFormikContext();
   const [field] = useField(name);
 
@@ -23,7 +19,7 @@ export function HilfsmittelPicker({name, values}: HilfsmittelPickerProps) {
   } = useQuery(
     {
       queryKey: ["hilfsmittel-suche", input],
-      queryFn: () => hilfsmittelSuche(input),
+      queryFn: () => utensilienSucheService(input),
       enabled: input.length > 1,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
@@ -48,7 +44,7 @@ export function HilfsmittelPicker({name, values}: HilfsmittelPickerProps) {
     renderInput={(params) => (
       <TextField
         {...params}
-        label="Hilfsmittel"
+        label="Utensilien"
         onChange={(e) => setInput(e.target.value)}
         InputProps={{
           ...params.InputProps,

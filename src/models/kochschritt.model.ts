@@ -1,4 +1,4 @@
-import {Hilfsmittel} from "./hilfsmittel.model";
+import {Utensil} from "./utensil.model";
 import {Ref} from "./types";
 import {Zutat} from "./zutat.model";
 import {KochschrittAktion} from "./kochschritt-aktion.model";
@@ -18,6 +18,6 @@ export class Kochschritt {
   public arbeitszeit?: number;
   public wartezeit?: number;
   public zutaten: Zutat[] = [];
-  public hilfsmittel: Ref<Hilfsmittel>[] = [];
+  public utensilien: Ref<Utensil>[] = [];
   public meta?: KochschrittMeta;
 }

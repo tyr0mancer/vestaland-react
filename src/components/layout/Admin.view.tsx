@@ -4,7 +4,7 @@ import {NavbarAdmin} from "./wrapper/NavbarAdmin";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {UserAdmin} from "../pages/admin/UserAdmin";
 import {LebensmittelAdmin} from "../pages/admin/LebensmittelAdmin";
-import {HilfsmittelAdmin} from "../pages/admin/HilfsmittelAdmin";
+import {UtensilAdmin} from "../pages/admin/UtensilAdmin";
 import {BenutzerRolle} from "../../services/auth/types";
 
 export function AdminView() {
@@ -14,7 +14,7 @@ export function AdminView() {
       <Route path="/" element={<Navigate replace to="lebensmittel"/>}/>
       <Route path="user" element={<UserAdmin/>}/>
       <Route path="lebensmittel" element={<LebensmittelAdmin/>}/>
-      <Route path="hilfsmittel" element={<HilfsmittelAdmin/>}/>
+      <Route path="utensil" element={<UtensilAdmin/>}/>
     </Routes>
   </RestrictedArea>)
 }

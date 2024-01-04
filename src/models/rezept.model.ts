@@ -1,5 +1,5 @@
 import {Zutat} from "./zutat.model";
-import {Hilfsmittel} from "./hilfsmittel.model";
+import {Utensil} from "./utensil.model";
 import {Benutzer} from "./benutzer.model";
 import {Datei} from "./datei.model";
 import {Ref, TimeStamps} from "./types";
@@ -23,7 +23,7 @@ export class Rezept extends TimeStamps {
   public autor?: Ref<Benutzer>;
   public bild?: Ref<Datei>;
   public zutaten: Zutat[] = [];
-  public hilfsmittel: Ref<Hilfsmittel>[] = [];
+  public utensilien: Ref<Utensil>[] = [];
   public kochschritte: Kochschritt[] = [];
   public meta?: RezeptMeta;
   public portionen: number = 1;

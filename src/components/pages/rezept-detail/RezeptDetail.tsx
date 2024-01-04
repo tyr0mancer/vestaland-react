@@ -22,7 +22,7 @@ import {Kochschritt} from "../../../models/kochschritt.model";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
-import {RezeptHilfsmittel} from "./RezeptHilfsmittel";
+import {RezeptUtensilien} from "./RezeptUtensilien";
 import {MetaInfoIcons} from "../rezept-suche/RezeptCard";
 
 export function RezeptDetail() {
@@ -119,9 +119,9 @@ export function RezeptDetail() {
           </Grid>
           <Grid item xs={12} md={3}>
             <Typography variant="h4" gutterBottom>
-              Hilfsmittel
+              Utensilien
             </Typography>
-            <RezeptHilfsmittel hilfsmittel={rezept.hilfsmittel}/>
+            <RezeptUtensilien utensilien={rezept.utensilien}/>
           </Grid>
         </Grid>
 
@@ -155,8 +155,8 @@ function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
               {kochschritt.zutaten.map((zutat, index) =>
                 <ListItem key={index}> {zutat.menge} {zutat.einheit} {zutat.lebensmittel?.name}</ListItem>
               )}
-              {kochschritt.hilfsmittel.map((hilfsmittel, index) =>
-                <ListItem key={index}> {hilfsmittel.name}</ListItem>
+              {kochschritt.utensilien.map((utensil, index) =>
+                <ListItem key={index}> {utensil.utensilName}</ListItem>
               )}
             </List>
           </TableCell>

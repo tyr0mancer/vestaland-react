@@ -8,15 +8,9 @@ import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MenuIcon from '@mui/icons-material/Menu';
 import {EinheitProperties} from "../../../services/einheitenService";
+import {CustomFieldProps} from "../../form-elements/types";
 
-//@todo umziehen
-export interface FieldProps<T> {
-  name: string;
-  values: T;
-  index?: number;
-}
-
-export function ZutatenForm({name, values: zutaten}: FieldProps<Zutat[]>) {
+export function ZutatenForm({name, values: zutaten}: CustomFieldProps<Zutat[]>) {
   return (
     <FieldArray
       name={name}

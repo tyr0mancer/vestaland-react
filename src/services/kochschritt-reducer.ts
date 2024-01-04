@@ -1,5 +1,5 @@
 import {Zutat} from "../models/zutat.model";
-import {Hilfsmittel} from "../models/hilfsmittel.model";
+import {Utensil} from "../models/utensil.model";
 import {Kochschritt} from "../models/kochschritt.model";
 
 
@@ -8,7 +8,7 @@ interface KochschrittSummary {
   wartezeit: number,
   gesamtdauer: number,
   zutaten: Zutat[],
-  hilfsmittel: Hilfsmittel[]
+  utensilien: Utensil[]
 }
 
 const kochschrittSummaryDefault: KochschrittSummary = {
@@ -16,7 +16,7 @@ const kochschrittSummaryDefault: KochschrittSummary = {
   wartezeit: 0,
   gesamtdauer: 0,
   zutaten: [],
-  hilfsmittel: []
+  utensilien: []
 }
 
 function kochschrittReducer(summary: KochschrittSummary, kochschritt: Kochschritt) {
@@ -24,7 +24,7 @@ function kochschrittReducer(summary: KochschrittSummary, kochschritt: Kochschrit
     return [...bisherigeListe, zutat]
   }, summary.zutaten)
 
-  let hilfsmittel = [...summary.hilfsmittel, ...kochschritt.hilfsmittel]
+  let utensilien = [...summary.utensilien, ...kochschritt.utensilien]
   let arbeitszeit = summary.arbeitszeit + (kochschritt?.arbeitszeit || 0)
   let wartezeit = summary.wartezeit + (kochschritt?.wartezeit || 0)
   let gesamtdauer = summary.wartezeit + (kochschritt?.gesamtdauer || arbeitszeit + wartezeit)
@@ -34,7 +34,7 @@ function kochschrittReducer(summary: KochschrittSummary, kochschritt: Kochschrit
     wartezeit,
     gesamtdauer,
     zutaten,
-    hilfsmittel
+    utensilien
   }
 }
 
