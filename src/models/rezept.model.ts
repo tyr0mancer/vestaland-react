@@ -14,11 +14,11 @@ export interface RezeptMeta {
 
 export class Rezept extends TimeStamps {
   public name: string = '';
-  public beschreibung?: string;
-  public freitext?: string;
+  public beschreibung?: string = '';
+  public freitext?: string = '';
   public quelleUrl: string[] = [];
-  public berechneteGesamtdauer?: number;
-  public berechneteArbeitszeit?: number;
+  public berechneteGesamtdauer: number = 0;
+  public berechneteArbeitszeit: number = 0;
   public realeGesamtzeit?: number;
   public autor?: Ref<Benutzer>;
   public bild?: Ref<Datei>;

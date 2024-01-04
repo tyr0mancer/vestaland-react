@@ -29,16 +29,13 @@ export function OverviewForm(): React.ReactElement {
 
       <Grid item xs={6} md={2}>
         <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="gesamtdauer" label="Gesamtdauer"/>
+               name="berechneteGesamtdauer" label="Gesamtdauer"/>
       </Grid>
       <Grid item xs={6} md={2}>
         <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="arbeitszeit" label="Arbeitszeit"/>
+               name="berechneteArbeitszeit" label="Arbeitszeit"/>
       </Grid>
-      <Grid item xs={12} md={8}>
-        <Field as={TextField} type="text" variant="outlined" fullWidth
-               name="quelleUrl[0]" label="Quelle"/>
-      </Grid>
+
 
       <Grid item xs={12} md={4} textAlign={'center'}>
         {formik.values?.bild &&

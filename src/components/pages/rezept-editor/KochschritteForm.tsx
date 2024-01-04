@@ -100,11 +100,14 @@ export function KochschritteForm(): React.ReactElement {
 }
 
 
+
+
 function KochschrittForm({values: kochschritt, name}: FieldProps<Kochschritt>) {
 
   return (<Grid container spacing={2}>
     <Grid item xs={12} md={8}>
       <ZutatenForm name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
+
     </Grid>
     <Grid item xs={12} md={4}>
       <KochschrittAktionPicker

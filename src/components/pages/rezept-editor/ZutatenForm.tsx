@@ -27,13 +27,11 @@ export function ZutatenForm({name, values: zutaten}: FieldProps<Zutat[]>) {
             <ZutatenPicker key={index} index={index} name={`${name}[${index}]`} values={zutat}
                            arrayHelpers={arrayHelpers}/>
           )}
-          <hr/>
-          <Button variant="contained" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
-            neue Zutat
-          </Button>
-          <Button variant="contained" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
-            neues Hilfsmittel
-          </Button>
+          {!zutaten?.length &&
+              <Button variant="contained" onClick={() => arrayHelpers.insert(zutaten.length, new Zutat())}>
+                  neue Zutat
+              </Button>
+          }
         </Box>
       )}
     />
@@ -58,9 +56,7 @@ function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Z
       await setFieldValue(`${name}[einheit]`, lebensmittel.defaultEinheit)
     if (lebensmittel?.defaultMenge)
       await setFieldValue(`${name}[menge]`, lebensmittel.defaultMenge)
-
-    // @todo big NO-NO ursache für nebenl. problem finden!!!
-    setTimeout(() => inputRef.current?.select(), 500);
+    inputRef.current?.select()
   }
 
 
