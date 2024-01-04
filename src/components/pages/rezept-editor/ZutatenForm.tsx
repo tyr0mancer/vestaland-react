@@ -18,7 +18,7 @@ export function ZutatenForm({name, values: zutaten}: CustomFieldProps<Zutat[]>) 
         <Box>
           {zutaten.map((zutat: Zutat, index: number) =>
 
-            <ZutatenPicker key={index} index={index} name={`${name}[${index}]`} values={zutat}
+            <ZutatForm key={index} index={index} name={`${name}[${index}]`} values={zutat}
                            arrayHelpers={arrayHelpers}/>
           )}
           {!zutaten?.length &&
@@ -41,7 +41,7 @@ interface FormComponentProps<T> {
 }
 
 
-function ZutatenPicker({index, name, values, arrayHelpers}: FormComponentProps<Zutat>) {
+function ZutatForm({index, name, values, arrayHelpers}: FormComponentProps<Zutat>) {
   const {setFieldValue} = useFormikContext();
   const inputRef = useRef<HTMLInputElement>(null);
 

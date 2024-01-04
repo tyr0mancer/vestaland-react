@@ -18,6 +18,8 @@ interface LebensmittelPickerProps {
 export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerProps) {
   const {setFieldValue} = useFormikContext();
   const [field,] = useField<Lebensmittel>(name);
+  const [open, setOpen] = React.useState(false);
+
   const [openModal, setOpenModal] = React.useState<boolean>(false);
   const [input, setInput] = useState('');
 
@@ -49,6 +51,14 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
         autoSelect={true}
 
         {...field}
+        fullWidth
+        open={open}
+        onOpen={() => {
+          setOpen(true);
+        }}
+        onClose={() => {
+          setOpen(false);
+        }}
         size={'small'}
         multiple={false}
         value={values}

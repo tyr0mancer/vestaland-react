@@ -15,6 +15,7 @@ import {KochschrittAktionPicker} from "../../form-elements/KochschrittAktionPick
 import {Kochschritt} from "../../../models/kochschritt.model";
 import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
 import {CustomFieldProps} from "../../form-elements/types";
+import {UtensilienForm} from "./UtensilienForm";
 
 /**
  * TS Doc Info
@@ -27,7 +28,7 @@ export function KochschritteForm(): React.ReactElement {
 
   const handleInsert = (arrayHelpers: FieldArrayRenderProps) => {
     arrayHelpers.insert(formik.values.kochschritte.length,
-      {zutaten: [new Zutat()]} as Kochschritt
+      {zutaten: [new Zutat()], utensilien: []} as Kochschritt
       //new Kochschritt([new Zutat()])
     )
     setSelectedIndex(formik.values.kochschritte.length)
@@ -100,16 +101,18 @@ export function KochschritteForm(): React.ReactElement {
   );
 }
 
-
-
-
 function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschritt>) {
 
   return (<Grid container spacing={2}>
+
+    {/* Zutaten und Utensilien */}
     <Grid item xs={12} md={8}>
       <ZutatenForm name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
-
+      <hr/>
+      <UtensilienForm name={`${name}[utensilien]`} values={kochschritt.utensilien}/>
     </Grid>
+
+    {/* Weitere Angaben zum Kochschritt */}
     <Grid item xs={12} md={4}>
       <KochschrittAktionPicker
         name={`${name}[aktion]`} values={kochschritt.aktion || new KochschrittAktion()}/>
@@ -131,21 +134,17 @@ function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschri
                  name={`${name}[wartezeit]`} label="Wartezeit (Min)"/>
         </Box>
       </Box>
-
       <Box mt={1}>
         <Field as={TextField} type="text" variant="outlined" mt={2}
                fullWidth
                multiline={true}
                name={`${name}[beschreibung]`} label="Kommentar"/>
       </Box>
-
       <Box mt={1}>
         <Field as={TextField} type="text" variant="outlined"
                fullWidth
                name={`${name}[videoUrl]`} label="URL"/>
       </Box>
-
     </Grid>
-
   </Grid>)
 }
