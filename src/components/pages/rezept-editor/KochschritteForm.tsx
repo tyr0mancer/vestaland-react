@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
-import {Kochschritt, KochschrittAktion,  Rezept} from "../../../models/rezept.model";
+import {Kochschritt, KochschrittAktion, Rezept} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
 import {Button, Grid, IconButton, TextField} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
@@ -23,7 +23,10 @@ export function KochschritteForm(): React.ReactElement {
   const [selectedIndex, setSelectedIndex] = useState<number>(-1)
 
   const handleInsert = (arrayHelpers: FieldArrayRenderProps) => {
-    arrayHelpers.insert(formik.values.kochschritte.length, new Kochschritt([new Zutat()]))
+    arrayHelpers.insert(formik.values.kochschritte.length,
+      {zutaten: [new Zutat()]} as Kochschritt
+      //new Kochschritt([new Zutat()])
+    )
     setSelectedIndex(formik.values.kochschritte.length)
   }
   const handleMoveUp = (arrayHelpers: FieldArrayRenderProps, index: number) => {

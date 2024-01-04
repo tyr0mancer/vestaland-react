@@ -9,10 +9,6 @@ export class KochschrittMeta {
 }
 
 export class Kochschritt {
-  constructor(zutaten?: Zutat[]) {
-    if (zutaten)
-      this.zutaten = zutaten
-  }
 
   public aktion?: KochschrittAktion;
   public beschreibung?: string;
@@ -53,10 +49,6 @@ export class Rezept {
 }
 
 export class KochschrittAktion {
-  constructor(aktionName?: string) {
-    if (aktionName)
-      this.aktionName = aktionName
-  }
   public aktionName: string = '';
   public aktionIcon?: string;
 }

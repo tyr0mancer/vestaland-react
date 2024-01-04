@@ -84,7 +84,7 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
         title={'Neue Aktion in DB anlegen'}
         open={openModal} handleClose={() => setOpenModal(false)}
         onAdded={handleChange}
-        initialValues={new KochschrittAktion(input)}
+        initialValues={{aktionName: input} as KochschrittAktion}
         mutationFn={kochschrittConfigPostService}
       >
         <KochschrittAktionNeuForm open={openModal}/>

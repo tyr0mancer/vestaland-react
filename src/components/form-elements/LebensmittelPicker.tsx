@@ -92,7 +92,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
         title={'Neues Lebensmittel in DB anlegen'}
         open={openModal} handleClose={() => setOpenModal(false)}
         onAdded={handleChange}
-        initialValues={new Lebensmittel(input)}
+        initialValues={{name: input} as Lebensmittel}
         mutationFn={lebensmittelPostService}
       >
         <LebensmittelNeuForm open={openModal}/>
