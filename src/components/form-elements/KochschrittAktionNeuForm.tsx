@@ -1,7 +1,8 @@
 import React, {useEffect, useRef} from "react";
 import {Field} from "formik";
 import {Box, MenuItem, Select, TextField} from "@mui/material";
-import {EinheitProperties} from "../../services/enum/einheiten";
+import {AktionIconProperties} from "../../services/enum/aktionIcons";
+import {AktionIcon} from "../../shared-types/types";
 
 interface KochschrittAktionNeuFormProps {
   open: boolean
@@ -29,19 +30,15 @@ export function KochschrittAktionNeuForm({open}: KochschrittAktionNeuFormProps) 
         </Box>
         <Box flexGrow={1}>
 
-
           <Field
             as={Select}
             name="aktionIcon"
             labelId="Icon"
+            defaultValue={AktionIcon.DUMMY}
           >
-            {Object.entries(EinheitProperties).map(([key, value]) =>
-              <MenuItem key={key} value={key}>{value.fullName}</MenuItem>)}
+            {Object.entries(AktionIconProperties).map(([key, value]) =>
+              <MenuItem key={key} value={key}>{value.icon}</MenuItem>)}
           </Field>
-
-
-          <Field as={TextField} type="text" variant="outlined"
-                 name="aktionIcon" label="Aktion Icon"/>
 
         </Box>
       </Box>
