@@ -16,7 +16,7 @@ if (devMode)
 const config: Config = {
   devMode,
   apiBaseUrl: (devMode ? process.env.REACT_APP_API_BASE_URL_DEV : process.env.REACT_APP_API_BASE_URL) || 'https://api.vestaland.de/api',
-  imgBaseUrl: (devMode ? process.env.REACT_APP_IMG_BASE_URL_DEV : process.env.REACT_APP_IMG_BASE_URL) || 'https://api.vestaland.de/api',
+  imgBaseUrl: (devMode ? process.env.REACT_APP_IMG_BASE_URL_DEV : process.env.REACT_APP_IMG_BASE_URL) || 'https://api.vestaland.de/public/uploads/',
   tokenRefreshUrl: process.env.REACT_APP_TOKEN_REFRESH_URL || '/auth/refresh',
   zodErrorString: process.env.REACT_APP_ZOD_ERROR_STRING || 'Schema ist nicht Valide',
 
