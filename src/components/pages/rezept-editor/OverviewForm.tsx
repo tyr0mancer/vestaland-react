@@ -1,8 +1,9 @@
 import React from "react";
 import {Field, useFormikContext} from "formik";
 import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
-import {getFileUrl} from "../../../services/api/fileService";
 import {Rezept} from "../../../models/rezept.model";
+import {CustomFile} from "../../form-elements/CustomFile";
+import {Datei} from "../../../models/datei.model";
 
 
 /**
@@ -37,14 +38,12 @@ export function OverviewForm(): React.ReactElement {
       </Grid>
 
 
+      {/* File Picker */}
       <Grid item xs={12} md={4} textAlign={'center'}>
-        {formik.values?.bild &&
-            <img src={getFileUrl(formik.values.bild?.fileName)} height={200}
-                 alt={formik.values.bild.name}/>}
-        {!formik.values?.bild && <>
-            <h2>File Uploader</h2>
-        </>}
+        <CustomFile name={'bild'} values={formik.values.bild || new Datei()} />
       </Grid>
+
+
       <Grid item xs={12} md={8}>
 
         <Field
