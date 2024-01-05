@@ -19,7 +19,7 @@ export function RezeptSucheAusgabe() {
     data
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", state.rezeptSucheQuery.rezeptName],
+      queryKey: ["rezepte-suche", state.rezeptSucheQuery.rezeptName],
       enabled: false,
     });
 

@@ -1,38 +1,42 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
-
+import {Link, Navigate, Route, Routes} from "react-router-dom";
 import {useAuth} from "../../../services/auth/AuthProvider";
-import {ApiErrorResponse} from "../../../services/auth/types";
-import {logoutService} from "../../../services/api/authService";
-import {Button} from "@mui/material";
-import {customConfirm} from "../../../services/customConfirm";
+import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
+import PersonIcon from '@mui/icons-material/Person';
+import {MeineRezepte} from "./MeineRezepte";
+import {Account} from "./Account";
+import {Favoriten} from "./Favoriten";
+import GradeIcon from '@mui/icons-material/Grade';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 export function BenutzerInfo() {
-  const {logout, authInfo} = useAuth()
-  const navigate = useNavigate()
-
-  const handleLogout = async () => {
-    const result = await customConfirm({label: 'are you sure?'})
-    if (!result) return
-
-    logout(() => logoutService()).then(() => {
-      navigate('/');
-    }).catch((err: ApiErrorResponse) => {
-      console.log(err)
-    })
-
-  }
+  const {authInfo} = useAuth()
 
   return (<>
-    <h1>Hallo {authInfo?.name}!</h1>
-    <hr/>
-    <h4>Hier kannst du</h4>
-    <ul>
-      <li>Deine Daten</li>
-      <li>Deine Rezepte</li>
-      <li>Konto löschen</li>
-    </ul>
-    <hr/>
-    <Button onClick={handleLogout}>abmelden</Button>
+    <AppBar position="static">
+      <Toolbar variant="dense">
+        <Link to={'meine-rezepte'}><IconButton sx={{mr: 2}} size="small" color="secondary"
+                                               aria-label="Meine Rezepte"><AutoStoriesIcon/> . Meine
+          Rezepte</IconButton></Link>
+        <Link to={'favoriten'}><IconButton sx={{mr: 2}} size="small" color="secondary"
+                                           aria-label="Meine Rezepte"><GradeIcon/> Favoriten</IconButton></Link>
+        <Link to={'account'}><IconButton sx={{mr: 2}} size="small" color="secondary"
+                                         aria-label="Meine Rezepte"><PersonIcon/> Account</IconButton></Link>
+
+
+        <Typography variant="h6" color="inherit" component="div" sx={{mr: 4}}>
+          Benutzerbereich von {authInfo?.name}
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    <Routes>
+      <Route path="/" element={<Navigate replace to="meine-rezepte"/>}/>
+      <Route path="meine-rezepte" element={<MeineRezepte/>}/>
+      <Route path="favoriten" element={<Favoriten/>}/>
+      <Route path="account" element={<Account/>}/>
+    </Routes>
   </>);
 }
+
+
+

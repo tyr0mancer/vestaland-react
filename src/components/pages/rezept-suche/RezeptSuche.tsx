@@ -16,7 +16,7 @@ export function RezeptSuche() {
     refetch
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezept-suche", rezeptSucheQuery.rezeptName],
+      queryKey: ["rezepte-suche", rezeptSucheQuery.rezeptName],
       queryFn: () => rezeptSuche(rezeptSucheQuery),
       enabled: (rezeptSucheQuery.rezeptName.length > 0),
       staleTime: 1000 * 60 * 5, // 5 minutes

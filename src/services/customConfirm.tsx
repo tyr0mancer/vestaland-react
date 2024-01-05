@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
-export const customConfirm = (options: { label: string }): Promise<boolean> => {
+export const customConfirm = (options: { label: string, title?: string }): Promise<boolean> => {
   return new Promise((resolve) => {
     const div = document.createElement('div');
     document.body.appendChild(div);
@@ -21,6 +21,7 @@ export const customConfirm = (options: { label: string }): Promise<boolean> => {
 
     ReactDOM.render(
       <ConfirmDialog
+        title={options.title}
         open={true}
         label={options.label}
         onConfirm={handleConfirm}
@@ -37,12 +38,13 @@ interface ConfirmDialogProps {
   onClose: () => void;
   onConfirm: () => void;
   label: string;
+  title?: string;
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({open, onClose, onConfirm, label}) => {
+const ConfirmDialog: React.FC<ConfirmDialogProps> = ({open, onClose, onConfirm, label, title}) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Confirmation</DialogTitle>
+      <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{label}</DialogContentText>
       </DialogContent>
@@ -57,3 +59,4 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({open, onClose, onConfirm, 
     </Dialog>
   );
 }
+

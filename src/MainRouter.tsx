@@ -41,7 +41,7 @@ export function MainLayout() {
       <Route path="/einkaufsliste" element={<DefaultView children={<EinkaufsListe/>} loginRequired={true}/>}/>
 
       <Route path="/login" element={<DefaultView children={<LoginForm/>}/>}/>
-      <Route path="/user" element={<DefaultView children={<BenutzerInfo/>}/>}/>
+      <Route path="/user/*" element={<DefaultView children={<BenutzerInfo/>}/>}/>
       <Route path="/impressum" element={<DefaultView children={<Impressum/>}/>}/>
 
       <Route path="*" element={<ErrorPageView error={{code: 404, message: "Seite nicht gefunden."}}/>}/>
