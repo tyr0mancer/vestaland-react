@@ -22,15 +22,25 @@ const kochschrittSummaryDefault: KochschrittSummary = {
 
 const utensilienReducer = (utensilien: Utensil[], utensil: Utensil) => [...utensilien, utensil]
 
-//@todo doppelte lebensmittel zusammenfassen
-const zutatenReducer = (zutaten: Zutat[], zutat: Zutat) => [...zutaten, zutat]
+const zutatenReducer = (zutaten: Zutat[], zutat: Zutat) => {
+  const zutatGefunden = zutaten.find(z => (z.lebensmittel?._id === zutat.lebensmittel?._id))
+  if (zutatGefunden) {
+    zutatGefunden.menge += zutat.menge;
+  } else {
+    zutaten.push(zutat);
+  }
+  return zutaten
+}
+
 const nutrientsReducer = (nutrients: Nutrients, zutat: Zutat) => {
-  nutrients.proteine += zutat.lebensmittel?.nutrients?.proteine || 0
-  nutrients.fett += zutat.lebensmittel?.nutrients?.fett || 0
-  nutrients.ballaststoffe += zutat.lebensmittel?.nutrients?.ballaststoffe || 0
-  nutrients.zucker += zutat.lebensmittel?.nutrients?.zucker || 0
-  nutrients.kohlenhydrate += zutat.lebensmittel?.nutrients?.kohlenhydrate || 0
-  return nutrients
+  if (!zutat.lebensmittel?.nutrients)
+    return nutrients
+  nutrients.proteine += zutat.lebensmittel.nutrients?.proteine || 0
+  nutrients.fett += zutat.lebensmittel.nutrients?.fett || 0
+  nutrients.ballaststoffe += zutat.lebensmittel.nutrients?.ballaststoffe || 0
+  nutrients.zucker += zutat.lebensmittel.nutrients?.zucker || 0
+  nutrients.kohlenhydrate += zutat.lebensmittel.nutrients?.kohlenhydrate || 0
+  return multiplyNutrients(nutrients, zutat.menge / 100)
 }
 
 function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochschritt) {

@@ -118,6 +118,8 @@ export function RezeptDetail() {
           </Grid>
         </Grid>
 
+        <pre>{JSON.stringify(rezept?.nutrients, null, 2)}</pre>
+
         <RezeptKochschritte kochschritte={rezept.kochschritte}/>
 
         <hr/>
