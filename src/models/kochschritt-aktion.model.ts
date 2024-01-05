@@ -1,4 +1,6 @@
+import {AktionIcon} from "../shared-types/types";
+
 export class KochschrittAktion  {
   public aktionName: string = '';
-  public aktionIcon?: string;
+  public aktionIcon: AktionIcon = AktionIcon.DUMMY;
 }

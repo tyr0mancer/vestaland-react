@@ -1,6 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {Field} from "formik";
-import {Box, TextField} from "@mui/material";
+import {Box, MenuItem, Select, TextField} from "@mui/material";
+import {EinheitProperties} from "../../services/enum/einheiten";
 
 interface KochschrittAktionNeuFormProps {
   open: boolean
@@ -27,8 +28,21 @@ export function KochschrittAktionNeuForm({open}: KochschrittAktionNeuFormProps) 
                  name="aktionName" label="Aktion Name"/>
         </Box>
         <Box flexGrow={1}>
+
+
+          <Field
+            as={Select}
+            name="aktionIcon"
+            labelId="Icon"
+          >
+            {Object.entries(EinheitProperties).map(([key, value]) =>
+              <MenuItem key={key} value={key}>{value.fullName}</MenuItem>)}
+          </Field>
+
+
           <Field as={TextField} type="text" variant="outlined"
                  name="aktionIcon" label="Aktion Icon"/>
+
         </Box>
       </Box>
     </>)

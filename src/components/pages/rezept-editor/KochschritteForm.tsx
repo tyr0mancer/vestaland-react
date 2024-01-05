@@ -16,7 +16,7 @@ import {Kochschritt} from "../../../models/kochschritt.model";
 import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
 import {CustomFieldProps} from "../../form-elements/types";
 import {UtensilienForm} from "./UtensilienForm";
-import {BetriebsartenProperties} from "../../../services/betriebsartService";
+import {BetriebsartenProperties} from "../../../services/enum/betriebsarten";
 
 /**
  * TS Doc Info

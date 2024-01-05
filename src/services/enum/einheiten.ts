@@ -1,4 +1,4 @@
-import { Einheit } from "../shared-types/types";
+import { Einheit } from "../../shared-types/types";
 
 type EinheitProperty = {
   fullName: string;
@@ -16,7 +16,7 @@ export const EinheitProperties: { [key in Einheit]: EinheitProperty } = {
   [Einheit.L]: {fullName: 'Liter', variant: Einheit.ML, base: 1000},
   [Einheit.TL]: {fullName: 'Teelöffel', variant: Einheit.ML, base: 5},
   [Einheit.EL]: {fullName: 'Esslöffel', variant: Einheit.ML, base: 15},
-  [Einheit.CUP]: {fullName: 'US Cup', variant: Einheit.ML, base: 236},
+  [Einheit.CP]: {fullName: 'US Cup', variant: Einheit.ML, base: 236},
 
-} as const; // for immutability
+} as const
 

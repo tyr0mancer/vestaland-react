@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {Field} from "formik";
 import {Box, FormGroup, MenuItem, Select, TextField, Tooltip, Typography} from "@mui/material";
-import {EinheitProperties} from "../../services/einheitenService";
+import {EinheitProperties} from "../../services/enum/einheiten";
 
 interface LebensmittelNeuFormProps {
   open: boolean

@@ -3,7 +3,7 @@ import {apiClient} from "./apiClient";
 import {Datei} from "../../models/datei.model";
 import config from "../../config";
 
-const DUMMY = 'https://api.vestaland.de/public/platzhalter.jpg'
+const DUMMY = 'https://api.vestaland.de/public/platzhalter.png'
 
 export function getFileUrl(filename?: string) {
   if (!filename)
