@@ -11,6 +11,7 @@ export interface RezeptMeta {
   vegetarisch?: boolean;
   healthy?: boolean;
   soulfood?: boolean;
+  schwierigkeitsgrad?: number;
 }
 
 export class Rezept extends TimeStamps {
@@ -20,6 +21,7 @@ export class Rezept extends TimeStamps {
   public quelleUrl: string[] = [];
   public berechneteGesamtdauer: number = 0;
   public berechneteArbeitszeit: number = 0;
+  public extraZeitExtraPortion: number = 0;
   public realeGesamtzeit?: number;
   public autor?: Ref<Benutzer>;
   public bild?: Ref<Datei>;
