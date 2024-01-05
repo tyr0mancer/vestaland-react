@@ -20,6 +20,7 @@ export function KochschrittAktionNeuForm({open}: KochschrittAktionNeuFormProps) 
       inputRef.current?.focus()
   }, [open])
 
+
   return (
     <>
       <Box display="flex" justifyContent="space-between">
@@ -36,8 +37,16 @@ export function KochschrittAktionNeuForm({open}: KochschrittAktionNeuFormProps) 
             labelId="Icon"
             defaultValue={AktionIcon.DUMMY}
           >
-            {Object.entries(AktionIconProperties).map(([key, value]) =>
-              <MenuItem key={key} value={key}>{value.icon}</MenuItem>)}
+            {Object.entries(AktionIconProperties).map(([key, value]) => {
+                let icon = require('../../assets/images/icons/dummy.png')
+                try {
+                  icon = require('../../assets/images/icons/' + value.icon)
+                } catch (e) {
+                }
+                return (<MenuItem
+                key={key} value={key}><img src={icon} height={32} width={32} alt={value.fullName} /></MenuItem>)
+            }
+              )}
           </Field>
 
         </Box>
