@@ -1,7 +1,8 @@
 import React from "react";
 
 export function LebensmittelAdmin() {
+
   return (<div>
-    <h1>LebensmittelAdmin</h1>
+    <h1>Lebensmittel verwalten</h1>
   </div>)
 }

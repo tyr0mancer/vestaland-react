@@ -11,7 +11,6 @@ import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 export function BenutzerInfo() {
   const {authInfo} = useAuth()
-
   return (<>
     <AppBar position="static">
       <Toolbar variant="dense">
@@ -22,15 +21,13 @@ export function BenutzerInfo() {
                                            aria-label="Meine Rezepte"><GradeIcon/> Favoriten</IconButton></Link>
         <Link to={'account'}><IconButton sx={{mr: 2}} size="small" color="secondary"
                                          aria-label="Meine Rezepte"><PersonIcon/> Account</IconButton></Link>
-
-
         <Typography variant="h6" color="inherit" component="div" sx={{mr: 4}}>
           Benutzerbereich von {authInfo?.name}
         </Typography>
       </Toolbar>
     </AppBar>
     <Routes>
-      <Route path="/" element={<Navigate replace to="meine-rezepte"/>}/>
+      <Route path="/" element={<Navigate replace to="account"/>}/>
       <Route path="meine-rezepte" element={<MeineRezepte/>}/>
       <Route path="favoriten" element={<Favoriten/>}/>
       <Route path="account" element={<Account/>}/>

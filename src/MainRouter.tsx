@@ -14,6 +14,7 @@ import {LoginForm} from "./components/pages/benutzer/LoginForm";
 import {RezeptDetail} from "./components/pages/rezept-detail/RezeptDetail";
 import {RezeptSuche} from "./components/pages/rezept-suche/RezeptSuche";
 import {RezeptEditor} from "./components/pages/rezept-editor/RezeptEditor";
+import {AdminView} from "./components/layout/Admin.view";
 
 export function MainRouter() {
   return (
@@ -42,6 +43,8 @@ export function MainLayout() {
 
       <Route path="/login" element={<DefaultView children={<LoginForm/>}/>}/>
       <Route path="/user/*" element={<DefaultView children={<BenutzerInfo/>}/>}/>
+      <Route path="/admin/*" element={<AdminView />}/>
+
       <Route path="/impressum" element={<DefaultView children={<Impressum/>}/>}/>
 
       <Route path="*" element={<ErrorPageView error={{code: 404, message: "Seite nicht gefunden."}}/>}/>
