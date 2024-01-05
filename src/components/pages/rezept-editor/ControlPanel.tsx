@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/global-state/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
 import {useFormikContext} from "formik";
 import {Rezept} from "../../../models/rezept.model";
 import {useDebounce, useLocalStorage} from "@react-hooks-library/core";
@@ -9,6 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import SaveIcon from '@mui/icons-material/Save';
 import PublishIcon from '@mui/icons-material/Publish';
 import ClearIcon from '@mui/icons-material/Clear';
+import {getKochschrittSummary, multiplyNutrients} from "../../../services/kochschritt-reducer";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {rezeptPostService, rezeptPutService} from "../../../services/api/rezeptService";
 
 /**
  * ControlPanel für den Rezept-Editor
@@ -22,6 +25,7 @@ import ClearIcon from '@mui/icons-material/Clear';
 export function ControlPanel(): React.ReactElement {
   const navigate = useNavigate();
   const formik = useFormikContext<Rezept>();
+
 
   /* Schreibe Wert des Formulars debounced in den Global State */
   const debouncedFormValue = useDebounce<Rezept>(formik.values, 500)
@@ -52,13 +56,23 @@ export function ControlPanel(): React.ReactElement {
   }
 
   /* Veröffentliche Rezept mit API */
-  const handlePublish = () => {
-    alert(JSON.stringify(formik.values))
+  const queryClient = useQueryClient();
+  const {mutate} = useMutation<Rezept>({
+    mutationFn: () => formik.values?._id ? rezeptPutService(formik.values) : rezeptPostService(formik.values),
+    onSuccess: async (res) => {
+      setRezeptLocal(null)
+      dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
+      await queryClient.invalidateQueries({queryKey: ["rezepte-suche"]})
+      queryClient.invalidateQueries({queryKey: ["rezept-detail", res._id]})
+        .then(() => navigate('/rezepte/' + res._id))
+    }
+  });
 
-    // @todo reducer+mutate
-    setRezeptLocal(null)
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
-    navigate('/rezepte/' + formik.values._id)
+  const handlePublish = () => {
+    const kochschrittSummary = getKochschrittSummary(formik.values.kochschritte)
+    kochschrittSummary.nutrients = multiplyNutrients(kochschrittSummary.nutrients, formik.values.portionen || 1)
+    formik.values = {...formik.values, ...kochschrittSummary}
+    mutate()
   }
 
   return (<>

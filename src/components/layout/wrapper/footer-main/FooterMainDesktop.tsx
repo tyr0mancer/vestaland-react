@@ -2,8 +2,8 @@ import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import {BottomNavigationAction, Box, BottomNavigation} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import {StateContext} from "../../../../services/contexts/StateProvider";
-import {StateContextType} from "../../../../services/contexts/types";
+import {StateContext} from "../../../../services/contexts/global-state/StateProvider";
+import {StateContextType} from "../../../../services/contexts/global-state/types";
 
 export function FooterMainDesktop() {
   const {state: {rezeptCooking}} = useContext(StateContext) as StateContextType

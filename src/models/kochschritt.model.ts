@@ -2,11 +2,7 @@ import {Utensil} from "./utensil.model";
 import {Ref} from "./types";
 import {Zutat} from "./zutat.model";
 import {KochschrittAktion} from "./kochschritt-aktion.model";
-
-interface KochschrittMeta {
-  temperatur?: number;
-  hitze?: string;
-}
+import {Betriebsart} from "../shared-types/types";
 
 
 export class Kochschritt {
@@ -19,5 +15,6 @@ export class Kochschritt {
   public wartezeit?: number;
   public zutaten: Zutat[] = [];
   public utensilien: Ref<Utensil>[] = [];
-  public meta?: KochschrittMeta;
+  public betriebsart?: Betriebsart;
+  public temperatur?: number;
 }

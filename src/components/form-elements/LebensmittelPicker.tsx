@@ -6,7 +6,7 @@ import {lebensmittelPostService, lebensmittelSucheService} from "../../services/
 import {Lebensmittel} from "../../models/lebensmittel.model";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {LebensmittelNeuForm} from "./LebensmittelNeuForm";
-import {Einheit} from "../../services/einheitenService";
+import {Einheit} from "../../shared-types/types";
 
 interface LebensmittelPickerProps {
   name: string;

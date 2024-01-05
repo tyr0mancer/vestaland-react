@@ -1,7 +1,7 @@
 import {Field, Form, useFormikContext} from "formik";
 import React, {useContext, useEffect} from "react";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/global-state/StateProvider";
+import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../services/contexts/global-state/types";
 import {
   Accordion,
   AccordionDetails,

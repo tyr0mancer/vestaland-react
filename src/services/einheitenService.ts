@@ -1,16 +1,4 @@
-export enum Einheit {
-  ST = "St",
-  DZ = "dz",
-  G = "g",
-  KG = "kg",
-  LB = "lb",
-  ML = "ml",
-  TL = "TL",
-  EL = "EL",
-  L = "l",
-  CUP = "cp"
-}
-
+import { Einheit } from "../shared-types/types";
 
 type EinheitProperty = {
   fullName: string;

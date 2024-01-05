@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {ApiErrorResponse} from "../auth/types";
-import config from "../../config";
-import {z} from "zod";
+import {ZodError} from 'zod';
+import myConfig from "../../config";
 
-const baseURL = config.apiBaseUrl
+const baseURL = myConfig.apiBaseUrl
 const apiClient = axios.create({
   baseURL,
   withCredentials: true,
@@ -21,8 +21,8 @@ const refreshClient = axios.create({
 
 apiClient.interceptors.response.use(
   (response) => {
-    if (config.devMode)
-      console.log(response)
+    if (myConfig.devMode)
+      console.log('API Response', response)
     return response;
   },
   async (error) => {
@@ -31,7 +31,7 @@ apiClient.interceptors.response.use(
     // @todo einschränken: ist token abgelaufen, wurde gar keines gesetzt? existiert ein cookie?
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      refreshClient.post('https://api.vestaland.de/api/auth/refresh')
+      refreshClient.post(myConfig.apiBaseUrl + myConfig.tokenRefreshUrl)
         .then(response => {
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
           originalRequest.headers['Authorization'] = `Bearer ${response.data.authtoken}`;
@@ -40,31 +40,23 @@ apiClient.interceptors.response.use(
         .catch(error => console.error('Error while trying to refresh Token', error.response || error))
     }
 
-
-    if (error.response && error.response.status === 400) {
-      /* check for ZOD Errors */
-
-      try {
-        const zodErrorSchema = z.object({
-          error: z.string(),
-          details: z.array(z.string()),
-        });
-
-        const parsedError = zodErrorSchema.parse(error.response.data);
-
-        console.error('Zod Error:', parsedError);
-
-      } catch (zodError) {
-
-        // That was no ZOD
-        console.error('Error parsing Zod error:', zodError);
-      }
+    if (error.response && isZodError(error.response.data)) {
+      handleZodError(error.response.data);
     }
 
-
+    console.error(error.response.data)
     return Promise.reject(error);
   }
 );
+
+function handleZodError(error: any) {
+  window.dispatchEvent(new CustomEvent('api-error', {detail: error}));
+}
+
+
+function isZodError(obj: any): obj is ZodError {
+  return obj && obj.message && (obj.message === myConfig.zodErrorString)
+}
 
 function isApiErrorResponse(obj: any): obj is ApiErrorResponse {
   return obj

@@ -3,7 +3,7 @@ import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import {MainRouter} from "./MainRouter";
 import {AuthProvider} from "./services/auth/AuthProvider";
-import {StateProvider} from "./services/contexts/StateProvider";
+import {StateProvider} from "./services/contexts/global-state/StateProvider";
 import {ThemeProvider} from '@mui/material/styles';
 
 import {themeMUI} from "./assets/style/themeMUI";

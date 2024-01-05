@@ -6,6 +6,7 @@ import {BenutzerRolle} from "../../services/auth/types";
 import {ErrorPageView} from "./ErrorPage.view";
 import {FooterMain} from "./wrapper/footer-main/FooterMain";
 import {NavbarMain} from "./wrapper/navbar-main/NavbarMain";
+import {CustomAlerts} from "../pages/service-pages/CustomAlerts";
 
 interface DefaultViewProps {
   roleRequired?: BenutzerRolle;
@@ -22,11 +23,12 @@ export const DefaultView: React.FC<DefaultViewProps> = ({children, roleRequired,
   return (
     <>
       <NavbarMain/>
-      <Container >
+      <Container>
         <Paper className={'main-content'}>
           {children}
         </Paper>
       </Container>
+      <CustomAlerts/>
       <FooterMain/>
     </>
   );

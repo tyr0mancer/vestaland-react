@@ -18,8 +18,8 @@ import {Link} from "react-router-dom";
 import {useAuth} from "../../../../services/auth/AuthProvider";
 import {BenutzerRolle} from "../../../../services/auth/types";
 import {useContext} from "react";
-import {StateContext} from "../../../../services/contexts/StateProvider";
-import {StateContextType} from "../../../../services/contexts/types";
+import {StateContext} from "../../../../services/contexts/global-state/StateProvider";
+import {StateContextType} from "../../../../services/contexts/global-state/types";
 
 export function NavbarMainMobile() {
   const {isAuthorized} = useAuth()

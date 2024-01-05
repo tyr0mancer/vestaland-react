@@ -5,8 +5,8 @@ import {Form, Formik} from "formik";
 import {useLocalStorage} from '@react-hooks-library/core'
 
 import {Rezept} from "../../../models/rezept.model";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
-import {StateContext} from "../../../services/contexts/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
+import {StateContext} from "../../../services/contexts/global-state/StateProvider";
 import {rezeptDetail} from "../../../services/api/rezeptService";
 import {LoadingPage} from "../service-pages/LoadingPage";
 import {RezeptEditorTabs} from "./RezeptEditorTabs";

@@ -1,8 +1,8 @@
 import {Rezept} from "../../../models/rezept.model";
 import {useNavigate} from "react-router-dom";
 import React, {useContext} from "react";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/global-state/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
 import {ConfirmDialogButton} from "../../form-elements/ConfirmDialogButton";
 import DialogTitle from "@mui/material/DialogTitle";
 import {DialogContent, DialogContentText} from "@mui/material";

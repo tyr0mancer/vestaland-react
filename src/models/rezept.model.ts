@@ -4,6 +4,7 @@ import {Benutzer} from "./benutzer.model";
 import {Datei} from "./datei.model";
 import {Ref, TimeStamps} from "./types";
 import {Kochschritt} from "./kochschritt.model";
+import {Nutrients} from "./lebensmittel.model";
 
 
 export interface RezeptMeta {
@@ -27,4 +28,5 @@ export class Rezept extends TimeStamps {
   public kochschritte: Kochschritt[] = [];
   public meta?: RezeptMeta;
   public portionen: number = 1;
+  public nutrients?: Nutrients
 }

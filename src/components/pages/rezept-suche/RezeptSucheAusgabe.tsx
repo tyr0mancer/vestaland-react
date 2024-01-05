@@ -2,9 +2,9 @@ import React, {useContext} from "react";
 import {useQuery} from "@tanstack/react-query";
 
 import {Rezept} from "../../../models/rezept.model";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {StateContextType} from "../../../services/contexts/types";
-import {ErrorPage} from "../ErrorPage";
+import {StateContext} from "../../../services/contexts/global-state/StateProvider";
+import {StateContextType} from "../../../services/contexts/global-state/types";
+import {ErrorPage} from "../service-pages/ErrorPage";
 import LoadingIcon from '@mui/icons-material/HourglassBottom';
 import {RezeptCard} from "./RezeptCard";
 import {Grid} from "@mui/material";

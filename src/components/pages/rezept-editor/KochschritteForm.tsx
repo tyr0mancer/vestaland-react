@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
 import {Rezept} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
-import {Button, Grid, IconButton, TextField} from "@mui/material";
+import {Button, Grid, IconButton, MenuItem, Select, TextField} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -16,6 +16,7 @@ import {Kochschritt} from "../../../models/kochschritt.model";
 import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
 import {CustomFieldProps} from "../../form-elements/types";
 import {UtensilienForm} from "./UtensilienForm";
+import {BetriebsartenProperties} from "../../../services/betriebsartService";
 
 /**
  * TS Doc Info
@@ -134,6 +135,7 @@ function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschri
                  name={`${name}[wartezeit]`} label="Wartezeit (Min)"/>
         </Box>
       </Box>
+
       <Box mt={1}>
         <Field as={TextField} type="text" variant="outlined" mt={2}
                fullWidth
@@ -145,6 +147,27 @@ function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschri
                fullWidth
                name={`${name}[videoUrl]`} label="URL"/>
       </Box>
+
+      <Box display="flex" justifyContent="space-between" mt={1}>
+        <Box flexGrow={1} mr={1}>
+          <Field as={TextField} type="number" variant="outlined"
+                 name={`${name}[temperatur]`} label="Temperatur (°C)"/>
+        </Box>
+        <Box flexGrow={1} mr={1}>
+
+          <Field
+            as={Select}
+            name={`${name}[betriebsart]`}
+            labelId="Betriebsart"
+          >
+            {Object.entries(BetriebsartenProperties).map(([key, value]) =>
+              <MenuItem key={key} value={key}>{value.fullName}</MenuItem>)}
+          </Field>
+
+        </Box>
+      </Box>
+
     </Grid>
   </Grid>)
 }
+

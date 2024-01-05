@@ -3,8 +3,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {rezeptDetail} from "../../../services/api/rezeptService";
 import {RezeptZutaten} from "./RezeptZutaten";
-import {StateContext} from "../../../services/contexts/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/types";
+import {StateContext} from "../../../services/contexts/global-state/StateProvider";
+import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
 import {useAuth} from "../../../services/auth/AuthProvider";
 import {
   Box,
@@ -99,16 +99,9 @@ export function RezeptDetail() {
             <Typography variant="h4" gutterBottom textAlign={'center'}>
               {rezept.portionen} Portionen
             </Typography>
-            <TableBody>
-              <TableRow>
-                <TableCell align="left">Gesamtdauer:</TableCell>
-                <TableCell align="left">{rezept?.berechneteGesamtdauer} Minuten</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell align="left">Arbeitszeit:</TableCell>
-                <TableCell align="left">{rezept?.berechneteArbeitszeit} Minuten</TableCell>
-              </TableRow>
-            </TableBody>
+            Gesamtdauer: {rezept?.berechneteGesamtdauer} Minuten
+            Arbeitszeit: {rezept?.berechneteArbeitszeit} Minuten
+
 
           </Grid>
           <Grid item xs={12} md={3}>
@@ -182,9 +175,6 @@ function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
                     Wartezeit: {kochschritt.wartezeit} Min
                 </Typography>
             }
-          </TableCell>
-          <TableCell align="right">
-            {JSON.stringify(kochschritt.meta)}
           </TableCell>
         </TableRow>
       )}

@@ -1,4 +1,4 @@
-import {Einheit} from "../services/einheitenService";
+import {Einheit} from "../shared-types/types";
 import {Lebensmittel} from "./lebensmittel.model";
 import {Lagerort} from "./lagerort.model";
 import {Benutzer} from "./benutzer.model";

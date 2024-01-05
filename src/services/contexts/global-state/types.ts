@@ -1,6 +1,6 @@
 // @todo sync with server
 import React from "react";
-import {Rezept} from "../../models/rezept.model";
+import {Rezept} from "../../../models/rezept.model";
 
 export interface RezeptSucheQuery {
   rezeptName: string,

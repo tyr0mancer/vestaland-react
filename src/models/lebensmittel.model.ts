@@ -1,13 +1,13 @@
-import {Einheit} from "../services/einheitenService";
 import {TimeStamps} from "./types";
+import {Einheit} from "../shared-types/types";
 
 
 export class Nutrients {
-  public proteine?: number
-  public fett?: number
-  public kohlenhydrate?: number
-  public zucker?: number
-  public ballaststoffe?: number
+  public proteine: number = 0
+  public fett: number = 0
+  public kohlenhydrate: number = 0
+  public zucker: number = 0
+  public ballaststoffe: number = 0
 }
 
 
@@ -25,6 +25,6 @@ export class Lebensmittel extends TimeStamps {
   public density?: number
   public unitWeight?: number
   public nutrients?: Nutrients
-  }
+}
 
 

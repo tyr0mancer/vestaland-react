@@ -1,5 +1,5 @@
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../services/einheitenService";
+import {Einheit} from "../shared-types/types";
 import {Ref} from "./types";
 
 export class Zutat {
