@@ -6,13 +6,19 @@ type AktionIconProperty = {
 };
 
 export const AktionIconProperties: { [key in AktionIcon]: AktionIconProperty } = {
+  [AktionIcon.BLENDER]: {icon: 'blender.png'},
   [AktionIcon.DUMMY]: {icon: 'dummy.png'},
+  [AktionIcon.GRILL]: {icon: 'grill.png'},
+  [AktionIcon.KOCHEN]: {icon: 'kochen.png'},
   [AktionIcon.MESSER]: {icon: 'messer.png'},
-  [AktionIcon.SCHNEEBESEN]: {icon: 'schneebesen.png'},
   [AktionIcon.NUDELHOLZ]: {icon: 'nudelholz.png'},
-  [AktionIcon.PFANNE]: {icon: 'pfanne.png'},
+  [AktionIcon.SCHNEEBESEN]: {icon: 'schneebesen.png'},
   [AktionIcon.TOPF]: {icon: 'topf.png'},
-  [AktionIcon.OFEN]: {icon: 'ofen.png'},
   [AktionIcon.UHR]: {icon: 'uhr.png'},
 
+  [AktionIcon.PFANNE]: {icon: 'pfanne.png'},
+  [AktionIcon.OFEN]: {icon: 'ofen.png'},
+
+
 } as const
+

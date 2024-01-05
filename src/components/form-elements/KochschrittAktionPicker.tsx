@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {useField, useFormikContext} from "formik";
 import {useQuery} from "@tanstack/react-query";
-import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
+import {Autocomplete, Button, CircularProgress, InputAdornment, TextField} from "@mui/material";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {KochschrittAktion} from "../../models/kochschritt-aktion.model";
 import {kochschrittConfigFindService, kochschrittConfigPostService} from "../../services/api/rezeptService";
 import {KochschrittAktionNeuForm} from "./KochschrittAktionNeuForm";
+import {AktionIconProperties} from "../../services/enum/aktionIcons";
 
 interface KochschrittAktionPickerProps {
   name: string;
@@ -42,10 +43,16 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
       onChange(values)
   }
 
+  let icon = require('../../assets/images/icons/dummy.png')
+  try {
+    icon = require('../../assets/images/icons/' + AktionIconProperties[values.aktionIcon].icon)
+  } catch (e) {
+  }
+
   return (<>
       <Autocomplete
         {...field}
-        id="kochschritt-picker"
+        id="kochschritt-aktion-picker"
         size={'medium'}
         multiple={false}
         value={values}
@@ -67,11 +74,15 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
             {...params}
             label="Aktion"
             onChange={(e) => setInput(e.target.value)}
+
             InputProps={{
               ...params.InputProps,
               endAdornment: (
                 <React.Fragment>
                   {isLoading ? <CircularProgress color="inherit" size={20}/> : null}
+                  <InputAdornment position="end">
+                    <img src={icon} width={20} height={20} alt={'Icon'}/>
+                  </InputAdornment>
                   {params.InputProps.endAdornment}
                 </React.Fragment>
               ),
