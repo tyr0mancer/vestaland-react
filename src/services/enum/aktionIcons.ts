@@ -1,6 +1,6 @@
 import { AktionIcon } from "../../shared-types/types";
 
-type AktionIconProperty = {
+export type AktionIconProperty = {
   fullName?: string;
   icon: string;
 };

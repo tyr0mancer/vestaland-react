@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
 import {Rezept} from "../../../models/rezept.model";
 import Box from "@mui/material/Box";
-import {Button, Grid, IconButton, MenuItem, Select, TextField} from "@mui/material";
+import {Button, Card, Grid, IconButton, MenuItem, Select, TextField} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -10,17 +10,19 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {ZutatenForm} from "./ZutatenForm";
 import {Zutat} from "../../../models/zutat.model";
-import {RezeptKochschritt} from "../rezept-detail/RezeptKochschritt";
 import {KochschrittAktionPicker} from "../../form-elements/KochschrittAktionPicker";
 import {Kochschritt} from "../../../models/kochschritt.model";
 import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
 import {CustomFieldProps} from "../../form-elements/types";
 import {UtensilienForm} from "./UtensilienForm";
 import {BetriebsartenProperties} from "../../../services/enum/betriebsarten";
+import {AktionIconImage} from "../../../services/AktionIconImage";
 
 /**
  * TS Doc Info
  * @component KochschritteForm
+ *
+ * @see KochschrittForm
  */
 export function KochschritteForm(): React.ReactElement {
   const formik = useFormikContext<Rezept>()
@@ -80,13 +82,13 @@ export function KochschritteForm(): React.ReactElement {
                 <ModeEditIcon/>
               </IconButton>
 
-              {/* Control-Buttons */}
+
+              {/* Form or View */}
               {selectedIndex === index &&
                   <KochschrittForm index={index} name={`${name}[${index}]`} values={kochschritt}/>
               }
-
               {selectedIndex !== index &&
-                  <RezeptKochschritt kochschritt={kochschritt}/>
+                  <KochschrittView kochschritt={kochschritt}/>
               }
 
             </Box>
@@ -102,6 +104,12 @@ export function KochschritteForm(): React.ReactElement {
   );
 }
 
+
+/**
+ * @component KochschrittForm
+ *
+ * @see KochschritteForm
+ */
 function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschritt>) {
 
   return (<Grid container spacing={2}>
@@ -171,3 +179,44 @@ function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschri
   </Grid>)
 }
 
+
+function KochschrittView({kochschritt}: { kochschritt: Kochschritt }) {
+
+  return (<Grid container spacing={2}>
+
+    {/* Zutaten und Utensilien */}
+    <Grid item xs={12} md={8}>
+      {kochschritt.zutaten.filter(z => !!z.lebensmittel).map(({menge, lebensmittel, einheit}, index) =>
+        <Card key={index}>
+          {menge} {einheit} {lebensmittel?.name}
+        </Card>
+      )}
+      <hr/>
+      {kochschritt.utensilien.map(({utensilName, volumen}, index) => <Card key={index}>
+        {utensilName} ({volumen} ml)
+      </Card>)}
+    </Grid>
+
+    {/* Weitere Angaben zum Kochschritt */}
+    <Grid item xs={12} md={4}>
+      <b><AktionIconImage aktion={kochschritt.aktion?.aktionIcon}/> {kochschritt.aktion?.aktionName}</b>
+      <pre>{JSON.stringify(kochschritt.beschreibung, null, 2)}</pre>
+      <Box display="flex" justifyContent="space-between" mt={1}>
+        <Box flexGrow={1} mr={1}>
+          <pre>{kochschritt.temperatur && <>Temperatur: {kochschritt.temperatur} C</>} ({kochschritt.betriebsart})</pre>
+        </Box>
+      </Box>
+
+      <Box flexGrow={1}>
+        <pre>Gesamtdauer: {kochschritt.gesamtdauer}</pre>
+        <pre>Arbeitszeit: {kochschritt.arbeitszeit}</pre>
+        <pre>Wartezeit: {kochschritt.wartezeit}</pre>
+      </Box>
+
+      <Box mt={1}>
+        <pre>{JSON.stringify(kochschritt.videoUrl)}</pre>
+      </Box>
+
+    </Grid>
+  </Grid>)
+}

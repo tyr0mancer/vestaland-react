@@ -3,6 +3,7 @@ import {Field} from "formik";
 import {Box, MenuItem, Select, TextField} from "@mui/material";
 import {AktionIconProperties} from "../../services/enum/aktionIcons";
 import {AktionIcon} from "../../shared-types/types";
+import {AktionIconImage} from "../../services/AktionIconImage";
 
 interface KochschrittAktionNeuFormProps {
   open: boolean
@@ -37,16 +38,9 @@ export function KochschrittAktionNeuForm({open}: KochschrittAktionNeuFormProps) 
             labelId="Icon"
             defaultValue={AktionIcon.DUMMY}
           >
-            {Object.entries(AktionIconProperties).map(([key, value]) => {
-                let icon = require('../../assets/images/icons/dummy.png')
-                try {
-                  icon = require('../../assets/images/icons/' + value.icon)
-                } catch (e) {
-                }
-                return (<MenuItem
-                key={key} value={key}><img src={icon} height={32} width={32} alt={value.fullName} /></MenuItem>)
+            {Object.entries(AktionIconProperties).map(([key,]) => <MenuItem
+              key={key} value={key}><AktionIconImage aktion={key as AktionIcon}/></MenuItem>)
             }
-              )}
           </Field>
 
         </Box>
