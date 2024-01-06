@@ -6,14 +6,12 @@ import {logoutService} from "../../../services/api/authService";
 import {ApiErrorResponse} from "../../../services/auth/types";
 import {Box, Button, Typography} from "@mui/material";
 
-interface AccountProps {
-}
 
 /**
  * TS Doc Info
  * @component Account
  */
-export function Account({}: AccountProps): React.ReactElement {
+export function Account(): React.ReactElement {
 
   const {logout} = useAuth()
   const navigate = useNavigate()

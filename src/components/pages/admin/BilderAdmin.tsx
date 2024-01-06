@@ -1,12 +1,9 @@
 import React from "react";
 
-interface BilderAdminProps {
-}
-
 /**
  * TS Doc Info
  * @component BilderAdmin
  */
-export function BilderAdmin({}: BilderAdminProps): React.ReactElement {
+export function BilderAdmin(): React.ReactElement {
   return (<>BilderAdmin</>)
 }

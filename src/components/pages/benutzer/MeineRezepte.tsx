@@ -5,14 +5,11 @@ import {useQuery} from "@tanstack/react-query";
 import {Box, Typography} from "@mui/material";
 import {RezeptCard} from "../rezept-suche/RezeptCard";
 
-interface MeineRezepteProps {
-}
-
 /**
  * TS Doc Info
  * @component MeineRezepte
  */
-export function MeineRezepte({}: MeineRezepteProps): React.ReactElement {
+export function MeineRezepte(): React.ReactElement {
   const {
     data
   } = useQuery<Rezept[]>(

@@ -19,14 +19,12 @@ import {LebensmittelNeuForm} from "../../form-elements/LebensmittelNeuForm";
 import {AddOptionDialog} from "../../form-elements/AddOptionDialog";
 import {apiClient} from "../../../services/api/apiClient";
 
-interface LebensmittelAdminProps {
-}
 
 /**
  * TS Doc Info
  * @component LebensmittelAdmin
  */
-export function LebensmittelAdmin({}: LebensmittelAdminProps): React.ReactElement {
+export function LebensmittelAdmin(): React.ReactElement {
   const [lebensmittelEdit, setLebensmittelEdit] = useState<Lebensmittel>(new Lebensmittel())
   const [search, setSearch] = useState<string>('')
   const [openModal, setOpenModal] = useState<boolean>(false)
