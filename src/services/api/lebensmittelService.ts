@@ -22,6 +22,18 @@ export const lebensmittelSucheService = async (searchQuery: string): Promise<Leb
 export const lebensmittelDeleteService = async (id: string): Promise<any> =>
   apiClient.delete(`/lebensmittel/` + id).then(res => res.data)
 
+
+/**
+ * Löscht mehrere Lebensmittel aus der DB
+ *
+ * @param ids: string[] - Die ObjectID der Lebensmittels die gelöscht werden sollen als string array
+ * @returns Promise<any>
+ */
+export const deleteManyLebensmittelSerivce = async (ids: string[]): Promise<any> => {
+  return apiClient.delete(`/lebensmittel/many/` + ids.join(','),).then(res => res.data)
+}
+
+
 /**
  * Aktualisiert ein Lebensmittel in der DB
  *

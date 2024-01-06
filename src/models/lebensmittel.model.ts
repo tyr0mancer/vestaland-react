@@ -3,6 +3,7 @@ import {Einheit} from "../shared-types/types";
 
 
 export class Nutrients {
+  public kalorien: number = 0;
   public proteine: number = 0
   public fett: number = 0
   public kohlenhydrate: number = 0

@@ -40,6 +40,7 @@ export enum AktionIcon {
   KOCHEN = 'KOCHEN',
   BLENDER = 'BLENDER',
   GRILL = 'GRILL',
+  WASCHEN = 'WASCHEN'
 }
 
 

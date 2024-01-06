@@ -112,13 +112,3 @@ export function LebensmittelNeuForm({open}: LebensmittelNeuFormProps) {
 
     </>)
 }
-
-
-/*
-public kategorie?: string
-
-// Gramm pro Kubikzentimeter bzw kg pro Liter
-// Beispiel: Mehl hat eine Dichte von 0.7 - das heißt das ein kg Mehl etwa 1,5 L Volumen haben, oder 1 L Mehl,
-
-public density?: number
-public unitWeight?: number*/

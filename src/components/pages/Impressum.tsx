@@ -14,6 +14,7 @@ export function Impressum() {
         https://www.flaticon.com/authors/kerismaker
         https://www.flaticon.com/authors/roundicons
         https://www.flaticon.com/authors/octopocto
+        https://www.flaticon.com/authors/bsd
       </p>
     </Container>
 
