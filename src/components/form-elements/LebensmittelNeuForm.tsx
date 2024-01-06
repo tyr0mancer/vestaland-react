@@ -89,6 +89,10 @@ export function LebensmittelNeuForm({open}: LebensmittelNeuFormProps) {
       <Box display="flex" justifyContent="space-between">
         <Box flexGrow={1} marginRight={1}>
           <Field as={TextField} type="text" variant="outlined" fullWidth
+                 name="nutrients.kalorien" label="Kalorien"/>
+        </Box>
+        <Box flexGrow={1} marginRight={1}>
+          <Field as={TextField} type="text" variant="outlined" fullWidth
                  name="nutrients.proteine" label="Proteine"/>
         </Box>
         <Box flexGrow={1} marginRight={1}>

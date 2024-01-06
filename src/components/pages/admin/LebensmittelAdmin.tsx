@@ -31,7 +31,7 @@ export function LebensmittelAdmin(): React.ReactElement {
 
   const {data, isFetching, refetch} = useQuery(
     {
-      queryKey: ["rezepte-suche", search],
+      queryKey: ["lebensmittel-suche", search],
       queryFn: () => lebensmittelSucheService(search),
       enabled: search.length > 1
     });
@@ -63,7 +63,7 @@ export function LebensmittelAdmin(): React.ReactElement {
       field: 'nutrients.kalorien',
       headerName: 'Kalorien',
       type: 'number',
-      valueGetter: (params) => params.row.nutrients?.proteine || null,
+      valueGetter: (params) => params.row.nutrients?.kalorien || null,
       width: 80
     },
     {
