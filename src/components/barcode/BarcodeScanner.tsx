@@ -9,6 +9,7 @@ const BarcodeScanner = () => {
   const capture = React.useCallback(() => {
     if (webcamRef.current) {
       const imageSrc = webcamRef.current.getScreenshot() || '';
+
       const codeReader = new BrowserMultiFormatReader();
       codeReader.decodeFromImage(undefined, imageSrc)
         .then((result: any) => {
