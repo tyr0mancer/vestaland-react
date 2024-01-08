@@ -1,6 +1,6 @@
 import React from "react";
 import {useAuth} from "../../../util/auth/AuthProvider";
-import {loginService, RegisterUserType} from "../../../util/api/authService";
+import {AuthService,  RegisterUserType} from "../../../util/api/AuthService";
 import {useNavigate} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import {Alert, AlertTitle, Button, FormGroup, Grid, TextField, Typography} from "@mui/material";
@@ -13,21 +13,19 @@ type LoginType = {
 }
 
 
-
 export function LoginForm() {
   const {login, error} = useAuth()
   const navigate = useNavigate();
 
   const handleLogin = ({username, password}: LoginType) => {
-    login(() => loginService(username, password)).then(() => {
+    login(() => AuthService.login(username, password)).then(() => {
       navigate('/user');
     }).catch(err => {
       console.log(err)
     })
   }
 
-  const handleRegister = (newUser: RegisterUserType) => {
-    console.log(newUser)
+  const handleRegister = () => {
     alert('Aktuell keine Registrierung möglich')
     /*login(() => registerService(newUser)).then(() => {
       navigate('/user');
@@ -80,7 +78,8 @@ export function LoginForm() {
               <Field as={TextField} type="password" variant="outlined"
                      name="password" label="Password"/>
               <br/>
-              <Button type={'submit'} startIcon={<AppRegistrationIcon/>} color={'primary'} variant={'outlined'}>Registrieren</Button>
+              <Button type={'submit'} startIcon={<AppRegistrationIcon/>} color={'primary'}
+                      variant={'outlined'}>Registrieren</Button>
             </FormGroup>
           </Form>
         </Formik>

@@ -2,9 +2,9 @@ import React from "react";
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
 import {customConfirm} from "../../common/ui/ConfirmDialog";
-import {logoutService} from "../../../util/api/authService";
 import {ApiErrorResponse} from "../../../util/auth/types";
 import {Box, Button, Typography} from "@mui/material";
+import {AuthService} from "../../../util/api/AuthService";
 
 
 /**
@@ -20,7 +20,7 @@ export function Account(): React.ReactElement {
     const result = await customConfirm({label: 'Abmelden?'})
     if (!result) return
 
-    logout(() => logoutService()).then(() => {
+    logout(() => AuthService.logout()).then(() => {
       navigate('/');
     }).catch((err: ApiErrorResponse) => {
       console.log(err)

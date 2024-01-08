@@ -1,7 +1,7 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {ApiErrorResponse, BenutzerRolle, LoginResponse} from "./types";
 import {isApiErrorResponse} from "../api/apiClient";
-import {refreshService} from "../api/authService";
+import {AuthService} from "../api/AuthService";
 
 type AuthContextType = {
   authInfo: LoginResponse | null,
@@ -29,7 +29,7 @@ export const AuthProvider = ({children}: any) => {
   const [error, setError] = useState<ApiErrorResponse | null>(null)
 
   useEffect(() => {
-    refresh(() => refreshService())
+    refresh(() => AuthService.refresh())
       .then(() => {
         //console.log("refreshing Token")
       }).catch(() => {
