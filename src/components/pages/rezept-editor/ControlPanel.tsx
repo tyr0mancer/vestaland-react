@@ -11,7 +11,7 @@ import PublishIcon from '@mui/icons-material/Publish';
 import ClearIcon from '@mui/icons-material/Clear';
 import {getKochschrittSummary, multiplyNutrients} from "../../../util/rezept-helper/kochschritt-reducer";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {rezeptPostService, rezeptPutService} from "../../../util/api/rezeptService";
+import {APIService} from "../../../util/api/APIService";
 
 /**
  * ControlPanel für den Rezept-Editor
@@ -58,7 +58,9 @@ export function ControlPanel(): React.ReactElement {
   /* Veröffentliche Rezept mit API */
   const queryClient = useQueryClient();
   const {mutate} = useMutation<Rezept>({
-    mutationFn: () => formik.values?._id ? rezeptPutService(formik.values) : rezeptPostService(formik.values),
+    mutationFn: () => formik.values?._id
+      ? APIService.put<Rezept>('rezept', formik.values._id, formik.values)
+      : APIService.post<Rezept>('rezept', formik.values),
     onSuccess: async (res) => {
       setRezeptLocal(null)
       dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})

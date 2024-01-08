@@ -25,21 +25,6 @@ export const rezeptSuche = (query: RezeptSucheQuery): Promise<Rezept[]> => {
   )
 }
 
-
-
-
-export const rezeptPostService = async (rezept: Rezept): Promise<Rezept> =>
-  apiClient.post(`/rezept/`, rezept).then(res => res.data)
-
-
-export const rezeptPutService = (rezept?: Rezept): Promise<Rezept> =>
-  new Promise<Rezept>((resolve, reject) =>
-    apiClient.put(`/rezept/${rezept?._id}`, rezept)
-      .then(({data}) => resolve(data))
-      .catch(error => reject(error))
-  )
-
-
 export const kochschrittConfigFindService = async (searchQuery: string): Promise<KochschrittAktion[]> =>
   apiClient.get(`/config/aktionen/?aktionName=${searchQuery}`).then(res => res.data)
 

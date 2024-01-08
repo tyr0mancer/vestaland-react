@@ -30,7 +30,7 @@ export function RezeptEditor(): React.ReactElement {
   const {data: rezeptApi, isFetching} = useQuery( //@todo liefert aktuell noch null falls parameter falsch ist - sollte Fehler werfen -> Express
     {
       queryKey: ["rezept-detail", rezeptId],
-      queryFn: () => APIService.get<Rezept>(`/rezept/${rezeptId}`),
+      queryFn: () => APIService.getById<Rezept>('rezept', rezeptId || ''),
       enabled: !!rezeptId
     });
 

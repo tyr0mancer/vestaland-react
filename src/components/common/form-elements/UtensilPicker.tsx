@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
-import {Utensil} from "../../../models/utensil.model";
-import {utensilienSucheService, utensilPostService} from "../../../util/api/utensilService";
 import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
+import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
+
+import {APIService} from "../../../util/api/APIService";
+import {Utensil} from "../../../models/utensil.model";
 import {CustomFieldProps} from "./types";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {UtensilNeuForm} from "./UtensilNeuForm";
@@ -29,7 +30,7 @@ export function UtensilPicker({name, values}: CustomFieldProps<Utensil>) {
   } = useQuery(
     {
       queryKey: ["utensil-suche", input],
-      queryFn: () => utensilienSucheService(input),
+      queryFn: () => APIService.search<Utensil>('utensil', {utensilienName: input}),
       enabled: input.length > 1,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
@@ -84,10 +85,11 @@ export function UtensilPicker({name, values}: CustomFieldProps<Utensil>) {
       open={openModal} handleClose={() => setOpenModal(false)}
       onAdded={handleChange}
       initialValues={{utensilName: input} as Utensil}
-      mutationFn={utensilPostService}
+      mutationFn={(utensil) => APIService.post<Utensil>('utensil', utensil)}
     >
       <UtensilNeuForm open={openModal}/>
     </AddOptionDialog>
   </>)
 }
 
+APIService.post<Utensil>

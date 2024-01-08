@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
-import {lebensmittelPostService, lebensmittelSucheService} from "../../../util/api/lebensmittelService";
 import {Lebensmittel} from "../../../models/lebensmittel.model";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {LebensmittelNeuForm} from "./LebensmittelNeuForm";
 import {Einheit} from "../../../shared-types/types";
+import {APIService} from "../../../util/api/APIService";
 
 interface LebensmittelPickerProps {
   name: string;
@@ -29,7 +29,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
   } = useQuery(
     {
       queryKey: ["lebensmittel-suche", input],
-      queryFn: () => lebensmittelSucheService(input),
+      queryFn: () => APIService.search<Lebensmittel>('lebensmittel', {name: input}),
       enabled: input.length > 1,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
@@ -101,7 +101,7 @@ export function LebensmittelPicker({name, values, onChange}: LebensmittelPickerP
         open={openModal} handleClose={() => setOpenModal(false)}
         onAdded={handleChange}
         initialValues={{name: input, defaultEinheit: Einheit.ST} as Lebensmittel}
-        mutationFn={lebensmittelPostService}
+        mutationFn={(neuesLebensmittel) => APIService.post<Lebensmittel>('lebensmittel', neuesLebensmittel)}
       >
         <LebensmittelNeuForm open={openModal}/>
       </AddOptionDialog>

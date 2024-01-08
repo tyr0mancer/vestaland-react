@@ -6,10 +6,6 @@ import {
   TextField
 } from "@mui/material";
 import {QueryClient, useQuery} from "@tanstack/react-query";
-import {
-  deleteManyLebensmittelSerivce,
-  lebensmittelSucheService
-} from "../../../util/api/lebensmittelService";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {Lebensmittel} from "../../../models/lebensmittel.model";
 import IconButton from "@mui/material/IconButton";
@@ -18,6 +14,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {LebensmittelNeuForm} from "../../common/form-elements/LebensmittelNeuForm";
 import {AddOptionDialog} from "../../common/form-elements/AddOptionDialog";
 import {apiClient} from "../../../util/api/apiClient";
+import {APIService} from "../../../util/api/APIService";
 
 
 /**
@@ -32,14 +29,14 @@ export function LebensmittelAdmin(): React.ReactElement {
   const {data, isFetching, refetch} = useQuery(
     {
       queryKey: ["lebensmittel-suche", search],
-      queryFn: () => lebensmittelSucheService(search),
+      queryFn: () => APIService.search<Lebensmittel>('lebensmittel', {name: search}),
       enabled: search.length > 1
     });
 
   const [selectionModel, setSelectionModel] = React.useState<any>([]);
 
   const handleDelete = () => {
-    deleteManyLebensmittelSerivce(selectionModel as string[])
+    APIService.deleteMany('lebensmittel', selectionModel as string[])
       .then(() => queryClient.invalidateQueries({queryKey: ["rezepte-suche"]}))
       .then(() => refetch())
   };
@@ -55,10 +52,31 @@ export function LebensmittelAdmin(): React.ReactElement {
   }
 
   const columns: GridColDef[] = [
-    {field: 'name', headerName: 'Name', width: 150, description: 'Kurzer Name, wie er in der Zusammenfassung auch auftaucht. Beispiel: Mehl'},
-    {field: 'nameDetail', headerName: 'Detaillierter Name', width: 150, description: 'Eine genauere Beschreibung. Beispiel: Weizenmehl 405'},
-    {field: 'defaultMenge', headerName: 'Menge', type: 'number', width: 70, description: 'Eine übliche Menge. Wird als Standard-Wert gesetzt, wenn dieses Lebensmittel ausgewählt wird.'},
-    {field: 'defaultEinheit', headerName: 'Einheit', width: 100, description: 'Diese Einheit wird als Default-Wert gesetzt.'},
+    {
+      field: 'name',
+      headerName: 'Name',
+      width: 150,
+      description: 'Kurzer Name, wie er in der Zusammenfassung auch auftaucht. Beispiel: Mehl'
+    },
+    {
+      field: 'nameDetail',
+      headerName: 'Detaillierter Name',
+      width: 150,
+      description: 'Eine genauere Beschreibung. Beispiel: Weizenmehl 405'
+    },
+    {
+      field: 'defaultMenge',
+      headerName: 'Menge',
+      type: 'number',
+      width: 70,
+      description: 'Eine übliche Menge. Wird als Standard-Wert gesetzt, wenn dieses Lebensmittel ausgewählt wird.'
+    },
+    {
+      field: 'defaultEinheit',
+      headerName: 'Einheit',
+      width: 100,
+      description: 'Diese Einheit wird als Default-Wert gesetzt.'
+    },
     {
       field: 'nutrients.kalorien',
       headerName: 'Kalorien',

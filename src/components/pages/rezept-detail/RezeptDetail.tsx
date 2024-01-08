@@ -39,7 +39,8 @@ export function RezeptDetail() {
   } = useQuery(
     {
       queryKey: ["rezept-detail", rezeptId],
-      queryFn: () => APIService.get<Rezept>(`/rezept/${rezeptId}`),
+      queryFn: () => APIService.getById<Rezept>('rezept', rezeptId),
+      enabled: !!rezeptId,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 

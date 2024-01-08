@@ -48,7 +48,7 @@ export class APIService {
    * @returns Promise<R=T>
    */
   static async put<T, R = T>(routePath: string, id: string, data: T): Promise<R> {
-    return apiClient.put<R>(routePath, data).then(res => res.data)
+    return apiClient.put<R>(joinPaths(routePath, id), data).then(res => res.data)
   }
 
   /**
