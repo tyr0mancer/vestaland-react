@@ -7,7 +7,7 @@ import {Nutrients} from "./Nutrients";
 import {Ref, TimeStamps} from "./types";
 
 
-class RezeptMeta {
+export class RezeptMeta {
   public vegetarisch?: boolean;
   public healthy?: boolean;
   public soulfood?: boolean;

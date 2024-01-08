@@ -7,8 +7,8 @@ import {LebensmittelPicker} from "../../common/form-elements/LebensmittelPicker"
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MenuIcon from '@mui/icons-material/Menu';
-import {EinheitProperties} from "../../../util/rezept-helper/enum/EinheitProperties";
 import {CustomFieldProps} from "../../common/form-elements/types";
+import {EinheitProperties} from "../../../util/rezept-helper/enum-properties/EinheitProperties";
 
 export function ZutatenForm({name, values: zutaten}: CustomFieldProps<Zutat[]>) {
   return (

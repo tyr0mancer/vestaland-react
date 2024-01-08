@@ -9,12 +9,12 @@ export class Kochschritt {
   public aktion?: Ref<KochschrittAktion>;
   public beschreibung?: string;
   public videoUrl?: string;
-  public repeating?: boolean;
   public gesamtdauer?: number;
-  public arbeitszeit?: number;
-  public wartezeit?: number;
-  public zutaten: Zutat[] = [];
-  public utensilien: Ref<Utensil>[] = [];
   public betriebsart?: Betriebsart;
   public temperatur?: number; //  Grad Celsius
+  public arbeitszeit?: number;
+  public wartezeit?: number;
+  public erforderlicheKochschritte?: string[];
+  public zutaten: Zutat[] = [];
+  public utensilien: Ref<Utensil>[] = [];
 }
