@@ -17,14 +17,14 @@ import {
 } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {getFileUrl} from "../../../util/api/fileService";
-import {Kochschritt} from "../../../models/kochschritt.model";
+import {Kochschritt} from "../../../shared-types/models/kochschritt.model";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
 import {RezeptUtensilien} from "./RezeptUtensilien";
 import {MetaInfoIcons} from "../rezept-suche/RezeptCard";
 import {APIService} from "../../../util/api/APIService";
-import {Rezept} from "../../../models/rezept.model";
+import {Rezept} from "../../../shared-types/models/rezept.model";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();

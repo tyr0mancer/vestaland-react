@@ -2,7 +2,7 @@ import {Utensil} from "./utensil.model";
 import {Ref} from "./types";
 import {Zutat} from "./zutat.model";
 import {KochschrittAktion} from "./kochschritt-aktion.model";
-import {Betriebsart} from "../shared-types/types";
+import {Betriebsart} from "../enum";
 
 
 export class Kochschritt {

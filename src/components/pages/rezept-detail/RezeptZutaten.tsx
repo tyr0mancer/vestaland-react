@@ -1,5 +1,5 @@
 import React from "react";
-import {Zutat} from "../../../models/zutat.model";
+import {Zutat} from "../../../shared-types/models/zutat.model";
 import {Table, TableContainer, TableRow, TableCell, TableBody,} from "@mui/material";
 
 export function RezeptZutaten({zutaten}: { zutaten: Zutat[] }) {

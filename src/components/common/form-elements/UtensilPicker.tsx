@@ -4,7 +4,7 @@ import {useField, useFormikContext} from "formik";
 import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 
 import {APIService} from "../../../util/api/APIService";
-import {Utensil} from "../../../models/utensil.model";
+import {Utensil} from "../../../shared-types/models/utensil.model";
 import {CustomFieldProps} from "./types";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {UtensilNeuForm} from "./UtensilNeuForm";

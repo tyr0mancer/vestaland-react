@@ -1,6 +1,6 @@
 import {Zutat} from "./zutat.model";
 import {Utensil} from "./utensil.model";
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {Datei} from "./datei.model";
 import {Ref, TimeStamps} from "./types";
 import {Kochschritt} from "./kochschritt.model";

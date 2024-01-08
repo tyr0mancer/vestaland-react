@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {useQuery} from "@tanstack/react-query";
 
-import {Rezept} from "../../../models/rezept.model";
+import {Rezept} from "../../../shared-types/models/rezept.model";
 import {StateContext} from "../../../util/state/StateProvider";
 import {StateContextType} from "../../../util/state/types";
 import LoadingIcon from '@mui/icons-material/HourglassBottom';

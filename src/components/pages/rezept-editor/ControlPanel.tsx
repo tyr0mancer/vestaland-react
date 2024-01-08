@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {StateContext} from "../../../util/state/StateProvider";
 import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {useFormikContext} from "formik";
-import {Rezept} from "../../../models/rezept.model";
+import {Rezept} from "../../../shared-types/models/rezept.model";
 import {useDebounce, useLocalStorage} from "@react-hooks-library/core";
 import {useNavigate} from "react-router-dom";
 import IconButton from "@mui/material/IconButton";

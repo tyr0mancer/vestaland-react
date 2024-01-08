@@ -1,4 +1,4 @@
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {Rezept} from "./rezept.model";
 import {Ref, TimeStamps} from "./types";
 

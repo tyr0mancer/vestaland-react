@@ -1,7 +1,7 @@
-import {Zutat} from "../../models/zutat.model";
-import {Utensil} from "../../models/utensil.model";
-import {Kochschritt} from "../../models/kochschritt.model";
-import {Nutrients} from "../../models/lebensmittel.model";
+import {Zutat} from "../../shared-types/models/zutat.model";
+import {Utensil} from "../../shared-types/models/utensil.model";
+import {Kochschritt} from "../../shared-types/models/kochschritt.model";
+import {Nutrients} from "../../shared-types/models/lebensmittel.model";
 
 
 interface KochschrittSummary {

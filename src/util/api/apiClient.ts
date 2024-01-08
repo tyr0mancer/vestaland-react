@@ -1,7 +1,7 @@
 import axios from 'axios';
-import {ApiErrorResponse} from "../auth/types";
 import {ZodError} from 'zod';
 import myConfig from "../../config";
+import {ApiErrorResponse} from "../../shared-types/api";
 
 const baseURL = myConfig.apiBaseUrl
 const apiClient = axios.create({

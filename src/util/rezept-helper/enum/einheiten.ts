@@ -1,4 +1,4 @@
-import { Einheit } from "../../../shared-types/types";
+import { Einheit } from "../../../shared-types/enum";
 
 type EinheitProperty = {
   fullName: string;

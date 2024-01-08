@@ -1,6 +1,6 @@
 import React from "react";
 import {CustomFieldProps} from "./types";
-import {Datei} from "../../../models/datei.model";
+import {Datei} from "../../../shared-types/models/datei.model";
 import {useFormikContext} from "formik";
 import {FileUploader} from 'react-drag-drop-files';
 import {Button, Paper} from "@mui/material";

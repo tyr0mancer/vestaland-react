@@ -16,10 +16,10 @@ import BlenderIcon from '@mui/icons-material/Blender';
 import {Divider, Menu, MenuItem} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../../util/auth/AuthProvider";
-import {BenutzerRolle} from "../../../util/auth/types";
 import {useContext} from "react";
 import {StateContext} from "../../../util/state/StateProvider";
 import {StateContextType} from "../../../util/state/types";
+import {BenutzerRolle} from "../../../shared-types/enum";
 
 export function NavbarMainMobile() {
   const {isAuthorized} = useAuth()

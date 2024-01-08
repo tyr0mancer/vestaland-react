@@ -1,6 +1,6 @@
-import {Zutat} from "../../../models/zutat.model";
+import {Zutat} from "../../../shared-types/models/zutat.model";
 import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
-import {Lebensmittel} from "../../../models/lebensmittel.model";
+import {Lebensmittel} from "../../../shared-types/models/lebensmittel.model";
 import React, {useRef} from "react";
 import {Box, Button, Card, Grid, IconButton, MenuItem, Select, TextField} from "@mui/material";
 import {LebensmittelPicker} from "../../common/form-elements/LebensmittelPicker";

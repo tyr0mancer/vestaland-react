@@ -1,5 +1,6 @@
+import { LoginResponse } from "../../shared-types/auth";
 import {apiClient} from "../api/apiClient";
-import {LoginProps, LoginResponse, RegisterProps} from "./types";
+import {LoginProps, RegisterProps} from "./types";
 
 
 export class AuthService {

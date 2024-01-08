@@ -8,11 +8,11 @@ import {Menu, MenuItem} from "@mui/material";
 
 import Logo from "../../../assets/images/logo.png";
 import {useAuth} from "../../../util/auth/AuthProvider";
-import {BenutzerRolle} from "../../../util/auth/types";
 import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import PersonIcon from "@mui/icons-material/Person";
+import {BenutzerRolle} from "../../../shared-types/enum";
 
 export function NavbarMainDesktop() {
   const {isAuthorized} = useAuth()

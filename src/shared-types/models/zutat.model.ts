@@ -1,6 +1,6 @@
 import {Lebensmittel} from "./lebensmittel.model";
-import {Einheit} from "../shared-types/types";
 import {Ref} from "./types";
+import {Einheit} from "../enum";
 
 export class Zutat {
   public lebensmittel?: Ref<Lebensmittel>;

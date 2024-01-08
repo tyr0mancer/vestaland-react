@@ -1,4 +1,4 @@
-import {Rezept} from "../../../models/rezept.model";
+import {Rezept} from "../../../shared-types/models/rezept.model";
 import {useNavigate} from "react-router-dom";
 import React, {useContext} from "react";
 import {StateContext} from "../../../util/state/StateProvider";

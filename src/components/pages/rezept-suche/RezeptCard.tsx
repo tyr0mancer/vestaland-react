@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {Rezept, RezeptMeta} from "../../../models/rezept.model";
+import {Rezept, RezeptMeta} from "../../../shared-types/models/rezept.model";
 import {getFileUrl} from "../../../util/api/fileService";
 import {Link} from "react-router-dom";
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';

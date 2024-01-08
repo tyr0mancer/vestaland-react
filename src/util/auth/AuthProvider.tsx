@@ -1,8 +1,11 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {ApiErrorResponse, BenutzerRolle, LoginProps, LoginResponse} from "./types";
+import {LoginProps} from "./types";
 import {isApiErrorResponse} from "../api/apiClient";
 import {AuthService} from "./AuthService";
 import config from "../../config";
+import {ApiErrorResponse} from "../../shared-types/api";
+import {LoginResponse} from "../../shared-types/auth";
+import {BenutzerRolle} from "../../shared-types/enum";
 
 type AuthContextType = {
   authInfo: LoginResponse | null,

@@ -4,7 +4,7 @@ import {useQuery} from "@tanstack/react-query";
 import {Form, Formik} from "formik";
 import {useLocalStorage} from '@react-hooks-library/core'
 
-import {Rezept} from "../../../models/rezept.model";
+import {Rezept} from "../../../shared-types/models/rezept.model";
 import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {StateContext} from "../../../util/state/StateProvider";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";

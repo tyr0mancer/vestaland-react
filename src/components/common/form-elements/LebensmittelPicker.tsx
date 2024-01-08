@@ -2,10 +2,10 @@ import React, {useState} from "react";
 import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
-import {Lebensmittel} from "../../../models/lebensmittel.model";
+import {Lebensmittel} from "../../../shared-types/models/lebensmittel.model";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {LebensmittelNeuForm} from "./LebensmittelNeuForm";
-import {Einheit} from "../../../shared-types/types";
+import {Einheit} from "../../../shared-types/enum";
 import {APIService} from "../../../util/api/APIService";
 
 interface LebensmittelPickerProps {

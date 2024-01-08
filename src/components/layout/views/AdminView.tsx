@@ -2,12 +2,12 @@ import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
 import {Container, Paper} from "@mui/material";
 
-import {BenutzerRolle} from "../../../util/auth/types";
 import {RestrictedArea} from "../../../util/auth/RestricedArea";
 import {CustomAlerts} from "../../common/ui/CustomAlerts";
 import {NavbarAdmin} from "../navbar";
 import {FooterMain} from "../footer";
 import {BilderAdmin, LebensmittelAdmin, UserAdmin, UtensilAdmin} from "../../pages/admin";
+import {BenutzerRolle} from "../../../shared-types/enum";
 
 export function AdminView() {
   return (<RestrictedArea role={BenutzerRolle.ADMIN}>

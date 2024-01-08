@@ -1,5 +1,5 @@
-import {BenutzerRolle} from "../util/auth/types";
 import {TimeStamps} from "./types";
+import {BenutzerRolle} from "../enum";
 
 export class Benutzer extends TimeStamps {
   public name: string = '';

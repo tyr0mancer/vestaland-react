@@ -1,5 +1,5 @@
 import {Ref, TimeStamps} from "./types";
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 
 export class Lagerort extends TimeStamps {
   public name: string = "";

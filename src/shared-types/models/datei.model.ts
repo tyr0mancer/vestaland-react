@@ -1,4 +1,4 @@
-import {Benutzer} from "./benutzer.model";
+import {Benutzer} from "./Benutzer";
 import {TimeStamps, Ref} from "./types";
 
 export class Datei extends TimeStamps {

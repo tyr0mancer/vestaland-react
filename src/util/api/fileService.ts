@@ -1,5 +1,5 @@
 import {apiClient} from "./apiClient";
-import {Datei} from "../../models/datei.model";
+import {Datei} from "../../shared-types/models/datei.model";
 import config from "../../config";
 
 const DUMMY = 'https://api.vestaland.de/public/platzhalter.jpg'

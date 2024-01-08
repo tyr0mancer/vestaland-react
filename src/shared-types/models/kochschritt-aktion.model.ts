@@ -1,4 +1,4 @@
-import {AktionIcon} from "../shared-types/types";
+import {AktionIcon} from "../enum";
 
 export class KochschrittAktion  {
   public aktionName: string = '';

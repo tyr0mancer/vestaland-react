@@ -1,5 +1,5 @@
-import {TimeStamps} from "./types";
-import {Einheit} from "../shared-types/types";
+import {TimeStamps} from "./types"
+import {Einheit} from "../enum"
 
 
 export class Nutrients {
