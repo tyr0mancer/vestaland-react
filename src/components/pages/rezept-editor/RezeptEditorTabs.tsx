@@ -3,7 +3,7 @@ import {Grid, Tab, Tabs} from "@mui/material";
 import {OverviewForm} from "./OverviewForm";
 import {KochschritteForm} from "./KochschritteForm";
 import {ControlPanel} from "./ControlPanel";
-import {SimpleTabPanel} from "../../layout/SimpleTabPanel";
+import {SimpleTabPanel} from "../../common/ui/SimpleTabPanel";
 
 
 /**

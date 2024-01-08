@@ -1,9 +1,9 @@
 import React from "react";
-import {CustomFieldProps} from "../../form-elements/types";
+import {CustomFieldProps} from "../../common/form-elements/types";
 import {Utensil} from "../../../models/utensil.model";
 import {Field, FieldArray} from "formik";
 import {Box, Button, Card, Grid, IconButton, TextField} from "@mui/material";
-import {UtensilPicker} from "../../form-elements/UtensilPicker";
+import {UtensilPicker} from "../../common/form-elements/UtensilPicker";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
 import MenuIcon from "@mui/icons-material/Menu";

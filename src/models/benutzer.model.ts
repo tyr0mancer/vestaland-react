@@ -1,4 +1,4 @@
-import {BenutzerRolle} from "../services/auth/types";
+import {BenutzerRolle} from "../util/auth/types";
 import {TimeStamps} from "./types";
 
 export class Benutzer extends TimeStamps {

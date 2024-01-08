@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
 import {RezeptZutaten} from "../rezept-detail/RezeptZutaten";
-import {StateContext} from "../../../services/contexts/global-state/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
+import {StateContext} from "../../../util/state/StateProvider";
+import {ActionTypes, StateContextType} from "../../../util/state/types";
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import {Kochschritte} from "./Kochschritte";

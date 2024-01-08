@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from "react";
-import {StateContext} from "../../../services/contexts/global-state/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
+import {StateContext} from "../../../util/state/StateProvider";
+import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {useFormikContext} from "formik";
 import {Rezept} from "../../../models/rezept.model";
 import {useDebounce, useLocalStorage} from "@react-hooks-library/core";
@@ -9,9 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import SaveIcon from '@mui/icons-material/Save';
 import PublishIcon from '@mui/icons-material/Publish';
 import ClearIcon from '@mui/icons-material/Clear';
-import {getKochschrittSummary, multiplyNutrients} from "../../../services/kochschritt-reducer";
+import {getKochschrittSummary, multiplyNutrients} from "../../../util/rezept-helper/kochschritt-reducer";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {rezeptPostService, rezeptPutService} from "../../../services/api/rezeptService";
+import {rezeptPostService, rezeptPutService} from "../../../util/api/rezeptService";
 
 /**
  * ControlPanel für den Rezept-Editor

@@ -1,6 +1,6 @@
 import React from "react";
 import {Link, Navigate, Route, Routes} from "react-router-dom";
-import {useAuth} from "../../../services/auth/AuthProvider";
+import {useAuth} from "../../../util/auth/AuthProvider";
 import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import {MeineRezepte} from "./MeineRezepte";

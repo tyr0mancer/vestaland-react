@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import {Rezept, RezeptMeta} from "../../../models/rezept.model";
-import {getFileUrl} from "../../../services/api/fileService";
+import {getFileUrl} from "../../../util/api/fileService";
 import {Link} from "react-router-dom";
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';

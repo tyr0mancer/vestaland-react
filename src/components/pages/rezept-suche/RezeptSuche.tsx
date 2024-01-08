@@ -1,12 +1,13 @@
 import React, {useContext} from 'react';
+import {useQuery} from "@tanstack/react-query";
 import {Formik} from 'formik';
 
-import {StateContext} from "../../../services/contexts/global-state/StateProvider";
-import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../services/contexts/global-state/types";
-import {RezeptSucheForm} from './RezeptSucheForm';
-import {useQuery} from "@tanstack/react-query";
+import {StateContext} from "../../../util/state/StateProvider";
+import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../util/state/types";
 import {Rezept} from "../../../models/rezept.model";
-import {rezeptSuche} from "../../../services/api/rezeptService";
+import {rezeptSuche} from "../../../util/api/rezeptService";
+
+import {RezeptSucheForm} from './RezeptSucheForm';
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
 
 

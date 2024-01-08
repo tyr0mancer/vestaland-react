@@ -1,6 +1,6 @@
 import React from "react";
-import {useAuth} from "../../../services/auth/AuthProvider";
-import {loginService, RegisterUserType} from "../../../services/api/authService";
+import {useAuth} from "../../../util/auth/AuthProvider";
+import {loginService, RegisterUserType} from "../../../util/api/authService";
 import {useNavigate} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import {Alert, AlertTitle, Button, FormGroup, Grid, TextField, Typography} from "@mui/material";

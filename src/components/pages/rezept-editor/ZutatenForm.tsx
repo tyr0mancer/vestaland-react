@@ -3,12 +3,12 @@ import {Field, FieldArray, FieldArrayRenderProps, useFormikContext} from "formik
 import {Lebensmittel} from "../../../models/lebensmittel.model";
 import React, {useRef} from "react";
 import {Box, Button, Card, Grid, IconButton, MenuItem, Select, TextField} from "@mui/material";
-import {LebensmittelPicker} from "../../form-elements/LebensmittelPicker";
+import {LebensmittelPicker} from "../../common/form-elements/LebensmittelPicker";
 import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MenuIcon from '@mui/icons-material/Menu';
-import {EinheitProperties} from "../../../services/enum/einheiten";
-import {CustomFieldProps} from "../../form-elements/types";
+import {EinheitProperties} from "../../../util/rezept-helper/enum/einheiten";
+import {CustomFieldProps} from "../../common/form-elements/types";
 
 export function ZutatenForm({name, values: zutaten}: CustomFieldProps<Zutat[]>) {
   return (

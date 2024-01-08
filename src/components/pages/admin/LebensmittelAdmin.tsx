@@ -9,15 +9,15 @@ import {QueryClient, useQuery} from "@tanstack/react-query";
 import {
   deleteManyLebensmittelSerivce,
   lebensmittelSucheService
-} from "../../../services/api/lebensmittelService";
+} from "../../../util/api/lebensmittelService";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
 import {Lebensmittel} from "../../../models/lebensmittel.model";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {LebensmittelNeuForm} from "../../form-elements/LebensmittelNeuForm";
-import {AddOptionDialog} from "../../form-elements/AddOptionDialog";
-import {apiClient} from "../../../services/api/apiClient";
+import {LebensmittelNeuForm} from "../../common/form-elements/LebensmittelNeuForm";
+import {AddOptionDialog} from "../../common/form-elements/AddOptionDialog";
+import {apiClient} from "../../../util/api/apiClient";
 
 
 /**

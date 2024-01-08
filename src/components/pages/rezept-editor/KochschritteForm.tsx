@@ -10,13 +10,13 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {ZutatenForm} from "./ZutatenForm";
 import {Zutat} from "../../../models/zutat.model";
-import {KochschrittAktionPicker} from "../../form-elements/KochschrittAktionPicker";
+import {KochschrittAktionPicker} from "../../common/form-elements/KochschrittAktionPicker";
 import {Kochschritt} from "../../../models/kochschritt.model";
 import {KochschrittAktion} from "../../../models/kochschritt-aktion.model";
-import {CustomFieldProps} from "../../form-elements/types";
+import {CustomFieldProps} from "../../common/form-elements/types";
 import {UtensilienForm} from "./UtensilienForm";
-import {BetriebsartenProperties} from "../../../services/enum/betriebsarten";
-import {AktionIconImage} from "../../../services/AktionIconImage";
+import {BetriebsartenProperties} from "../../../util/rezept-helper/enum/betriebsarten";
+import {AktionIconImage} from "../../common/formatting/AktionIconImage";
 
 /**
  * TS Doc Info

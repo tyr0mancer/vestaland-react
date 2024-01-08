@@ -1,11 +1,10 @@
 import React, {useContext, useEffect} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {rezeptDetail} from "../../../services/api/rezeptService";
 import {RezeptZutaten} from "./RezeptZutaten";
-import {StateContext} from "../../../services/contexts/global-state/StateProvider";
-import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
-import {useAuth} from "../../../services/auth/AuthProvider";
+import {StateContext} from "../../../util/state/StateProvider";
+import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {useAuth} from "../../../util/auth/AuthProvider";
 import {
   Box,
   Button,
@@ -17,13 +16,15 @@ import {
   Typography
 } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
-import {getFileUrl} from "../../../services/api/fileService";
+import {getFileUrl} from "../../../util/api/fileService";
 import {Kochschritt} from "../../../models/kochschritt.model";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
 import {RezeptUtensilien} from "./RezeptUtensilien";
 import {MetaInfoIcons} from "../rezept-suche/RezeptCard";
+import {APIService} from "../../../util/api/APIService";
+import {Rezept} from "../../../models/rezept.model";
 
 export function RezeptDetail() {
   const {rezeptId = ''} = useParams();
@@ -38,7 +39,7 @@ export function RezeptDetail() {
   } = useQuery(
     {
       queryKey: ["rezept-detail", rezeptId],
-      queryFn: () => rezeptDetail(rezeptId),
+      queryFn: () => APIService.get<Rezept>(`/rezept/${rezeptId}`),
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 

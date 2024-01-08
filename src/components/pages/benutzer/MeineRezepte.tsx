@@ -1,6 +1,6 @@
 import React from "react";
 import {Rezept} from "../../../models/rezept.model";
-import {rezeptSuche} from "../../../services/api/rezeptService";
+import {rezeptSuche} from "../../../util/api/rezeptService";
 import {useQuery} from "@tanstack/react-query";
 import {Box, Typography} from "@mui/material";
 import {RezeptCard} from "../rezept-suche/RezeptCard";

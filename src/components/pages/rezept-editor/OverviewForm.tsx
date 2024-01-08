@@ -2,7 +2,7 @@ import React from "react";
 import {Field, useFormikContext} from "formik";
 import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
 import {Rezept} from "../../../models/rezept.model";
-import {CustomFile} from "../../form-elements/CustomFile";
+import {CustomFile} from "../../common/form-elements/CustomFile";
 import {Datei} from "../../../models/datei.model";
 
 

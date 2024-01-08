@@ -1,9 +1,9 @@
 import React from "react";
-import {useAuth} from "../../../services/auth/AuthProvider";
+import {useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
-import {customConfirm} from "../../../services/customConfirm";
-import {logoutService} from "../../../services/api/authService";
-import {ApiErrorResponse} from "../../../services/auth/types";
+import {customConfirm} from "../../common/ui/ConfirmDialog";
+import {logoutService} from "../../../util/api/authService";
+import {ApiErrorResponse} from "../../../util/auth/types";
 import {Box, Button, Typography} from "@mui/material";
 
 

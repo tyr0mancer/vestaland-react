@@ -5,11 +5,11 @@ import {Form, Formik} from "formik";
 import {useLocalStorage} from '@react-hooks-library/core'
 
 import {Rezept} from "../../../models/rezept.model";
-import {ActionTypes, StateContextType} from "../../../services/contexts/global-state/types";
-import {StateContext} from "../../../services/contexts/global-state/StateProvider";
-import {rezeptDetail} from "../../../services/api/rezeptService";
-import {LoadingPage} from "../service-pages/LoadingPage";
+import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {StateContext} from "../../../util/state/StateProvider";
+import {LoadingScreen} from "../../common/ui/LoadingScreen";
 import {RezeptEditorTabs} from "./RezeptEditorTabs";
+import {APIService} from "../../../util/api/APIService";
 
 
 /**
@@ -30,7 +30,7 @@ export function RezeptEditor(): React.ReactElement {
   const {data: rezeptApi, isFetching} = useQuery( //@todo liefert aktuell noch null falls parameter falsch ist - sollte Fehler werfen -> Express
     {
       queryKey: ["rezept-detail", rezeptId],
-      queryFn: () => rezeptDetail(rezeptId || ''),
+      queryFn: () => APIService.get<Rezept>(`/rezept/${rezeptId}`),
       enabled: !!rezeptId
     });
 
@@ -54,7 +54,7 @@ export function RezeptEditor(): React.ReactElement {
   const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || new Rezept()
 
 
-  return (isFetching || !initialValues) ? <LoadingPage/> :
+  return (isFetching || !initialValues) ? <LoadingScreen/> :
     (<Formik<Rezept>
       initialValues={initialValues}
       onSubmit={() => {

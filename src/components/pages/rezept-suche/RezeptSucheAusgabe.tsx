@@ -2,12 +2,12 @@ import React, {useContext} from "react";
 import {useQuery} from "@tanstack/react-query";
 
 import {Rezept} from "../../../models/rezept.model";
-import {StateContext} from "../../../services/contexts/global-state/StateProvider";
-import {StateContextType} from "../../../services/contexts/global-state/types";
-import {ErrorPage} from "../service-pages/ErrorPage";
+import {StateContext} from "../../../util/state/StateProvider";
+import {StateContextType} from "../../../util/state/types";
 import LoadingIcon from '@mui/icons-material/HourglassBottom';
 import {RezeptCard} from "./RezeptCard";
 import {Grid} from "@mui/material";
+import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
 export function RezeptSucheAusgabe() {
   const {state} = useContext(StateContext) as StateContextType
@@ -24,7 +24,7 @@ export function RezeptSucheAusgabe() {
     });
 
   if (isError)
-    return <ErrorPage error={error}/>
+    return <ErrorScreen error={error}/>
   if (isLoading)
     return <LoadingIcon/>
   return (<Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 16}}>
