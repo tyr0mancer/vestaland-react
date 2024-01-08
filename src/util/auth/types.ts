@@ -19,8 +19,12 @@ export interface ApiErrorResponse {
   description?: string,
   error?: any
 }
-export type RegisterUserType = {
+export interface RegisterProps {
   name: string,
   email: string,
+  password: string
+}
+export interface LoginProps {
+  username: string,
   password: string
 }

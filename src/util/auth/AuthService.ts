@@ -1,6 +1,5 @@
 import {apiClient} from "../api/apiClient";
-import {LoginResponse} from "./types";
-import {LoginProps} from "./AuthProvider";
+import {LoginProps, LoginResponse} from "./types";
 
 
 export class AuthService {

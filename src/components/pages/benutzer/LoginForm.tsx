@@ -1,31 +1,25 @@
 import React from "react";
-import {LoginProps, useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import {Alert, AlertTitle, Button, FormGroup, Grid, TextField, Typography} from "@mui/material";
-import LoginIcon from '@mui/icons-material/Login';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import {RegisterUserType} from "../../../util/auth/types";
+import {Login as LoginIcon, AppRegistration as AppRegistrationIcon} from '@mui/icons-material';
+
+import {LoginProps, RegisterProps} from "../../../util/auth/types";
+import {useAuth} from "../../../util/auth/AuthProvider";
 
 
 export function LoginForm() {
   const {login, error} = useAuth()
   const navigate = useNavigate()
 
-  const handleLogin = (loginInfo:LoginProps) => {
+  const handleLogin = (loginInfo: LoginProps) => {
     login(loginInfo).then(() => navigate('/user'))
   }
 
   const handleRegister = () => {
     alert('Aktuell keine Registrierung möglich')
-    /*login(() => registerService(newUser)).then(() => {
-      navigate('/user');
-    }).catch(err => {
-      console.log(err)
-    })*/
+    //register(registerInfo).then(() => navigate('/user'))
   }
-
-
 
   return (<>
     <Grid container spacing={10}>
@@ -55,7 +49,7 @@ export function LoginForm() {
       </Grid>
       <Grid item xs={12} md={6}>
         <Typography variant={"h5"} gutterBottom>Oder registrieren Sie sich:</Typography>
-        <Formik<RegisterUserType>
+        <Formik<RegisterProps>
           initialValues={{name: '', email: '', password: ''}}
           onSubmit={handleRegister}
           enableReinitialize

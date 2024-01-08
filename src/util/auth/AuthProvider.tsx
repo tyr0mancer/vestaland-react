@@ -1,5 +1,5 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {ApiErrorResponse, BenutzerRolle, LoginResponse} from "./types";
+import {ApiErrorResponse, BenutzerRolle, LoginProps, LoginResponse} from "./types";
 import {isApiErrorResponse} from "../api/apiClient";
 import {AuthService} from "./AuthService";
 import config from "../../config";
@@ -23,12 +23,6 @@ const AuthContext = createContext<AuthContextType>({
   isOwner: () => false
 
 });
-
-
-export interface LoginProps {
-  username: string,
-  password: string
-}
 
 export const AuthProvider = ({children}: any) => {
 
