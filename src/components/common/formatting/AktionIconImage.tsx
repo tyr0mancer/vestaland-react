@@ -1,6 +1,6 @@
 import React from "react";
 import {AktionIcon} from "../../../shared-types/enum";
-import {AktionIconProperties} from "../../../util/rezept-helper/enum/aktionIcons";
+import {AktionIconProperties} from "../../../util/rezept-helper/enum/AktionIconProperties";
 
 interface AktionIconImageProps {
   aktion?: AktionIcon | undefined

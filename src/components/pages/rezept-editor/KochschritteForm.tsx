@@ -15,7 +15,7 @@ import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
 import {CustomFieldProps} from "../../common/form-elements/types";
 import {UtensilienForm} from "./UtensilienForm";
-import {BetriebsartenProperties} from "../../../util/rezept-helper/enum/betriebsarten";
+import {BetriebsartenProperties} from "../../../util/rezept-helper/enum/BetriebsartenProperties";
 import {AktionIconImage} from "../../common/formatting/AktionIconImage";
 
 /**

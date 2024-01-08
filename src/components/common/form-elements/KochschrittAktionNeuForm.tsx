@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from "react";
 import {Field} from "formik";
 import {Box, MenuItem, Select, TextField} from "@mui/material";
-import {AktionIconProperties} from "../../../util/rezept-helper/enum/aktionIcons";
+import {AktionIconProperties} from "../../../util/rezept-helper/enum/AktionIconProperties";
 import {AktionIcon} from "../../../shared-types/enum";
 import {AktionIconImage} from "../formatting/AktionIconImage";
 
