@@ -1,4 +1,4 @@
-import {Lebensmittel} from "./lebensmittel.model";
+import {Lebensmittel} from "./Lebensmittel";
 import {Ref} from "./types";
 import {Einheit} from "../enum";
 

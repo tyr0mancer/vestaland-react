@@ -1,6 +1,6 @@
 import React from "react";
 import {Table, TableContainer, TableRow, TableCell, TableBody} from "@mui/material";
-import {Utensil} from "../../../shared-types/models/utensil.model";
+import {Utensil} from "../../../shared-types/models/Utensil";
 
 export function RezeptUtensilien({utensilien}: { utensilien: Utensil[] }) {
 

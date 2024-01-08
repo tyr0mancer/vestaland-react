@@ -20,7 +20,7 @@ export function RezeptCard({rezept}: { rezept: Rezept }) {
       <Link to={'/rezepte/' + rezept._id}>
         <CardMedia
           sx={{height: 100}}
-          image={getFileUrl(rezept.bild?.fileName)}
+          image={getFileUrl(rezept.bild?.dateiNameServer)}
           title={rezept.name}
         />
         <CardContent style={{padding: 5}}>

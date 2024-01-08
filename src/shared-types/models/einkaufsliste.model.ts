@@ -1,5 +1,5 @@
 import {Benutzer} from "./Benutzer";
-import {Zutat} from "./zutat.model";
+import {Zutat} from "./Zutat";
 import {Ref, TimeStamps} from "./types";
 import {Rezept} from "./rezept.model";
 

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {Autocomplete, Button, CircularProgress, TextField} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {useField, useFormikContext} from "formik";
-import {Lebensmittel} from "../../../shared-types/models/lebensmittel.model";
+import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {LebensmittelNeuForm} from "./LebensmittelNeuForm";
 import {Einheit} from "../../../shared-types/enum";

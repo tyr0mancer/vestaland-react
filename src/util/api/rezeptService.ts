@@ -1,6 +1,6 @@
 import {apiClient} from "./apiClient";
 import {Rezept} from "../../shared-types/models/rezept.model";
-import {KochschrittAktion} from "../../shared-types/models/kochschritt-aktion.model";
+import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 
 import {RezeptSucheQuery} from "../state/types";
 

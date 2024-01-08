@@ -1,6 +1,6 @@
 import React from "react";
 import {CustomFieldProps} from "../../common/form-elements/types";
-import {Utensil} from "../../../shared-types/models/utensil.model";
+import {Utensil} from "../../../shared-types/models/Utensil";
 import {Field, FieldArray} from "formik";
 import {Box, Button, Card, Grid, IconButton, TextField} from "@mui/material";
 import {UtensilPicker} from "../../common/form-elements/UtensilPicker";

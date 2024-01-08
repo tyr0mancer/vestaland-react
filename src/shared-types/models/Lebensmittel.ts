@@ -1,15 +1,6 @@
 import {TimeStamps} from "./types"
 import {Einheit} from "../enum"
-
-
-export class Nutrients {
-  public kalorien: number = 0;
-  public proteine: number = 0
-  public fett: number = 0
-  public kohlenhydrate: number = 0
-  public zucker: number = 0
-  public ballaststoffe: number = 0
-}
+import {Nutrients} from "./Nutrients";
 
 
 export class Lebensmittel extends TimeStamps {
@@ -27,5 +18,3 @@ export class Lebensmittel extends TimeStamps {
   public unitWeight?: number
   public nutrients?: Nutrients
 }
-
-

@@ -3,7 +3,7 @@ import {Field, useFormikContext} from "formik";
 import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {CustomFile} from "../../common/form-elements/CustomFile";
-import {Datei} from "../../../shared-types/models/datei.model";
+import {Datei} from "../../../shared-types/models/Datei";
 
 
 /**

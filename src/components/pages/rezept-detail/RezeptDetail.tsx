@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import {getFileUrl} from "../../../util/api/fileService";
-import {Kochschritt} from "../../../shared-types/models/kochschritt.model";
+import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
@@ -87,7 +87,7 @@ export function RezeptDetail() {
 
         <Grid container spacing={2}>
           <Grid item xs={12} md={3}>
-            <img src={getFileUrl(rezept.bild?.fileName)} height={150} width={'100%'}
+            <img src={getFileUrl(rezept.bild?.dateiNameServer)} height={150} width={'100%'}
                  alt={rezept.name}
                  title={rezept.name}
             />

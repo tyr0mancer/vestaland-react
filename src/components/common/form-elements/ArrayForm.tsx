@@ -1,7 +1,7 @@
 import React from "react";
 import {FieldArray} from "formik";
 import {Button} from "@mui/material";
-import {Zutat} from "../../../shared-types/models/zutat.model";
+import {Zutat} from "../../../shared-types/models/Zutat";
 
 interface ArrayFormProps<T> {
   name: string,

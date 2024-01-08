@@ -1,5 +1,5 @@
 import {Einheit} from "../enum";
-import {Lebensmittel} from "./lebensmittel.model";
+import {Lebensmittel} from "./Lebensmittel";
 import {Lagerort} from "./lagerort.model";
 import {Benutzer} from "./Benutzer";
 import {Ref, TimeStamps} from "./types";

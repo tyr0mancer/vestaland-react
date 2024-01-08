@@ -1,7 +1,7 @@
-import {Utensil} from "./utensil.model";
+import {Utensil} from "./Utensil";
 import {Ref} from "./types";
-import {Zutat} from "./zutat.model";
-import {KochschrittAktion} from "./kochschritt-aktion.model";
+import {Zutat} from "./Zutat";
+import {KochschrittAktion} from "./KochschrittAktion";
 import {Betriebsart} from "../enum";
 
 
@@ -16,5 +16,5 @@ export class Kochschritt {
   public zutaten: Zutat[] = [];
   public utensilien: Ref<Utensil>[] = [];
   public betriebsart?: Betriebsart;
-  public temperatur?: number;
+  public temperatur?: number; //  Grad Celsius
 }
