@@ -1,5 +1,5 @@
 import {apiClient} from "../api/apiClient";
-import {LoginProps, LoginResponse} from "./types";
+import {LoginProps, LoginResponse, RegisterProps} from "./types";
 
 
 export class AuthService {
@@ -36,7 +36,7 @@ export class AuthService {
     })
   }
 
-  static async register<T>(newUser: T): Promise<LoginResponse> {
+  static async registerAndLogin(newUser: RegisterProps): Promise<LoginResponse> {
     return new Promise<LoginResponse>((resolve, reject) => {
       apiClient.post('/auth/register', newUser)
         .then(response => {
