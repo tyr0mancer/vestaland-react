@@ -1,10 +1,9 @@
 import React from "react";
-import {useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
-import {customConfirm} from "../../common/ui/ConfirmDialog";
-import {ApiErrorResponse} from "../../../util/auth/types";
 import {Box, Button, Typography} from "@mui/material";
-import {AuthService} from "../../../util/api/AuthService";
+
+import {useAuth} from "../../../util/auth/AuthProvider";
+import {customConfirm} from "../../common/ui/ConfirmDialog";
 
 
 /**
@@ -19,16 +18,12 @@ export function Account(): React.ReactElement {
   const handleLogout = async () => {
     const result = await customConfirm({label: 'Abmelden?'})
     if (!result) return
-
-    logout(() => AuthService.logout()).then(() => {
-      navigate('/');
-    }).catch((err: ApiErrorResponse) => {
-      console.log(err)
-    })
+    logout().then(() => navigate('/'))
   }
 
   return (<Box mt={2}>
     <Typography variant="h4">Mein Account</Typography>
+    <Typography variant="h6">To Do:</Typography>
     <ul>
       <li>Passwort ändern</li>
       <li>Benutzername, Email ändern</li>

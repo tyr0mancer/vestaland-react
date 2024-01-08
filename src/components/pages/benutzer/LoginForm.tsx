@@ -1,28 +1,19 @@
 import React from "react";
-import {useAuth} from "../../../util/auth/AuthProvider";
-import {AuthService,  RegisterUserType} from "../../../util/api/AuthService";
+import {LoginProps, useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import {Alert, AlertTitle, Button, FormGroup, Grid, TextField, Typography} from "@mui/material";
 import LoginIcon from '@mui/icons-material/Login';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-
-type LoginType = {
-  username: string,
-  password: string
-}
+import {RegisterUserType} from "../../../util/auth/types";
 
 
 export function LoginForm() {
   const {login, error} = useAuth()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const handleLogin = ({username, password}: LoginType) => {
-    login(() => AuthService.login(username, password)).then(() => {
-      navigate('/user');
-    }).catch(err => {
-      console.log(err)
-    })
+  const handleLogin = (loginInfo:LoginProps) => {
+    login(loginInfo).then(() => navigate('/user'))
   }
 
   const handleRegister = () => {
@@ -35,6 +26,7 @@ export function LoginForm() {
   }
 
 
+
   return (<>
     <Grid container spacing={10}>
       <Grid item xs={12} md={6}>
@@ -45,17 +37,16 @@ export function LoginForm() {
               {error?.description}
             </Alert>
         }
-        <Formik<LoginType>
+        <Formik<LoginProps>
           initialValues={{username: '', password: ''}}
           onSubmit={handleLogin}
-          enableReinitialize
         >
           <Form>
             <FormGroup>
               <Field as={TextField} type="email" variant="outlined"
                      name="username" label="E-Mail"/>
               <Field as={TextField} type="password" variant="outlined"
-                     name="password" label="Password"/>
+                     name="password" label="Passwort"/>
               <br/>
               <Button type={'submit'} startIcon={<LoginIcon/>} color={'primary'} variant={'outlined'}>Anmelden</Button>
             </FormGroup>

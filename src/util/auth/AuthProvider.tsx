@@ -1,14 +1,15 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {ApiErrorResponse, BenutzerRolle, LoginResponse} from "./types";
 import {isApiErrorResponse} from "../api/apiClient";
-import {AuthService} from "../api/AuthService";
+import {AuthService} from "./AuthService";
+import config from "../../config";
 
 type AuthContextType = {
   authInfo: LoginResponse | null,
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
   isOwner: (userId?: string) => boolean,
-  logout: (LogoutFn?: () => Promise<void>) => Promise<any>
-  login: (LoginFn: () => Promise<LoginResponse>) => Promise<any>,
+  logout: () => Promise<any>,
+  login: (loginInfo?: LoginProps) => Promise<any>,
   error?: ApiErrorResponse | null
 }
 
@@ -23,41 +24,34 @@ const AuthContext = createContext<AuthContextType>({
 
 });
 
+
+export interface LoginProps {
+  username: string,
+  password: string
+}
+
 export const AuthProvider = ({children}: any) => {
 
   const [authInfo, setAuthInfo] = useState<LoginResponse | null>(null);
   const [error, setError] = useState<ApiErrorResponse | null>(null)
 
+  /*
+    Beim ersten Rendern der App: versuche ein auth-token zu erhalten.
+  */
   useEffect(() => {
     refresh(() => AuthService.refresh())
       .then(() => {
-        //console.log("refreshing Token")
-      }).catch(() => {
-      //console.log(err.response.data)
+        if (config.devMode)
+          console.log("refreshing Token")
+      }).catch((error) => {
+      if (config.devMode)
+        console.error(error)
     })
   }, [])
 
-
-  function login(LoginFn?: () => Promise<LoginResponse>) {
-    return new Promise((resolve, reject) => {
-      if (!LoginFn) return reject("LoginFn missing")
-
-      LoginFn().then(res => {
-        setAuthInfo(() => res)
-        return resolve('LoggedIn')
-      })
-        .catch(error => {
-          if (isApiErrorResponse(error.response?.data)) {
-            setError(() => error.response?.data)
-            return reject(error)
-          }
-          console.error(error)
-          return reject(error)
-        })
-    })
-  }
-
-
+  /*
+    Das Refresh-Token wird als HTTP-only unter der Domain des express Servers gesendet, sofern der User noch eingeloggt war.
+  */
   function refresh(refreshFn: () => Promise<LoginResponse>) {
     return new Promise((resolve, reject) => {
       refreshFn().then(res => {
@@ -71,14 +65,25 @@ export const AuthProvider = ({children}: any) => {
   }
 
 
-  async function logout(LogoutFn?: () => Promise<void>) {
-    return new Promise(async (resolve) => {
-      if (LogoutFn)
-        await LogoutFn()
-      setAuthInfo(null)
-      return resolve('LoggedOut')
-    })
+  async function handleLogin(loginInfo?: LoginProps) {
+    AuthService.login(loginInfo)
+      .then(res => {
+        setAuthInfo(res)
+      })
+      .catch(error => {
+        if (isApiErrorResponse(error.response?.data)) {
+          setError(error.response?.data)
+        }
+        console.error(error)
+      })
   }
+
+
+  async function handleLogout() {
+    AuthService.logout()
+      .then(() => setAuthInfo(null))
+  }
+
 
   function isAuthorized(role?: BenutzerRolle) {
     if (authInfo === null) return false
@@ -99,8 +104,8 @@ export const AuthProvider = ({children}: any) => {
   return (
     <AuthContext.Provider value={{
       authInfo,
-      logout,
-      login,
+      login: handleLogin,
+      logout: handleLogout,
       isAuthorized,
       error,
       isOwner

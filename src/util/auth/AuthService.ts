@@ -1,18 +1,12 @@
-import {apiClient} from "./apiClient";
-import {LoginResponse} from "../auth/types";
+import {apiClient} from "../api/apiClient";
+import {LoginResponse} from "./types";
+import {LoginProps} from "./AuthProvider";
 
-
-//@todo move to shared-types
-export type RegisterUserType = {
-  name: string,
-  email: string,
-  password: string
-}
 
 export class AuthService {
-  static async login(username: string, password: string): Promise<LoginResponse> {
+  static async login(loginInfo?: LoginProps): Promise<LoginResponse> {
     return new Promise<LoginResponse>((resolve, reject) => {
-      apiClient.post('/auth/login', {username, password})
+      apiClient.post('/auth/login', loginInfo)
         .then(response => {
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
           resolve(response.data as LoginResponse)
@@ -31,6 +25,7 @@ export class AuthService {
         .catch(reject)
     })
   }
+
   static async logout(): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       apiClient.post('/auth/logout')
@@ -42,7 +37,7 @@ export class AuthService {
     })
   }
 
-  static async register(newUser: RegisterUserType): Promise<LoginResponse> {
+  static async register<T>(newUser: T): Promise<LoginResponse> {
     return new Promise<LoginResponse>((resolve, reject) => {
       apiClient.post('/auth/register', newUser)
         .then(response => {

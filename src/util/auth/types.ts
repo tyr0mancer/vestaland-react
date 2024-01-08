@@ -19,3 +19,8 @@ export interface ApiErrorResponse {
   description?: string,
   error?: any
 }
+export type RegisterUserType = {
+  name: string,
+  email: string,
+  password: string
+}
