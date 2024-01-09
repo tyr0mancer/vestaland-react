@@ -9,9 +9,10 @@ import {Link} from "react-router-dom";
 import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {RezeptPartial} from "../../../util/state/types";
 
 
-export function RezeptCard({rezept}: { rezept: Rezept }) {
+export function RezeptCard({rezept}: { rezept: Rezept | RezeptPartial }) {
   if (!rezept)
     return <></>
 
@@ -24,9 +25,11 @@ export function RezeptCard({rezept}: { rezept: Rezept }) {
           title={rezept.name}
         />
         <CardContent style={{padding: 5}}>
-          <Typography gutterBottom variant="h5" component="div">
-            {rezept.name} <MetaInfoIcons meta={rezept.meta} fontSize={'small'}/>
-          </Typography>
+          {rezept &&
+              <Typography gutterBottom variant="h5" component="div">
+                {rezept.name} {/*<MetaInfoIcons meta={rezept.meta} fontSize={'small'}/>*/}
+              </Typography>
+          }
           <Typography variant="body2" color="text.secondary">
             {rezept.beschreibung}
           </Typography>
@@ -38,7 +41,10 @@ export function RezeptCard({rezept}: { rezept: Rezept }) {
 }
 
 
-export function MetaInfoIcons({meta, fontSize = 'medium'}: { meta?: RezeptMeta, fontSize?: 'small' | 'medium' | 'large' }) {
+export function MetaInfoIcons({
+                                meta,
+                                fontSize = 'medium'
+                              }: { meta?: RezeptMeta, fontSize?: 'small' | 'medium' | 'large' }) {
 
   return (<>
     {meta?.vegetarisch &&
