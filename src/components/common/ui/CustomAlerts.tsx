@@ -3,8 +3,9 @@ import Alert from '@mui/material/Alert';
 import {AlertTitle} from "@mui/material";
 
 interface ZodErrorFormat {
-  message: 'Schema ist nicht Valide',
-  errors: any[]
+  message: string,
+  errors: any[],
+  status?: number
 }
 
 /**
@@ -18,9 +19,7 @@ export function CustomAlerts() {
     const handleApiError = (event: CustomEvent) => {
       setError(event.detail);
     };
-
     window.addEventListener('api-error', handleApiError as EventListener);
-
     return () => {
       window.removeEventListener('api-error', handleApiError as EventListener);
     };
@@ -28,8 +27,9 @@ export function CustomAlerts() {
 
   return (
     <>
-      {error && <Alert severity="error" onClose={() =>setError(null)}>
-          <AlertTitle>{'Schema ist nicht valide'}</AlertTitle>
+      {error && <Alert severity="error" onClose={() => setError(null)}>
+          <AlertTitle>{error.status} - {error.message}</AlertTitle>
+
         {error.errors?.map((err, index) => (<div key={index}>
           <pre>{err.path.slice(1).join(' > ')}</pre>
           <pre>{err.message}</pre>
