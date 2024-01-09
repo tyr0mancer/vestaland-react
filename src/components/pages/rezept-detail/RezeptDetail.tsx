@@ -144,9 +144,10 @@ function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
     </Typography>
     <TableBody>
 
+      {/* @todo aktionen */}
       {kochschritte.map((kochschritt, index) =>
         <TableRow key={index}>
-          <TableCell align="left" valign="top">{kochschritt.aktion?.aktionName}</TableCell>
+          <TableCell align="left" valign="top">{JSON.stringify(kochschritt.aktionen )}</TableCell>
           <TableCell align="left">
             <List>
               {kochschritt.zutaten.map((zutat, index) =>

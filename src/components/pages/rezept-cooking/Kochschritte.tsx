@@ -77,7 +77,8 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
             id="panel1bh-header"
           >
             <Typography sx={{width: '33%', flexShrink: 0}}>
-              {kochschritt.aktion?.aktionName}
+              {/* @todo aktionen */}
+              {JSON.stringify(kochschritt.aktionen )}
             </Typography>
             <Typography
               sx={{color: 'text.secondary'}}>

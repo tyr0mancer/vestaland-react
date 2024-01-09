@@ -6,7 +6,7 @@ import {Betriebsart} from "../enum";
 
 
 export class Kochschritt {
-  public aktion?: Ref<KochschrittAktion>;
+  public aktionen: Ref<KochschrittAktion>[] = [];
   public beschreibung?: string;
   public videoUrl?: string;
   public gesamtdauer?: number;

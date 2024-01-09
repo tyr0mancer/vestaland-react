@@ -10,13 +10,12 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import {ZutatenForm} from "./ZutatenForm";
 import {Zutat} from "../../../shared-types/models/Zutat";
-import {KochschrittAktionPicker} from "../../common/form-elements/KochschrittAktionPicker";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
-import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
 import {CustomFieldProps} from "../../common/form-elements/types";
 import {UtensilienForm} from "./UtensilienForm";
 import {AktionIconImage} from "../../common/formatting/AktionIconImage";
 import {BetriebsartenProperties} from "../../../util/rezept-helper/enum-properties/BetriebsartenProperties";
+import {AktionenPicker} from "./AktionenPicker";
 
 /**
  * TS Doc Info
@@ -31,7 +30,7 @@ export function KochschritteForm(): React.ReactElement {
 
   const handleInsert = (arrayHelpers: FieldArrayRenderProps) => {
     arrayHelpers.insert(formik.values.kochschritte.length,
-      {zutaten: [new Zutat()], utensilien: []} as Kochschritt
+      {zutaten: [new Zutat()], utensilien: [], aktionen: []} as Kochschritt
       //new Kochschritt([new Zutat()])
     )
     setSelectedIndex(formik.values.kochschritte.length)
@@ -123,9 +122,14 @@ function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschri
 
     {/* Weitere Angaben zum Kochschritt */}
     <Grid item xs={12} md={4}>
-      <KochschrittAktionPicker
-        name={`${name}[aktion]`} values={kochschritt.aktion || new KochschrittAktion()}/>
+      <AktionenPicker name={`${name}[aktionen]`} values={kochschritt.aktionen} />
 
+
+{/*
+      {kochschritt.aktionen.map((aktion, index) => <KochschrittAktionPicker
+        key={index} name={`${name}[aktion][${index}]`} values={aktion || new KochschrittAktion()}/>)}
+
+*/}
       <Box display="flex" justifyContent="space-between" mt={1}>
         <Box flexGrow={1}>
           <Field as={TextField} type="number" variant="outlined" fullWidth
@@ -180,6 +184,7 @@ function KochschrittForm({values: kochschritt, name}: CustomFieldProps<Kochschri
 }
 
 
+
 function KochschrittView({kochschritt}: { kochschritt: Kochschritt }) {
 
   return (<Grid container spacing={2}>
@@ -199,7 +204,11 @@ function KochschrittView({kochschritt}: { kochschritt: Kochschritt }) {
 
     {/* Weitere Angaben zum Kochschritt */}
     <Grid item xs={12} md={4}>
-      <b><AktionIconImage aktion={kochschritt.aktion?.aktionIcon}/> {kochschritt.aktion?.aktionName}</b>
+      {kochschritt.aktionen.map((aktion, index) =>
+        <div key={index}><b><AktionIconImage aktion={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
+      )}
+
+
       <pre>{JSON.stringify(kochschritt.beschreibung, null, 2)}</pre>
       <Box display="flex" justifyContent="space-between" mt={1}>
         <Box flexGrow={1} mr={1}>
