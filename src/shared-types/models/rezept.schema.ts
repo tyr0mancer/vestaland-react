@@ -19,7 +19,8 @@ export const RezeptSchema = z.object({
   freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),
   quelleUrl: z.string().optional().array().describe('Links zu Quellen oder andere Verweise'),
   schwierigkeitsgrad: z.number().optional(),
-  realeGesamtzeit: z.number().optional(),
+  realeGesamtdauer: z.number().optional(),
+  realeArbeitszeit: z.number().optional(),
   berechneteGesamtdauer: z.number().optional(),
   berechneteArbeitszeit: z.number().optional(),
   extraPortionArbeitszeit: z.number().optional(),
@@ -33,6 +34,4 @@ export const RezeptSchema = z.object({
   zutaten: z.array(z.any()),
   aktion: z.any().optional(),
   bild: z.any().optional(),
-
 }).extend(MongoExtension).strict()
-

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Link, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {RezeptZutaten} from "./RezeptZutaten";
@@ -12,10 +12,9 @@ import {
   List,
   ListItem,
   Paper,
-  TableBody, TableCell, TableRow,
+  TableBody, TableCell, TableRow, TextField,
   Typography
 } from "@mui/material";
-import {getFileUrl} from "../../../util/api/fileService";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
@@ -26,6 +25,8 @@ import {Rezept} from "../../../shared-types/models/rezept.model";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
 import {ShowTags} from "../../common/formatting/ShowTags";
+import {RezeptBild} from "../../common/formatting/RezeptBild";
+import {ShowTimes} from "../../common/formatting/ShowTimes";
 
 
 /**
@@ -56,8 +57,10 @@ export function RezeptDetail() {
   useEffect(() => {
     if (rezept?._id)
       dispatch({type: ActionTypes.PUSH_HISTORY, payload: rezept})
+    setPortionen(rezept?.portionen || 1)
   }, [rezept, dispatch])
 
+  const [portionen, setPortionen] = useState(1)
 
   if (isLoading)
     return (<LoadingScreen/>)
@@ -65,20 +68,6 @@ export function RezeptDetail() {
     return (<ErrorScreen eror={error}/>)
 
   /*
-    export class RezeptMeta {
-      public vegetarisch?: boolean;
-      public healthy?: boolean;
-      public soulfood?: boolean;
-      public schwierigkeitsgrad?: number;
-    }
-
-    Tags
-      vegetarisch
-      healthy
-      soulfood
-
-      public schwierigkeitsgrad?: number;
-
 
     Zeitangabe
      realeGesamtzeit
@@ -87,21 +76,21 @@ export function RezeptDetail() {
      extraPortionArbeitszeit
      extraPortionGesamtdauer
 
+    Schwierigkeitsgrad
+
+    Tags
+      vegetarisch
+      healthy
+      soulfood
+
+    public nutrients?: Nutrients;
+
+    public freitext?: string;
+
+
+
     export class Rezept extends TimeStamps {
-      public name: string = '';
-      public beschreibung?: string;
-      public freitext?: string;
       public quelleUrl: string[] = [];
-
-
-      public autor?: Ref<Benutzer>;
-      public bild?: Ref<Datei>;
-      public zutaten: Zutat[] = [];
-      public utensilien: Ref<Utensil>[] = [];
-      public kochschritte: Kochschritt[] = [];
-      public meta?: RezeptMeta;
-      public portionen: number = 1;
-      public nutrients?: Nutrients;
     }
   */
 
@@ -115,6 +104,9 @@ export function RezeptDetail() {
                 <Button component={Link} to={`/rezept-editor/${rezept._id}`} variant={'outlined'}><EditIcon/></Button>
             }
           </Typography>
+          <Typography variant="body1" gutterBottom>
+            {rezept?.beschreibung}
+          </Typography>
         </Grid>
         <Grid item>
           <Button component={Link} to={'/rezepte'}><ArrowBackIcon/></Button>
@@ -122,27 +114,21 @@ export function RezeptDetail() {
       </Grid>
 
 
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid item xs={12} md={3}>
-          <img src={getFileUrl(rezept.bild?.dateiNameServer)} height={150} width={'100%'}
-               alt={rezept.name}
-               title={rezept.name}
-          />
+          <RezeptBild bild={rezept?.bild} alt={rezept?.name}/>
           <ShowTags tags={rezept.tags} size={'large'}/>
-          <Typography variant="body1" gutterBottom>
-            {rezept?.beschreibung}
-          </Typography>
         </Grid>
+
         <Grid item xs={12} md={3}>
-
-          <Typography variant="h4" gutterBottom textAlign={'center'}>
-            {rezept.portionen} Portionen
-          </Typography>
-          Gesamtdauer: {rezept?.berechneteGesamtdauer} Minuten
-          Arbeitszeit: {rezept?.berechneteArbeitszeit} Minuten
-
-
+          <TextField
+            label={'Portionen'}
+            type={'number'} value={portionen}
+            InputProps={{inputProps: {min: 1}}}
+            onChange={e => setPortionen(+e.currentTarget.value)}/>
+          <ShowTimes rezept={rezept} portionen={portionen}/>
         </Grid>
+
         <Grid item xs={12} md={3}>
           <Typography variant="h4" gutterBottom>
             Zutaten
