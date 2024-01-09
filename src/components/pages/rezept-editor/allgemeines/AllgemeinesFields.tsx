@@ -1,16 +1,20 @@
 import React from "react";
 import {Field, useFormikContext} from "formik";
 import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
-import {Rezept} from "../../../shared-types/models/rezept.model";
-import {CustomFile} from "../../common/form-elements/CustomFile";
-import {Datei} from "../../../shared-types/models/Datei";
+import {Rezept} from "../../../../shared-types/models/rezept.model";
+import {CustomFile} from "../../../common/form-elements/CustomFile";
+import {Datei} from "../../../../shared-types/models/Datei";
 
 
 /**
- * TS Doc Info
- * @component OverviewForm
+ * Form Fields für Rezept Properties außer kochschritte
+
+ * @component RezeptFieldsAllgemeines
+ *
+ * @see RezeptEditorForm
+ * @see RezeptFieldsKochschritte
  */
-export function OverviewForm(): React.ReactElement {
+export function AllgemeinesFields(): React.ReactElement {
   const formik = useFormikContext<Rezept>();
 
   return (<>

@@ -1,27 +1,28 @@
 import React, {useContext, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import {Form, Formik} from "formik";
+import { Formik} from "formik";
 import {useLocalStorage} from '@react-hooks-library/core'
 
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {StateContext} from "../../../util/state/StateProvider";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
-import {RezeptEditorTabs} from "./RezeptEditorTabs";
+import {RezeptEditorForm} from "./RezeptEditorForm";
 import {APIService} from "../../../util/api/APIService";
+import {DefaultValues} from "./index";
 
 
 /**
  * Hauptkomponente des Rezept-Editors
  * beinhaltet <Formik/> Wurzel und ermittelt initialValue per API Call bzw. Cache
  *
- * @see RezeptEditorTabs
+ * @component RezeptEditor
+ *
+ * @see RezeptEditorForm
  * @see ControlPanel
  * @see OverviewForm
  * @see KochschritteForm
- *
- * @component RezeptEditor
  */
 export function RezeptEditor(): React.ReactElement {
 
@@ -51,7 +52,7 @@ export function RezeptEditor(): React.ReactElement {
   }, [rezeptApi, dispatch, setRezeptLocal])
 
   /* Priorisierung wie oben beschrieben */
-  const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || new Rezept()
+  const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || DefaultValues.rezept
 
 
   return (isFetching || !initialValues) ? <LoadingScreen/> :
@@ -62,10 +63,7 @@ export function RezeptEditor(): React.ReactElement {
       enableReinitialize
     >
       {() => {
-        return (
-          <Form>
-            <RezeptEditorTabs/>
-          </Form>)
+        return (<RezeptEditorForm/>)
       }}
     </Formik>)
 

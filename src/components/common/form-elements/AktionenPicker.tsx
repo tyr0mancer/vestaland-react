@@ -2,7 +2,7 @@ import React from "react";
 import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
 import {Box, Button} from "@mui/material";
 import {FieldArray} from "formik";
-import {KochschrittAktionPicker} from "../../common/form-elements/KochschrittAktionPicker";
+import {KochschrittAktionPicker} from "./KochschrittAktionPicker";
 import IconButton from "@mui/material/IconButton";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';

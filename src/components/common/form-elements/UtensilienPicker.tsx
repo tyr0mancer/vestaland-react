@@ -1,9 +1,9 @@
 import React from "react";
-import {CustomFieldProps} from "../../common/form-elements/types";
+import {CustomFieldProps} from "./types";
 import {Utensil} from "../../../shared-types/models/Utensil";
 import {Field, FieldArray} from "formik";
 import {Box, Button, Card, Grid, IconButton, TextField} from "@mui/material";
-import {UtensilPicker} from "../../common/form-elements/UtensilPicker";
+import {UtensilPicker} from "./UtensilPicker";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import SubdirectoryArrowLeftIcon from "@mui/icons-material/SubdirectoryArrowLeft";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -14,7 +14,7 @@ import MenuIcon from "@mui/icons-material/Menu";
  *
  * @see UtensilForm
  */
-export function UtensilienForm({name, values: utensilien}: CustomFieldProps<Utensil[]>): React.ReactElement {
+export function UtensilienPicker({name, values: utensilien}: CustomFieldProps<Utensil[]>): React.ReactElement {
   return (
     <FieldArray
       name={name}
@@ -42,7 +42,7 @@ export function UtensilienForm({name, values: utensilien}: CustomFieldProps<Uten
  * TS Doc Info
  * @component UtensilForm
  *
- * @see UtensilienForm
+ * @see UtensilienPicker
  */
 function UtensilForm({index = 0, name, values, arrayHelpers}: CustomFieldProps<Utensil>) {
   return (<Card style={{paddingTop: 15}}>

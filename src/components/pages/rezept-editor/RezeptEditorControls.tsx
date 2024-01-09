@@ -14,15 +14,17 @@ import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {APIService} from "../../../util/api/APIService";
 
 /**
- * ControlPanel für den Rezept-Editor
+ * Control-Panel für den Rezept-Editor
  * schreibt aktuelle Form-Values in den Cache (via useEffect + dispatch)
  *
  * Benutzer-Aktionen:
  * Änderungen veröffentlichen, aktuellen Stand als Entwurf speichern, zurücksetzen (Neu)
  *
- * @component ControlPanel
+ * @component RezeptEditorControls
+ *
+ * @see RezeptEditor
  */
-export function ControlPanel(): React.ReactElement {
+export function RezeptEditorControls(): React.ReactElement {
   const navigate = useNavigate();
   const formik = useFormikContext<Rezept>();
 
