@@ -28,9 +28,7 @@ export function CustomAlerts() {
 
   return (
     <>
-      {error && <Alert severity="error" onClose={() => {
-        console.log(error)
-      }}>
+      {error && <Alert severity="error" onClose={() =>setError(null)}>
           <AlertTitle>{'Schema ist nicht valide'}</AlertTitle>
         {error.errors?.map((err, index) => (<div key={index}>
           <pre>{err.path.slice(1).join(' > ')}</pre>
