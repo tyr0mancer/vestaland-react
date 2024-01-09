@@ -55,7 +55,7 @@ function handleZodError(error: any) {
 
 
 function isZodError(obj: any): obj is ZodError {
-  return obj && obj.message && (obj.message === myConfig.zodErrorString)
+  return obj && obj.message
 }
 
 function isApiErrorResponse(obj: any): obj is ApiErrorResponse {

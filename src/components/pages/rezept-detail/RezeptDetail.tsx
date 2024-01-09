@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {useNavigate, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {RezeptZutaten} from "./RezeptZutaten";
 import {StateContext} from "../../../util/state/StateProvider";
@@ -15,7 +15,6 @@ import {
   TableBody, TableCell, TableRow,
   Typography
 } from "@mui/material";
-import LoadingButton from '@mui/lab/LoadingButton';
 import {getFileUrl} from "../../../util/api/fileService";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -25,24 +24,37 @@ import {RezeptUtensilien} from "./RezeptUtensilien";
 import {MetaInfoIcons} from "../rezept-suche/RezeptCard";
 import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/rezept.model";
+import {LoadingScreen} from "../../common/ui/LoadingScreen";
+import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
+/**
+ * Hauptkomponente der Rezept-Detailansicht
+ * ermittelt value per API Call bzw. State
+ *
+ * @component RezeptDetail
+ *
+ */
 export function RezeptDetail() {
-  const {rezeptId = ''} = useParams();
   const navigate = useNavigate();
+  const {rezeptId} = useParams();
   const {isOwner} = useAuth();
   const {dispatch} = useContext(StateContext) as StateContextType
 
   const {
     isLoading,
     isSuccess,
+    error,
     data: rezept
   } = useQuery(
     {
       queryKey: ["rezept-detail", rezeptId],
-      queryFn: () => APIService.getById<Rezept>('rezept', rezeptId),
+      queryFn: () => APIService.getById<Rezept>('rezept', rezeptId || ''),
       enabled: !!rezeptId,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
+
+
+
 
   function handleBackToSearch() {
     dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: undefined})
@@ -56,82 +68,71 @@ export function RezeptDetail() {
   }, [rezept, dispatch])
 
 
-  const editRecipe = () => {
-    /*
-        if (!rezept) return
-        dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezept})
-    */
-    navigate('/rezept-editor/' + rezept?._id);
-  }
+  if (isLoading)
+    return (<LoadingScreen/>)
 
+  if (!isSuccess || error)
+    return (<ErrorScreen eror={error}/>)
 
-  if (isLoading) return (<LoadingButton/>)
+  return (
 
-  if (isSuccess)
-    return (
-
-      <Box>
-
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs>
-            <Typography variant="h2" gutterBottom>
-              {isOwner(rezept._id) &&
-                  <Button onClick={editRecipe} variant={'outlined'}><EditIcon/></Button>} {rezept.name}
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Button onClick={handleBackToSearch}><ArrowBackIcon/></Button>
-          </Grid>
+    <Box>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs>
+          <Typography variant="h2" gutterBottom>
+            {isOwner(rezept._id) &&
+                <Button component={Link} to={`/rezept-editor/${rezept._id}`} variant={'outlined'}><EditIcon/></Button>
+            } {rezept.name}
+          </Typography>
         </Grid>
-
-
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={3}>
-            <img src={getFileUrl(rezept.bild?.dateiNameServer)} height={150} width={'100%'}
-                 alt={rezept.name}
-                 title={rezept.name}
-            />
-            <MetaInfoIcons meta={rezept.meta} fontSize={'large'}/>
-            <Typography variant="body1" gutterBottom>
-              {rezept?.beschreibung}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={3}>
-
-            <Typography variant="h4" gutterBottom textAlign={'center'}>
-              {rezept.portionen} Portionen
-            </Typography>
-            Gesamtdauer: {rezept?.berechneteGesamtdauer} Minuten
-            Arbeitszeit: {rezept?.berechneteArbeitszeit} Minuten
-
-
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Typography variant="h4" gutterBottom>
-              Zutaten
-            </Typography>
-            <RezeptZutaten zutaten={rezept.zutaten}/>
-          </Grid>
-          <Grid item xs={12} md={3}>
-            <Typography variant="h4" gutterBottom>
-              Utensilien
-            </Typography>
-            <RezeptUtensilien utensilien={rezept.utensilien}/>
-          </Grid>
+        <Grid item>
+          <Button onClick={handleBackToSearch}><ArrowBackIcon/></Button>
         </Grid>
+      </Grid>
 
-        <pre>{JSON.stringify(rezept?.nutrients, null, 2)}</pre>
 
-        <RezeptKochschritte kochschritte={rezept.kochschritte}/>
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={3}>
+          <img src={getFileUrl(rezept.bild?.dateiNameServer)} height={150} width={'100%'}
+               alt={rezept.name}
+               title={rezept.name}
+          />
+          <MetaInfoIcons meta={rezept.meta} fontSize={'large'}/>
+          <Typography variant="body1" gutterBottom>
+            {rezept?.beschreibung}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={3}>
 
-        <hr/>
-        {isOwner(rezept.autor?._id) &&
-            <StartCooking rezept={rezept}/>
-        }
+          <Typography variant="h4" gutterBottom textAlign={'center'}>
+            {rezept.portionen} Portionen
+          </Typography>
+          Gesamtdauer: {rezept?.berechneteGesamtdauer} Minuten
+          Arbeitszeit: {rezept?.berechneteArbeitszeit} Minuten
 
-      </Box>)
 
-  return (<>Fehler</>)
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography variant="h4" gutterBottom>
+            Zutaten
+          </Typography>
+          <RezeptZutaten zutaten={rezept.zutaten}/>
+        </Grid>
+        <Grid item xs={12} md={3}>
+          <Typography variant="h4" gutterBottom>
+            Utensilien
+          </Typography>
+          <RezeptUtensilien utensilien={rezept.utensilien}/>
+        </Grid>
+      </Grid>
+
+      <pre>{JSON.stringify(rezept?.nutrients, null, 2)}</pre>
+
+      <RezeptKochschritte kochschritte={rezept.kochschritte}/>
+
+      <hr/>
+      <StartCooking rezept={rezept}/>
+    </Box>)
 
 }
 
@@ -147,7 +148,7 @@ function RezeptKochschritte({kochschritte}: { kochschritte: Kochschritt[] }) {
       {/* @todo aktionen */}
       {kochschritte.map((kochschritt, index) =>
         <TableRow key={index}>
-          <TableCell align="left" valign="top">{JSON.stringify(kochschritt.aktionen )}</TableCell>
+          <TableCell align="left" valign="top">{JSON.stringify(kochschritt.aktionen)}</TableCell>
           <TableCell align="left">
             <List>
               {kochschritt.zutaten.map((zutat, index) =>

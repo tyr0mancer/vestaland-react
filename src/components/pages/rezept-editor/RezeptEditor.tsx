@@ -1,7 +1,7 @@
 import React, {useContext, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
-import { Formik} from "formik";
+import {Formik} from "formik";
 import {useLocalStorage} from '@react-hooks-library/core'
 
 import {Rezept} from "../../../shared-types/models/rezept.model";
@@ -47,13 +47,17 @@ export function RezeptEditor(): React.ReactElement {
   /* Falls API Aufruf Editor-Form ändert, Global State und Local Storage anpassen (caching) */
   useEffect(() => {
     if (!rezeptApi) return
+    rezeptApi.kochschritte = rezeptApi.kochschritte.map(kochschritt => {
+      console.log(kochschritt)
+      return kochschritt
+    })
+
     dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezeptApi})
     setRezeptLocal(null)
   }, [rezeptApi, dispatch, setRezeptLocal])
 
   /* Priorisierung wie oben beschrieben */
   const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || DefaultValues.rezept
-
 
   return (isFetching || !initialValues) ? <LoadingScreen/> :
     (<Formik<Rezept>
@@ -62,9 +66,7 @@ export function RezeptEditor(): React.ReactElement {
       }}
       enableReinitialize
     >
-      {() => {
-        return (<RezeptEditorForm/>)
-      }}
+      {() => (<RezeptEditorForm/>)}
     </Formik>)
 
 }
