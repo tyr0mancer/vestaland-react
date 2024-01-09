@@ -2,8 +2,6 @@ import React, {useContext, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {Formik} from "formik";
-import {useLocalStorage} from '@react-hooks-library/core'
-
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {StateContext} from "../../../util/state/StateProvider";
@@ -15,7 +13,7 @@ import {DefaultValues} from "./index";
 
 /**
  * Hauptkomponente des Rezept-Editors
- * beinhaltet <Formik/> Wurzel und ermittelt initialValue per API Call bzw. Cache
+ * beinhaltet <Formik/> Wurzel und ermittelt initialValue per API Call bzw. State
  *
  * @component RezeptEditor
  *
@@ -38,26 +36,15 @@ export function RezeptEditor(): React.ReactElement {
   /* Prio 2: rezeptState - Falls im Global State 'rezeptEditing' gesetzt ist */
   const {state: {rezeptEditing: rezeptState}, dispatch} = useContext(StateContext) as StateContextType
 
-  /* Prio 3: rezeptLocal - Falls im Local Storage 'rezeptLocal' gesetzt ist */
-  const [rezeptLocal, setRezeptLocal] = useLocalStorage<Rezept | null>(
-    'rezeptLocal',
-    null
-  )
 
   /* Falls API Aufruf Editor-Form ändert, Global State und Local Storage anpassen (caching) */
   useEffect(() => {
     if (!rezeptApi) return
-    rezeptApi.kochschritte = rezeptApi.kochschritte.map(kochschritt => {
-      console.log(kochschritt)
-      return kochschritt
-    })
-
-    dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: rezeptApi})
-    setRezeptLocal(null)
-  }, [rezeptApi, dispatch, setRezeptLocal])
+    dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: rezeptApi})
+  }, [rezeptApi, dispatch])
 
   /* Priorisierung wie oben beschrieben */
-  const initialValues: Rezept = rezeptApi || rezeptState || rezeptLocal || DefaultValues.rezept
+  const initialValues: Rezept = rezeptApi || rezeptState || DefaultValues.rezept
 
   return (isFetching || !initialValues) ? <LoadingScreen/> :
     (<Formik<Rezept>

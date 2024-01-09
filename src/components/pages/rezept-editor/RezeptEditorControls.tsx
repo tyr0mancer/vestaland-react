@@ -3,7 +3,7 @@ import {StateContext} from "../../../util/state/StateProvider";
 import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {useFormikContext} from "formik";
 import {Rezept} from "../../../shared-types/models/rezept.model";
-import {useDebounce, useLocalStorage} from "@react-hooks-library/core";
+import {useDebounce} from "@react-hooks-library/core";
 import {useNavigate} from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 import SaveIcon from '@mui/icons-material/Save';
@@ -40,21 +40,16 @@ export function RezeptEditorControls(): React.ReactElement {
 
 
   /* Speichere Entwurf im Local Storage */
-  const [, setRezeptLocal] = useLocalStorage<Rezept | null>(
-    'rezeptLocal',
-    null
-  )
   const handleSaveDraft = () => {
-    setRezeptLocal(formik.values)
+    dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: formik.values})
   }
 
   /* Setze Formular zurück */
   const handleNew = () => {
-    setRezeptLocal(null)
-    formik.setValues(new Rezept()).then(
-      () => dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
-    )
-    navigate('/rezept-editor')
+    formik.setValues(new Rezept()).then(() => {
+      dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: undefined})
+      navigate('/rezept-editor')
+    })
   }
 
   /* Veröffentliche Rezept mit API */
@@ -64,8 +59,7 @@ export function RezeptEditorControls(): React.ReactElement {
       ? APIService.put<Rezept>('rezept', formik.values._id, formik.values)
       : APIService.post<Rezept>('rezept', formik.values),
     onSuccess: async (res) => {
-      setRezeptLocal(null)
-      dispatch({type: ActionTypes.SET_REZEPT_EDIT, payload: undefined})
+      dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: undefined})
       await queryClient.invalidateQueries({queryKey: ["rezepte-suche"]})
       queryClient.invalidateQueries({queryKey: ["rezept-detail", res._id]})
         .then(() => navigate('/rezepte/' + res._id))

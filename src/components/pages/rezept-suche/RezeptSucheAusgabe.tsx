@@ -8,9 +8,10 @@ import LoadingIcon from '@mui/icons-material/HourglassBottom';
 import {RezeptCard} from "./RezeptCard";
 import {Grid} from "@mui/material";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
+import {Link} from "react-router-dom";
 
 export function RezeptSucheAusgabe() {
-  const {state} = useContext(StateContext) as StateContextType
+  const {state: {rezeptHistory, rezeptSucheQuery}} = useContext(StateContext) as StateContextType
 
   const {
     isLoading,
@@ -19,7 +20,7 @@ export function RezeptSucheAusgabe() {
     data
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezepte-suche", state.rezeptSucheQuery.rezeptName],
+      queryKey: ["rezepte-suche", rezeptSucheQuery.rezeptName],
       enabled: false,
     });
 
@@ -33,20 +34,20 @@ export function RezeptSucheAusgabe() {
         <RezeptCard key={rezept._id} rezept={rezept}/>
       </Grid>
     )}
+
+    {(!data || !data.length) &&
+        <div>
+            <h5>zuletzt angesehen:</h5>
+            <hr/>
+            <Grid container spacing={{xs: 1, md: 2}} columns={{xs: 8, sm: 12, md: 24}}>
+              {rezeptHistory.map((entry, index) =>
+                <Grid item xs={2} sm={4} md={4} key={index}>
+                  <Link to={`/rezepte/${entry._id}`}><b>{entry.name}</b></Link>
+                </Grid>
+              )}
+            </Grid>
+        </div>
+    }
   </Grid>)
-
-/*
-      <hr/>
-      <h5>zuletzt angesehen:</h5>
-      <hr/>
-      <Grid container spacing={{xs: 1, md: 2}} columns={{xs: 8, sm: 12, md: 24}}>
-        {state.rezeptHistory.map((entry, index) =>
-          <Grid item xs={2} sm={4} md={4} key={index}>
-            <Link to={`/rezepte/${entry._id}`}><b>{entry.name}</b></Link>
-          </Grid>
-        )}
-      </Grid>
-*/
-
 
 }

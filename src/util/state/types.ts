@@ -1,4 +1,3 @@
-// @todo sync with server
 import React from "react";
 import {Rezept} from "../../shared-types/models/rezept.model";
 
@@ -11,15 +10,11 @@ export interface RezeptSucheQuery {
   zutaten?: string[]
 }
 
-export interface RezeptHistory {
-  _id: string,
-  name: string
-}
+export type RezeptPartial = Pick<Rezept, "_id" | "name" | "bild" | "beschreibung">;
 
 export interface State {
-  rezeptHistory: RezeptHistory[],
+  rezeptHistory: RezeptPartial[],
   rezeptSucheQuery: RezeptSucheQuery,
-  rezeptViewing?: Rezept
   rezeptCooking?: Rezept,
   kochstatus: Kochstatus,
   rezeptEditing?: Rezept
@@ -27,20 +22,20 @@ export interface State {
 
 export enum ActionTypes {
   SET_REZEPT_SUCHE = 'SET_REZEPT_SUCHE',
-  PUSH_REZEPT_ID = 'PUSH_REZEPT_ID',
-  SET_REZEPT_VIEW = 'SET_REZEPT_VIEW',
+  PUSH_HISTORY = 'PUSH_HISTORY',
   SET_REZEPT_COOK = 'SET_REZEPT_COOK',
   SET_REZEPT_EDIT = 'SET_REZEPT_EDIT',
+  SAVE_REZEPT_EDIT = 'SAVE_REZEPT_EDIT',
   SET_KOCHSTATUS = 'SET_KOCHSTATUS'
 }
 
 
 export type Action =
   | { type: ActionTypes.SET_REZEPT_SUCHE, payload: RezeptSucheQuery }
-  | { type: ActionTypes.PUSH_REZEPT_ID, payload: RezeptHistory }
-  | { type: ActionTypes.SET_REZEPT_VIEW, payload?: Rezept }
+  | { type: ActionTypes.PUSH_HISTORY, payload: Rezept }
   | { type: ActionTypes.SET_REZEPT_COOK, payload?: Rezept }
   | { type: ActionTypes.SET_REZEPT_EDIT, payload?: Rezept }
+  | { type: ActionTypes.SAVE_REZEPT_EDIT, payload?: Rezept }
   | { type: ActionTypes.SET_KOCHSTATUS, payload: Kochstatus }
 
 // Weitere Aktionstypen...

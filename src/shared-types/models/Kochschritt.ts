@@ -14,6 +14,7 @@ export class Kochschritt {
   public temperatur?: number; //  Grad Celsius
   public arbeitszeit?: number;
   public wartezeit?: number;
+  public resultatName?: string;
   public erforderlicheKochschritte?: string[];
   public zutaten: Zutat[] = [];
   public utensilien: Ref<Utensil>[] = [];

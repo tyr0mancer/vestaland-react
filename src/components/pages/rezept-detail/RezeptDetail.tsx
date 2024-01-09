@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from "react";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {RezeptZutaten} from "./RezeptZutaten";
 import {StateContext} from "../../../util/state/StateProvider";
@@ -27,6 +27,7 @@ import {Rezept} from "../../../shared-types/models/rezept.model";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
+
 /**
  * Hauptkomponente der Rezept-Detailansicht
  * ermittelt value per API Call bzw. State
@@ -35,7 +36,6 @@ import {ErrorScreen} from "../../common/ui/ErrorScreen";
  *
  */
 export function RezeptDetail() {
-  const navigate = useNavigate();
   const {rezeptId} = useParams();
   const {isOwner} = useAuth();
   const {dispatch} = useContext(StateContext) as StateContextType
@@ -54,17 +54,9 @@ export function RezeptDetail() {
     });
 
 
-
-
-  function handleBackToSearch() {
-    dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: undefined})
-    navigate('/rezepte');
-  }
-
   useEffect(() => {
-    dispatch({type: ActionTypes.SET_REZEPT_VIEW, payload: rezept})
-    if (rezept)
-      dispatch({type: ActionTypes.PUSH_REZEPT_ID, payload: {_id: rezept._id || '', name: rezept.name}})
+    if (rezept?._id)
+      dispatch({type: ActionTypes.PUSH_HISTORY, payload: rezept})
   }, [rezept, dispatch])
 
 
@@ -86,7 +78,7 @@ export function RezeptDetail() {
           </Typography>
         </Grid>
         <Grid item>
-          <Button onClick={handleBackToSearch}><ArrowBackIcon/></Button>
+          <Button component={Link} to={'/rezepte'}><ArrowBackIcon/></Button>
         </Grid>
       </Grid>
 
