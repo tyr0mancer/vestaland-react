@@ -21,11 +21,11 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import {StartCooking} from "./StartCooking";
 import {RezeptUtensilien} from "./RezeptUtensilien";
-import {MetaInfoIcons} from "../rezept-suche/RezeptCard";
 import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
+import {ShowTags} from "../../common/formatting/ShowTags";
 
 
 /**
@@ -53,7 +53,6 @@ export function RezeptDetail() {
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
-
   useEffect(() => {
     if (rezept?._id)
       dispatch({type: ActionTypes.PUSH_HISTORY, payload: rezept})
@@ -62,19 +61,59 @@ export function RezeptDetail() {
 
   if (isLoading)
     return (<LoadingScreen/>)
-
   if (!isSuccess || error)
     return (<ErrorScreen eror={error}/>)
 
-  return (
+  /*
+    export class RezeptMeta {
+      public vegetarisch?: boolean;
+      public healthy?: boolean;
+      public soulfood?: boolean;
+      public schwierigkeitsgrad?: number;
+    }
 
+    Tags
+      vegetarisch
+      healthy
+      soulfood
+
+      public schwierigkeitsgrad?: number;
+
+
+    Zeitangabe
+     realeGesamtzeit
+     berechneteGesamtdauer
+     berechneteArbeitszeit
+     extraPortionArbeitszeit
+     extraPortionGesamtdauer
+
+    export class Rezept extends TimeStamps {
+      public name: string = '';
+      public beschreibung?: string;
+      public freitext?: string;
+      public quelleUrl: string[] = [];
+
+
+      public autor?: Ref<Benutzer>;
+      public bild?: Ref<Datei>;
+      public zutaten: Zutat[] = [];
+      public utensilien: Ref<Utensil>[] = [];
+      public kochschritte: Kochschritt[] = [];
+      public meta?: RezeptMeta;
+      public portionen: number = 1;
+      public nutrients?: Nutrients;
+    }
+  */
+
+  return (
     <Box>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
           <Typography variant="h2" gutterBottom>
+            {rezept.name}
             {isOwner(rezept._id) &&
                 <Button component={Link} to={`/rezept-editor/${rezept._id}`} variant={'outlined'}><EditIcon/></Button>
-            } {rezept.name}
+            }
           </Typography>
         </Grid>
         <Grid item>
@@ -89,7 +128,7 @@ export function RezeptDetail() {
                alt={rezept.name}
                title={rezept.name}
           />
-          <MetaInfoIcons meta={rezept.meta} fontSize={'large'}/>
+          <ShowTags tags={rezept.tags} size={'large'}/>
           <Typography variant="body1" gutterBottom>
             {rezept?.beschreibung}
           </Typography>
@@ -118,7 +157,7 @@ export function RezeptDetail() {
         </Grid>
       </Grid>
 
-      <pre>{JSON.stringify(rezept?.nutrients, null, 2)}</pre>
+      <pre>{JSON.stringify(rezept, null, 2)}</pre>
 
       <RezeptKochschritte kochschritte={rezept.kochschritte}/>
 

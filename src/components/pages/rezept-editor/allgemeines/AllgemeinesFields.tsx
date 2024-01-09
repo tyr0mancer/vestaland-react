@@ -1,9 +1,10 @@
 import React from "react";
 import {Field, useFormikContext} from "formik";
-import {Checkbox, FormControlLabel, Grid, TextField} from "@mui/material";
+import {Grid, MenuItem, Select, Slider, TextField, Typography} from "@mui/material";
 import {Rezept} from "../../../../shared-types/models/rezept.model";
-import {CustomFile} from "../../../common/form-elements/CustomFile";
+import {CustomFilePicker} from "../../../common/form-elements/CustomFilePicker";
 import {Datei} from "../../../../shared-types/models/Datei";
+import {Tags} from "../../../../shared-types/enum/Tags";
 
 
 /**
@@ -32,51 +33,71 @@ export function AllgemeinesFields(): React.ReactElement {
                name="portionen" label="Portionen" default={2} type="number"/>
       </Grid>
 
-      <Grid item xs={6} md={2}>
-        <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="berechneteGesamtdauer" label="Gesamtdauer"/>
-      </Grid>
-      <Grid item xs={6} md={2}>
-        <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="berechneteArbeitszeit" label="Arbeitszeit"/>
-      </Grid>
-
 
       {/* File Picker */}
       <Grid item xs={12} md={4} textAlign={'center'}>
-        <CustomFile name={'bild'} values={formik.values.bild || new Datei()} />
+        <CustomFilePicker name={'bild'} values={formik.values.bild || new Datei()}/>
       </Grid>
 
 
-      <Grid item xs={12} md={8}>
-
-        <Field
-          type="checkbox"
-          as={FormControlLabel}
-          value={true}
-          name="meta.vegetarisch"
-          control={<Checkbox checked={formik.values.meta?.vegetarisch}/>}
-          label="Vegetarisch"
-        />
-
-        <Field
-          type="checkbox"
-          as={FormControlLabel}
-          value={true}
-          name="meta.healthy"
-          control={<Checkbox checked={formik.values.meta?.healthy}/>}
-          label="Diätisch"
-        />
-
-        <Field
-          type="checkbox"
-          as={FormControlLabel}
-          value={true}
-          name="meta.soulfood"
-          control={<Checkbox checked={formik.values.meta?.soulfood}/>}
-          label="Soulfood"
-        />
+      {/* Zeitangaben */}
+      <Grid item xs={6} md={2}>
+        <Field as={TextField} type="number" variant="outlined" fullWidth
+               name="realeGesamtdauer" label="reale Gesamtdauer"/>
+        <Field as={TextField} type="number" variant="outlined" fullWidth
+               disabled name="berechneteGesamtdauer" label="berechnet"/>
+        <Field as={TextField} type="number" variant="outlined" fullWidth
+               name="extraPortionGesamtdauer" label="extra Zeit"/>
       </Grid>
+      <Grid item xs={6} md={2}>
+        <Field as={TextField} type="number" variant="outlined" fullWidth
+               name="realeArbeitszeit" label="reale Arbeitszeit"/>
+        <Field as={TextField} type="number" variant="outlined" fullWidth
+               disabled name="berechneteArbeitszeit" label="berechnet"/>
+        <Field as={TextField} type="number" variant="outlined" fullWidth
+               name="extraPortionArbeitszeit" label="extra Zeit"/>
+      </Grid>
+
+
+      <Grid item xs={12} md={4}>
+        {/* Schwierigkeitsgrad */}
+        <Typography variant="h5">
+          Schwierigkeitsgrad
+        </Typography>
+        <Field as={Slider} type="number" variant="outlined"
+               defaultValue={3} step={1} min={1} max={5}
+               marks={[
+                 {value: 2, label: "leicht"},
+                 {value: 3, label: "mittel"},
+                 {value: 4, label: "schwer"},
+               ]}
+               name="schwierigkeitsgrad" label="Schwierigkeitsgrad"/>
+
+        {/* Tags */}
+        <Typography variant="h5" mt={2}>
+          Tags
+        </Typography>
+        <Field
+          as={Select}
+          multiple={true}
+          name={"tags"}
+          labelId="Tags"
+        >
+          {Object.entries(Tags).map(([key, value]) =>
+            <MenuItem key={key} value={value}>{value}</MenuItem>)}
+        </Field>
+
+        <Typography variant="h5" mt={2}>
+          Quellen
+        </Typography>
+        {/*public quelleUrl: string[] = [];*/}
+
+
+      </Grid>
+
+      {/* Freitext */}
+      <Field as={TextField} type="text" variant="outlined" fullWidth multiline
+             name="freitext" label="Freitext"/>
 
 
     </Grid>

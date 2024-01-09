@@ -10,7 +10,7 @@ import {fileUploadService, getFileUrl} from "../../../util/api/fileService";
  * TS Doc Info
  * @component CustomFile
  */
-export function CustomFile({name, values}: CustomFieldProps<Datei>): React.ReactElement {
+export function CustomFilePicker({name, values}: CustomFieldProps<Datei>): React.ReactElement {
   const {setFieldValue} = useFormikContext();
   const handleUpload = async (values: File) => {
     if (!values)

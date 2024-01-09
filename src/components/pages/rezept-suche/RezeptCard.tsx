@@ -3,12 +3,9 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {Rezept, RezeptMeta} from "../../../shared-types/models/rezept.model";
+import {Rezept} from "../../../shared-types/models/rezept.model";
 import {getFileUrl} from "../../../util/api/fileService";
 import {Link} from "react-router-dom";
-import LocalFloristIcon from '@mui/icons-material/LocalFlorist';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {RezeptPartial} from "../../../util/state/types";
 
 
@@ -27,7 +24,7 @@ export function RezeptCard({rezept}: { rezept: Rezept | RezeptPartial }) {
         <CardContent style={{padding: 5}}>
           {rezept &&
               <Typography gutterBottom variant="h5" component="div">
-                {rezept.name} {/*<MetaInfoIcons meta={rezept.meta} fontSize={'small'}/>*/}
+                {rezept.name}
               </Typography>
           }
           <Typography variant="body2" color="text.secondary">
@@ -40,27 +37,3 @@ export function RezeptCard({rezept}: { rezept: Rezept | RezeptPartial }) {
   );
 }
 
-
-export function MetaInfoIcons({
-                                meta,
-                                fontSize = 'medium'
-                              }: { meta?: RezeptMeta, fontSize?: 'small' | 'medium' | 'large' }) {
-
-  return (<>
-    {meta?.vegetarisch &&
-        <span title={'Das Rezept ist vegetarisch'}>
-            <LocalFloristIcon color={'primary'} fontSize={fontSize}/>
-        </span>
-    }
-    {meta?.healthy &&
-        <span title={'Das Rezept ist diätisch'}>
-            <FitnessCenterIcon color={'primary'} fontSize={fontSize}/>
-        </span>
-    }
-    {meta?.soulfood &&
-        <span title={'Essen für die Seele'}>
-            <FavoriteBorderIcon color={'primary'} fontSize={fontSize}/>
-        </span>
-    }
-  </>)
-}
