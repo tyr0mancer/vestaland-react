@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {useField, useFormikContext} from "formik";
 import {useQuery} from "@tanstack/react-query";
-import {Autocomplete, Button, CircularProgress, InputAdornment,  TextField} from "@mui/material";
+import {Autocomplete, Box, Button, CircularProgress,  TextField} from "@mui/material";
 import {AddOptionDialog} from "./AddOptionDialog";
 import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
 import {kochschrittConfigFindService, kochschrittConfigPostService} from "../../../util/api/rezeptService";
@@ -11,7 +11,7 @@ import {AktionIconImage} from "../formatting/AktionIconImage";
 interface KochschrittAktionPickerProps {
   name: string;
   values: KochschrittAktion;
-  onChange?: (value: KochschrittAktion) => void
+  onChange?: (value: KochschrittAktion | null) => void
 }
 
 /**
@@ -35,10 +35,8 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
     });
 
   const handleChange = async (values: KochschrittAktion | null) => {
-    if (!values) {
-      return
-    }
-    await setFieldValue(name, values)
+    if (values)
+      await setFieldValue(name, values)
     if (onChange)
       onChange(values)
   }
@@ -48,6 +46,8 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
         {...field}
         id="kochschritt-aktion-picker"
         size={'medium'}
+        fullWidth
+
         multiple={false}
         value={values}
         isOptionEqualToValue={(option, value) => option.aktionName === value?.aktionName}
@@ -55,6 +55,8 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
         options={data || []}
         onChange={(event, newValue) => handleChange(newValue)}
         loading={isLoading}
+
+
         noOptionsText={
           <Button
             onClick={() => setOpenModal(true)}
@@ -62,6 +64,13 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
             Hinzufügen
           </Button>
         }
+
+        renderOption={(props, option) => (
+          <Box component="li" sx={{'& > img': {mr: 2, flexShrink: 0}}} {...props}>
+            <AktionIconImage aktionIcon={option.aktionIcon}/>
+            {option.aktionName}
+          </Box>
+        )}
 
         renderInput={(params) => (
           <TextField
@@ -74,9 +83,6 @@ export function KochschrittAktionPicker({name, values, onChange}: KochschrittAkt
               endAdornment: (
                 <React.Fragment>
                   {isLoading ? <CircularProgress color="inherit" size={20}/> : null}
-                  <InputAdornment position="end">
-                    <AktionIconImage aktion={values.aktionIcon}/>
-                  </InputAdornment>
                   {params.InputProps.endAdornment}
                 </React.Fragment>
               ),

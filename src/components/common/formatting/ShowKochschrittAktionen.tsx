@@ -12,7 +12,7 @@ interface ShowKochschrittAktionenProps {
  */
 export function ShowKochschrittAktionen({aktionen}: ShowKochschrittAktionenProps): React.ReactElement {
   return (<>{aktionen.map((aktion, index) =>
-    <div key={index}><b><AktionIconImage aktion={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
+    <div key={index}><b><AktionIconImage aktionIcon={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
   )}</>)
 
 

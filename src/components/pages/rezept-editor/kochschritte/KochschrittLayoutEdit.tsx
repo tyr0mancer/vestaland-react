@@ -19,9 +19,22 @@ import {BetriebsartFields} from "./BetriebsartFields";
  */
 export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldProps<Kochschritt>) {
 
-  return (<Grid container spacing={2}>
+  return (<Grid container spacing={1}>
+
+    {/* Aktionen / Zeitangabe / Temperatur und Betriebsart / weitere Infos */}
+    <Grid item xs={6} md={3}>
+      <AktionenPicker name={`${name}[aktionen]`} values={kochschritt.aktionen}/>
+      <Box mt={1}>
+        <Field as={TextField} type="text" variant="outlined" mt={2}
+               fullWidth
+               multiline={true}
+               name={`${name}[beschreibung]`} label="Kommentar"/>
+      </Box>
+
+    </Grid>
+
     {/* Zutaten /erforderliche Kochschritte/ Utensilien  */}
-    <Grid item xs={12} md={8}>
+    <Grid item xs={12} md={7}>
       <ZutatenPicker name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
       <hr/>
       <hr/>
@@ -35,24 +48,17 @@ export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldPr
     </Grid>
 
     {/* Aktionen / Zeitangabe / Temperatur und Betriebsart / weitere Infos */}
-    <Grid item xs={12} md={4}>
-      <AktionenPicker name={`${name}[aktionen]`} values={kochschritt.aktionen}/>
+    <Grid item xs={6} md={2}>
       <ZeitangabeFields name={`${name}`}/>
       <BetriebsartFields name={`${name}`}/>
 
       {/* Freitext und Quellen */}
       <Box mt={1}>
-        <Field as={TextField} type="text" variant="outlined" mt={2}
-               fullWidth
-               multiline={true}
-               name={`${name}[beschreibung]`} label="Kommentar"/>
-      </Box>
-      <Box mt={1}>
         <Field as={TextField} type="text" variant="outlined"
                fullWidth
                name={`${name}[videoUrl]`} label="URL"/>
       </Box>
-
     </Grid>
+
   </Grid>)
 }

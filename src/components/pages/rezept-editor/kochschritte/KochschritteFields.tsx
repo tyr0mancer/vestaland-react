@@ -1,17 +1,25 @@
 import React, {useState} from "react";
 import {FieldArray, FieldArrayRenderProps, useFormikContext} from "formik";
-import {Rezept} from "../../../../shared-types/models/rezept.model";
-import Box from "@mui/material/Box";
-import {Button, IconButton} from "@mui/material";
+import {Button, IconButton, Box, Grid} from "@mui/material";
+
+/* MUI Icons */
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+
+/* Model */
+import {Rezept} from "../../../../shared-types/models/rezept.model";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
+
+/* Helper and Components */
 import {DefaultValues} from "../index";
 import {KochschrittLayoutEdit} from "./KochschrittLayoutEdit";
 import {KochschrittLayoutView} from "./KochschrittLayoutView";
+import {customConfirm} from "../../../common/ui/ConfirmDialog";
+
 
 /**
  * <FieldArray/> Komponente für 'kochschritte'
@@ -45,7 +53,12 @@ export function KochschritteFields(): React.ReactElement {
     else if (index === selectedIndex - 1)
       setSelectedIndex(index)
   }
-  const handleDelete = (arrayHelpers: FieldArrayRenderProps, index: number) => {
+  const handleDelete = async (arrayHelpers: FieldArrayRenderProps, index: number) => {
+    const confirm = await customConfirm({
+      title: 'wirklich löschen?',
+      label: 'Der Vorgang kann nicht rückgängig gemacht werden'
+    })
+    if (!confirm) return
     arrayHelpers.remove(index)
     setSelectedIndex(-1)
   }
@@ -59,23 +72,34 @@ export function KochschritteFields(): React.ReactElement {
 
             <Box key={index} className={'kochschritt-form-box'}>
 
-              {/* Control-Buttons */}
-              <IconButton aria-label="delete" onClick={() => handleDelete(arrayHelpers, index)}>
-                <RemoveCircleIcon/>
-              </IconButton>
-              <IconButton aria-label="delete" disabled={index === 0}
-                          onClick={() => handleMoveUp(arrayHelpers, index)}>
-                <ArrowCircleUpIcon/>
-              </IconButton>
-              <IconButton aria-label="delete" disabled={index === formik.values.kochschritte.length - 1}
-                          onClick={() => handleMoveDown(arrayHelpers, index)}>
-                <ArrowCircleDownIcon/>
-              </IconButton>
+              <Grid container spacing={1}>
+                <Grid item xs>
 
-              <IconButton aria-label="edit" disabled={index === selectedIndex}
-                          onClick={() => setSelectedIndex(index)}>
-                <ModeEditIcon/>
-              </IconButton>
+                  {/* Control-Buttons Move */}
+                  <IconButton aria-label="move-up" disabled={index === 0}
+                              onClick={() => handleMoveUp(arrayHelpers, index)}>
+                    <ArrowCircleUpIcon/>
+                  </IconButton>
+                  <IconButton aria-label="move-down" disabled={index === formik.values.kochschritte.length - 1}
+                              onClick={() => handleMoveDown(arrayHelpers, index)}>
+                    <ArrowCircleDownIcon/>
+                  </IconButton>
+
+                  {/* Control-Buttons to change Edit / View */}
+                  <IconButton aria-label="edit"
+                              onClick={() => setSelectedIndex((index === selectedIndex) ? -1 : index)}>
+                    {(index === selectedIndex) ? <CheckCircleOutlineIcon/> : <ModeEditIcon/>}
+                  </IconButton>
+                </Grid>
+
+                {/* Control-Button Delete */}
+                <Grid item>
+                  <IconButton aria-label="delete" onClick={() => handleDelete(arrayHelpers, index)}>
+                    <RemoveCircleIcon/>
+                  </IconButton>
+                </Grid>
+
+              </Grid>
 
 
               {/* Form or View */}

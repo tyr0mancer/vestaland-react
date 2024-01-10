@@ -33,7 +33,7 @@ export function KochschrittLayoutView({kochschritt}: KochschrittLayoutViewProps)
     {/* Weitere Angaben zum Kochschritt */}
     <Grid item xs={12} md={4}>
       {kochschritt.aktionen.map((aktion, index) =>
-        <div key={index}><b><AktionIconImage aktion={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
+        <div key={index}><b><AktionIconImage aktionIcon={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
       )}
 
 

@@ -85,24 +85,42 @@ export function RezeptDetail() {
       </Grid>
 
 
-      <Grid container spacing={1}>
+      <Grid container spacing={2}>
 
         {/* Bild oder Platzhalter */}
         <Grid item xs={12} md={3}>
           <RezeptBild bild={rezept?.bild} alt={rezept?.name}/>
+          <Box mt={1}>
+            <ShowTags tags={rezept.tags} size={'large'}/>
+          </Box>
         </Grid>
 
         {/* Portionen / Zeitangabe / Tags / Schwierigkeitsgrad / "Jetzt Kochen"-Button */}
         <Grid item xs={12} md={3}>
-          <TextField
-            label={'Portionen'}
-            type={'number'} value={portionen}
-            InputProps={{inputProps: {min: 1}}}
-            onChange={e => setPortionen(+e.currentTarget.value)}/>
-          <ShowTimes rezept={rezept} portionen={portionen}/>
-          <ShowTags tags={rezept.tags} size={'large'}/>
-          <ShowSchwierigkeitsgrad schwierigkeitsgrad={rezept.schwierigkeitsgrad}/>
-          <StartCookingButton rezept={rezept}/>
+
+          <Grid container spacing={1}>
+            <Grid item xs={3}>
+              <TextField
+                fullWidth
+                label={'Portionen'}
+                type={'number'} value={portionen}
+                InputProps={{inputProps: {min: 1}}}
+                onChange={e => setPortionen(+e.currentTarget.value)}/>
+            </Grid>
+
+            <Grid item xs={5}>
+              <ShowTimes rezept={rezept} portionen={portionen}/>
+            </Grid>
+
+            <Grid item xs={4}>
+              <StartCookingButton rezept={rezept}/>
+            </Grid>
+          </Grid>
+
+          <Box mt={2}>
+            <ShowSchwierigkeitsgrad schwierigkeitsgrad={rezept.schwierigkeitsgrad}/>
+          </Box>
+
         </Grid>
 
         {/* Zutaten */}
@@ -122,10 +140,16 @@ export function RezeptDetail() {
         </Grid>
 
       </Grid>
-      <ShowNutrients nutrients={rezept.nutrients}/>
+      <Box mt={5}>
+        <ShowNutrients nutrients={rezept.nutrients}/>
+      </Box>
+
 
       {rezept.quelleUrl && <pre>{JSON.stringify(rezept.quelleUrl)}</pre>}
-      {rezept.freitext &&<pre>{JSON.stringify(rezept.freitext, null, 2)}</pre>}
+
+      <Typography variant="body1" border={1} color={'primary'} padding={2}>
+        {rezept.freitext}
+      </Typography>
 
 
       <Box mt={5}>

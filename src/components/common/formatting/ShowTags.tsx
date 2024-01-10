@@ -1,5 +1,6 @@
 import React from "react";
 import {Tags} from "../../../shared-types/enum/Tags";
+import {TagProperties} from "../../../util/rezept-helper/enum-properties/TagProperties";
 
 interface ShowTagsProps {
   tags: Tags[],
@@ -10,33 +11,9 @@ interface ShowTagsProps {
  * TS Doc Info
  * @component ShowTags
  */
-export function ShowTags({tags, size}: ShowTagsProps): React.ReactElement {
-  return (<div>{JSON.stringify(tags)} {size}</div>)
+export function ShowTags({tags}: ShowTagsProps): React.ReactElement {
+  return <>{tags.map((tag, index) => (
+    <span key={index} className={`tag-label ${TagProperties[tag].color}`}>{TagProperties[tag].label}</span>
+  ))}</>
+
 }
-
-/*
-
-export function MetaInfoIcons({
-                                meta,
-                                fontSize = 'medium'
-                              }: { meta?: RezeptMeta, fontSize?: 'small' | 'medium' | 'large' }) {
-
-  return (<>
-    {meta?.vegetarisch &&
-        <span title={'Das Rezept ist vegetarisch'}>
-            <LocalFloristIcon color={'primary'} fontSize={fontSize}/>
-        </span>
-    }
-    {meta?.healthy &&
-        <span title={'Das Rezept ist diätisch'}>
-            <FitnessCenterIcon color={'primary'} fontSize={fontSize}/>
-        </span>
-    }
-    {meta?.soulfood &&
-        <span title={'Essen für die Seele'}>
-            <FavoriteBorderIcon color={'primary'} fontSize={fontSize}/>
-        </span>
-    }
-  </>)
-}
-*/

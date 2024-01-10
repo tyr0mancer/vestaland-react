@@ -1,5 +1,7 @@
 import React from "react";
 import {Rezept} from "../../../shared-types/models/rezept.model";
+import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
+import EngineeringIcon from '@mui/icons-material/Engineering';
 
 interface ShowTimesProps {
   rezept: Rezept,
@@ -23,8 +25,17 @@ export function ShowTimes({rezept, portionen = 0}: ShowTimesProps): React.ReactE
       arbeitszeit += rezept.extraPortionArbeitszeit * extraPortion
   }
 
+
   return (<>
-    Gesamtdauer: {gesamtdauer} Minuten
-    Arbeitszeit: {arbeitszeit} Minuten
+    {!!gesamtdauer && <div><HistoryToggleOffIcon aria-label={'Gesamtdauer'}/> {minutesToString(gesamtdauer)}</div>}
+    {!!arbeitszeit && <div><EngineeringIcon aria-label={'Arbeitszeit'}/> {minutesToString(arbeitszeit)}</div>}
   </>)
+}
+
+function minutesToString(minutes: number): string {
+  const hours: number = Math.floor(minutes / 60);
+  const remainingMinutes: number = minutes % 60;
+  const hoursStr: string = hours < 10 ? "0" + hours : hours.toString();
+  const minutesStr: string = remainingMinutes < 10 ? "0" + remainingMinutes : remainingMinutes.toString();
+  return hours ? hoursStr + ":" + minutesStr : minutesStr + " Min";
 }

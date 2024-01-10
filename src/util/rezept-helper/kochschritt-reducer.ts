@@ -28,6 +28,7 @@ const zutatenReducer = (zutaten: Zutat[], zutat: Zutat) => {
 const nutrientsReducer = (nutrients: Nutrients, zutat: Zutat) => {
   if (!zutat.lebensmittel?.nutrients)
     return nutrients
+  nutrients.kalorien += zutat.lebensmittel.nutrients?.kalorien || 0
   nutrients.proteine += zutat.lebensmittel.nutrients?.proteine || 0
   nutrients.fett += zutat.lebensmittel.nutrients?.fett || 0
   nutrients.ballaststoffe += zutat.lebensmittel.nutrients?.ballaststoffe || 0
@@ -63,6 +64,7 @@ export function getKochschrittSummary(kochschritte: Kochschritt[]): KochschrittS
 }
 
 export function multiplyNutrients(nutrients: Nutrients, factor: number): Nutrients {
+  nutrients.kalorien = nutrients.kalorien * factor
   nutrients.proteine = nutrients.proteine * factor
   nutrients.fett = nutrients.fett * factor
   nutrients.kohlenhydrate = nutrients.kohlenhydrate * factor

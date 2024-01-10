@@ -6,13 +6,6 @@ import {NutrientsSchema} from "./nutrients.schema";
 import {Tags} from "../enum/Tags";
 
 
-export const RezeptMetaSchema = z.object({
-  vegetarisch: z.boolean().optional(),
-  healthy: z.boolean().optional(),
-  soulfood: z.boolean().optional(),
-  schwierigkeitsgrad: z.number().optional()
-})
-
 export const RezeptSchema = z.object({
   name: z.string({required_error: "Das Rezept muss einen Namen enthalten"}).min(1).describe('Der Name des Rezeptes'),
   beschreibung: z.string().max(150).optional().describe('Ein kurzer(!) Beschreibungstext'),

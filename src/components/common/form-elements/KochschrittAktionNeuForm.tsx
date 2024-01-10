@@ -39,7 +39,7 @@ export function KochschrittAktionNeuForm({open}: KochschrittAktionNeuFormProps) 
             defaultValue={AktionIcon.DUMMY}
           >
             {Object.entries(AktionIconProperties).map(([key,]) => <MenuItem
-              key={key} value={key}><AktionIconImage aktion={key as AktionIcon}/></MenuItem>)
+              key={key} value={key}><AktionIconImage aktionIcon={key as AktionIcon}/></MenuItem>)
             }
           </Field>
 
