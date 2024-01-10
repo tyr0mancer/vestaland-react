@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {LoginProps} from "./types";
-import {isApiErrorResponse} from "../api/apiClient";
+import {isAuthError} from "../api/apiClient";
 import {AuthService} from "./AuthService";
 import config from "../../config";
 import {ApiErrorResponse} from "../../shared-types/api";
@@ -68,7 +68,7 @@ export const AuthProvider = ({children}: any) => {
         setAuthInfo(res)
       })
       .catch(error => {
-        if (isApiErrorResponse(error.response?.data)) {
+        if (isAuthError(error.response?.data)) {
           setError(error.response?.data)
         }
         console.error(error)

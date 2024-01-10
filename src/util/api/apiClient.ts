@@ -1,18 +1,19 @@
 import axios from 'axios';
-import {ZodError} from 'zod';
 import myConfig from "../../config";
 import {ApiErrorResponse} from "../../shared-types/api";
 
-const baseURL = myConfig.apiBaseUrl
-const apiClient = axios.create({
-  baseURL,
+// wird nur verwendet, um das auth token zu erneuern
+const refreshClient = axios.create({
+  baseURL: myConfig.apiBaseUrl,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
   }
 });
-const refreshClient = axios.create({
-  baseURL,
+
+
+export const apiClient = axios.create({
+  baseURL: myConfig.apiBaseUrl,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -27,41 +28,66 @@ apiClient.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-
-    // @todo einschränken: ist token abgelaufen, wurde gar keines gesetzt? existiert ein cookie?
+    /*
+        401 bedeutet das Auth Token ist abgelaufen oder es wurde keins mitgesendet
+        (z.B. durch Browser-Refresh oder Fensterwechsel),
+        daher einmaliger Aufruf der myConfig.tokenRefreshUrl.
+    */
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      // Endlosschleife verhindern
       originalRequest._retry = true;
-      refreshClient.post(myConfig.apiBaseUrl + myConfig.tokenRefreshUrl)
-        .then(response => {
-          apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
-          originalRequest.headers['Authorization'] = `Bearer ${response.data.authtoken}`;
-          return apiClient(originalRequest); // Retry the original request with the new token
-        })
-        .catch(error => console.error('Error while trying to refresh Token', error.response || error))
+      return tryRefreshToken(originalRequest)
     }
 
-    if (error.response && isZodError(error.response.data)) {
-      handleZodError(error.response.data);
+    /*
+        400 bedeutet: ZOD Schema wurde nicht validiert. Informiere Enduser
+    */
+    if (error.response?.status === 400) {
+      handleError(error.response.data);
     }
 
+    /*
+        In anderen Fällen lediglich console.error()
+    */
     console.error(error.response.data)
     return Promise.reject(error);
   }
 );
 
-function handleZodError(error: any) {
+
+function handleError(error: any) {
+  console.log(error)
   window.dispatchEvent(new CustomEvent('api-error', {detail: error}));
 }
 
 
-function isZodError(obj: any): obj is ZodError {
-  return obj && obj.message
-}
-
-function isApiErrorResponse(obj: any): obj is ApiErrorResponse {
+export function isAuthError(obj: any): obj is ApiErrorResponse {
   return obj
     && typeof obj.status === 'number'
     && typeof obj.message === 'string';
 }
 
-export {apiClient, isApiErrorResponse}
+
+
+
+/*
+    Verwende Refresh-Client und rufe /auth/refresh API-Route auf.
+    Falls ein HTTP-only cookie für den API Server im Browser gesetzt wurde, wird ein neues Auth-Token zurückgesendet.
+
+    @function tryRefreshToken
+*/
+function tryRefreshToken(originalRequest:any) {
+
+  refreshClient.post(myConfig.apiBaseUrl + myConfig.tokenRefreshUrl)
+    .then(response => {
+      // Neues Auth-Token dann im Header des Axios apiClients setzen
+      apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
+
+      // Und den ursprünglich abgelehnten API-Call mit neuem Token zurück geben, damit er ausgeführt werden kann
+      originalRequest.headers['Authorization'] = `Bearer ${response.data.authtoken}`;
+      return apiClient(originalRequest);
+    })
+    .catch(error => console.error('Error while trying to refresh Token', error.response || error))
+  // @todo Fehler-Analyse: ist token abgelaufen, wurde gar keines gesetzt? existiert ein cookie?
+
+}

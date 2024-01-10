@@ -1,22 +1,20 @@
 import React, {useEffect, useState} from "react";
 import Alert from '@mui/material/Alert';
-import {AlertTitle} from "@mui/material";
-
-interface ZodErrorFormat {
-  message: string,
-  errors: any[],
-  status?: number
-}
+import {AlertTitle, Fade} from "@mui/material";
 
 /**
  * TS Doc Info
  * @component CustomAlerts
  */
 export function CustomAlerts() {
-  const [error, setError] = useState<ZodErrorFormat | null>(null);
+  const [checked, setChecked] = useState(false)
+  const [error, setError] = useState<any>(null);
 
   useEffect(() => {
     const handleApiError = (event: CustomEvent) => {
+      setChecked(true)
+      // @todo timeStamp, type
+      // console.log(event)
       setError(event.detail);
     };
     window.addEventListener('api-error', handleApiError as EventListener);
@@ -25,20 +23,21 @@ export function CustomAlerts() {
     };
   }, [setError]);
 
+
   return (
-    <>
-      {error && <Alert severity="error" onClose={() => setError(null)}>
-          <AlertTitle>{error.status} - {error.message}</AlertTitle>
+    <div>
+      <Fade in={checked}>
+        <Alert severity="warning" onClose={() => setChecked(false)}>
+          <AlertTitle>{error?.status} - {error?.message}</AlertTitle>
 
-        {error.errors?.map((err, index) => (<div key={index}>
-          <pre>{err.path.slice(1).join(' > ')}</pre>
-          <pre>{err.message}</pre>
-          <hr/>
-
-        </div>))}
-      </Alert>}
-    </>
-  );
+          {error?.errors?.map((err: any, index: number) => (<div key={index}>
+            <pre>{err.path.slice(1).join(' > ')}</pre>
+            <pre>{err.message}</pre>
+            <hr/>
+          </div>))}
+        </Alert>
+      </Fade>
+    </div>
+  )
 }
-
 
