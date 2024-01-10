@@ -55,7 +55,7 @@ export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochs
       </Grid>
 
       <Grid item xs={2} md={1} textAlign={'center'}>
-        {kochschritt.videoUrl && <a href={kochschritt.videoUrl} target={'_blank'}>Video</a>}
+        {kochschritt.videoUrl && <a href={kochschritt.videoUrl} target="_blank" rel="noreferrer">Video</a>}
       </Grid>
     </Grid>
 
