@@ -10,12 +10,11 @@ import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
-import {undefined} from "zod";
 
 export function RezeptSucheAusgabe() {
   const {dispatch, state: {rezeptHistory, rezeptSucheQuery}} = useContext(StateContext) as StateContextType
 
-  const handleDeleteHistory = (index: string | undefined) => {
+  const handleDeleteHistory = (index?: string) => {
     if (index) dispatch({type: ActionTypes.DELETE_HISTORY, payload: index})
   }
 
