@@ -3,14 +3,21 @@ import {useQuery} from "@tanstack/react-query";
 
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {StateContext} from "../../../util/state/StateProvider";
-import {StateContextType} from "../../../util/state/types";
-import LoadingIcon from '@mui/icons-material/HourglassBottom';
+import {ActionTypes, StateContextType} from "../../../util/state/types";
 import {RezeptCard} from "./RezeptCard";
-import {Grid, Typography} from "@mui/material";
+import {Grid, IconButton, Typography} from "@mui/material";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
+import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
+import {LoadingScreen} from "../../common/ui/LoadingScreen";
+import {undefined} from "zod";
+
 export function RezeptSucheAusgabe() {
-  const {state: {rezeptHistory, rezeptSucheQuery}} = useContext(StateContext) as StateContextType
+  const {dispatch, state: {rezeptHistory, rezeptSucheQuery}} = useContext(StateContext) as StateContextType
+
+  const handleDeleteHistory = (index: string | undefined) => {
+    if (index) dispatch({type: ActionTypes.DELETE_HISTORY, payload: index})
+  }
 
   const {
     isLoading,
@@ -26,7 +33,7 @@ export function RezeptSucheAusgabe() {
   if (isError)
     return <ErrorScreen error={error}/>
   if (isLoading)
-    return <LoadingIcon/>
+    return <LoadingScreen/>
   return (<>
     <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 16}}>
       {data?.map((rezept, index) =>
@@ -35,16 +42,18 @@ export function RezeptSucheAusgabe() {
         </Grid>
       )}
     </Grid>
-
     {(!data || !data.length) &&
         <>
             <Typography variant="h4" gutterBottom borderBottom={2} mt={5}>
-                zuletzt angesehen:
+                zuletzt gekocht:
             </Typography>
             <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 16}}>
               {rezeptHistory.map((entry, index) =>
                 <Grid item xs={2} sm={4} md={4} key={index}>
                   <RezeptCard key={entry._id} rezept={entry}/>
+                  <IconButton
+                    onClick={() => handleDeleteHistory(entry._id)}
+                  ><RemoveCircleIcon/></IconButton>
                 </Grid>
               )}
             </Grid>

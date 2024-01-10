@@ -1,6 +1,6 @@
 import {CustomFieldProps} from "../../../common/form-elements/types";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
-import {Grid, TextField} from "@mui/material";
+import {FormGroup, Grid, TextField} from "@mui/material";
 import {ZutatenPicker} from "../../../common/form-elements/ZutatenPicker";
 import {UtensilienPicker} from "../../../common/form-elements/UtensilienPicker";
 import {AktionenPicker} from "../../../common/form-elements/AktionenPicker";
@@ -13,7 +13,7 @@ import {BetriebsartFields} from "./BetriebsartFields";
 /**
  * Form Layout eines Kochschrittes
  *
- * @component RezeptFieldsKochschritt
+ * @component KochschrittLayoutEdit
  *
  * @see RezeptFieldsKochschritte
  */
@@ -26,6 +26,12 @@ export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldPr
       <hr/>
       <hr/>
       <UtensilienPicker name={`${name}[utensilien]`} values={kochschritt.utensilien}/>
+
+      <FormGroup>
+        <Field as={TextField} type="text" variant="outlined" mt={5}
+               fullWidth
+               name={`${name}[resultatName]`} label="resultatName"/>
+      </FormGroup>
     </Grid>
 
     {/* Aktionen / Zeitangabe / Temperatur und Betriebsart / weitere Infos */}

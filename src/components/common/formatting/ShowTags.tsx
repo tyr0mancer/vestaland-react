@@ -11,7 +11,7 @@ interface ShowTagsProps {
  * @component ShowTags
  */
 export function ShowTags({tags, size}: ShowTagsProps): React.ReactElement {
-  return (<>{JSON.stringify(tags)} {size}</>)
+  return (<div>{JSON.stringify(tags)} {size}</div>)
 }
 
 /*

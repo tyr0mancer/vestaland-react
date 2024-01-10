@@ -1,9 +1,15 @@
-import {Action, ActionTypes, RezeptPartial, State} from "./types";
+import {ReducerActionType, ActionTypes, RezeptPartial, State} from "./types";
 import {LocalStorage} from "./StateProvider";
 
-export const reducer = (state: State, action: Action): State => {
+export const reducer = (state: State, action: ReducerActionType): State => {
 
   switch (action.type) {
+
+    case ActionTypes.DELETE_HISTORY:
+      const newHistory = state.rezeptHistory.filter(r => r._id !== action.payload)
+      localStorage.setItem(LocalStorage.REZEPT_HISTORY, JSON.stringify(newHistory || []));
+      return {...state, rezeptHistory: newHistory};
+
     case ActionTypes.PUSH_HISTORY:
       const newEntry: RezeptPartial = {
         _id: action.payload._id,
@@ -36,3 +42,5 @@ export const reducer = (state: State, action: Action): State => {
       return state;
   }
 };
+
+

@@ -26,23 +26,26 @@ export enum ActionTypes {
   SET_REZEPT_COOK = 'SET_REZEPT_COOK',
   SET_REZEPT_EDIT = 'SET_REZEPT_EDIT',
   SAVE_REZEPT_EDIT = 'SAVE_REZEPT_EDIT',
-  SET_KOCHSTATUS = 'SET_KOCHSTATUS'
+  SET_KOCHSTATUS = 'SET_KOCHSTATUS',
+  DELETE_HISTORY = 'DELETE_HISTORY'
 }
 
 
-export type Action =
+export type ReducerActionType =
   | { type: ActionTypes.SET_REZEPT_SUCHE, payload: RezeptSucheQuery }
   | { type: ActionTypes.PUSH_HISTORY, payload: Rezept }
+  | { type: ActionTypes.DELETE_HISTORY, payload: string }
   | { type: ActionTypes.SET_REZEPT_COOK, payload?: Rezept }
   | { type: ActionTypes.SET_REZEPT_EDIT, payload?: Rezept }
   | { type: ActionTypes.SAVE_REZEPT_EDIT, payload?: Rezept }
   | { type: ActionTypes.SET_KOCHSTATUS, payload: Kochstatus }
 
+
 // Weitere Aktionstypen...
 
 export interface StateContextType {
   state: State;
-  dispatch: React.Dispatch<Action>;
+  dispatch: React.Dispatch<ReducerActionType>;
 }
 
 

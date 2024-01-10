@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {RezeptZutaten} from "../rezept-detail/RezeptZutaten";
+import {RezeptZutaten} from "./RezeptZutaten";
 import {StateContext} from "../../../util/state/StateProvider";
 import {ActionTypes, StateContextType} from "../../../util/state/types";
 import Button from "@mui/material/Button";

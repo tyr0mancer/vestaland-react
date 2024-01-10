@@ -46,9 +46,13 @@ export function RezeptEditorControls(): React.ReactElement {
 
   /* Setze Formular zurück */
   const handleNew = () => {
+    const redirectTarget = !!formik.values._id
+      ? `/rezepte/${formik.values._id}`
+      : '/rezept-editor'
+
     formik.setValues(new Rezept()).then(() => {
       dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: undefined})
-      navigate('/rezept-editor')
+      navigate(redirectTarget)
     })
   }
 
