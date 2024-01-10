@@ -12,13 +12,6 @@ interface KochschrittSummary {
   nutrients: Nutrients
 }
 
-const kochschrittSummaryDefault: KochschrittSummary = {
-  berechneteArbeitszeit: 0,
-  berechneteGesamtdauer: 0,
-  zutaten: [],
-  utensilien: [],
-  nutrients: new Nutrients()
-}
 
 const utensilienReducer = (utensilien: Utensil[], utensil: Utensil) => [...utensilien, utensil]
 
@@ -60,7 +53,13 @@ function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochs
 }
 
 export function getKochschrittSummary(kochschritte: Kochschritt[]): KochschrittSummary {
-  return kochschritte.reduce(kochschrittReducer, kochschrittSummaryDefault)
+  return kochschritte.reduce(kochschrittReducer, {
+    berechneteArbeitszeit: 0,
+    berechneteGesamtdauer: 0,
+    zutaten: [],
+    utensilien: [],
+    nutrients: new Nutrients()
+  })
 }
 
 export function multiplyNutrients(nutrients: Nutrients, factor: number): Nutrients {
