@@ -84,21 +84,23 @@ export function RezeptDetail() {
         </Grid>
       </Grid>
 
-
       <Grid container spacing={2}>
-
-        {/* Bild oder Platzhalter */}
         <Grid item xs={12} md={3}>
+
+          {/* Bild oder Platzhalter */}
           <RezeptBild bild={rezept?.bild} alt={rezept?.name}/>
+
+          {/* Tags */}
           <Box mt={1}>
             <ShowTags tags={rezept.tags} size={'large'}/>
           </Box>
+
         </Grid>
 
-        {/* Portionen / Zeitangabe / Tags / Schwierigkeitsgrad / "Jetzt Kochen"-Button */}
         <Grid item xs={12} md={3}>
-
           <Grid container spacing={1}>
+
+            {/* Portionen */}
             <Grid item xs={3}>
               <TextField
                 fullWidth
@@ -108,15 +110,19 @@ export function RezeptDetail() {
                 onChange={e => setPortionen(+e.currentTarget.value)}/>
             </Grid>
 
+            {/* Zeitangabe */}
             <Grid item xs={5}>
               <ShowTimes rezept={rezept} portionen={portionen}/>
             </Grid>
 
+            {/* "Jetzt Kochen"-Button */}
             <Grid item xs={4}>
               <StartCookingButton rezept={rezept}/>
             </Grid>
+
           </Grid>
 
+          {/* Schwierigkeitsgrad */}
           <Box mt={2}>
             <ShowSchwierigkeitsgrad schwierigkeitsgrad={rezept.schwierigkeitsgrad}/>
           </Box>
@@ -140,18 +146,26 @@ export function RezeptDetail() {
         </Grid>
 
       </Grid>
+
+      {/* Nutrients */}
       <Box mt={5}>
         <ShowNutrients nutrients={rezept.nutrients}/>
       </Box>
 
+      {/* Quellen */}
+      {!!rezept.quelleUrl?.length && <pre>{JSON.stringify(rezept.quelleUrl)}</pre>}
 
-      {rezept.quelleUrl && <pre>{JSON.stringify(rezept.quelleUrl)}</pre>}
+      {/* Freitext */}
+      {!!rezept.freitext &&
+          <Box mt={5}>
+              <Typography variant="body1" border={'1px dotted'} color={'primary'} padding={2}>
+                {rezept.freitext}
+              </Typography>
+          </Box>
+      }
 
-      <Typography variant="body1" border={1} color={'primary'} padding={2}>
-        {rezept.freitext}
-      </Typography>
 
-
+      {/* Kochschritte */}
       <Box mt={5}>
         <Typography variant="h3" gutterBottom borderBottom={2}>
           Zubereitung
