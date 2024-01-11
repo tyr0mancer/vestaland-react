@@ -42,7 +42,7 @@ export function ShowNutrients({nutrients}: ShowNutrientsProps): React.ReactEleme
   }]
 
   return (<Grid container spacing={3}>
-    {entries.map(e => <Grid item xs={4} md={2} textAlign={'center'}><Card
+    {entries.map((e, index) => <Grid item xs={4} md={2} textAlign={'center'} key={index}><Card
       className={`nutrient-score-${e.score}`}><b>{e.value}</b> {e.label}</Card></Grid>)}
   </Grid>)
 }
