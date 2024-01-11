@@ -8,6 +8,8 @@ export function NavbarAdmin() {
 
   return (<AppBar position="static">
     <Toolbar variant="dense">
+      <Link to={'/rezepte'}><IconButton sx={{mr: 2}} size="small" color="secondary"
+                                        aria-label="Meine Rezepte"><ArrowBackIcon/> Zurück</IconButton></Link>
       <Link to={'lebensmittel'}><IconButton sx={{mr: 2}} size="small" color="secondary"
                                              aria-label="Meine Rezepte"><SettingsIcon/> Lebensmittel</IconButton></Link>
       <Link to={'utensil'}><IconButton sx={{mr: 2}} size="small" color="secondary"
@@ -16,9 +18,6 @@ export function NavbarAdmin() {
                                        aria-label="Meine Rezepte"><SettingsIcon/> Bilder</IconButton></Link>
       <Link to={'user'}><IconButton sx={{mr: 2}} size="small" color="secondary"
                                       aria-label="Meine Rezepte"><SettingsIcon/> Benutzer</IconButton></Link>
-
-      <Link to={'/rezepte'}><IconButton sx={{mr: 2}} size="small" color="secondary"
-                                    aria-label="Meine Rezepte"><ArrowBackIcon/> Zurück</IconButton></Link>
     </Toolbar>
   </AppBar>)
 }
