@@ -1,36 +1,35 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import {createRoot} from "react-dom/client";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
 export const customConfirm = (options: { label: string, title?: string }): Promise<boolean> => {
   return new Promise((resolve) => {
+
     const div = document.createElement('div');
-    document.body.appendChild(div);
+    const container = document.body.appendChild(div);
+    const root = createRoot(container!)
+
 
     const handleConfirm = () => {
-      resolve(true);
-      ReactDOM.unmountComponentAtNode(div);
-      div.remove();
+      resolve(true)
+      root.unmount()
     };
 
     const handleClose = () => {
-      resolve(false);
-      ReactDOM.unmountComponentAtNode(div);
-      div.remove();
+      resolve(false)
+      root.unmount()
     };
 
-    ReactDOM.render(
+    root.render(
       <ConfirmDialog
         title={options.title}
         open={true}
         label={options.label}
         onConfirm={handleConfirm}
         onClose={handleClose}
-      />,
-      div
-    );
-  });
-};
+      />)
+  })
+}
 
 
 interface ConfirmDialogProps {
