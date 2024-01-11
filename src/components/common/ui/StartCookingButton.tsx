@@ -19,10 +19,17 @@ interface StartCookingButtonProps {
 export function StartCookingButton({rezept}: StartCookingButtonProps): React.ReactElement {
   const navigate = useNavigate();
 
-  const {state: {rezeptCooking}, dispatch} = useContext(StateContext) as StateContextType
+  const {state: {rezeptCooking, kochstatus}, dispatch} = useContext(StateContext) as StateContextType
 
+  // Confirm falls bereits gekocht wird und das Rezept schon gestartet wurde
   async function startCooking() {
-    const result = !rezeptCooking || await customConfirm({title: 'Es wird bereits gekocht.', label: rezeptCooking.name})
+    const result = !rezeptCooking || (kochstatus.kochschrittIndex === -1) || (kochstatus.kochschrittIndex === kochstatus.kochschrittSummary?.length)
+      || await customConfirm({
+        title: 'Es wird bereits gekocht.',
+        confirmLabel: 'Kochen starten',
+        cancelLabel: `${rezeptCooking.name} weiter kochen`,
+        label: `${rezeptCooking.name} (Schritt ${kochstatus.kochschrittIndex + 1} / ${kochstatus.kochschrittSummary.length})`
+      })
     if (!result) return
 
     const summary = rezept.kochschritte.reduce((previousValue: any[], currentValue: Kochschritt) => {

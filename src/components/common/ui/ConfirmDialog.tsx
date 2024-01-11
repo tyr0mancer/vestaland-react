@@ -2,7 +2,15 @@ import React from 'react';
 import {createRoot} from "react-dom/client";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
 
-export const customConfirm = (options: { label: string, title?: string }): Promise<boolean> => {
+
+interface CustomConfirmProps {
+  label: string
+  title?: string
+  confirmLabel?: string
+  cancelLabel?: string
+}
+
+export const customConfirm = ({label, title, confirmLabel, cancelLabel}: CustomConfirmProps): Promise<boolean> => {
   return new Promise((resolve) => {
 
     const div = document.createElement('div');
@@ -22,9 +30,11 @@ export const customConfirm = (options: { label: string, title?: string }): Promi
 
     root.render(
       <ConfirmDialog
-        title={options.title}
+        title={title}
         open={true}
-        label={options.label}
+        label={label}
+        confirmLabel={confirmLabel}
+        cancelLabel={cancelLabel}
         onConfirm={handleConfirm}
         onClose={handleClose}
       />)
@@ -38,9 +48,23 @@ interface ConfirmDialogProps {
   onConfirm: () => void;
   label: string;
   title?: string;
+  confirmLabel?: string
+  cancelLabel?: string
 }
 
-const ConfirmDialog: React.FC<ConfirmDialogProps> = ({open, onClose, onConfirm, label, title}) => {
+/**
+ * TS Doc Info
+ * @component ConfirmDialog2
+ */
+export function ConfirmDialog({
+                                open,
+                                onClose,
+                                onConfirm,
+                                label,
+                                title,
+                                confirmLabel = 'OK',
+                                cancelLabel = 'Abbrechen'
+                              }: ConfirmDialogProps): React.ReactElement {
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogTitle>{title}</DialogTitle>
@@ -49,13 +73,12 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({open, onClose, onConfirm, 
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="primary">
-          Abbrechen
+          {cancelLabel}
         </Button>
         <Button onClick={onConfirm} color="primary" autoFocus>
-          OK
+          {confirmLabel}
         </Button>
       </DialogActions>
     </Dialog>
   );
 }
-
