@@ -54,7 +54,7 @@ interface ConfirmDialogProps {
 
 /**
  * TS Doc Info
- * @component ConfirmDialog2
+ * @component ConfirmDialog
  */
 export function ConfirmDialog({
                                 open,
