@@ -7,14 +7,18 @@ import {AlertTitle, Fade} from "@mui/material";
  * @component CustomAlerts
  */
 export function CustomAlerts() {
-  const [checked, setChecked] = useState(false)
+  const [open, setOpen] = useState(false)
   const [error, setError] = useState<any>(null);
 
   useEffect(() => {
     const handleApiError = (event: CustomEvent) => {
-      setChecked(true)
-      // @todo timeStamp, type
+      // @todo log timeStamp and Error-Type
       // console.log(event)
+      setTimeout(() => {
+        setOpen(false)
+      }, 10000)
+
+      setOpen(true)
       setError(event.detail);
     };
     window.addEventListener('api-error', handleApiError as EventListener);
@@ -26,8 +30,8 @@ export function CustomAlerts() {
 
   return (
     <div>
-      <Fade in={checked}>
-        <Alert severity="warning" onClose={() => setChecked(false)}>
+      <Fade in={open}>
+        <Alert severity="warning" onClose={() => setOpen(false)}>
           <AlertTitle>{error?.status} - {error?.message}</AlertTitle>
 
           {error?.errors?.map((err: any, index: number) => (<div key={index}>
