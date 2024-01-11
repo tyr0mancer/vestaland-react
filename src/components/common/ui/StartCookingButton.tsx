@@ -23,12 +23,12 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
 
   // Confirm falls bereits gekocht wird und das Rezept schon gestartet wurde
   async function startCooking() {
-    const result = !rezeptCooking || (kochstatus.kochschrittIndex === -1) || (kochstatus.kochschrittIndex === kochstatus.kochschrittSummary?.length)
+    const result = !rezeptCooking || (kochstatus.kochschrittIndex === -1) || (kochstatus.kochschrittIndex === kochstatus.kochschritteSummary?.length)
       || await customConfirm({
         title: 'Es wird bereits gekocht.',
         confirmLabel: 'Kochen starten',
         cancelLabel: `${rezeptCooking.name} weiter kochen`,
-        label: `${rezeptCooking.name} (Schritt ${kochstatus.kochschrittIndex + 1} / ${kochstatus.kochschrittSummary.length})`
+        label: `${rezeptCooking.name} (Schritt ${kochstatus.kochschrittIndex + 1} / ${kochstatus.kochschritteSummary.length})`
       })
     if (!result) return
 
@@ -53,7 +53,7 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
     dispatch({type: ActionTypes.SET_REZEPT_COOK, payload: rezept})
     dispatch({
       type: ActionTypes.SET_KOCHSTATUS,
-      payload: {kochschrittIndex: -1, kochschrittFokus: false, kochschrittSummary: summary}
+      payload: {kochschrittIndex: -1, kochschrittFokus: false, kochschritteSummary: summary}
     })
     navigate('/rezept-cooking')
   }

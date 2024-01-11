@@ -57,8 +57,8 @@ export function KocheRezept() {
     if (!rezeptCooking?.kochschritte.length)
       return setProgress(100)
 
-    const lengthDone = kochstatus.kochschrittSummary?.slice(0, kochstatus.kochschrittIndex).reduce((total, item) => total + item.length, 0) || 0
-    const lengthTotal = kochstatus.kochschrittSummary?.reduce((total, item) => total + item.length, 0) || 0
+    const lengthDone = kochstatus.kochschritteSummary?.slice(0, kochstatus.kochschrittIndex).reduce((total, item) => total + item.length, 0) || 0
+    const lengthTotal = kochstatus.kochschritteSummary?.reduce((total, item) => total + item.length, 0) || 0
     const result = Math.round(lengthDone / lengthTotal * 100)
     setProgress(result)
   }, [kochstatus, rezeptCooking, setProgress])

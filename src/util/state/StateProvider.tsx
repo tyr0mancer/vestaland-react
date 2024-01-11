@@ -12,7 +12,7 @@ const defaultState: State = {
   rezeptSucheQuery: rezeptSucheQueryDefault,
   rezeptHistory: [],
   kochstatus: {
-    kochschrittSummary: [],
+    kochschritteSummary: [],
     kochschrittFokus: false,
     kochschrittIndex: -1
   }

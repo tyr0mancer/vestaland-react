@@ -31,7 +31,7 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
 
   const setIndex = (neuerKochschrittIndex: number) => {
     if (!rezeptCooking) return
-    const restZeit = kochstatus.kochschrittSummary.filter((k, index) => (index >= neuerKochschrittIndex)).reduce((a, c) => {
+    const restZeit = kochstatus.kochschritteSummary.filter((k, index) => (index >= neuerKochschrittIndex)).reduce((a, c) => {
       return a + (c.length || 0)
     }, 0)
     const etd = getDateInFuture(restZeit)

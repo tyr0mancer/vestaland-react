@@ -59,7 +59,7 @@ interface KochschrittSummary {
 }
 
 export interface Kochstatus {
-  kochschrittSummary: KochschrittSummary[]
+  kochschritteSummary: KochschrittSummary[]
   kochschrittFokus: string | false,
   kochschrittIndex: number,
   etd?: Date
