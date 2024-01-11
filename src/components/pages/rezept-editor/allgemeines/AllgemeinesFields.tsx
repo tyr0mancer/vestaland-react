@@ -1,6 +1,6 @@
 import React from "react";
 import {Field, useFormikContext} from "formik";
-import {Grid, MenuItem, Select, Slider, TextField, Typography} from "@mui/material";
+import {Box, Grid, MenuItem, Select, Slider, TextField, Typography} from "@mui/material";
 import {Rezept} from "../../../../shared-types/models/rezept.model";
 import {CustomFilePicker} from "../../../common/form-elements/CustomFilePicker";
 import {Datei} from "../../../../shared-types/models/Datei";
@@ -19,7 +19,7 @@ export function AllgemeinesFields(): React.ReactElement {
   const formik = useFormikContext<Rezept>();
 
   return (<>
-    <Grid columnSpacing={1} rowSpacing={2} container>
+    <Grid columnSpacing={1} rowSpacing={2} container mt={1}>
       <Grid item xs={12} md={4}>
         <Field as={TextField} type="text" variant="outlined" fullWidth
                name="name" label="Rezeptname"/>
@@ -35,7 +35,7 @@ export function AllgemeinesFields(): React.ReactElement {
 
 
       {/* File Picker */}
-      <Grid item xs={12} md={4} textAlign={'center'}>
+      <Grid item xs={12} md={4}>
         <CustomFilePicker name={'bild'} values={formik.values.bild || new Datei()}/>
       </Grid>
 
@@ -44,18 +44,27 @@ export function AllgemeinesFields(): React.ReactElement {
       <Grid item xs={6} md={2}>
         <Field as={TextField} type="number" variant="outlined" fullWidth
                name="realeGesamtdauer" label="reale Gesamtdauer"/>
-        <Field as={TextField} type="number" variant="outlined" fullWidth
-               disabled name="berechneteGesamtdauer" label="berechnet"/>
-        <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="extraPortionGesamtdauer" label="extra Zeit"/>
+        <Box mt={2}>
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 disabled name="berechneteGesamtdauer" label="berechnet"/>
+        </Box>
+        <Box mt={2}>
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 name="extraPortionGesamtdauer" label="extra Zeit"/>
+        </Box>
       </Grid>
       <Grid item xs={6} md={2}>
         <Field as={TextField} type="number" variant="outlined" fullWidth
                name="realeArbeitszeit" label="reale Arbeitszeit"/>
-        <Field as={TextField} type="number" variant="outlined" fullWidth
-               disabled name="berechneteArbeitszeit" label="berechnet"/>
-        <Field as={TextField} type="number" variant="outlined" fullWidth
-               name="extraPortionArbeitszeit" label="extra Zeit"/>
+        <Box mt={2}>
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 disabled name="berechneteArbeitszeit" label="berechnet"/>
+        </Box>
+        <Box mt={2}>
+
+          <Field as={TextField} type="number" variant="outlined" fullWidth
+                 name="extraPortionArbeitszeit" label="extra Zeit"/>
+        </Box>
       </Grid>
 
 
@@ -87,10 +96,12 @@ export function AllgemeinesFields(): React.ReactElement {
             <MenuItem key={key} value={value}>{value}</MenuItem>)}
         </Field>
 
+        {/*
         <Typography variant="h5" mt={2}>
           Quellen
         </Typography>
-        {/*public quelleUrl: string[] = [];*/}
+        public quelleUrl: string[] = [];
+*/}
 
 
       </Grid>
