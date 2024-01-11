@@ -1,6 +1,6 @@
 import React from "react";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
-import {Box, Button, Grid, Typography} from "@mui/material";
+import {Box,  Grid, IconButton, Typography} from "@mui/material";
 import {ShowKochschrittAktionen} from "../../common/formatting/ShowKochschrittAktionen";
 import {ShowZutaten} from "../../common/formatting/ShowZutaten";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
@@ -8,6 +8,8 @@ import {ShowErforderlicheKochschritte} from "../../common/formatting/ShowErforde
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {BetriebsartenProperties} from "../../../util/rezept-helper/enum-properties/BetriebsartenProperties";
 import {ShowTimes} from "../../common/formatting/ShowTimes";
+import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
+
 
 interface RezeptKochschrittProps {
   kochschritt: Kochschritt,
@@ -19,14 +21,16 @@ interface RezeptKochschrittProps {
  * @component RezeptKochschritt
  */
 export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochschrittProps): React.ReactElement {
-  return (<Box mt={5} borderBottom={'dotted 1px'}>
-    <Grid container spacing={1} mb={4}>
+  return (<Box mt={2} borderBottom={'dotted 1px'}>
+    <Grid container spacing={1}>
 
       <Grid item xs={4} md={2}>
         <ShowKochschrittAktionen aktionen={kochschritt.aktionen}/>
         {kochschritt.resultatName &&
-            <Typography variant="h6" mt={2} borderTop={1} textAlign={'right'}>
-                <ArrowForwardIcon/> {kochschritt.resultatName}
+            <Typography className={'align-vertically'}
+                        variant="body2" mt={2} borderTop={1} textAlign={'right'}>
+                <ArrowForwardIcon fontSize={'small'}/>
+                <a href="#">{kochschritt.resultatName}</a>
             </Typography>
         }
       </Grid>
@@ -37,26 +41,35 @@ export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochs
       </Grid>
 
 
+      <Grid item xs={4} md={2}>
+        <Box textAlign={'center'}>
+          <ShowTimes kochschritt={kochschritt} showWartezeit/>
+        </Box>
+
+        {kochschritt.videoUrl && <Box mt={2} textAlign={'center'}>
+            <a href={kochschritt.videoUrl} target="_blank"
+               rel="noreferrer"><IconButton><SmartDisplayIcon/></IconButton></a></Box>}
+      </Grid>
+
+      {/* Beschreibung */}
       <Grid item xs={8} md={4}>
-        <ShowUtensilien utensilien={kochschritt.utensilien}/>
-        {kochschritt.betriebsart && BetriebsartenProperties[kochschritt.betriebsart].fullName}
-        {kochschritt.temperatur && <div>{kochschritt.temperatur} °C</div>}
+        {kochschritt.beschreibung &&
+            <Typography variant="body2" border={'1px dotted'} color={'primary'} padding={2}>
+              {kochschritt.beschreibung}
+            </Typography>
+        }
+
+        <Box mt={2}>
+          <ShowUtensilien utensilien={kochschritt.utensilien}/>
+        </Box>
 
         <Typography variant="body2" mt={2}>
-          {kochschritt.beschreibung}
+          {kochschritt.betriebsart && BetriebsartenProperties[kochschritt.betriebsart].fullName}
+          {kochschritt.temperatur && <div>{kochschritt.temperatur} °C</div>}
         </Typography>
 
-        {!!kochschritt.wartezeit &&
-            <Button variant={'contained'} color={'secondary'} disabled>{kochschritt.wartezeit} Min</Button>}
       </Grid>
 
-      <Grid item xs={2} md={1}>
-        <ShowTimes kochschritt={kochschritt} />
-      </Grid>
-
-      <Grid item xs={2} md={1} textAlign={'center'}>
-        {kochschritt.videoUrl && <a href={kochschritt.videoUrl} target="_blank" rel="noreferrer">Video</a>}
-      </Grid>
     </Grid>
 
   </Box>)

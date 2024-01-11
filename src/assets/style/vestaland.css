@@ -150,3 +150,11 @@ img.startseite.right {
     background-color: lightblue;
     color: darkblue;
 }
+
+
+/* Formatter */
+.align-vertically {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+}
