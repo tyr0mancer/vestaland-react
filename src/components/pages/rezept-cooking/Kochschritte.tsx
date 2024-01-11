@@ -45,8 +45,6 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
 
     const etd = getDateInFuture(restZeit)
 
-    // calculate time left
-
     dispatch({
       type: ActionTypes.SET_KOCHSTATUS, payload: {
         ...kochstatus,
@@ -59,7 +57,7 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
 
 
   if (!kochschritte?.length)
-    return (<div>Der Rest ist trivial.</div>)
+    return (<div>Schon fertig?</div>)
 
   return (
     <div>
