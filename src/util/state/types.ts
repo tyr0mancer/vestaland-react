@@ -1,5 +1,6 @@
 import React from "react";
 import {Rezept} from "../../shared-types/models/rezept.model";
+import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 
 export interface RezeptSucheQuery {
   rezeptName: string,
@@ -49,7 +50,16 @@ export interface StateContextType {
 }
 
 
+interface KochschrittSummary {
+  length: number
+  ratio: number | null
+  aktionen: KochschrittAktion[]
+  startTime?: Date
+  endTime?: Date
+}
+
 export interface Kochstatus {
+  kochschrittSummary: KochschrittSummary[]
   kochschrittFokus: string | false,
   kochschrittIndex: number,
   etd?: Date
