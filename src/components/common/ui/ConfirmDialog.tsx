@@ -1,6 +1,8 @@
 import React from 'react';
 import {createRoot} from "react-dom/client";
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
+import {ThemeProvider} from '@mui/material/styles';
+import {themeMUI} from "../../../assets/style/themeMUI";
 
 
 interface CustomConfirmProps {
@@ -29,15 +31,17 @@ export const customConfirm = ({label, title, confirmLabel, cancelLabel}: CustomC
     };
 
     root.render(
-      <ConfirmDialog
-        title={title}
-        open={true}
-        label={label}
-        confirmLabel={confirmLabel}
-        cancelLabel={cancelLabel}
-        onConfirm={handleConfirm}
-        onClose={handleClose}
-      />)
+      <ThemeProvider theme={themeMUI}>
+        <ConfirmDialog
+          title={title}
+          open={true}
+          label={label}
+          confirmLabel={confirmLabel}
+          cancelLabel={cancelLabel}
+          onConfirm={handleConfirm}
+          onClose={handleClose}
+        />
+      </ThemeProvider>)
   })
 }
 
@@ -72,10 +76,10 @@ export function ConfirmDialog({
         <DialogContentText>{label}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose} color="primary">
+        <Button onClick={onClose} variant={'contained'} color="secondary">
           {cancelLabel}
         </Button>
-        <Button onClick={onConfirm} color="primary" autoFocus>
+        <Button onClick={onConfirm} variant={'contained'} color="warning" autoFocus>
           {confirmLabel}
         </Button>
       </DialogActions>

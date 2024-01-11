@@ -5,10 +5,12 @@ import {ZutatenPicker} from "../../../common/form-elements/ZutatenPicker";
 import {UtensilienPicker} from "../../../common/form-elements/UtensilienPicker";
 import {AktionenPicker} from "../../../common/form-elements/AktionenPicker";
 import Box from "@mui/material/Box";
-import {Field} from "formik";
+import {Field, useFormikContext} from "formik";
 import React from "react";
 import {ZeitangabeFields} from "./ZeitangabeFields";
 import {BetriebsartFields} from "./BetriebsartFields";
+import {ZwischenergebnisPicker} from "../../../common/form-elements/ZwischenergebnisPicker";
+import {Rezept} from "../../../../shared-types/models/rezept.model";
 
 /**
  * Form Layout eines Kochschrittes
@@ -18,6 +20,7 @@ import {BetriebsartFields} from "./BetriebsartFields";
  * @see RezeptFieldsKochschritte
  */
 export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldProps<Kochschritt>) {
+  const formik = useFormikContext<Rezept>()
 
   return (<Grid container spacing={1}>
 
@@ -37,7 +40,11 @@ export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldPr
     <Grid item xs={12} md={7}>
       <ZutatenPicker name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
       <hr/>
+      <ZwischenergebnisPicker name={`${name}[erforderlicheKochschritte]`}
+                              values={kochschritt.erforderlicheKochschritte || []}
+                              options={formik.values.kochschritte}/>
       <hr/>
+
       <UtensilienPicker name={`${name}[utensilien]`} values={kochschritt.utensilien}/>
 
       <FormGroup>

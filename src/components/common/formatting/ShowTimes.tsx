@@ -79,15 +79,7 @@ interface ShowZeitProps {
   Icon: any
 }
 
-function ShowZeit({zeit, label, Icon = HourglassBottomIcon}: ShowZeitProps) {
-  function minutesToString(minutes: number): string {
-    const hours: number = Math.floor(minutes / 60);
-    const remainingMinutes: number = minutes % 60;
-    const hoursStr: string = hours < 10 ? "0" + hours : hours.toString();
-    const minutesStr: string = remainingMinutes < 10 ? "0" + remainingMinutes : remainingMinutes.toString();
-    return hours ? hoursStr + ":" + minutesStr : minutesStr + " Min";
-  }
-
+function ShowZeit({zeit, label, Icon = HistoryToggleOffIcon}: ShowZeitProps) {
   if (!zeit) return <></>
 
   return <Grid container maxWidth={100}>
@@ -95,7 +87,7 @@ function ShowZeit({zeit, label, Icon = HourglassBottomIcon}: ShowZeitProps) {
       <Icon aria-label={label} color={'primary'}/>
     </Grid>
     <Grid item xs alignItems={'left'}>
-      {minutesToString(zeit)}
+      <MinutesToString minutes={zeit}/>
     </Grid>
   </Grid>
   /*
@@ -107,3 +99,18 @@ function ShowZeit({zeit, label, Icon = HourglassBottomIcon}: ShowZeitProps) {
     </Box>*/
 }
 
+
+function MinutesToString({minutes}: { minutes: number }) {
+  minutes = Math.floor(minutes)
+  if (minutes < 61)
+    return <>{minutes} Min</>
+
+  const hours: number = Math.floor(minutes / 60);
+  const remainingMinutes: number = minutes % 60;
+  const hoursStr: string = hours < 10 ? "0" + hours : hours.toString();
+  const minutesStr: string = remainingMinutes < 10 ? "0" + remainingMinutes : remainingMinutes.toString();
+  const result = hours ? hoursStr + ":" + minutesStr : minutesStr + " Min";
+
+  return <b>{result}</b>
+
+}

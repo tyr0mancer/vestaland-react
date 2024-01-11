@@ -36,6 +36,7 @@
     "react-dom": "^18.2.0",
     "react-drag-drop-files": "^2.3.10",
     "react-icons": "^4.12.0",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
     "react-webcam": "^7.2.0",
     "styled-components": "^6.1.6",
@@ -70,6 +71,7 @@
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/react-router-hash-link": "^2.4.9",
     "react-router-dom": "^6.21.0"
   }
 }

@@ -8,7 +8,7 @@ import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 /* Model */
 import {Rezept} from "../../../../shared-types/models/rezept.model";
@@ -55,8 +55,9 @@ export function KochschritteFields(): React.ReactElement {
   }
   const handleDelete = async (arrayHelpers: FieldArrayRenderProps, index: number) => {
     const confirm = await customConfirm({
-      title: 'wirklich löschen?',
-      label: 'Der Vorgang kann nicht rückgängig gemacht werden'
+      title: 'Kochschritt löschen?',
+      label: 'Der Vorgang kann nicht rückgängig gemacht werden',
+      confirmLabel: 'Kochschritt löschen',
     })
     if (!confirm) return
     arrayHelpers.remove(index)
@@ -88,7 +89,7 @@ export function KochschritteFields(): React.ReactElement {
                   {/* Control-Buttons to change Edit / View */}
                   <IconButton aria-label="edit"
                               onClick={() => setSelectedIndex((index === selectedIndex) ? -1 : index)}>
-                    {(index === selectedIndex) ? <CheckCircleOutlineIcon/> : <ModeEditIcon/>}
+                    {(index === selectedIndex) ? <VisibilityIcon/> : <ModeEditIcon/>}
                   </IconButton>
                 </Grid>
 

@@ -61,7 +61,7 @@ export function RezeptDetail() {
     return (<ErrorScreen eror={error}/>)
 
   return (
-    <Box>
+    <Box mb={10}>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
 

@@ -7,7 +7,7 @@ export const COLOR_SECONDARY = '#B8F5BA'
 export const COLOR_TERTIARY = '#669999'
 export const COLOR_LIGHT = '#E2FBFB'
 
-export const COLOR_WARNING = '#FF0000'
+export const COLOR_WARNING = '#8B0000'
 
 
 // https://paletton.com/#uid=52P0u0k7UUa3cZA5wXlaiQ5cFL3

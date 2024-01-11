@@ -1,6 +1,6 @@
 import React from "react";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
-import {Box,  Grid, IconButton, Typography} from "@mui/material";
+import {Box, Grid, IconButton, Typography} from "@mui/material";
 import {ShowKochschrittAktionen} from "../../common/formatting/ShowKochschrittAktionen";
 import {ShowZutaten} from "../../common/formatting/ShowZutaten";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
@@ -25,12 +25,13 @@ export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochs
     <Grid container spacing={1}>
 
       <Grid item xs={4} md={2}>
+        {kochschritt.resultatName && <span id={`rezept-${kochschritt.resultatName.toLowerCase().trim()}`}/>}
         <ShowKochschrittAktionen aktionen={kochschritt.aktionen}/>
         {kochschritt.resultatName &&
             <Typography className={'align-vertically'}
                         variant="body2" mt={2} borderTop={1} textAlign={'right'}>
                 <ArrowForwardIcon fontSize={'small'}/>
-                <a href="#">{kochschritt.resultatName}</a>
+              {kochschritt.resultatName}
             </Typography>
         }
       </Grid>
