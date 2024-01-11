@@ -1,7 +1,6 @@
 import React from "react";
 import {Link, Navigate, Route, Routes} from "react-router-dom";
-import {useAuth} from "../../../util/auth/AuthProvider";
-import {AppBar, IconButton, Toolbar, Typography} from "@mui/material";
+import {AppBar, IconButton, Toolbar} from "@mui/material";
 import PersonIcon from '@mui/icons-material/Person';
 import {MeineRezepte} from "./MeineRezepte";
 import {Account} from "./Account";
@@ -10,7 +9,6 @@ import GradeIcon from '@mui/icons-material/Grade';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 
 export function BenutzerInfo() {
-  const {authInfo} = useAuth()
   return (<>
     <AppBar position="static">
       <Toolbar variant="dense">
@@ -21,9 +19,6 @@ export function BenutzerInfo() {
                                            aria-label="Meine Rezepte"><GradeIcon/> Favoriten</IconButton></Link>
         <Link to={'account'}><IconButton sx={{mr: 2}} size="small" color="secondary"
                                          aria-label="Meine Rezepte"><PersonIcon/> Account</IconButton></Link>
-        <Typography variant="h6" color="inherit" component="div" sx={{mr: 4}}>
-          Benutzerbereich von {authInfo?.name}
-        </Typography>
       </Toolbar>
     </AppBar>
     <Routes>

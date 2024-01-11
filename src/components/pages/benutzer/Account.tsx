@@ -12,7 +12,7 @@ import {customConfirm} from "../../common/ui/ConfirmDialog";
  */
 export function Account(): React.ReactElement {
 
-  const {logout} = useAuth()
+  const {logout, authInfo} = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = async () => {
@@ -22,7 +22,10 @@ export function Account(): React.ReactElement {
   }
 
   return (<Box mt={2}>
-    <Typography variant="h4">Mein Account</Typography>
+    <Typography variant="h6" color="inherit" component="div" sx={{mr: 4}}>
+      Angemeldet als {authInfo?.name}
+    </Typography>
+
     <Typography variant="h6">To Do:</Typography>
     <ul>
       <li>Passwort ändern</li>
