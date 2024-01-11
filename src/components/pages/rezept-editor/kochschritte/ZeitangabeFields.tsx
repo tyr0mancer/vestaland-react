@@ -1,7 +1,8 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import {Field} from "formik";
-import {TextField} from "@mui/material";
+import {Field,} from "formik";
+import { TextField} from "@mui/material";
+import {CustomCheckbox} from "../../../common/form-elements/CustomCheckbox";
 
 interface ZeitangabeFieldsProps {
   name: string
@@ -28,5 +29,11 @@ export function ZeitangabeFields({name}: ZeitangabeFieldsProps): React.ReactElem
              size={'small'}
              name={`${name}[wartezeit]`} label="Wartezeit (Min)"/>
     </Box>
+    <Box flexGrow={1}>
+      <CustomCheckbox name={`${name}[wartenErforderlich]`} label={'Warten erforderlich'}/>
+    </Box>
+
   </Box>)
 }
+
+

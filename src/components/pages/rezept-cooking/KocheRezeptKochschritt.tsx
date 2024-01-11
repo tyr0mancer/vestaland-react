@@ -1,6 +1,8 @@
 import React, {useContext} from "react";
 import {StateContext} from "../../../util/state/StateProvider";
-import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {StateContextType} from "../../../util/state/types";
+import {ActionTypes} from "../../../util/state/reducers";
+
 import {Accordion, AccordionDetails, AccordionSummary} from "@mui/material";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import {ShowKochschrittAktion} from "../../common/formatting/ShowKochschrittAktionen";
@@ -23,7 +25,7 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       dispatch({
         type: ActionTypes.SET_KOCHSTATUS,
-        payload: {...kochstatus, kochschrittFokus: isExpanded ? panel : false}
+        payload: {...kochstatus, kochschrittFokusIndex: isExpanded ? panel : false}
       })
     };
 
@@ -40,14 +42,14 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
       type: ActionTypes.SET_KOCHSTATUS, payload: {
         ...kochstatus,
         etd,
-        kochschrittFokus: 'panel' + neuerKochschrittIndex,
-        kochschrittIndex: neuerKochschrittIndex
+        kochschrittFokusIndex: 'panel' + neuerKochschrittIndex,
+        aktuellerKochschrittIndex: neuerKochschrittIndex
       }
     })
   }
 
   return (<Accordion
-    expanded={kochstatus.kochschrittFokus === 'panel' + index}
+    expanded={kochstatus.kochschrittFokusIndex === 'panel' + index}
     onChange={handleChange('panel' + index)}
   >
     <AccordionSummary
@@ -62,10 +64,10 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
 
       <ShowZutaten zutaten={kochschritt?.zutaten || []}/>
 
-      {index === kochstatus.kochschrittIndex &&
+      {index === kochstatus.aktuellerKochschrittIndex &&
           <Button onClick={() => setIndex(index + 1)}>Abschließen</Button>
       }
-      {index === (kochstatus.kochschrittIndex - 1) &&
+      {index === (kochstatus.aktuellerKochschrittIndex - 1) &&
           <Button onClick={() => setIndex(index)}>Reopen</Button>
       }
     </AccordionDetails>

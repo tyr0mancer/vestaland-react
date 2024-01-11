@@ -1,7 +1,7 @@
 import {Field, Form, useFormikContext} from "formik";
 import React, {useContext, useEffect} from "react";
 import {StateContext} from "../../../util/state/StateProvider";
-import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../util/state/types";
+import {RezeptSucheQuery, StateContextType} from "../../../util/state/types";
 import {
   Accordion,
   AccordionDetails,
@@ -15,6 +15,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {useDebounce} from "../../../util/hooks/use-debounce";
 import {useAuth} from "../../../util/auth/AuthProvider";
+import {ActionTypes} from "../../../util/state/reducers";
 
 export function RezeptSucheForm() {
   const formik = useFormikContext<RezeptSucheQuery>();

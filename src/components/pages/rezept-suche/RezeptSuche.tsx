@@ -3,7 +3,9 @@ import {useQuery} from "@tanstack/react-query";
 import {Formik} from 'formik';
 
 import {StateContext} from "../../../util/state/StateProvider";
-import {ActionTypes, RezeptSucheQuery, StateContextType} from "../../../util/state/types";
+import {RezeptSucheQuery, StateContextType} from "../../../util/state/types";
+import {ActionTypes} from "../../../util/state/reducers";
+
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {rezeptSuche} from "../../../util/api/rezeptService";
 

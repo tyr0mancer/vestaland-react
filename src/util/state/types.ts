@@ -1,6 +1,7 @@
 import React from "react";
 import {Rezept} from "../../shared-types/models/rezept.model";
 import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
+import {ReducerActionType} from "./reducers";
 
 export interface RezeptSucheQuery {
   rezeptName: string,
@@ -21,26 +22,6 @@ export interface State {
   rezeptEditing?: Rezept
 }
 
-export enum ActionTypes {
-  SET_REZEPT_SUCHE = 'SET_REZEPT_SUCHE',
-  PUSH_HISTORY = 'PUSH_HISTORY',
-  SET_REZEPT_COOK = 'SET_REZEPT_COOK',
-  SET_REZEPT_EDIT = 'SET_REZEPT_EDIT',
-  SAVE_REZEPT_EDIT = 'SAVE_REZEPT_EDIT',
-  SET_KOCHSTATUS = 'SET_KOCHSTATUS',
-  DELETE_HISTORY = 'DELETE_HISTORY'
-}
-
-
-export type ReducerActionType =
-  | { type: ActionTypes.SET_REZEPT_SUCHE, payload: RezeptSucheQuery }
-  | { type: ActionTypes.PUSH_HISTORY, payload: Rezept }
-  | { type: ActionTypes.DELETE_HISTORY, payload: string }
-  | { type: ActionTypes.SET_REZEPT_COOK, payload?: Rezept }
-  | { type: ActionTypes.SET_REZEPT_EDIT, payload?: Rezept }
-  | { type: ActionTypes.SAVE_REZEPT_EDIT, payload?: Rezept }
-  | { type: ActionTypes.SET_KOCHSTATUS, payload: Kochstatus }
-
 
 // Weitere Aktionstypen...
 
@@ -50,17 +31,26 @@ export interface StateContextType {
 }
 
 
-interface KochschrittSummary {
+interface Timer {
+  startTime: Date,
+  totalLength: number,
+  isActive: boolean,
+  lastUpdate: Date,
+  timeLeft: number
+}
+
+export interface KochschrittMeta {
   length: number
   ratio: number | null
   aktionen: KochschrittAktion[]
   startTime?: Date
   endTime?: Date
+  timer?: Timer
 }
 
 export interface Kochstatus {
-  kochschritteSummary: KochschrittSummary[]
-  kochschrittFokus: string | false,
-  kochschrittIndex: number,
+  kochschritteSummary: KochschrittMeta[]
+  kochschrittFokusIndex: string | false,
+  aktuellerKochschrittIndex: number,
   etd?: Date
 }

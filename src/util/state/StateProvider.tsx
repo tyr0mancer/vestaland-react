@@ -13,8 +13,8 @@ const defaultState: State = {
   rezeptHistory: [],
   kochstatus: {
     kochschritteSummary: [],
-    kochschrittFokus: false,
-    kochschrittIndex: -1
+    kochschrittFokusIndex: false,
+    aktuellerKochschrittIndex: -1
   }
 }
 

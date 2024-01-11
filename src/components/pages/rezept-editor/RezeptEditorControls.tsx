@@ -1,6 +1,8 @@
 import React, {useContext, useEffect} from "react";
 import {StateContext} from "../../../util/state/StateProvider";
-import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {StateContextType} from "../../../util/state/types";
+import {ActionTypes} from "../../../util/state/reducers";
+
 import {useFormikContext} from "formik";
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {useDebounce} from "@react-hooks-library/core";
@@ -41,7 +43,10 @@ export function RezeptEditorControls(): React.ReactElement {
 
   /* Speichere Entwurf im Local Storage */
   const handleSaveDraft = () => {
-    dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: formik.values})
+    applyReducer().then(rezept => {
+      formik.values = {...rezept}
+      dispatch({type: ActionTypes.SAVE_REZEPT_EDIT, payload: formik.values})
+    })
   }
 
   /* Setze Formular zurück */
@@ -70,11 +75,17 @@ export function RezeptEditorControls(): React.ReactElement {
     }
   });
 
-  const handlePublish = () => {
+  const applyReducer = () => new Promise<Rezept>(res => {
     const kochschrittSummary = getKochschrittSummary(formik.values.kochschritte)
     kochschrittSummary.nutrients = multiplyNutrients(kochschrittSummary.nutrients, formik.values.portionen || 1)
-    formik.values = {...formik.values, ...kochschrittSummary}
-    mutate()
+    return res({...formik.values, ...kochschrittSummary})
+  })
+
+  const handlePublish = () => {
+    applyReducer().then(rezept => {
+      formik.values = {...rezept}
+      mutate()
+    })
   }
 
   return (<>

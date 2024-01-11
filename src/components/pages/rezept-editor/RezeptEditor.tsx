@@ -3,7 +3,9 @@ import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {Formik} from "formik";
 import {Rezept} from "../../../shared-types/models/rezept.model";
-import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {StateContextType} from "../../../util/state/types";
+import {ActionTypes} from "../../../util/state/reducers";
+
 import {StateContext} from "../../../util/state/StateProvider";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
 import {RezeptEditorForm} from "./RezeptEditorForm";

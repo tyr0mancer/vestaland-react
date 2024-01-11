@@ -3,13 +3,14 @@ import {useQuery} from "@tanstack/react-query";
 
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {StateContext} from "../../../util/state/StateProvider";
-import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {StateContextType} from "../../../util/state/types";
 import {RezeptCard} from "./RezeptCard";
 import {Grid, IconButton, Typography} from "@mui/material";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
+import {ActionTypes} from "../../../util/state/reducers";
 
 export function RezeptSucheAusgabe() {
   const {dispatch, state: {rezeptHistory, rezeptSucheQuery}} = useContext(StateContext) as StateContextType

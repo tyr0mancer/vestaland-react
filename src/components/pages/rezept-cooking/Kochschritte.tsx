@@ -5,7 +5,9 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {ActionTypes, StateContextType} from "../../../util/state/types";
+import {StateContextType} from "../../../util/state/types";
+import {ActionTypes} from "../../../util/state/reducers";
+
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import {Zutat} from "../../../shared-types/models/Zutat";
 import {Utensil} from "../../../shared-types/models/Utensil";
@@ -26,7 +28,7 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       dispatch({
         type: ActionTypes.SET_KOCHSTATUS,
-        payload: {...kochstatus, kochschrittFokus: isExpanded ? panel : false}
+        payload: {...kochstatus, kochschrittFokusIndex: isExpanded ? panel : false}
       })
     };
 
@@ -49,8 +51,8 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
       type: ActionTypes.SET_KOCHSTATUS, payload: {
         ...kochstatus,
         etd,
-        kochschrittFokus: 'panel' + neuerKochschrittIndex,
-        kochschrittIndex: neuerKochschrittIndex
+        kochschrittFokusIndex: 'panel' + neuerKochschrittIndex,
+        aktuellerKochschrittIndex: neuerKochschrittIndex
       }
     })
   }
@@ -61,13 +63,13 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
 
   return (
     <div>
-      {kochstatus.kochschrittIndex === -1 &&
+      {kochstatus.aktuellerKochschrittIndex === -1 &&
           <Button onClick={() => setIndex(0)}>Starten</Button>
       }
 
       {kochschritte.map((kochschritt, index) =>
-        <Accordion key={index} expanded={kochstatus.kochschrittFokus === 'panel' + index}
-                   className={(index !== kochstatus.kochschrittIndex) ? '' : 'aktueller-kochschritt'}
+        <Accordion key={index} expanded={kochstatus.kochschrittFokusIndex === 'panel' + index}
+                   className={(index !== kochstatus.aktuellerKochschrittIndex) ? '' : 'aktueller-kochschritt'}
                    onChange={handleChange('panel' + index)}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon/>}
@@ -92,10 +94,10 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
                 {kochschritt.zutaten.map((zutat, index) => <ListItem disablePadding
                                                                      key={index}>{zutat.menge} {zutat.einheit} {zutat.lebensmittel?.name}</ListItem>)}
               </List>
-              {index === kochstatus.kochschrittIndex &&
+              {index === kochstatus.aktuellerKochschrittIndex &&
                   <Button onClick={() => setIndex(index + 1)}>Abschließen</Button>
               }
-              {index === (kochstatus.kochschrittIndex - 1) &&
+              {index === (kochstatus.aktuellerKochschrittIndex - 1) &&
                   <Button onClick={() => setIndex(index)}>Reopen</Button>
               }
             </Typography>

@@ -19,7 +19,7 @@ export function ShowErforderlicheKochschritte({erforderlicheKochschritte = []}: 
   }
 
   return (<Grid container spacing={1} mb={1}>
-    {erforderlicheKochschritte.map((e, i) => (<div key={i}>
+    {erforderlicheKochschritte.map((e, i) => (<React.Fragment key={i}>
       <Grid item xs={4}/>
       <Grid item xs={8}>
         <HashLink
@@ -31,6 +31,6 @@ export function ShowErforderlicheKochschritte({erforderlicheKochschritte = []}: 
           </Typography>
         </HashLink>
       </Grid>
-    </div>))}
+    </React.Fragment>))}
   </Grid>)
 }
