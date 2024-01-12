@@ -112,11 +112,8 @@ export function NavbarMainMobile() {
       </Menu>
 
       {rezeptCooking && <>
-          <Typography variant="h5" component="div" sx={{flexGrow: 1}}>
-            {rezeptCooking.name}
-          </Typography>
           <Button color="secondary" variant="contained" component={Link}
-                  to={'/rezept-cooking'}><BlenderIcon/>25:43</Button>
+                  to={'/rezept-cooking'}><BlenderIcon/> {rezeptCooking.name}</Button>
       </>}
     </Toolbar>)
 }

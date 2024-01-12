@@ -27,12 +27,14 @@ export function FooterMainDesktop() {
       <BottomNavigation className={'main-footer'}>
         <Grid container spacing={0}>
           {kochstatus.meta && kochstatus.meta.map((ks, index) =>
-            <Grid onClick={() => setFokus(index)} key={index} item
+            <Grid  key={index} item
                   sx={{flexGrow: ks.length, flexShrink: 1, flexBasis: 0}}>
               <Button
+                onClick={() => setFokus(index)}
                 color={(kochstatus.aktuellerKochschrittIndex === index) ? 'primary' : 'secondary'}
                 variant={'contained'}
               >
+                <b># {index + 1}</b>
                 {ks.aktionen.map((aktion, index) =>
                   <React.Fragment key={index}>{aktion.aktionName}<br/></React.Fragment>
                 )}
