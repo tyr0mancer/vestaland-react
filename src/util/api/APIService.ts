@@ -22,7 +22,8 @@ export class APIService {
    *
    * @returns Promise<T>
    */
-  static async getById<T>(routePath: string, id: string): Promise<T> {
+  static async getById<T>(routePath: string, id?: string): Promise<T> {
+    if (!id) throw new Error("ID is required");
     return apiClient.get<T>(joinPaths(routePath, id)).then(res => res.data)
   }
 

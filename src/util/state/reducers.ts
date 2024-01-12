@@ -1,8 +1,12 @@
-import { RezeptPartial, State, RezeptSucheQuery, Kochstatus} from "./types";
+import {RezeptPartial, GlobalState, RezeptSucheQuery, Kochstatus} from "./types";
 import {LocalStorage} from "./StateProvider";
 import {Rezept} from "../../shared-types/models/rezept.model";
+import {Einkaufsliste} from "../../shared-types/models/einkaufsliste.model";
+import {updateCacheReducer} from "./updateCacheReducer";
 
 export enum ActionTypes {
+  UPDATE_CACHE = 'UPDATE_CACHE',
+
   SET_REZEPT_SUCHE = 'SET_REZEPT_SUCHE',
   PUSH_HISTORY = 'PUSH_HISTORY',
   SET_REZEPT_COOK = 'SET_REZEPT_COOK',
@@ -12,7 +16,23 @@ export enum ActionTypes {
   DELETE_HISTORY = 'DELETE_HISTORY'
 }
 
+export const DefaultDataSyncNodes: DataSyncNodes = {}
+
+export interface DataSyncNodes {
+  rezeptEdit?: Rezept,
+  rezeptView?: Rezept,
+  einkaufslisten?: Einkaufsliste[],
+}
+
+export type CachePayloadType =
+  | { key: 'rezeptEdit', data: Rezept }
+  | { key: 'einkaufslisten', data: Einkaufsliste[] }
+
+export type CachePayloadTypeKeys = CachePayloadType extends { key: infer K } ? K : never;
+
 export type ReducerActionType =
+  | { type: ActionTypes.UPDATE_CACHE, payload: CachePayloadType }
+
   | { type: ActionTypes.SET_REZEPT_SUCHE, payload: RezeptSucheQuery }
   | { type: ActionTypes.PUSH_HISTORY, payload: Rezept }
   | { type: ActionTypes.DELETE_HISTORY, payload: string }
@@ -22,9 +42,11 @@ export type ReducerActionType =
   | { type: ActionTypes.SET_KOCHSTATUS, payload: Kochstatus }
 
 
-export const reducer = (state: State, action: ReducerActionType): State => {
+export const reducer = (state: GlobalState, action: ReducerActionType): GlobalState => {
 
   switch (action.type) {
+    case ActionTypes.UPDATE_CACHE:
+      return updateCacheReducer(state, action.payload)
 
     case ActionTypes.DELETE_HISTORY:
       const newHistory = state.rezeptHistory.filter(r => r._id !== action.payload)

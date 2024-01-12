@@ -20,6 +20,7 @@ export function UtensilienPicker({name, values: utensilien}: CustomFieldProps<Ut
       name={name}
       render={arrayHelpers => (
         <Box>
+
           {utensilien?.map((utensil, index) =>
 
             <UtensilForm key={index} index={index} name={`${name}[${index}]`} values={utensil}
@@ -31,6 +32,7 @@ export function UtensilienPicker({name, values: utensilien}: CustomFieldProps<Ut
                   neues Utensil
               </Button>
           }
+
         </Box>
       )}
     />

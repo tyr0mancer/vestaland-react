@@ -5,5 +5,4 @@ export interface CustomFieldProps<T> {
   values: T;
   index?: number;
   arrayHelpers?: FieldArrayRenderProps
-
 }

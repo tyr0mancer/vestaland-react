@@ -1,21 +1,22 @@
 import React, {useReducer} from 'react';
 
-import {reducer} from "./reducers";
-import {Kochstatus, RezeptPartial, RezeptSucheQuery, State, StateContextType} from "./types";
+import {DefaultDataSyncNodes, reducer} from "./reducers";
+import {Kochstatus, RezeptPartial, RezeptSucheQuery, GlobalState, StateContextType} from "./types";
 import {Rezept} from "../../shared-types/models/rezept.model";
 
 const rezeptSucheQueryDefault: RezeptSucheQuery = {
   rezeptName: ''
 }
 
-const defaultState: State = {
+const defaultState: GlobalState = {
   rezeptSucheQuery: rezeptSucheQueryDefault,
   rezeptHistory: [],
   kochstatus: {
     meta: [],
     kochschrittFokusIndex: false,
     aktuellerKochschrittIndex: -1
-  }
+  },
+  dataSync: DefaultDataSyncNodes,
 }
 
 export enum LocalStorage {

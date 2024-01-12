@@ -2,12 +2,21 @@ import React from "react";
 import {Field, useField} from "formik";
 import {Checkbox, FormControlLabel} from "@mui/material";
 
-interface CustomCheckboxProps {
+type CustomCheckboxProps = {
   name: string,
   label: string
 }
 
-export function CustomCheckbox({name, label}: CustomCheckboxProps) {
+/**
+ * Custom Formik Field Element
+ * @component CustomCheckbox
+ *
+ * @param name Formik Field name
+ * @param label Bezeichner der Checkbox
+ *
+ * @example <CustomCheckbox name={`${name}[wartenErforderlich]`} label={'Warten erforderlich?'}/>
+ */
+export function CustomCheckbox({name, label}: CustomCheckboxProps): React.ReactElement {
   const [field, , helpers] = useField(name);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +31,7 @@ export function CustomCheckbox({name, label}: CustomCheckboxProps) {
     label={label}
     variant="outlined"
     onChange={handleChange}
-    fullWidth
+    fullWidth={true}
   />
 
 }

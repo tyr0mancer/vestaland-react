@@ -11,7 +11,7 @@ import {RezeptSuche} from "../pages/rezept-suche";
 import {RezeptEditor} from "../pages/rezept-editor";
 import {RezeptDetail} from "../pages/rezept-detail";
 import {KocheRezept} from "../pages/rezept-cooking";
-
+import {EinkaufslisteView} from "../pages/einkaufsliste";
 
 
 export function MainRouter() {
@@ -25,6 +25,11 @@ export function MainRouter() {
         <Route path="/rezept-editor" element={<DefaultView children={<RezeptEditor/>}/>}/>
         <Route path="/rezept-editor/:rezeptId" element={<DefaultView children={<RezeptEditor/>}/>}/>
         <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
+
+
+        <Route path="/einkaufsliste" element={<DefaultView children={<EinkaufslisteView/>}/>}/>
+        <Route path="/einkaufsliste/:rezeptId" element={<DefaultView children={<EinkaufslisteView/>}/>}/>
+
 
         <Route path="/login" element={<DefaultView children={<LoginForm/>}/>}/>
         <Route path="/user/*" element={<DefaultView children={<BenutzerInfo/>}/>}/>

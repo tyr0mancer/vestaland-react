@@ -1,7 +1,7 @@
 import React from "react";
 import {Rezept} from "../../shared-types/models/rezept.model";
 import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
-import {ReducerActionType} from "./reducers";
+import {ReducerActionType, DataSyncNodes} from "./reducers";
 
 export interface RezeptSucheQuery {
   rezeptName: string,
@@ -14,7 +14,8 @@ export interface RezeptSucheQuery {
 
 export type RezeptPartial = Pick<Rezept, "_id" | "name" | "bild" | "beschreibung">;
 
-export interface State {
+export interface GlobalState {
+  dataSync: DataSyncNodes,
   rezeptHistory: RezeptPartial[],
   rezeptSucheQuery: RezeptSucheQuery,
   rezeptCooking?: Rezept,
@@ -26,7 +27,7 @@ export interface State {
 // Weitere Aktionstypen...
 
 export interface StateContextType {
-  state: State;
+  state: GlobalState;
   dispatch: React.Dispatch<ReducerActionType>;
 }
 
