@@ -40,7 +40,6 @@ export function Kochschritte({kochschritte}: KochschritteProps) {
   }
 
   const setIndex = (neuerKochschrittIndex: number) => {
-    console.log('index', neuerKochschrittIndex)
     const restZeit = kochschritte.filter((k, index) => (index >= neuerKochschrittIndex)).reduce((a, c) => {
       return a + (c.gesamtdauer || 0)
     }, 0)

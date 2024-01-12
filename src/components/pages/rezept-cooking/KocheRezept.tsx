@@ -1,17 +1,19 @@
 import React, {useContext, useEffect, useState} from "react";
 import {StateContext} from "../../../util/state/StateProvider";
-import {StateContextType} from "../../../util/state/types";
+import {KochschrittMeta, StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
 import Button from "@mui/material/Button";
 import {useNavigate} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import {Accordion, AccordionDetails, AccordionSummary, Box, Grid, LinearProgress} from "@mui/material";
+import {Accordion, AccordionDetails, AccordionSummary, Box, Grid, LinearProgress, Typography} from "@mui/material";
 import {ShowZutaten} from "../../common/formatting/ShowZutaten";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
 import {KocheRezeptKochschritt} from "./KocheRezeptKochschritt";
 import {customConfirm} from "../../common/ui/ConfirmDialog";
+import {getDateInFuture} from "./Kochschritte";
+import {getEtdString} from "../../../util/date-helper/dateFormat";
 
 export function KocheRezept() {
   const {state: {rezeptCooking, kochstatus}, dispatch} = useContext(StateContext) as StateContextType
@@ -33,11 +35,17 @@ export function KocheRezept() {
   }
 
   const handleStart = () => {
+    const restZeit = kochstatus.meta.reduce((a: number, c: KochschrittMeta) => {
+      return a + (c.length || 0)
+    }, 0)
+    const etd = restZeit ? getDateInFuture(restZeit) : undefined
+
     dispatch({
       type: ActionTypes.SET_KOCHSTATUS, payload: {
         ...kochstatus,
         kochschrittFokusIndex: 'panel0',
-        aktuellerKochschrittIndex: 0
+        aktuellerKochschrittIndex: 0,
+        etd: etd
       }
     })
   }
@@ -47,7 +55,8 @@ export function KocheRezept() {
       type: ActionTypes.SET_KOCHSTATUS, payload: {
         ...kochstatus,
         kochschrittFokusIndex: false,
-        aktuellerKochschrittIndex: -1
+        aktuellerKochschrittIndex: -1,
+        etd: undefined
       }
     })
   }
@@ -70,10 +79,21 @@ export function KocheRezept() {
 
   if (rezeptCooking)
     return (<>
-      <h1>{rezeptCooking.name}</h1>
+      <Typography variant="h2" display="flex" justifyContent="space-between">
+        {rezeptCooking.name}
 
-      {kochstatus.etd && <h2>ETD: {kochstatus.etd?.toString()}</h2>}
-      {!kochstatus.etd && <h2>Gesamtdauer {rezeptCooking.berechneteGesamtdauer} Minuten</h2>}
+
+        <Box>
+          <Button onClick={handleStart} disabled={kochstatus.aktuellerKochschrittIndex !== -1}>Start</Button>
+          <Button onClick={handleReset} disabled={kochstatus.aktuellerKochschrittIndex < 0}>Reset</Button>
+          <Button onClick={handleStop}>Beenden</Button>
+        </Box>
+      </Typography>
+
+      <Typography variant="body2">
+        {kochstatus.etd && <>(ETD: {getEtdString(kochstatus.etd)})</>}
+        {!kochstatus.etd && <>({rezeptCooking.berechneteGesamtdauer} Minuten)</>}
+      </Typography>
 
       <LinearProgress
         sx={{height: 20}}
@@ -106,9 +126,6 @@ export function KocheRezept() {
         {rezeptCooking.kochschritte.map((ks, index) => (<KocheRezeptKochschritt index={index} key={index}/>))}
       </Box>
 
-      <Button onClick={handleStart} disabled={kochstatus.aktuellerKochschrittIndex !== -1}>Start</Button>
-      <Button onClick={handleReset} disabled={kochstatus.aktuellerKochschrittIndex < 0}>Reset</Button>
-      <Button onClick={handleStop}>Beenden</Button>
     </>)
 
   return (<>Fehler</>)
