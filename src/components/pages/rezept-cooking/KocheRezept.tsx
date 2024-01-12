@@ -59,11 +59,11 @@ export function KocheRezept() {
     if (!rezeptCooking?.kochschritte.length)
       return setProgress(100)
 
-    //@todo kochschritteSummary
     const lengthDone = kochstatus.meta?.slice(0, kochstatus.aktuellerKochschrittIndex).reduce((total, item) => total + item.length, 0) || 0
     const lengthTotal = kochstatus.meta?.reduce((total, item) => total + item.length, 0) || 0
     const result = Math.round(lengthDone / lengthTotal * 100)
     setProgress(result)
+    //@todo kochschritteSummary
 
   }, [kochstatus, rezeptCooking, setProgress])
 

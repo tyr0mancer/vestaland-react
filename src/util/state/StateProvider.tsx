@@ -30,9 +30,9 @@ export const StateContext = React.createContext<StateContextType | undefined>(un
 export const StateProvider = ({children}: any) => {
   const initialState = () => {
     const rezeptEditString = localStorage.getItem(LocalStorage.REZEPT_EDIT);
-    const rezeptCookingString = localStorage.getItem(LocalStorage.REZEPT_COOK);
     const rezeptHistoryString = localStorage.getItem(LocalStorage.REZEPT_HISTORY);
-    const kochstatusString = localStorage.getItem(LocalStorage.REZEPT_HISTORY);
+    const rezeptCookingString = localStorage.getItem(LocalStorage.REZEPT_COOK);
+    const kochstatusString = localStorage.getItem(LocalStorage.KOCHSTATUS);
 
     return {
       ...defaultState,
