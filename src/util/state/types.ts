@@ -43,13 +43,13 @@ export interface KochschrittMeta {
   length: number
   ratio: number | null
   aktionen: KochschrittAktion[]
-  startTime?: Date
-  endTime?: Date
+  startTime: Date | null
+  endTime: Date | null
   timer?: Timer
 }
 
 export interface Kochstatus {
-  kochschritteSummary: KochschrittMeta[]
+  meta: KochschrittMeta[]
   kochschrittFokusIndex: string | false,
   aktuellerKochschrittIndex: number,
   etd?: Date

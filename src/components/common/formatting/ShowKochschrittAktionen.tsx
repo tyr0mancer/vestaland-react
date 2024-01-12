@@ -13,7 +13,9 @@ interface ShowKochschrittAktionenProps {
  */
 export function ShowKochschrittAktionen({aktionen}: ShowKochschrittAktionenProps): React.ReactElement {
   return (<>{aktionen.map((aktion, index) =>
-    <div key={index}><b><AktionIconImage aktionIcon={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
+    <Typography variant="body1" key={index} color={'primary'}>
+      <AktionIconImage size={16} aktionIcon={aktion.aktionIcon}/> {aktion.aktionName}
+    </Typography>
   )}</>)
 }
 

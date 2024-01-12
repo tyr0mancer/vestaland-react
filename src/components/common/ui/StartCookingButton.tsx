@@ -25,18 +25,18 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
 
   // Confirm falls bereits gekocht wird und das Rezept schon gestartet wurde
   async function startCooking() {
-    const result = !rezeptCooking || (kochstatus.aktuellerKochschrittIndex === -1) || (kochstatus.aktuellerKochschrittIndex === kochstatus.kochschritteSummary?.length)
+    const result = !rezeptCooking || (kochstatus.aktuellerKochschrittIndex === -1) || (kochstatus.aktuellerKochschrittIndex === kochstatus.meta?.length)
       || await customConfirm({
         title: 'Es wird bereits gekocht.',
         confirmLabel: 'Kochen starten',
         cancelLabel: `${rezeptCooking.name} weiter kochen`,
-        label: `${rezeptCooking.name} (Schritt ${kochstatus.aktuellerKochschrittIndex + 1} / ${kochstatus.kochschritteSummary.length})`
+        label: `${rezeptCooking.name} (Schritt ${kochstatus.aktuellerKochschrittIndex + 1} / ${kochstatus.meta.length})`
       })
     if (!result) return
 
 
-    /* erstellt kochschritteSummary */
-    const summary: KochschrittMeta[] = rezept.kochschritte.reduce((previousValue: any[], currentValue: Kochschritt) => {
+    /* erstellt KochschritteMeta */
+    const kochschritteMeta: KochschrittMeta[] = rezept.kochschritte.reduce((previousValue: any[], currentValue: Kochschritt) => {
 
       let gesamtdauer = currentValue.gesamtdauer || ((currentValue.arbeitszeit || 0) + (currentValue.wartezeit || 0))
       let arbeitszeit = currentValue.arbeitszeit || 0
@@ -49,7 +49,6 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
         ratio: ratio,
         aktionen: currentValue.aktionen
       }
-
       return [...previousValue, newValue]
     }, [])
 
@@ -57,7 +56,7 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
     dispatch({type: ActionTypes.SET_REZEPT_COOK, payload: rezept})
     dispatch({
       type: ActionTypes.SET_KOCHSTATUS,
-      payload: {aktuellerKochschrittIndex: -1, kochschrittFokusIndex: false, kochschritteSummary: summary}
+      payload: {aktuellerKochschrittIndex: -1, kochschrittFokusIndex: false, meta: kochschritteMeta}
     })
     navigate('/rezept-cooking')
   }
