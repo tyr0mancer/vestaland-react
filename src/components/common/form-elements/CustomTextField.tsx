@@ -1,5 +1,5 @@
 import React from "react";
-import {Field} from "formik";
+import {Field, useField} from "formik";
 import {TextField} from "@mui/material";
 
 type CustomTextFieldProps = {
@@ -13,8 +13,13 @@ type CustomTextFieldProps = {
  * @component CustomTextField
  */
 export function CustomTextField({name, label, type = 'text'}: CustomTextFieldProps): React.ReactElement {
-
-  return (<Field as={TextField} type={type} variant="outlined"
-                 name={name} label={label}/>
-  )
+  const [, meta] = useField(name);
+  return (<Field as={TextField}
+                 type={type}
+                 variant={'outlined'}
+                 name={name}
+                 label={label}
+                 error={meta.touched && !!meta.error}
+                 helperText={meta.touched && meta.error}
+  />)
 }

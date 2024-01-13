@@ -1,17 +1,18 @@
 import React from "react";
-import { FieldArrayRenderProps, Form, Formik, useField, useFormikContext} from "formik";
+import {FieldArrayRenderProps, Form, Formik, useField, useFormikContext} from "formik";
 import {Box, Button} from "@mui/material";
 
 import {APIService} from "../../../util/api/APIService";
 import {useDataSync} from "../../../util/state/useDataSync";
-import {StatusWrapper} from "../../common/ui/StatusWrapper";
+import {CacheState} from "../../../util/state/CacheState";
 import {Rezept} from "../../../shared-types/models/rezept.model";
 import {Zutat} from "../../../shared-types/models/Zutat";
-
-
+import {RezeptSchema} from "../../../shared-types/models/rezept.schema";
+import {StatusWrapper} from "../../common/ui/StatusWrapper";
 import {CustomFieldArray} from "../../common/form-elements/CustomFieldArray";
 import {CustomTextField} from "../../common/form-elements/CustomTextField";
-import { CacheState } from "../../../util/state/CacheState";
+
+
 
 type EinkaufslisteViewProps = {}
 
@@ -21,11 +22,12 @@ type EinkaufslisteViewProps = {}
  */
 export function EinkaufslisteView({}: EinkaufslisteViewProps): React.ReactElement {
 
-  const {initialValues, isLoading, error, handleSave} = useDataSync<Rezept>({
+  const {initialValues, isLoading, error, handleSave, validateForm} = useDataSync<Rezept>({
     defaultValues: new Rezept(),
     contextKey: 'rezeptEdit',
     queryKey: 'rezeptEdit',
     queryFn: (param?: string) => APIService.getById<Rezept>('rezept', param),
+    validationSchema: RezeptSchema,
   })
 
   return (<StatusWrapper dataSync={{isLoading, error}}>
@@ -34,7 +36,7 @@ export function EinkaufslisteView({}: EinkaufslisteViewProps): React.ReactElemen
       initialValues={initialValues}
       onSubmit={() => {
       }}
-      enableReinitialize
+      validate={validateForm}
     >
       {({values}) => {
         return (<Form>
@@ -42,6 +44,7 @@ export function EinkaufslisteView({}: EinkaufslisteViewProps): React.ReactElemen
           <CacheState payload={{key: 'rezeptEdit', data: values}}/>
 
           <CustomTextField name={`name`} label="Rezeptname" type={'text'}/>
+          <CustomTextField name={`schwierigkeitsgrad`} label="schwierigkeitsgrad" type={'text'}/>
 
           <CustomFieldArray name={'zutaten'}
                             child={<ZutatChild/>}
@@ -55,7 +58,6 @@ export function EinkaufslisteView({}: EinkaufslisteViewProps): React.ReactElemen
 
   </StatusWrapper>)
 }
-
 
 
 type ZutatChildProps = {

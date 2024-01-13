@@ -5,6 +5,7 @@ import {useQuery} from "@tanstack/react-query";
 import {StateContextType} from "./types";
 import {StateContext} from "./StateProvider";
 import {ActionTypes, CachePayloadTypeKeys} from "./reducers";
+import {ZodError, ZodObject} from "zod";
 
 interface UseDataSyncParams<T> {
   parameterName?: string
@@ -12,6 +13,7 @@ interface UseDataSyncParams<T> {
   queryKey?: string
   contextKey?: CachePayloadTypeKeys
   defaultValues: T
+  validationSchema:  ZodObject<any>
 }
 
 export interface UseDataSyncReturn<T> {
@@ -19,6 +21,7 @@ export interface UseDataSyncReturn<T> {
   isLoading: boolean
   error: unknown
   handleSave: (value: T) => void
+  validateForm: (value: T) => any
 }
 
 export function useDataSync<T>({
@@ -26,7 +29,8 @@ export function useDataSync<T>({
                                  queryFn,
                                  queryKey,
                                  contextKey,
-                                 defaultValues
+                                 defaultValues,
+                                 validationSchema
                                }: UseDataSyncParams<T>): UseDataSyncReturn<T> {
 
   const params = useParams<{ [key: string]: string }>()
@@ -49,7 +53,7 @@ export function useDataSync<T>({
   const localStorageData = !contextKey
     ? null
     : localStorage.getItem(contextKey)
-      ? JSON.parse(localStorage.getItem(contextKey )|| 'null') as T
+      ? JSON.parse(localStorage.getItem(contextKey) || 'null') as T
       : null
 
   const initialValues = (apiData ?? contextData ?? localStorageData ?? defaultValues) as T;
@@ -59,5 +63,16 @@ export function useDataSync<T>({
     localStorage.setItem(contextKey, JSON.stringify(value || null));
   }
 
-  return {initialValues, isLoading, error, handleSave};
+  const validateForm = (values: T) => {
+    try {
+      console.log('parse!')
+      validationSchema.parse(values);
+    } catch (error) {
+      if (error instanceof ZodError) {
+        return error.formErrors.fieldErrors;
+      }
+    }
+  };
+
+  return {initialValues, isLoading, error, handleSave, validateForm};
 }
