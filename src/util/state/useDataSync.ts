@@ -65,7 +65,6 @@ export function useDataSync<T>({
 
   const validateForm = (values: T) => {
     try {
-      console.log('parse!')
       validationSchema.parse(values);
     } catch (error) {
       if (error instanceof ZodError) {

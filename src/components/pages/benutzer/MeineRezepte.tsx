@@ -1,5 +1,5 @@
 import React from "react";
-import {Rezept} from "../../../shared-types/models/rezept.model";
+import {Rezept} from "../../../shared-types/model/Rezept";
 import {rezeptSuche} from "../../../util/api/rezeptService";
 import {useQuery} from "@tanstack/react-query";
 import {Box, Typography} from "@mui/material";

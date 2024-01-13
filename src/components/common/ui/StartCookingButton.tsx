@@ -1,5 +1,5 @@
 import React, {useContext} from "react";
-import {Rezept} from "../../../shared-types/models/rezept.model";
+import {Rezept} from "../../../shared-types/model/Rezept";
 import {useNavigate} from "react-router-dom";
 import {StateContext} from "../../../util/state/StateProvider";
 import {KochschrittMeta, StateContextType} from "../../../util/state/types";
@@ -8,7 +8,7 @@ import {ActionTypes} from "../../../util/state/reducers";
 import {Blender} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
 import {customConfirm} from "./ConfirmDialog";
-import {Kochschritt} from "../../../shared-types/models/Kochschritt";
+import {Kochschritt} from "../../../shared-types/model/Kochschritt";
 
 interface StartCookingButtonProps {
   rezept: Rezept

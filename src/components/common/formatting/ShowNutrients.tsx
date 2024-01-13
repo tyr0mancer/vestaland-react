@@ -1,5 +1,5 @@
 import React from "react";
-import {Nutrients} from "../../../shared-types/models/Nutrients";
+import {Nutrients} from "../../../shared-types/model/Nutrients";
 import {Card, Grid} from "@mui/material";
 
 interface ShowNutrientsProps {

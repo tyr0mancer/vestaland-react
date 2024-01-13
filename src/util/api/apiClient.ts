@@ -1,6 +1,6 @@
 import axios from 'axios';
 import myConfig from "../../config";
-import {ApiErrorResponse} from "../../shared-types/api";
+import {ApiErrorResponse} from "../../shared-types/types";
 
 // wird nur verwendet, um das auth token zu erneuern
 const refreshClient = axios.create({

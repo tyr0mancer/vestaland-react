@@ -1,6 +1,6 @@
 import React from "react";
 import {Grid} from "@mui/material";
-import {Zutat} from "../../../shared-types/models/Zutat";
+import {Zutat} from "../../../shared-types/model/Zutat";
 import {EinheitProperties} from "../../../util/rezept-helper/enum-properties/EinheitProperties";
 import {Einheit} from "../../../shared-types/enum";
 

@@ -1,8 +1,8 @@
 import {RezeptPartial, GlobalState, RezeptSucheQuery, Kochstatus} from "./types";
 import {LocalStorage} from "./StateProvider";
-import {Rezept} from "../../shared-types/models/rezept.model";
-import {Einkaufsliste} from "../../shared-types/models/einkaufsliste.model";
+import {Rezept} from "../../shared-types/model/Rezept";
 import {updateCacheReducer} from "./updateCacheReducer";
+import {Einkaufsliste} from "../../shared-types/model/einkaufsliste.model";
 
 export enum ActionTypes {
   UPDATE_CACHE = 'UPDATE_CACHE',

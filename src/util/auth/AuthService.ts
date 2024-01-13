@@ -1,26 +1,27 @@
-import { LoginResponse } from "../../shared-types/auth";
+
 import {apiClient} from "../api/apiClient";
 import {LoginProps, RegisterProps} from "./types";
+import {LoginResponseType} from "../../shared-types/types";
 
 
 export class AuthService {
-  static async login(loginInfo?: LoginProps): Promise<LoginResponse> {
-    return new Promise<LoginResponse>((resolve, reject) => {
+  static async login(loginInfo?: LoginProps): Promise<LoginResponseType> {
+    return new Promise<LoginResponseType>((resolve, reject) => {
       apiClient.post('/auth/login', loginInfo)
         .then(response => {
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
-          resolve(response.data as LoginResponse)
+          resolve(response.data as LoginResponseType)
         })
         .catch(reject)
     })
   }
 
-  static async refresh(): Promise<LoginResponse> {
-    return new Promise<LoginResponse>((resolve, reject) => {
+  static async refresh(): Promise<LoginResponseType> {
+    return new Promise<LoginResponseType>((resolve, reject) => {
       apiClient.post('/auth/refresh')
         .then(response => {
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
-          resolve(response.data as LoginResponse)
+          resolve(response.data as LoginResponseType)
         })
         .catch(reject)
     })
@@ -37,12 +38,12 @@ export class AuthService {
     })
   }
 
-  static async registerAndLogin(newUser: RegisterProps): Promise<LoginResponse> {
-    return new Promise<LoginResponse>((resolve, reject) => {
+  static async registerAndLogin(newUser: RegisterProps): Promise<LoginResponseType> {
+    return new Promise<LoginResponseType>((resolve, reject) => {
       apiClient.post('/auth/register', newUser)
         .then(response => {
           apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
-          resolve(response.data as LoginResponse)
+          resolve(response.data as LoginResponseType)
         })
         .catch(reject)
     })

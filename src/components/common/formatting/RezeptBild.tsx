@@ -1,5 +1,5 @@
 import React from "react";
-import {Datei} from "../../../shared-types/models/Datei";
+import {Datei} from "../../../shared-types/model/Datei";
 import config from "../../../config";
 
 const DUMMY = 'https://api.vestaland.de/public/platzhalter.jpg'
@@ -24,5 +24,5 @@ export function RezeptBild({bild, alt = 'Bild zu Rezept', size = 'medium'}: Reze
   let height = 150
   if (size === 'small')
     height = 100
-  return (<img src={getFileUrl(bild?.dateiNameServer)} height={height} width={'100%'} alt={alt} title={alt}/>)
+  return (<img src={getFileUrl(bild?.filename)} height={height} width={'100%'} alt={alt} title={alt}/>)
 }

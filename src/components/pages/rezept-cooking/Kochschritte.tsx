@@ -8,9 +8,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
-import {Kochschritt} from "../../../shared-types/models/Kochschritt";
-import {Zutat} from "../../../shared-types/models/Zutat";
-import {Utensil} from "../../../shared-types/models/Utensil";
+import {Kochschritt} from "../../../shared-types/model/Kochschritt";
+import {Zutat} from "../../../shared-types/model/Zutat";
+import {Utensil} from "../../../shared-types/model/Utensil";
 import {StateContext} from "../../../util/state/StateProvider";
 import List from '@mui/material/List';
 import {ListItem} from "@mui/material";

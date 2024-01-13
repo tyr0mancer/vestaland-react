@@ -13,7 +13,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 
 import {APIService} from "../../../util/api/APIService";
-import {Rezept} from "../../../shared-types/models/rezept.model";
+import {Rezept} from "../../../shared-types/model/Rezept";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
 import {ShowTags} from "../../common/formatting/ShowTags";

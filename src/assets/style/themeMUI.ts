@@ -4,7 +4,7 @@ import {deepmerge} from '@mui/utils';
 
 export const COLOR_PRIMARY = '#004400'
 export const COLOR_SECONDARY = '#B8F5BA'
-export const COLOR_TERTIARY = '#669999'
+export const COLOR_TERTIARY = '#0D4D4D'
 export const COLOR_LIGHT = '#E2FBFB'
 
 export const COLOR_WARNING = '#8B0000'

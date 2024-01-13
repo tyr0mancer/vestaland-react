@@ -1,16 +1,16 @@
 import {CustomFieldProps} from "../../../common/form-elements/types";
-import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
+import {Kochschritt} from "../../../../shared-types/model/Kochschritt";
 import {FormGroup, Grid, TextField} from "@mui/material";
-import {ZutatenPicker} from "../../../common/form-elements/ZutatenPicker";
-import {UtensilienPicker} from "../../../common/form-elements/UtensilienPicker";
-import {AktionenPicker} from "../../../common/form-elements/AktionenPicker";
+import {ZutatenPicker} from "../../../common/form-elements/specific/ZutatenPicker";
+import {UtensilienPicker} from "../../../common/form-elements/specific/UtensilienPicker";
+import {AktionenPicker} from "../../../common/form-elements/specific/AktionenPicker";
 import Box from "@mui/material/Box";
 import {Field, useFormikContext} from "formik";
 import React from "react";
 import {ZeitangabeFields} from "./ZeitangabeFields";
 import {BetriebsartFields} from "./BetriebsartFields";
-import {ZwischenergebnisPicker} from "../../../common/form-elements/ZwischenergebnisPicker";
-import {Rezept} from "../../../../shared-types/models/rezept.model";
+import {ZwischenergebnisPicker} from "../../../common/form-elements/specific/ZwischenergebnisPicker";
+import {Rezept} from "../../../../shared-types/model/Rezept";
 
 /**
  * Form Layout eines Kochschrittes

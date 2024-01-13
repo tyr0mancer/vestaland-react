@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import {Field,} from "formik";
 import { TextField} from "@mui/material";
-import {CustomCheckbox} from "../../../common/form-elements/CustomCheckbox";
+import {CustomCheckbox} from "../../../common/form-elements/generic/CustomCheckbox";
 
 interface ZeitangabeFieldsProps {
   name: string

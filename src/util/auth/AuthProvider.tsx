@@ -3,12 +3,12 @@ import {LoginProps} from "./types";
 import {isAuthError} from "../api/apiClient";
 import {AuthService} from "./AuthService";
 import config from "../../config";
-import {ApiErrorResponse} from "../../shared-types/api";
-import {LoginResponse} from "../../shared-types/auth";
+
 import {BenutzerRolle} from "../../shared-types/enum";
+import {ApiErrorResponse, LoginResponseType} from "../../shared-types/types";
 
 type AuthContextType = {
-  authInfo: LoginResponse | null,
+  authInfo: LoginResponseType | null,
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
   isOwner: (userId?: string) => boolean,
   logout: () => Promise<any>,
@@ -29,7 +29,7 @@ const AuthContext = createContext<AuthContextType>({
 
 export const AuthProvider = ({children}: any) => {
 
-  const [authInfo, setAuthInfo] = useState<LoginResponse | null>(null);
+  const [authInfo, setAuthInfo] = useState<LoginResponseType | null>(null);
   const [error, setError] = useState<ApiErrorResponse | null>(null)
 
   /*
@@ -49,7 +49,7 @@ export const AuthProvider = ({children}: any) => {
   /*
     Das Refresh-Token wird als HTTP-only unter der Domain des express Servers gesendet, sofern der User noch eingeloggt war.
   */
-  function refresh(refreshFn: () => Promise<LoginResponse>) {
+  function refresh(refreshFn: () => Promise<LoginResponseType>) {
     return new Promise((resolve, reject) => {
       refreshFn().then(res => {
         setAuthInfo(() => res)

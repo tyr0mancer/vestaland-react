@@ -1,7 +1,7 @@
 import React from "react";
-import {Rezept} from "../../shared-types/models/rezept.model";
-import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 import {ReducerActionType, DataSyncNodes} from "./reducers";
+import {Rezept} from "../../shared-types/model/Rezept";
+import {KochschrittAktion} from "../../shared-types/model/KochschrittAktion";
 
 export interface RezeptSucheQuery {
   rezeptName: string,

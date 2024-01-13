@@ -1,5 +1,5 @@
 import React from "react";
-import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
+import {Kochschritt} from "../../../../shared-types/model/Kochschritt";
 import {Card, Grid} from "@mui/material";
 import {AktionIconImage} from "../../../common/formatting/AktionIconImage";
 import Box from "@mui/material/Box";
@@ -32,7 +32,7 @@ export function KochschrittLayoutView({kochschritt}: KochschrittLayoutViewProps)
 
     {/* Weitere Angaben zum Kochschritt */}
     <Grid item xs={12} md={4}>
-      {kochschritt.aktionen.map((aktion, index) =>
+      {kochschritt.aktionen.map((aktion, index: number) =>
         <div key={index}><b><AktionIconImage aktionIcon={aktion.aktionIcon}/> {aktion.aktionName}</b></div>
       )}
 
