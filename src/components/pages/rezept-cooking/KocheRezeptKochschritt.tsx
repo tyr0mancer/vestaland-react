@@ -13,7 +13,7 @@ import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../../assets/style/themeMUI";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
 import {ShowErforderlicheKochschritte} from "../../common/formatting/ShowErforderlicheKochschritte";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
-import {BetriebsartenProperties} from "../../../util/rezept-helper/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
 
 interface KocheRezeptKochschrittProps {
   index: number

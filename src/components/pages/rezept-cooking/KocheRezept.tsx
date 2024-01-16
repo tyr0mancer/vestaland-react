@@ -13,7 +13,7 @@ import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
 import {KocheRezeptKochschritt} from "./KocheRezeptKochschritt";
 import {customConfirm} from "../../common/ui/ConfirmDialog";
 import {getDateInFuture} from "./Kochschritte";
-import {getEtdString} from "../../../util/date-helper/dateFormat";
+import {getEtdString} from "../../../util/format/dateFormat";
 
 export function KocheRezept() {
   const {state: {rezeptCooking, kochstatus}, dispatch} = useContext(StateContext) as StateContextType

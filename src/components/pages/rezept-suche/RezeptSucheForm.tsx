@@ -13,9 +13,9 @@ import {
   Typography
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import {useDebounce} from "../../../util/hooks/use-debounce";
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {ActionTypes} from "../../../util/state/reducers";
+import {useDebounce} from "@react-hooks-library/core";
 
 export function RezeptSucheForm() {
   const formik = useFormikContext<RezeptSucheQuery>();

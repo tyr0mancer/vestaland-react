@@ -2,7 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import {LoginProps} from "./types";
 import {isAuthError} from "../api/apiClient";
 import {AuthService} from "./AuthService";
-import config from "../config/config";
+import {config} from "../config";
 
 import {BenutzerRolle} from "../../shared-types/enum";
 import {ApiErrorResponse, LoginResponseType} from "../../shared-types/types";
@@ -41,8 +41,10 @@ export const AuthProvider = ({children}: any) => {
         if (config.devMode)
           console.log("refreshing Token")
       }).catch((error) => {
-      if (config.devMode)
-        console.error(error)
+      if (config.devMode) {
+        console.log(error)
+      }
+
     })
   }, [])
 

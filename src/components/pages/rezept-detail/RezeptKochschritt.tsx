@@ -6,7 +6,7 @@ import {ShowZutaten} from "../../common/formatting/ShowZutaten";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
 import {ShowErforderlicheKochschritte} from "../../common/formatting/ShowErforderlicheKochschritte";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {BetriebsartenProperties} from "../../../util/rezept-helper/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
 import {ShowTimes} from "../../common/formatting/ShowTimes";
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 

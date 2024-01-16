@@ -1,4 +1,3 @@
-
 import {apiClient} from "../api/apiClient";
 import {LoginProps, RegisterProps} from "./types";
 import {LoginResponseType} from "../../shared-types/types";
@@ -20,8 +19,11 @@ export class AuthService {
     return new Promise<LoginResponseType>((resolve, reject) => {
       apiClient.post('/auth/refresh')
         .then(response => {
-          apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
-          resolve(response.data as LoginResponseType)
+          if (response?.data?.authtoken) {
+            apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
+            resolve(response.data as LoginResponseType)
+          }
+          reject('Cant refresh. Token missing?')
         })
         .catch(reject)
     })

@@ -1,6 +1,6 @@
 import {Tags} from "../../../shared-types/enum/Tags";
 
-type TagProperty = {
+export type TagProperty = {
   label: string;
   color: 'green' | 'red' | 'lightblue'
 };

@@ -3,7 +3,7 @@ import {Field} from "formik";
 import {Box, MenuItem, Select, TextField} from "@mui/material";
 import {AktionIcon} from "../../../../shared-types/enum";
 import {AktionIconImage} from "../../formatting/AktionIconImage";
-import {AktionIconProperties} from "../../../../util/rezept-helper/enum-properties/AktionIconProperties";
+import {AktionIconProperties} from "../../../../util/format/enum-properties/AktionIconProperties";
 
 interface KochschrittAktionNeuFormProps {
   open: boolean

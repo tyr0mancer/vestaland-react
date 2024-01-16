@@ -1,6 +1,6 @@
 import { Einheit } from "../../../shared-types/enum";
 
-type EinheitProperty = {
+export type EinheitProperty = {
   fullName: string;
   shortName: string;
   variant: Einheit;

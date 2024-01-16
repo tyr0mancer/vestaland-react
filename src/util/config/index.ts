@@ -1,4 +1,4 @@
-interface Config {
+export interface Config {
   devMode: boolean;
   apiBaseUrl: string;
   imgBaseUrl: string;
@@ -13,7 +13,8 @@ const devMode = Boolean(process.env.REACT_APP_DEV_MODE) || false
 if (devMode)
   console.log("DevMode aktiv")
 
-const config: Config = {
+
+export const config: Config = {
   devMode,
   apiBaseUrl: (devMode ? process.env.REACT_APP_API_BASE_URL_DEV : process.env.REACT_APP_API_BASE_URL) || 'https://api.vestaland.de/api',
   imgBaseUrl: (devMode ? process.env.REACT_APP_IMG_BASE_URL_DEV : process.env.REACT_APP_IMG_BASE_URL) || 'https://api.vestaland.de/public/uploads/',
@@ -24,4 +25,3 @@ const config: Config = {
 
 };
 
-export default config;

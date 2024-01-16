@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid} from "@mui/material";
 import {Zutat} from "../../../shared-types/model/Zutat";
-import {EinheitProperties} from "../../../util/rezept-helper/enum-properties/EinheitProperties";
+import {EinheitProperties} from "../../../util/format/enum-properties/EinheitProperties";
 import {Einheit} from "../../../shared-types/enum";
 
 interface ShowZutatenProps {

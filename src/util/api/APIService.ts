@@ -53,6 +53,19 @@ export class APIService {
   }
 
   /**
+   * Ändert ein Dokument in der DB
+   *
+   * @param routePath - spezifischer Pfad, z.B. 'lebensmittel'
+   * @param id - Die ObjectID des Dokuments das geändert werden soll
+   * @param updates - Änderungen am Dokument
+   *
+   * @returns Promise<R=T>
+   */
+  static async patch<T, U = Partial<T>, R = T>(routePath: string, id: string, updates: U): Promise<R> {
+    return apiClient.put<R>(joinPaths(routePath, id), updates).then(res => res.data)
+  }
+
+  /**
    * Löscht ein Dokument aus der DB
    *
    * @param routePath - spezifischer Pfad, z.B. 'lebensmittel'
@@ -61,18 +74,6 @@ export class APIService {
    */
   static async delete(routePath: string, id: string): Promise<any> {
     return apiClient.delete(joinPaths(routePath, id))
-  }
-
-
-  /**
-   * Löscht mehrere Dokumente aus der DB
-   *
-   * @param routePath - spezifischer Pfad, z.B. 'lebensmittel'
-   * @param ids - Array mit ObjectIDs der Dokumente die gelöscht werden sollen
-   * @returns Promise<any>
-   */
-  static async deleteMany(routePath: string, ids: string[]): Promise<any> {
-    return apiClient.delete(joinPaths(routePath, 'many/' + ids.join(','))).then(res => res.data)
   }
 
 

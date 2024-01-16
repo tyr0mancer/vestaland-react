@@ -2,7 +2,7 @@ import React from "react";
 import Box from "@mui/material/Box";
 import {Field} from "formik";
 import {MenuItem, Select, TextField} from "@mui/material";
-import {BetriebsartenProperties} from "../../../../util/rezept-helper/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../../util/format/enum-properties/BetriebsartenProperties";
 
 interface BetriebsartFieldsProps {
   name: string

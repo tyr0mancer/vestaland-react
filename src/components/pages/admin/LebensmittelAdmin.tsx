@@ -36,9 +36,9 @@ export function LebensmittelAdmin(): React.ReactElement {
   const [selectionModel, setSelectionModel] = React.useState<any>([]);
 
   const handleDelete = () => {
-    APIService.deleteMany('lebensmittel', selectionModel as string[])
+    /*APIService.deleteMany('lebensmittel', selectionModel as string[])
       .then(() => queryClient.invalidateQueries({queryKey: ["rezepte-suche"]}))
-      .then(() => refetch())
+      .then(() => refetch())*/
   };
 
   const handleNew = () => {

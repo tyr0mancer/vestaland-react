@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import SaveIcon from '@mui/icons-material/Save';
 import PublishIcon from '@mui/icons-material/Publish';
 import ClearIcon from '@mui/icons-material/Clear';
-import {getKochschrittSummary, multiplyNutrients} from "../../../util/rezept-helper/kochschritt-reducer";
+import {getKochschrittSummary, multiplyNutrients} from "../../../util/array-reducer/kochschritt-reducer";
 import {useMutation, useQueryClient} from "@tanstack/react-query";
 import {APIService} from "../../../util/api/APIService";
 

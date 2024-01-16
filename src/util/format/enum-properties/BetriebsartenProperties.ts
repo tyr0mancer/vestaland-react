@@ -1,6 +1,6 @@
 import { Betriebsart } from "../../../shared-types/enum";
 
-type BetriebsartProperty = {
+export type BetriebsartProperty = {
   fullName: string;
 };
 

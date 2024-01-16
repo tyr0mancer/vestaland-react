@@ -8,7 +8,7 @@ import SubdirectoryArrowLeftIcon from '@mui/icons-material/SubdirectoryArrowLeft
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MenuIcon from '@mui/icons-material/Menu';
 import {CustomFieldProps} from "../types";
-import {EinheitProperties} from "../../../../util/rezept-helper/enum-properties/EinheitProperties";
+import {EinheitProperties} from "../../../../util/format/enum-properties/EinheitProperties";
 
 export function ZutatenPicker({name, values: zutaten}: CustomFieldProps<Zutat[]>) {
   return (

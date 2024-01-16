@@ -1,6 +1,6 @@
 import React from "react";
 import {Tags} from "../../../shared-types/enum/Tags";
-import {TagProperties} from "../../../util/rezept-helper/enum-properties/TagProperties";
+import {TagProperties} from "../../../util/format/enum-properties/TagProperties";
 
 interface ShowTagsProps {
   tags: Tags[],
