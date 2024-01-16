@@ -1,5 +1,5 @@
 import axios from 'axios';
-import myConfig from "../../config";
+import myConfig from "../config/config";
 import {ApiErrorResponse} from "../../shared-types/types";
 
 // wird nur verwendet, um das auth token zu erneuern

@@ -1,3 +1,6 @@
+/**
+ * Zur Darstellung von Bildern in ReactJS
+ */
 declare module '*.png' {
   const value: any;
   export default value;

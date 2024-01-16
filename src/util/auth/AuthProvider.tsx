@@ -2,7 +2,7 @@ import React, {createContext, useContext, useEffect, useState} from 'react';
 import {LoginProps} from "./types";
 import {isAuthError} from "../api/apiClient";
 import {AuthService} from "./AuthService";
-import config from "../../config";
+import config from "../config/config";
 
 import {BenutzerRolle} from "../../shared-types/enum";
 import {ApiErrorResponse, LoginResponseType} from "../../shared-types/types";

@@ -1,6 +1,6 @@
 import React from "react";
 import {Datei} from "../../../shared-types/model/Datei";
-import config from "../../../config";
+import config from "../../../util/config/config";
 
 const DUMMY = 'https://api.vestaland.de/public/platzhalter.jpg'
 

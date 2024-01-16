@@ -1,7 +1,7 @@
 {
   "name": "vestaland",
   "homepage": "http://192.168.2.36:3000/",
-  "version": "0.3.0",
+  "version": "2.0.0",
   "private": true,
   "dependencies": {
     "@date-io/date-fns": "^2.17.0",
@@ -46,6 +46,8 @@
     "zod": "^3.22.4"
   },
   "scripts": {
+    "doc": "npx typedoc",
+
     "start": "cross-env HOST=192.168.2.36 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
