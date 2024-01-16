@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Alert from '@mui/material/Alert';
-import {AlertTitle, Fade} from "@mui/material";
+import {AlertTitle, Container, Fade} from "@mui/material";
 
 /**
  * TS Doc Info
@@ -8,7 +8,7 @@ import {AlertTitle, Fade} from "@mui/material";
  */
 export function CustomAlerts() {
   const [open, setOpen] = useState(false)
-  const [error, setError] = useState<any>(null);
+  const [errorList, setErrorList] = useState<any[]>([]);
 
   useEffect(() => {
     const handleApiError = (event: CustomEvent) => {
@@ -19,29 +19,35 @@ export function CustomAlerts() {
       }, 10000)
 
       setOpen(true)
-      setError(event.detail);
+      setErrorList(err => [...err, event.detail]);
     };
     window.addEventListener('api-error', handleApiError as EventListener);
     return () => {
       window.removeEventListener('api-error', handleApiError as EventListener);
     };
-  }, [setError]);
+  }, [setErrorList]);
+
+  if (!errorList.length)
+    return <></>
+
+  const message = errorList[0].message || ''
+  const errors = errorList[0].errors || []
 
 
   return (
-    <div>
+    <Container>
       <Fade in={open}>
         <Alert severity="warning" onClose={() => setOpen(false)}>
-          <AlertTitle>{error?.status} - {error?.message}</AlertTitle>
-
-          {error?.errors?.map((err: any, index: number) => (<div key={index}>
-            <pre>{err.path.slice(1).join(' > ')}</pre>
+          <AlertTitle>Server meldet: {message}</AlertTitle>
+          {errors?.map((err: any, index: number) => (<div key={index}>
+            {err.path && <pre>{err.path.slice(1).join(' > ')}</pre>}
             <pre>{err.message}</pre>
             <hr/>
           </div>))}
         </Alert>
       </Fade>
-    </div>
+    </Container>
   )
 }
+
 

@@ -7,10 +7,10 @@ import {RezeptSucheQuery, StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {rezeptSuche} from "../../../util/api/rezeptService";
 
 import {RezeptSucheForm} from './RezeptSucheForm';
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
+import {APIService} from "../../../util/api/APIService";
 
 
 export function RezeptSuche() {
@@ -20,7 +20,7 @@ export function RezeptSuche() {
   } = useQuery<Rezept[]>(
     {
       queryKey: ["rezepte-suche", rezeptSucheQuery.rezeptName],
-      queryFn: () => rezeptSuche(rezeptSucheQuery),
+      queryFn: () => APIService.search<Rezept>('rezept', rezeptSucheQuery),           //rezeptSuche(rezeptSucheQuery),
       enabled: (rezeptSucheQuery.rezeptName.length > 0),
       staleTime: 1000 * 60 * 5, // 5 minutes
     });

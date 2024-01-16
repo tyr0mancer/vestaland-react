@@ -22,8 +22,8 @@ export function AdminView() {
           <Route path="user" element={<UserAdmin/>}/>
         </Routes>
       </Paper>
+      <CustomAlerts/>
     </Container>
-    <CustomAlerts/>
     <FooterMain/>
   </RestrictedArea>)
 }

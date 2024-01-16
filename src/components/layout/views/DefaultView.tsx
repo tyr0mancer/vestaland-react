@@ -28,7 +28,6 @@ export const DefaultView: React.FC<DefaultViewProps> = ({children, roleRequired,
           <ErrorScreen error={error || {code: 403, message: "Zugriff nicht gestattet"}}/>
         </Paper>
       </Container>
-      <CustomAlerts/>
       <FooterMain/>
     </>)
 
@@ -41,8 +40,8 @@ export const DefaultView: React.FC<DefaultViewProps> = ({children, roleRequired,
         {!error && <Paper className={'main-content'}>
           {children}
         </Paper>}
+        <CustomAlerts/>
       </Container>
-      <CustomAlerts/>
       <FooterMain/>
     </>
   );

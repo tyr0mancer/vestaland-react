@@ -1,10 +1,14 @@
 import React from "react";
-import LoadingIcon from "@mui/icons-material/HourglassBottom";
+import {Box, CircularProgress} from "@mui/material";
 
 /**
  * TS Doc Info
  * @component LoadingScreen
  */
 export function LoadingScreen(): React.ReactElement {
-  return (<LoadingIcon/>)
+  return (
+    <Box sx={{display: 'flex'}}>
+      <CircularProgress/>
+    </Box>
+  );
 }

@@ -36,7 +36,7 @@ apiClient.interceptors.response.use(
     */
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
       if (error.response.data.message === AUTH_NO_TOKEN_ERROR_MESSAGE) {
-        return
+        return Promise.reject('');
       }
 
       // Endlosschleife verhindern
@@ -61,7 +61,7 @@ apiClient.interceptors.response.use(
 
 
 function handleError(error: any) {
-  console.log(error)
+  console.error('handleError', error)
   window.dispatchEvent(new CustomEvent('api-error', {detail: error}));
 }
 
