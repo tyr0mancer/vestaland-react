@@ -1,10 +1,11 @@
 import axios from 'axios';
-import myConfig from "../config/config";
+import {config} from "../config";
 import {ApiErrorResponse} from "../../shared-types/types";
+import {AUTH_NO_TOKEN_ERROR_MESSAGE} from "../../shared-types/config";
 
 // wird nur verwendet, um das auth token zu erneuern
 const refreshClient = axios.create({
-  baseURL: myConfig.apiBaseUrl,
+  baseURL: config.apiBaseUrl,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -13,7 +14,7 @@ const refreshClient = axios.create({
 
 
 export const apiClient = axios.create({
-  baseURL: myConfig.apiBaseUrl,
+  baseURL: config.apiBaseUrl,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -22,7 +23,7 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.response.use(
   (response) => {
-    if (myConfig.devMode)
+    if (config.devMode)
       console.log('API Response', response)
     return response;
   },
@@ -34,6 +35,10 @@ apiClient.interceptors.response.use(
         daher einmaliger Aufruf der myConfig.tokenRefreshUrl.
     */
     if (error.response && error.response.status === 401 && !originalRequest._retry) {
+      if (error.response.data.message === AUTH_NO_TOKEN_ERROR_MESSAGE) {
+        return
+      }
+
       // Endlosschleife verhindern
       originalRequest._retry = true;
       return tryRefreshToken(originalRequest)
@@ -68,17 +73,15 @@ export function isAuthError(obj: any): obj is ApiErrorResponse {
 }
 
 
-
-
 /*
     Verwende Refresh-Client und rufe /auth/refresh API-Route auf.
     Falls ein HTTP-only cookie für den API Server im Browser gesetzt wurde, wird ein neues Auth-Token zurückgesendet.
 
     @function tryRefreshToken
 */
-function tryRefreshToken(originalRequest:any) {
+function tryRefreshToken(originalRequest: any) {
 
-  refreshClient.post(myConfig.apiBaseUrl + myConfig.tokenRefreshUrl)
+  refreshClient.post(config.apiBaseUrl + config.tokenRefreshUrl)
     .then(response => {
       // Neues Auth-Token dann im Header des Axios apiClients setzen
       apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;
