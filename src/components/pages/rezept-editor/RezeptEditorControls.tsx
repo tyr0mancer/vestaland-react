@@ -4,7 +4,7 @@ import {StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
 import {useFormikContext} from "formik";
-import {Rezept} from "../../../shared-types/model/Rezept";
+import {Rezept} from "../../../shared-types/models/Rezept";
 import {useDebounce} from "@react-hooks-library/core";
 import {useNavigate} from "react-router-dom";
 import IconButton from "@mui/material/IconButton";

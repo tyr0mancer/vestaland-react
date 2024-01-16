@@ -1,10 +1,10 @@
 import React from "react";
 import {Field, useFormikContext} from "formik";
 import {Box, Grid, MenuItem, Select, Slider, TextField, Typography} from "@mui/material";
-import {Rezept} from "../../../../shared-types/model/Rezept";
+import {Rezept} from "../../../../shared-types/models/Rezept";
 import {CustomFilePicker} from "../../../common/form-elements/specific/CustomFilePicker";
-import {Datei} from "../../../../shared-types/model/Datei";
-import {Tags} from "../../../../shared-types/enum/Tags";
+import {Datei} from "../../../../shared-types/models/Datei";
+import {Tags} from "../../../../shared-types/enum";
 
 
 /**

@@ -1,5 +1,5 @@
-import {CustomOwnership} from "./CustomOwnership";
-import {DateiType} from "./datei-schema";
+import {CustomOwnership} from "./_CustomOwnership";
+import {DateiType} from "../schemas/datei-schema";
 
 export class Datei extends CustomOwnership implements DateiType {
   public originalname: string = ''

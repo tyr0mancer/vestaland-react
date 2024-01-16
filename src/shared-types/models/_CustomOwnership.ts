@@ -1,8 +1,9 @@
 import {Benutzer} from "./Benutzer";
-import {Ref, TimeStamps} from "../model-helper";
+import {TimeStamps} from "./_Timestamps";
+import {Ref} from "../types";
 
 /**
- * Helfer Klasse um Permissions einzelner Dokumente zu handhaben
+ * Helfer Klasse um Ownership einzelner Dokumente zu handhaben
  */
 export class CustomOwnership extends TimeStamps {
   public owner?: Ref<Benutzer>;

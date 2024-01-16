@@ -1,5 +1,5 @@
 import React from "react";
-import {Kochschritt} from "../../../../shared-types/model/Kochschritt";
+import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {Card, Grid} from "@mui/material";
 import {AktionIconImage} from "../../../common/formatting/AktionIconImage";
 import Box from "@mui/material/Box";

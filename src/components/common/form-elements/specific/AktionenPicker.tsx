@@ -1,5 +1,5 @@
 import React from "react";
-import {KochschrittAktion} from "../../../../shared-types/model/KochschrittAktion";
+import {KochschrittAktion} from "../../../../shared-types/models/KochschrittAktion";
 import {Box, Card} from "@mui/material";
 import {FieldArray} from "formik";
 import {KochschrittAktionPicker} from "./KochschrittAktionPicker";

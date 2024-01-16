@@ -5,25 +5,23 @@ import {Box, Button} from "@mui/material";
 import {APIService} from "../../../util/api/APIService";
 import {useDataSync} from "../../../util/state/useDataSync";
 import {FormCacheState} from "../../../util/state/FormCacheState";
-import {Rezept} from "../../../shared-types/model/Rezept";
-import {Zutat} from "../../../shared-types/model/Zutat";
-import {RezeptSchema} from "../../../shared-types/model/rezept.schema";
+import {Rezept} from "../../../shared-types/models/Rezept";
+import {Zutat} from "../../../shared-types/models/Zutat";
 import {StatusWrapper} from "../../common/ui/StatusWrapper";
 import {CustomFieldArray} from "../../common/form-elements/generic/CustomFieldArray";
 import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
 import {CustomAutocomplete} from "../../common/form-elements/generic/CustomAutocomplete";
-import {Lebensmittel} from "../../../shared-types/model/Lebensmittel";
-import {LebensmittelSchema} from "../../../shared-types/model/lebensmittel.schema";
+import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
 import {LebensmittelForm} from "../admin/forms/LebensmittelForm";
+import {LebensmittelSchema} from "../../../shared-types/schemas/lebensmittel-schema";
+import {RezeptSchema} from "../../../shared-types/schemas/rezept-schema";
 
-
-type EinkaufslisteViewProps = {}
 
 /**
  * DataSync Component
  * @component Einkaufsliste
  */
-export function EinkaufslisteView({}: EinkaufslisteViewProps): React.ReactElement {
+export function EinkaufslisteView(): React.ReactElement {
 
   const {initialValues, isLoading, error, handleSave, validateForm} = useDataSync<Rezept>({
     defaultValues: new Rezept(),

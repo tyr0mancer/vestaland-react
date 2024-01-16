@@ -1,5 +1,5 @@
 import React from "react";
-import {KochschrittAktion} from "../../../shared-types/model/KochschrittAktion";
+import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
 import {AktionIconImage} from "./AktionIconImage";
 import {Typography} from "@mui/material";
 

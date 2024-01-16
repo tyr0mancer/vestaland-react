@@ -6,7 +6,7 @@ import {StateContext} from "../../../util/state/StateProvider";
 import {RezeptSucheQuery, StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
-import {Rezept} from "../../../shared-types/model/Rezept";
+import {Rezept} from "../../../shared-types/models/Rezept";
 import {rezeptSuche} from "../../../util/api/rezeptService";
 
 import {RezeptSucheForm} from './RezeptSucheForm';

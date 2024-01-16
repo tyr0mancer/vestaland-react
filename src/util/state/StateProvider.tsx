@@ -2,7 +2,7 @@ import React, {useReducer} from 'react';
 
 import {DefaultDataSyncNodes, reducer} from "./reducers";
 import {Kochstatus, RezeptPartial, RezeptSucheQuery, GlobalState, StateContextType} from "./types";
-import {Rezept} from "../../shared-types/model/Rezept";
+import {Rezept} from "../../shared-types/models/Rezept";
 
 const rezeptSucheQueryDefault: RezeptSucheQuery = {
   rezeptName: ''

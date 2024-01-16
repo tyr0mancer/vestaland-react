@@ -1,6 +1,6 @@
 import {BenutzerRolle} from "../enum";
-import { TimeStamps } from "../model-helper";
-import {BenutzerType} from "./benutzer-schema";
+import {BenutzerType} from "../schemas/benutzer-schema";
+import {TimeStamps} from "./_Timestamps";
 
 export class Benutzer extends TimeStamps implements BenutzerType {
   public mayLogin: boolean = false;

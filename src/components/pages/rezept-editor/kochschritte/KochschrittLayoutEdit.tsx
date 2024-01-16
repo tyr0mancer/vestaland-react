@@ -1,5 +1,5 @@
 import {CustomFieldProps} from "../../../common/form-elements/types";
-import {Kochschritt} from "../../../../shared-types/model/Kochschritt";
+import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {FormGroup, Grid, TextField} from "@mui/material";
 import {ZutatenPicker} from "../../../common/form-elements/specific/ZutatenPicker";
 import {UtensilienPicker} from "../../../common/form-elements/specific/UtensilienPicker";
@@ -10,7 +10,7 @@ import React from "react";
 import {ZeitangabeFields} from "./ZeitangabeFields";
 import {BetriebsartFields} from "./BetriebsartFields";
 import {ZwischenergebnisPicker} from "../../../common/form-elements/specific/ZwischenergebnisPicker";
-import {Rezept} from "../../../../shared-types/model/Rezept";
+import {Rezept} from "../../../../shared-types/models/Rezept";
 
 /**
  * Form Layout eines Kochschrittes

@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import {QueryClient, useQuery} from "@tanstack/react-query";
 import {DataGrid, GridColDef} from '@mui/x-data-grid';
-import {Lebensmittel} from "../../../shared-types/model/Lebensmittel";
+import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';

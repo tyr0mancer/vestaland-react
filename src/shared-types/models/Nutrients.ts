@@ -1,4 +1,4 @@
-import {NutrientsType} from "./nutrients.schema";
+import {NutrientsType} from "../schemas/nutrients-schema";
 
 export class Nutrients implements NutrientsType {
   public kalorien: number = 0;

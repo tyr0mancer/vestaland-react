@@ -11,8 +11,8 @@ import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 /* Model */
-import {Rezept} from "../../../../shared-types/model/Rezept";
-import {Kochschritt} from "../../../../shared-types/model/Kochschritt";
+import {Rezept} from "../../../../shared-types/models/Rezept";
+import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 
 /* Helper and Components */
 import {DefaultValues} from "../index";

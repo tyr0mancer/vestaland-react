@@ -1,7 +1,7 @@
 import React from "react";
 import {Field} from "formik";
 import {Card, MenuItem, Select} from "@mui/material";
-import {Kochschritt} from "../../../../shared-types/model/Kochschritt";
+import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 
 interface VoraussetzungPickerProps {
   name: string,

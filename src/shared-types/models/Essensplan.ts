@@ -1,15 +1,18 @@
 import {Benutzer} from "./Benutzer";
 import {Rezept} from "./Rezept";
-import {Ref, TimeStamps} from "../model-helper";
+import {EssensplanType} from "../schemas/essensplan-schema";
+import {CustomOwnership} from "./_CustomOwnership";
+import {Ref} from "../types";
 
 export class EssensplanEintrag {
   public rezept?: Ref<Rezept>;
   public zuKaufenBis?: Date;
 }
 
-export class Essensplan extends TimeStamps {
+export class Essensplan extends CustomOwnership implements EssensplanType {
   public name: string = "";
   public owner?: Ref<Benutzer>;
   public beschreibung?: string;
   public eintraege: EssensplanEintrag[] = [];
 }
+

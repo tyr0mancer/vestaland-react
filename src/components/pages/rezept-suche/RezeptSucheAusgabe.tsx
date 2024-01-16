@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import {useQuery} from "@tanstack/react-query";
 
-import {Rezept} from "../../../shared-types/model/Rezept";
+import {Rezept} from "../../../shared-types/models/Rezept";
 import {StateContext} from "../../../util/state/StateProvider";
 import {StateContextType} from "../../../util/state/types";
 import {RezeptCard} from "./RezeptCard";

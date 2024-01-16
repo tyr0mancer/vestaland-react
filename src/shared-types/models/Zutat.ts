@@ -1,7 +1,7 @@
 import {Lebensmittel} from "./Lebensmittel";
 import {Einheit} from "../enum";
-import {ZutatType} from "./zutat.schema";
-import {Ref} from "../model-helper";
+import {ZutatType} from "../schemas/zutat-schema";
+import {Ref} from "../types";
 
 export class Zutat implements ZutatType {
   public lebensmittel?: Ref<Lebensmittel>;

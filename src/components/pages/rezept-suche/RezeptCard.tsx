@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import {Rezept} from "../../../shared-types/model/Rezept";
+import {Rezept} from "../../../shared-types/models/Rezept";
 import {getFileUrl} from "../../../util/api/fileService";
 import {Link} from "react-router-dom";
 import {RezeptPartial} from "../../../util/state/types";

@@ -2,7 +2,7 @@ import React, {useContext, useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
 import {Formik} from "formik";
-import {Rezept} from "../../../shared-types/model/Rezept";
+import {Rezept} from "../../../shared-types/models/Rezept";
 import {StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 

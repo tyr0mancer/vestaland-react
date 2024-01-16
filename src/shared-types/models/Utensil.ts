@@ -1,5 +1,5 @@
-import {UtensilType} from "./utensil.schema";
-import {CustomOwnership} from "./CustomOwnership";
+import {UtensilType} from "../schemas/utensil-schema";
+import {CustomOwnership} from "./_CustomOwnership";
 
 export class Utensil extends CustomOwnership implements UtensilType {
   public utensilName: string = "";
