@@ -19,3 +19,5 @@
 npm-debug.log*
 /.env
 /.idea
+/docs/
+/tmp/
