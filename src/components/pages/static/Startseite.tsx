@@ -2,9 +2,6 @@ import React from "react";
 
 import {Box, Typography} from "@mui/material";
 
-import startseiteBild1 from "../../../assets/images/startseite.png";
-import startseiteBild2 from "../../../assets/images/startseite2.png";
-
 export function Startseite() {
   return (<>
 
@@ -13,30 +10,52 @@ export function Startseite() {
       Studienprojekts entstanden und steht Ihnen vollkommen kostenfrei zur Verfügung.
     </Typography>
 
-    <img
-      src={startseiteBild1}
-      alt={'Eine Kochapp hilft in der Küche'}
-      loading="lazy"
-      className={'startseite left'}
-    />
-
-
     <Typography variant="h6" gutterBottom>
-      Mit "Vestaland" können Sie nicht nur eine Vielzahl an köstlichen Rezepten finden und erstellen, sondern auch Ihren
-      Kochprozess durch eine strukturierte Darstellung vereinfachen. Zusätzlich bietet unsere App praktische Funktionen
-      zur Verwaltung Ihres Vorrats, zur Erstellung von Essensplänen und zum Verwalten von Einkaufslisten. Tauchen Sie
-      ein in die Welt des Kochens und erleben Sie, wie "Vestaland" Ihr kulinarisches Erlebnis bereichert!
-    </Typography>
-    <img
-      className={'startseite right'}
-      src={startseiteBild2}
-      alt={'Eine Kochapp hilft in der Küche'}
-      loading="lazy"
-    />
-    <Typography variant="h6">
-      Sollten Sie Fragen oder Anregungen haben, kontaktieren Sie uns bitte via E-Mail unter <strong>info@vestaland.de</strong>
+      Entdecken Sie das Vergnügen des Kochens neu mit Vestaland, Ihrer digitalen Assistentin in der Küche. Inspiriert
+      von Vesta, der römischen Göttin des Herdfeuers, bringen wir Struktur und Kreativität in Ihre Küche. Ob Sie ein
+      Rezept suchen, Ihren Speiseplan organisieren oder Ihre Einkaufsliste optimieren möchten – wir sind für Sie da. Und
+      das Beste? Alles kostenlos, werbefrei und ohne Datentracking.
     </Typography>
 
+    <Typography variant="h4" mt={2} borderBottom={1}>Das Vesta-Format</Typography>
+    <Typography variant="h6">
+      Entdecken Sie die Präzision des Vesta-Formats in unseren Rezepten. Jedes Rezept folgt einem klaren, strukturierten
+      Schema, das es einfach macht, die Schritte zu verstehen und nachzukochen. Dieses Format eignet sich hervorragend,
+      um Rezepte zu speichern, zu taggen und zu durchsuchen. Besonders für Menschen mit ADHS oder jene, die Struktur
+      bevorzugen, ist das Vesta-Format ein wahrer Segen.
+    </Typography>
+
+    <Typography variant="h4" mt={2} borderBottom={1}>
+      Live-Cooking
+    </Typography>
+    <Typography variant="h6">
+      Erleben Sie mit unserem Live-Cooking-Modus eine völlig neue Art des Kochens. Hierbei wird jeder Schritt des
+      Rezepts in Echtzeit angezeigt, sodass Sie sich voll und ganz auf das aktuelle Geschehen konzentrieren können.
+      Ideal für stressfreies Kochen, bei dem Sie sich nicht mehr fragen müssen, was als Nächstes zu tun ist.
+    </Typography>
+
+    <Typography variant="h4" mt={2} borderBottom={1}>
+      Einkaufen
+    </Typography>
+    <Typography variant="h6">
+      Mit unserer intelligenten Einkaufslisten-Funktion wird Einkaufen zum Kinderspiel. Die Liste lernt mit jedem
+      Einkauf dazu und passt sich der Reihenfolge an, in der Sie Produkte üblicherweise abhaken. Zudem aktualisiert sich
+      Ihre Einkaufsliste automatisch basierend auf Ihren Speiseplänen und der Mindesthaltbarkeit Ihrer Vorräte – für
+      maximale Effizienz und weniger Lebensmittelverschwendung.
+    </Typography>
+
+    <Typography variant="h4" mt={2} borderBottom={1}>
+      Datenschutz
+    </Typography>
+    <Typography variant="h6">
+      Ihre Privatsphäre ist uns heilig. Bei Vestaland werden keinerlei Metadaten, insbesondere zum Einkaufsverhalten
+      oder zur Produktwahl, getrackt. Wir speichern nur die Daten, die Sie selbst eingeben. Unser Versprechen:
+      Kostenfreiheit, Werbefreiheit und der Schutz Ihrer Daten, ganz im Sinne eines verantwortungsvollen Privatprojekts.
+    </Typography>
+
+    <Typography variant="h6">
+      Vestaland – einfach. kochen.
+    </Typography>
 
   </>)
 }
