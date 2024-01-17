@@ -5,7 +5,7 @@ import {DefaultView} from "./views/DefaultView";
 import {AdminView} from "./views/AdminView";
 
 import {Startseite, Impressum} from "../pages/static";
-import {BenutzerInfo} from "../pages/benutzer";
+import {LoginRegister, BenutzerBereich} from "../pages/benutzer";
 
 import {RezeptSuche} from "../pages/rezept-suche";
 import {RezeptEditor} from "../pages/rezept-editor";
@@ -30,7 +30,8 @@ export function MainRouter() {
         <Route path="/einkaufsliste" element={<DefaultView children={<EinkaufslisteView/>}/>}/>
         <Route path="/einkaufsliste/:rezeptId" element={<DefaultView children={<EinkaufslisteView/>}/>}/>
 
-        <Route path="/user/*" element={<DefaultView children={<BenutzerInfo/>}/>}/>
+        <Route path="/login" element={<DefaultView children={<LoginRegister/>}/>}/>
+        <Route path="/user/*" element={<DefaultView children={<BenutzerBereich/>}/>}/>
         <Route path="/admin/*" element={<AdminView/>}/>
 
         <Route path="/impressum" element={<DefaultView children={<Impressum/>}/>}/>

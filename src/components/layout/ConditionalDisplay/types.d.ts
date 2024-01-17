@@ -5,5 +5,5 @@ type ConditionalDisplayProps = {
   children?: React.ReactNode,
   restricted?: true | BenutzerRolle[]
   status?: {error?: any, isLoading?: boolean, saving?: boolean}
-  authRedirect?: React.ReactNode,
+  loginComponent?: React.ReactNode,
 }

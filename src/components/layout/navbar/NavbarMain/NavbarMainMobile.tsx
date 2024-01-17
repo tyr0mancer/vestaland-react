@@ -91,7 +91,7 @@ export function NavbarMainMobile() {
         {!isAuthorized() &&
             <MenuItem onClick={handleCloseNavMenu}>
                 <Typography className={'menu-item'} component={Link}
-                            to={'/user'}><LoginIcon/> <span>Anmelden</span>
+                            to={'/login'}><LoginIcon/> <span>Anmelden</span>
                 </Typography>
             </MenuItem>
         }

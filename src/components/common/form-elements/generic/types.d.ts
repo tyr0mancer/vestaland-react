@@ -158,9 +158,9 @@ type CustomTextFieldProps = {
   label?: string,
 
   /**
-   * Der Typ des Eingabefeldes. Kann 'text', 'number' oder 'email' sein.
+   * Der Typ des Eingabefeldes. Kann 'text', 'number', 'password' oder 'email' sein.
    */
-  type?: 'text' | 'number' | 'email',
+  type?: 'text' | 'number' | 'email' | 'password',
 }
 
 

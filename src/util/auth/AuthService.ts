@@ -54,4 +54,8 @@ export class AuthService {
     })
   }
 
+  static async register(newUser: RegisterType): Promise<LoginResponseType> {
+    return apiClient.post('/benutzer/register', newUser)
+  }
+
 }
