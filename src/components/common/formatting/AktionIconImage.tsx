@@ -20,6 +20,7 @@ export function AktionIconImage({aktionIcon, size = 20}: AktionIconImageProps) {
     if (aktionIcon)
       icon = require('../../../assets/images/icons/' + AktionIconProperties[aktionIcon].icon)
   } catch (e) {
+    console.log(e)
   }
   return <img loading="lazy" src={icon} height={size} width={size} alt={'Icon'}/>
 }

@@ -12,7 +12,7 @@ export class EinkaufslisteEintrag implements EinkaufslistenEintragType {
   public rezept?: Ref<Rezept>;
   public zuKaufenBis?: Date;
   public wichtigkeit: number = 1;
-  public istAustauschOK: Boolean = true;
+  public istAustauschOK: boolean = true;
   public ladenGruppe?: string;
 }
 

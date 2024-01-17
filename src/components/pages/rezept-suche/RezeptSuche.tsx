@@ -21,7 +21,7 @@ export function RezeptSuche() {
         onSubmit={(val) => console.log(val)}
         validate={validateForm}
       >
-        {({}) => {
+        {() => {
           return (<Form><RezeptSucheForm/> </Form>)
         }}
       </Formik>

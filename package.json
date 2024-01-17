@@ -47,7 +47,7 @@
   },
   "scripts": {
     "doc": "npx typedoc",
-
+    "lint": "eslint . --ext .ts,.tsx",
     "start": "cross-env HOST=192.168.2.36 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -74,6 +74,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/react-router-hash-link": "^2.4.9",
+    "eslint": "^8.56.0",
     "react-router-dom": "^6.21.0"
   }
 }
