@@ -25,14 +25,7 @@ export interface UseDataSyncReturn<T> {
 }
 
 /**
- * Zauberei
- *
- * @param parameterName
- * @param queryFn
- * @param queryKey
- * @param contextKey
- * @param defaultValues
- * @param validationSchema
+ * TS-Doc
  */
 export function useDataSync<T>({
                                  parameterName,

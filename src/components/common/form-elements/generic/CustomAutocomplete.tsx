@@ -66,24 +66,7 @@ import {CustomAutocompleteProps} from "./types";
  *       validationSchema={LebensmittelSchema}
  *     />
  *
- * @component CustomAutocomplete
- *
- * @param name Formik Field-Name
- * @param label Anzeigename im Textfeld
- * @param getLabel Funktion zur Darstellung eines Objekts T als String
- * @param idProp Name der Property, die zur eindeutigen Identifizierung verwendet wird
- * @param queryFn async Funktion zur Ermittlung der Optionen
- * @param onChange Callback für zusätzliche Hooks bei Änderung/Auswahl
- * @param size Darstellungsgröße
- * @param autoFocus Versucht Fokus auf das Textfeld zu setzen
- *
- * @param insertFn async Funktion um neues Objekt zu handhaben (z.B. API POST-Request)
- * @param newEntryFormComponent
- * @param validationSchema
- * @param newValueDefault Default Werte für das Formular um neues Objekt anzulegen
- *
- * @param fullWidth
- * @param autoSelect
+ * @component
  */
 export function CustomAutocomplete<T extends FormikValues>({
                                                              name,

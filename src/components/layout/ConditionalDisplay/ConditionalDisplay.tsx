@@ -18,13 +18,6 @@ import {ErrorScreen} from "./ErrorScreen";
  * <ConditionalDisplay restricted>
  *     <MainComponent/>
  * </ConditionalDisplay>
- *
- * @param {ConditionalDisplayProps} props - Die Props für die CondDisplay Komponente.
- * @param {boolean | BenutzerRolle[]} [props.restricted] - Wenn `true`, wird ein gültiges Token benötigt. Bei Angabe von Benutzerrollen müssen diese vom Benutzer erfüllt werden.
- * @param {Object} [props.status] - Statusobjekt mit Eigenschaften wie `error`, `loading` und `saving`, um entsprechende Bildschirme anzuzeigen.
- * @param {React.ReactElement} [props.children] - Die Kinderkomponenten, die angezeigt werden, wenn alle Bedingungen erfüllt sind.
- * @param {React.ReactElement} [props.authRedirect] - Alternative Komponente, die angezeigt wird, wenn der Zugriff verweigert wird.
- * @returns {React.ReactElement} - Eine React-Komponente, die auf den gegebenen Bedingungen basiert.
  */
 export function ConditionalDisplay({restricted, status, children, authRedirect}: ConditionalDisplayProps): React.ReactElement {
   const {isAuthorized} = useAuth();
