@@ -38,11 +38,11 @@ const nutrientsReducer = (nutrients: Nutrients, zutat: Zutat) => {
 }
 
 function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochschritt) {
-  let berechneteArbeitszeit = currentValue.berechneteArbeitszeit + (kochschritt?.arbeitszeit || 0)
-  let berechneteGesamtdauer = currentValue.berechneteGesamtdauer + (kochschritt?.gesamtdauer || (berechneteArbeitszeit + (kochschritt.wartezeit || 0)))
-  let zutaten = kochschritt.zutaten.reduce(zutatenReducer, currentValue.zutaten)
-  let utensilien = kochschritt.utensilien.reduce(utensilienReducer, currentValue.utensilien)
-  let nutrients: Nutrients = kochschritt.zutaten.reduce(nutrientsReducer, currentValue.nutrients)
+  const berechneteArbeitszeit = currentValue.berechneteArbeitszeit + (kochschritt?.arbeitszeit || 0)
+  const berechneteGesamtdauer = currentValue.berechneteGesamtdauer + (kochschritt?.gesamtdauer || (berechneteArbeitszeit + (kochschritt.wartezeit || 0)))
+  const zutaten = kochschritt.zutaten.reduce(zutatenReducer, currentValue.zutaten)
+  const utensilien = kochschritt.utensilien.reduce(utensilienReducer, currentValue.utensilien)
+  const nutrients: Nutrients = kochschritt.zutaten.reduce(nutrientsReducer, currentValue.nutrients)
 
   return {
     berechneteArbeitszeit,

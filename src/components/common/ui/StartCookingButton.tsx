@@ -38,8 +38,8 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
     /* erstellt KochschritteMeta */
     const kochschritteMeta: KochschrittMeta[] = rezept.kochschritte.reduce((previousValue: any[], currentValue: Kochschritt) => {
 
-      let gesamtdauer = currentValue.gesamtdauer || ((currentValue.arbeitszeit || 0) + (currentValue.wartezeit || 0))
-      let arbeitszeit = currentValue.arbeitszeit || 0
+      const gesamtdauer = currentValue.gesamtdauer || ((currentValue.arbeitszeit || 0) + (currentValue.wartezeit || 0))
+      const arbeitszeit = currentValue.arbeitszeit || 0
 
       let ratio = null
       if (arbeitszeit && gesamtdauer) ratio = arbeitszeit / gesamtdauer
