@@ -15,6 +15,11 @@ import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
 import {LebensmittelForm} from "../admin/forms/LebensmittelForm";
 import {LebensmittelSchema} from "../../../shared-types/schemas/lebensmittel-schema";
 import {RezeptSchema} from "../../../shared-types/schemas/rezept-schema";
+import {CustomSelect} from "../../common/form-elements/generic/CustomSelect";
+import {Einheit} from "../../../shared-types/enum";
+import {EinheitProperties} from "../../../util/format/enum-properties/EinheitProperties";
+import {CustomFileDropper} from "../../common/form-elements/generic/CustomFileDropper";
+import {Datei} from "../../../shared-types/models/Datei";
 
 
 /**
@@ -82,8 +87,22 @@ function ZutatChild({
                     }: ZutatChildProps): React.ReactElement {
   const [{value}] = useField<Zutat>(name || '')
 
+
   return (<Box>
-    <CustomTextField name={`${name}[menge]`} type={'email'}/>
+    <CustomTextField name={`${name}[menge]`} label={'Menge'}/>
+    <CustomSelect<Einheit>
+      name={`${name}[einheit]`}
+      label={'Einheit'}
+      options={Object.values(Einheit)}
+      getLabel={einheit => EinheitProperties[einheit].fullName}
+    />
+
+    <CustomFileDropper
+      name={'bild'}
+      label={'Rezept-Bild'}
+      uploadFn={(file: File) => APIService.upload<Datei>('datei', file, 'bild')}
+    />
+
 
     <CustomAutocomplete<Lebensmittel>
       autoFocus
@@ -93,7 +112,7 @@ function ZutatChild({
       name={`${name}[lebensmittel]`}
       idProp={'_id'}
       getLabel={(e) => e.name}
-      queryFn={(param?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: param})}
+      queryFn={(input?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: input})}
       onChange={v => (!!handleDelete && !v) ? handleDelete() : {}}
 
       label="Lebensmittel"

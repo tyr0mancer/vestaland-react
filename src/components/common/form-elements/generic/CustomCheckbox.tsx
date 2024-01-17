@@ -1,16 +1,12 @@
 import React from "react";
 import {Field, useField} from "formik";
 import {Checkbox, FormControlLabel} from "@mui/material";
+
 import {CustomCheckboxProps} from "./types";
 
 
-
 /**
- * Custom Formik Field Element
- * @component CustomCheckbox
- *
- * @param name Formik Field name
- * @param label Bezeichner der Checkbox
+ * Formik Field Komponente für boolesche Werte
  *
  * @example <CustomCheckbox name={`${name}[wartenErforderlich]`} label={'Warten erforderlich?'}/>
  */
@@ -20,8 +16,6 @@ export function CustomCheckbox({name, label}: CustomCheckboxProps): React.ReactE
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     await helpers.setValue(e.target.checked);
   };
-
-  console.log(field, 'field')
 
   return <Field
     type="checkbox"

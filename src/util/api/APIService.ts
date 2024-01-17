@@ -1,4 +1,5 @@
 import {apiClient} from "./apiClient";
+import {AxiosResponse} from "axios";
 
 /**
  * Service Klasse um API Anfragen mit Hilfe des apiClients zu realisieren.
@@ -92,12 +93,13 @@ export class APIService {
    *
    * @param routePath - spezifischer Pfad, z.B. 'datei'
    * @param file - Die Datei die hochgeladen werden soll
-   * @returns Promise<any>
+   * @param fileKey - verwendeter Name für FormData.append()
+   * @returns Promise<T>
    */
-  static async upload(routePath: string, file: File): Promise<any> {
+  static async upload<T>(routePath: string, file: File, fileKey: string = 'bild'): Promise<T> {
     const formData = new FormData();
-    formData.append("file", file, file.name);
-    return apiClient.post(routePath, formData, {headers: {"Content-Type": "multipart/form-data",}}).then(res => res.data)
+    formData.append(fileKey, file, file.name);
+    return apiClient.post<FormData, AxiosResponse<T>>(routePath, formData, {headers: {"Content-Type": "multipart/form-data",}}).then(res => res.data)
   }
 
 }

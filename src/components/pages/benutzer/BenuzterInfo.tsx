@@ -7,9 +7,10 @@ import {Account} from "./Account";
 import {Favoriten} from "./Favoriten";
 import GradeIcon from '@mui/icons-material/Grade';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 
 export function BenutzerInfo() {
-  return (<>
+  return (<ConditionalDisplay restricted>
     <AppBar position="static">
       <Toolbar variant="dense">
         <Link to={'meine-rezepte'}><IconButton sx={{mr: 2}} size="small" color="secondary"
@@ -27,7 +28,7 @@ export function BenutzerInfo() {
       <Route path="favoriten" element={<Favoriten/>}/>
       <Route path="account" element={<Account/>}/>
     </Routes>
-  </>);
+  </ConditionalDisplay>);
 }
 
 

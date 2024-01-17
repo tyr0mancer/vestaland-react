@@ -1,17 +1,22 @@
 import React from "react";
 import {FieldArray, useField} from "formik";
-
-type CustomFieldArrayProp<T> = {
-  name: string,
-  child: React.ReactElement,
-  header?: React.ReactElement,
-  footer?: React.ReactElement,
-  newValue: T
-}
+import {CustomFieldArrayProp} from "./types";
 
 /**
- * TS Doc Info
- * @component CustomFieldArray
+ * CustomFieldArray Komponente - Ein spezialisierter Wrapper um Formik's FieldArray.
+ * Ermöglicht die dynamische Bearbeitung von Arrays in Formularen.
+ *
+ * @typeParam T - Der Typ der Elemente in der FieldArray.
+ *
+ * @param props - Die Eigenschaften des CustomFieldArray, definiert in CustomFieldArrayProp.
+ *
+ * @example
+ * <CustomFieldArray
+ *  name={'zutaten'}
+ *  child={<ZutatChild/>}
+ *  header={<ZutatenHeader/>}
+ *  newValue={newZutatValue}
+ * />
  */
 export function CustomFieldArray<T>({
                                       name,
@@ -27,7 +32,6 @@ export function CustomFieldArray<T>({
       {!!header && React.cloneElement(header, {
         handleInsert: () => arrayHelpers.insert(0, newValue),
       })}
-
 
       {value.map((element, index) => React.cloneElement(child, {
         key: index,

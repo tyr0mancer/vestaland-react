@@ -1,16 +1,19 @@
 import React from "react";
 import {Field, useField} from "formik";
 import {TextField} from "@mui/material";
-
-type CustomTextFieldProps = {
-  name: string,
-  label?: string,
-  type?: 'text' | 'number' | 'email',
-}
+import {CustomTextFieldProps} from "./types";
 
 /**
- * TS Doc Info
- * @component CustomTextField
+ * CustomTextField Komponente - Ein spezialisierter Wrapper um ein Material-UI TextField, integriert mit Formik.
+ *
+ * @param props - Die Eigenschaften des CustomTextField, definiert in CustomTextFieldProps.
+ *
+ * @example
+ * <CustomTextField
+ *   name="email"
+ *   label="Email Adresse"
+ *   type="email"
+ * />
  */
 export function CustomTextField({name, label, type = 'text'}: CustomTextFieldProps): React.ReactElement {
   const [, meta] = useField(name);

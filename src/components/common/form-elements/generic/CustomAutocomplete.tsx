@@ -14,6 +14,7 @@ import {
 import {ZodError} from "zod";
 
 import {CustomAutocompleteProps} from "./types";
+import {useDebounce} from "@react-hooks-library/core";
 
 
 /**
@@ -24,6 +25,7 @@ import {CustomAutocompleteProps} from "./types";
  *       label="Lebensmittel"
  *       idProp={'_id'}
  *       getLabel={(e) => e.name}
+ *       queryKey={'lebensmittel-picker'}
  *       queryFn={(param?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: param})}
  *     />
  *
@@ -38,6 +40,7 @@ import {CustomAutocompleteProps} from "./types";
  *
  *       idProp={'_id'}
  *       getLabel={(e) => e.name}
+ *       queryKey={'lebensmittel-picker'}
  *       queryFn={(param?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: param})}
  *       onChange={v => (!!handleDelete && !v) ? handleDelete() : {}}
  *
@@ -56,6 +59,7 @@ import {CustomAutocompleteProps} from "./types";
  *       name={`${name}[lebensmittel]`}
  *       idProp={'_id'}
  *       getLabel={(e) => e.name}
+ *       queryKey={'lebensmittel-picker'}
  *       queryFn={(param?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: param})}
  *       onChange={v => (!!handleDelete && !v) ? handleDelete() : {}}
  *
@@ -74,6 +78,7 @@ export function CustomAutocomplete<T extends FormikValues>({
                                                              getLabel,
                                                              idProp,
                                                              queryFn,
+                                                             queryKey,
                                                              onChange,
                                                              size = 'small',
                                                              autoSelect = true,
@@ -90,15 +95,16 @@ export function CustomAutocomplete<T extends FormikValues>({
   const [open, setOpen] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
 
-  // @todo useMemo?
+  const debouncedInput = useDebounce(inputValue, 500)
+
   const {
     isLoading,
     data: options
   } = useQuery(
     {
-      queryKey: ["lebensmittel-suche", inputValue],
-      queryFn: queryFn ? () => queryFn(inputValue) : undefined,
-      enabled: !!inputValue,
+      queryKey: [queryKey, debouncedInput],
+      queryFn: queryFn ? () => queryFn(debouncedInput) : undefined,
+      enabled: !!debouncedInput && debouncedInput.length > 1,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 
@@ -112,6 +118,7 @@ export function CustomAutocomplete<T extends FormikValues>({
   const handleInsert = (value: T) => {
     setModalOpen(false)
     if (!insertFn) return
+    console.log(value, 'value')
     insertFn(value).then(val => handleChange(val))
   }
 
@@ -177,8 +184,8 @@ export function CustomAutocomplete<T extends FormikValues>({
 
 
     {newValueDefault && !!newEntryFormComponent &&
-        <Dialog open={modalOpen} >
-            <DialogTitle>{label} anlegen</DialogTitle>
+        <Dialog open={modalOpen}>
+            <DialogTitle>Neues {label} anlegen</DialogTitle>
             <Formik<T>
                 initialValues={newValueDefault}
                 onSubmit={handleInsert}
