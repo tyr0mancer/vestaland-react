@@ -1,5 +1,4 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
 import {Field, Form, Formik} from "formik";
 import {Alert, AlertTitle, Button, FormGroup, Grid, TextField, Typography} from "@mui/material";
 import {Login as LoginIcon, AppRegistration as AppRegistrationIcon} from '@mui/icons-material';
@@ -9,12 +8,7 @@ import {LoginType, RegisterType} from "../../../shared-types/schemas/benutzer-sc
 
 
 export function LoginForm() {
-  const {login, error} = useAuth()
-  const navigate = useNavigate()
-
-  const handleLogin = (loginInfo: LoginType) => {
-    login(loginInfo).then(() => navigate('/user'))
-  }
+  const {handleLogin, error} = useAuth()
 
   const handleRegister = () => {
     alert('Aktuell keine Registrierung möglich')
@@ -52,7 +46,6 @@ export function LoginForm() {
         <Formik<RegisterType>
           initialValues={{name: '', email: '', password: ''}}
           onSubmit={handleRegister}
-          enableReinitialize
         >
           <Form>
             <FormGroup>

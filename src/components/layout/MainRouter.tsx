@@ -1,8 +1,8 @@
 import React from "react";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 
-import {DefaultView} from "./views";
-import {AdminView} from "./views";
+import {DefaultView} from "./views/DefaultView";
+import {AdminView} from "./views/AdminView";
 
 import {Startseite, Impressum} from "../pages/static";
 import {LoginForm, BenutzerInfo} from "../pages/benutzer";

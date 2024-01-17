@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {Box, BottomNavigation, Grid, Button} from "@mui/material";
-import {StateContext} from "../../../util/state/StateProvider";
-import {StateContextType} from "../../../util/state/types";
-import {ActionTypes} from "../../../util/state/reducers";
+import {StateContext} from "../../../../util/state/StateProvider";
+import {StateContextType} from "../../../../util/state/types";
+import {ActionTypes} from "../../../../util/state/reducers";
 import {useNavigate} from "react-router-dom";
 
 export function FooterMainDesktop() {

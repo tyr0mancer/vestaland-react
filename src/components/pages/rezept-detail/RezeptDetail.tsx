@@ -14,8 +14,8 @@ import EditIcon from '@mui/icons-material/Edit';
 
 import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {LoadingScreen} from "../../common/ui/LoadingScreen";
-import {ErrorScreen} from "../../common/ui/ErrorScreen";
+import {LoadingScreen} from "../../layout/ConditionalDisplay/LoadingScreen";
+import {ErrorScreen} from "../../layout/ConditionalDisplay/ErrorScreen";
 import {ShowTags} from "../../common/formatting/ShowTags";
 import {RezeptBild} from "../../common/formatting/RezeptBild";
 import {ShowTimes} from "../../common/formatting/ShowTimes";
@@ -36,7 +36,7 @@ import {ShowNutrients} from "../../common/formatting/ShowNutrients";
  */
 export function RezeptDetail() {
   const {rezeptId} = useParams();
-  const {isOwner} = useAuth();
+  const {authInfo} = useAuth();
 
   const {
     isLoading,
@@ -54,6 +54,8 @@ export function RezeptDetail() {
   const [portionen, setPortionen] = useState(rezept?.portionen || 1)
   const portionsFaktor = (portionen && rezept?.portionen) ? portionen / rezept.portionen : 1
 
+  const currentUserIsOwner: boolean = (!!rezept && !!authInfo?._id) // @todo (rezept && !!authInfo?._id) && rezept.owner._id === authInfo._id
+
 
   if (isLoading)
     return (<LoadingScreen/>)
@@ -68,7 +70,7 @@ export function RezeptDetail() {
           {/* Rezeptname und ggfls. Edit Button */}
           <Typography variant="h2" gutterBottom>
             {rezept.name}
-            {isOwner(rezept._id) &&
+            {currentUserIsOwner &&
                 <Button component={Link} to={`/rezept-editor/${rezept._id}`} variant={'outlined'}><EditIcon/></Button>
             }
           </Typography>

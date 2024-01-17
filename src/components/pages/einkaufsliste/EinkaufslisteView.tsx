@@ -7,7 +7,7 @@ import {useDataSync} from "../../../util/state/useDataSync";
 import {FormCacheState} from "../../../util/state/FormCacheState";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {Zutat} from "../../../shared-types/models/Zutat";
-import {StatusWrapper} from "../../common/ui/StatusWrapper";
+import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 import {CustomFieldArray} from "../../common/form-elements/generic/CustomFieldArray";
 import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
 import {CustomAutocomplete} from "../../common/form-elements/generic/CustomAutocomplete";
@@ -34,7 +34,7 @@ export function EinkaufslisteView(): React.ReactElement {
   const newZutatValue = {"einheit": "ST", "menge": 1, lebensmittel: new Lebensmittel()} as Zutat
 
 
-  return (<StatusWrapper dataSync={{isLoading, error}}>
+  return (<ConditionalDisplay restricted status={{isLoading, error}}>
 
     <Formik<Rezept>
       initialValues={initialValues}
@@ -60,7 +60,7 @@ export function EinkaufslisteView(): React.ReactElement {
       }}
     </Formik>
 
-  </StatusWrapper>)
+  </ConditionalDisplay>)
 }
 
 

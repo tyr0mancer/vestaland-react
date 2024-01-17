@@ -7,7 +7,7 @@ import {StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
 import {StateContext} from "../../../util/state/StateProvider";
-import {LoadingScreen} from "../../common/ui/LoadingScreen";
+import {LoadingScreen} from "../../layout/ConditionalDisplay/LoadingScreen";
 import {RezeptEditorForm} from "./RezeptEditorForm";
 import {APIService} from "../../../util/api/APIService";
 import {DefaultValues} from "./index";

@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingIcon from "@mui/icons-material/ShoppingCart";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
-import {useAuth} from "../../../util/auth/AuthProvider";
+import {useAuth} from "../../../../util/auth/AuthProvider";
 
 
 export function FooterMainMobile() {

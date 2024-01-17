@@ -2,9 +2,9 @@ import React from "react";
 import {Container, Paper} from "@mui/material";
 
 import {useAuth} from "../../../util/auth/AuthProvider";
-import {ErrorScreen} from "../../common/ui/ErrorScreen";
-import {FooterMain} from "../footer";
-import {NavbarMain} from "../navbar";
+import {ErrorScreen} from "../ConditionalDisplay/ErrorScreen";
+import {FooterMain} from "../footer/FooterMain";
+import {NavbarMain} from "../navbar/NavbarMain";
 import {CustomAlerts} from "../../common/ui/CustomAlerts";
 import {BenutzerRolle} from "../../../shared-types/enum";
 

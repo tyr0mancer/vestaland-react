@@ -6,9 +6,9 @@ import {StateContext} from "../../../util/state/StateProvider";
 import {StateContextType} from "../../../util/state/types";
 import {RezeptCard} from "./RezeptCard";
 import {Grid} from "@mui/material";
-import {ErrorScreen} from "../../common/ui/ErrorScreen";
+import {ErrorScreen} from "../../layout/ConditionalDisplay/ErrorScreen";
 
-import {LoadingScreen} from "../../common/ui/LoadingScreen";
+import {LoadingScreen} from "../../layout/ConditionalDisplay/LoadingScreen";
 
 export function RezeptSucheAusgabe() {
   const { state: {dataSync: {rezeptSuche}}} = useContext(StateContext) as StateContextType

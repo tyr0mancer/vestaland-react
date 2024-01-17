@@ -11,7 +11,7 @@ type AuthContextType = {
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
   isOwner: (userId?: string) => boolean,
   logout: () => Promise<any>,
-  login: (loginInfo?: LoginType) => Promise<any>,
+  handleLogin: (loginInfo?: LoginType) => Promise<any>,
   error?: ApiErrorResponse | null
 }
 
@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType>({
   authInfo: null,
   logout: () => new Promise(() => {
   }),
-  login: () => new Promise(() => {
+  handleLogin: () => new Promise(() => {
   }),
   isAuthorized: () => false,
   isOwner: () => false
@@ -30,6 +30,9 @@ const AuthContext = createContext<AuthContextType>({
  * Context Provider um useAuth in darin befindlichen Komponenten bereitzustellen
  *
  * @param children
+ *
+ * @see refresh
+ *
  */
 export const AuthProvider = ({children}: any) => {
 
@@ -68,16 +71,20 @@ export const AuthProvider = ({children}: any) => {
   }
 
 
+  /**
+   *
+   * @see LoginSchema
+   *
+   * @param loginInfo
+   */
   async function handleLogin(loginInfo?: LoginType) {
     AuthService.login(loginInfo)
-      .then(res => {
-        setAuthInfo(res)
-      })
+      .then(setAuthInfo)
       .catch(error => {
-        if (isAuthError(error.response?.data)) {
+        if (isAuthError(error.response?.data))
           setError(error.response?.data)
-        }
-        console.error(error)
+        else
+          setError(error)
       })
   }
 
@@ -107,7 +114,7 @@ export const AuthProvider = ({children}: any) => {
   return (
     <AuthContext.Provider value={{
       authInfo,
-      login: handleLogin,
+      handleLogin: handleLogin,
       logout: handleLogout,
       isAuthorized,
       error,
@@ -124,7 +131,7 @@ export const AuthProvider = ({children}: any) => {
  * @example
  * const {isAuthorized} = useAuth()
  * { isAuthorized(BenutzerRolle.ADMIN) && <AdminComponent /> }
-  */
+ */
 export const useAuth = () => useContext(AuthContext);
 
 
