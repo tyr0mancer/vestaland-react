@@ -4,6 +4,10 @@ import {config} from "../../../util/config";
 
 const DUMMY = 'https://api.vestaland.de/public/platzhalter.jpg'
 
+/**
+ * Gibt absoluten Pfad zu Bild als string zurück
+ * @param filename
+ */
 export function getFileUrl(filename?: string) {
   if (!filename)
     return DUMMY

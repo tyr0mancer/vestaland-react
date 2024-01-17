@@ -5,19 +5,19 @@ import {Rezept} from "../../../shared-types/models/Rezept";
 import {StateContext} from "../../../util/state/StateProvider";
 import {StateContextType} from "../../../util/state/types";
 import {RezeptCard} from "./RezeptCard";
-import {Grid, IconButton, Typography} from "@mui/material";
+import {Grid} from "@mui/material";
 import {ErrorScreen} from "../../common/ui/ErrorScreen";
 
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import {LoadingScreen} from "../../common/ui/LoadingScreen";
-import {ActionTypes} from "../../../util/state/reducers";
 
 export function RezeptSucheAusgabe() {
-  const {dispatch, state: {rezeptHistory, rezeptSucheQuery}} = useContext(StateContext) as StateContextType
+  const { state: {dataSync: {rezeptSuche}}} = useContext(StateContext) as StateContextType
 
+/*
   const handleDeleteHistory = (index?: string) => {
     if (index) dispatch({type: ActionTypes.DELETE_HISTORY, payload: index})
   }
+*/
 
   const {
     isLoading,
@@ -26,7 +26,7 @@ export function RezeptSucheAusgabe() {
     data
   } = useQuery<Rezept[]>(
     {
-      queryKey: ["rezepte-suche", rezeptSucheQuery.rezeptName],
+      queryKey: ["rezepte-suche", rezeptSuche?.name || ''],
       enabled: false,
     });
 
@@ -42,7 +42,7 @@ export function RezeptSucheAusgabe() {
         </Grid>
       )}
     </Grid>
-    {(!data || !data.length) &&
+{/*    {(!data || !data.length) &&
         <>
             <Typography variant="h4" gutterBottom borderBottom={2} mt={5}>
                 zuletzt gekocht:
@@ -58,6 +58,6 @@ export function RezeptSucheAusgabe() {
               )}
             </Grid>
         </>
-    }
+    }*/}
   </>)
 }

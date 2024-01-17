@@ -1,37 +1,24 @@
-import {Field, Form, useFormikContext} from "formik";
-import React, {useContext, useEffect} from "react";
-import {StateContext} from "../../../util/state/StateProvider";
-import {RezeptSucheQuery, StateContextType} from "../../../util/state/types";
+import React from "react";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button, Checkbox,
-  FormControlLabel,
+  Button,
   Grid,
-  TextField,
   Typography
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {useAuth} from "../../../util/auth/AuthProvider";
-import {ActionTypes} from "../../../util/state/reducers";
-import {useDebounce} from "@react-hooks-library/core";
+import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
+import {CustomCheckbox} from "../../common/form-elements/generic/CustomCheckbox";
 
 export function RezeptSucheForm() {
-  const formik = useFormikContext<RezeptSucheQuery>();
-  const {dispatch} = useContext(StateContext) as StateContextType
   const {isAuthorized} = useAuth()
-  const searchQueryDebounced = useDebounce(formik.values, 300)
 
-  useEffect(() => {
-    dispatch({type: ActionTypes.SET_REZEPT_SUCHE, payload: searchQueryDebounced})
-  }, [searchQueryDebounced, dispatch]);
-
-  return (<Form>
+  return (<>
     <Grid container spacing={2} alignItems="center">
       <Grid item xs>
-        <Field as={TextField} type="text" variant="outlined" fullWidth
-               name="rezeptName" label="Rezeptname"/>
+        <CustomTextField name={'name'} label={'Rezeptname'}/>
       </Grid>
       <Grid item>
         <Button type="submit" variant="contained" color="primary">
@@ -49,43 +36,13 @@ export function RezeptSucheForm() {
         <Typography variant={"body2"}>Detail-Suche</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <Field
-          type="checkbox"
-          name="healthy"
-          as={FormControlLabel}
-          value={true}
-          control={<Checkbox checked={formik.values.healthy}/>}
-          label="nur gesundes Essen"
-        />
-        <Field
-          type="checkbox"
-          name="vegetarisch"
-          as={FormControlLabel}
-          value={true}
-          control={<Checkbox checked={formik.values.vegetarisch}/>}
-          label="nur vegetarisches"
-        />
-        <Field
-          type="checkbox"
-          name="soulfood"
-          as={FormControlLabel}
-          value={true}
-          control={<Checkbox checked={formik.values.soulfood}/>}
-          label="nur Soulfood"
-        />
+        <CustomCheckbox name={''} label={'Tag'}/>
 
         {isAuthorized() &&
-            <Field
-                type="checkbox"
-                name="myRecipes"
-                as={FormControlLabel}
-                value={true}
-                control={<Checkbox checked={formik.values.myRecipes}/>}
-                label="nur meine eigenen Rezepte"
-            />
+            <CustomCheckbox name={''} label={'nur meine eigenen Rezepte'}/>
         }
       </AccordionDetails>
     </Accordion>
-  </Form>)
+  </>)
 }
 

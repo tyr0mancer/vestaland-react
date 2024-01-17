@@ -2,22 +2,24 @@ import {apiClient} from "./apiClient";
 import {Rezept} from "../../shared-types/models/Rezept";
 import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 
-import {RezeptSucheQuery} from "../state/types";
+import {RezeptSucheType} from "../../shared-types/schemas/rezept-schema";
 
-export const rezeptSuche = (query: RezeptSucheQuery): Promise<Rezept[]> => {
+export const rezeptSuche = (query: RezeptSucheType): Promise<Rezept[]> => {
 
   //@todo iterate over a string[] array
-  let queryString = `name=${query.rezeptName}`
-  if (query.vegetarisch)
+  let queryString = `name=${query.name}`
+/*  if (query.vegetarisch)
     queryString += `&vegetarisch=1`
   if (query.healthy)
     queryString += `&healthy=1`
   if (query.myRecipes)
     queryString += `&myRecipes=1`
   if (query.soulfood)
-    queryString += `&soulfood=1`
+    queryString += `&soulfood=1`*/
+/*
   if (query.zutaten)
     queryString += `zutaten=${query.zutaten.toString()}`
+*/
 
   return new Promise<Rezept[]>(resolve =>
     apiClient.get(`/rezept?${queryString}`)

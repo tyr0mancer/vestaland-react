@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {config} from "../config";
-import {ApiErrorResponse} from "../../shared-types/types";
 import {AUTH_NO_TOKEN_ERROR_MESSAGE} from "../../shared-types/config";
 
 // wird nur verwendet, um das auth token zu erneuern
@@ -13,6 +12,10 @@ const refreshClient = axios.create({
 });
 
 
+/**
+ * Axios Client
+ * Setzt baseUrl aus config und handhabt Fehlermeldungen und abgelaufene Auth Token
+ */
 export const apiClient = axios.create({
   baseURL: config.apiBaseUrl,
   withCredentials: true,
@@ -60,26 +63,29 @@ apiClient.interceptors.response.use(
 );
 
 
-function handleError(error: any) {
-  console.error('handleError', error)
+/**
+ * Sendet den Fehler als Event an das window Objekt.
+ * <Custom Alert /> greift die Meldung auf und zeigt den Fehler dann an.
+ * State-Management mittels dispatch() nicht möglich, da Fehler außerhalb des ContextProviders auftreten können
+ *
+ * @see CustomAlerts
+ *
+ * @param error
+ */
+export function handleError(error: any) {
+  // @todo sanity checks etc.
+  // console.error('handleError', error)
   window.dispatchEvent(new CustomEvent('api-error', {detail: error}));
 }
 
 
-export function isAuthError(obj: any): obj is ApiErrorResponse {
-  return obj
-    && typeof obj.status === 'number'
-    && typeof obj.message === 'string';
-}
-
-
-/*
-    Verwende Refresh-Client und rufe /auth/refresh API-Route auf.
-    Falls ein HTTP-only cookie für den API Server im Browser gesetzt wurde, wird ein neues Auth-Token zurückgesendet.
-
-    @function tryRefreshToken
+/**
+ * Verwende Refresh-Client und rufe /auth/refresh API-Route auf.
+ * Falls ein HTTP-only cookie für den API Server im Browser gesetzt wurde, wird ein neues Auth-Token zurückgesendet.
+ *
+ * @param originalRequest Ursprüngliche Anfrage, die danach mit neuem Header nochmal gestellt wird
 */
-function tryRefreshToken(originalRequest: any) {
+export function tryRefreshToken(originalRequest: any) {
 
   refreshClient.post(config.apiBaseUrl + config.tokenRefreshUrl)
     .then(response => {
@@ -91,6 +97,5 @@ function tryRefreshToken(originalRequest: any) {
       return apiClient(originalRequest);
     })
     .catch(error => console.error('Error while trying to refresh Token', error.response || error))
-  // @todo Fehler-Analyse: ist token abgelaufen, wurde gar keines gesetzt? existiert ein cookie?
 
 }

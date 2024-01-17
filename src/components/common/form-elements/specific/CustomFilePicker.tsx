@@ -4,7 +4,8 @@ import {Datei} from "../../../../shared-types/models/Datei";
 import {useFormikContext} from "formik";
 import {FileUploader} from 'react-drag-drop-files';
 import {Box, Button, Modal, Typography} from "@mui/material";
-import {fileUploadService, getFileUrl} from "../../../../util/api/fileService";
+import {getFileUrl} from "../../formatting/RezeptBild";
+import {APIService} from "../../../../util/api/APIService";
 
 /**
  * TS Doc Info
@@ -16,7 +17,7 @@ export function CustomFilePicker({name, values}: CustomFieldProps<Datei>): React
   const handleUpload = async (values: File) => {
     if (!values)
       return
-    const res = await fileUploadService(values)
+    const res = await APIService.upload('datei', values)
     await setFieldValue(name, res)
   }
 

@@ -1,46 +1,35 @@
-import React, {useContext} from 'react';
-import {useQuery} from "@tanstack/react-query";
-import {Formik} from 'formik';
-
-import {StateContext} from "../../../util/state/StateProvider";
-import {RezeptSucheQuery, StateContextType} from "../../../util/state/types";
-import {ActionTypes} from "../../../util/state/reducers";
-
-import {Rezept} from "../../../shared-types/models/Rezept";
-
+import React from 'react';
+import {Form, Formik} from 'formik';
 import {RezeptSucheForm} from './RezeptSucheForm';
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
-import {APIService} from "../../../util/api/APIService";
+import {RezeptSucheSchema, RezeptSucheType} from "../../../shared-types/schemas/rezept-schema";
+import {useDataSync} from "../../../util/state/useDataSync";
 
 
 export function RezeptSuche() {
-  const {state: {rezeptSucheQuery}, dispatch} = useContext(StateContext) as StateContextType
-  const {
-    refetch
-  } = useQuery<Rezept[]>(
-    {
-      queryKey: ["rezepte-suche", rezeptSucheQuery.rezeptName],
-      queryFn: () => APIService.search<Rezept>('rezept', rezeptSucheQuery),           //rezeptSuche(rezeptSucheQuery),
-      enabled: (rezeptSucheQuery.rezeptName.length > 0),
-      staleTime: 1000 * 60 * 5, // 5 minutes
-    });
 
-  async function handleSubmit(rezeptSucheQuery: RezeptSucheQuery) {
-    dispatch({type: ActionTypes.SET_REZEPT_SUCHE, payload: rezeptSucheQuery})
-    await refetch()
-  }
+  const {initialValues, validateForm} = useDataSync<RezeptSucheType>({
+    defaultValues: {tags: []},
+    contextKey: 'rezeptSuche',
+    validationSchema: RezeptSucheSchema,
+  })
 
   return (
     <>
-      <Formik<RezeptSucheQuery>
-        initialValues={rezeptSucheQuery}
-        onSubmit={handleSubmit}
-        enableReinitialize
+      <Formik<RezeptSucheType>
+        initialValues={initialValues}
+        onSubmit={(val) => console.log(val)}
+        validate={validateForm}
       >
-        <RezeptSucheForm/>
+        {({}) => {
+          return (<Form><RezeptSucheForm/> </Form>)
+        }}
       </Formik>
       <br/>
       <RezeptSucheAusgabe/>
     </>
-  );
+  )
+
 }
+
+

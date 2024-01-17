@@ -1,10 +1,13 @@
 import {apiClient} from "../api/apiClient";
-import {LoginProps, RegisterProps} from "./types";
 import {LoginResponseType} from "../../shared-types/types";
+import {LoginType, RegisterType} from "../../shared-types/schemas/benutzer-schema";
 
 
+/**
+ * Serviceklasse für auth-spezifische API calls
+ */
 export class AuthService {
-  static async login(loginInfo?: LoginProps): Promise<LoginResponseType> {
+  static async login(loginInfo?: LoginType): Promise<LoginResponseType> {
     return new Promise<LoginResponseType>((resolve, reject) => {
       apiClient.post('/auth/login', loginInfo)
         .then(response => {
@@ -40,7 +43,7 @@ export class AuthService {
     })
   }
 
-  static async registerAndLogin(newUser: RegisterProps): Promise<LoginResponseType> {
+  static async registerAndLogin(newUser: RegisterType): Promise<LoginResponseType> {
     return new Promise<LoginResponseType>((resolve, reject) => {
       apiClient.post('/auth/register', newUser)
         .then(response => {

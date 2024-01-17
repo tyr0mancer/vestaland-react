@@ -1,5 +1,15 @@
 import {apiClient} from "./apiClient";
 
+/**
+ * Service Klasse um API Anfragen mit Hilfe des apiClients zu realisieren.
+ * Verwendet generics
+ *
+ * @example Verwendung mit useQuery
+ * queryFn: () => APIService.search<Utensil>('utensil', {utensilienName: input})
+ *
+ * @example Verwendung in async Funktion
+ * const res = await APIService.upload('datei', values)
+ */
 export class APIService {
 
   /**
@@ -76,6 +86,19 @@ export class APIService {
     return apiClient.delete(joinPaths(routePath, id))
   }
 
+
+  /**
+   * Setzt Content-Type auf "multipart/form-data" um Dateien zur API zu senden.
+   *
+   * @param routePath - spezifischer Pfad, z.B. 'datei'
+   * @param file - Die Datei die hochgeladen werden soll
+   * @returns Promise<any>
+   */
+  static async upload(routePath: string, file: File): Promise<any> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+    return apiClient.post(routePath, formData, {headers: {"Content-Type": "multipart/form-data",}}).then(res => res.data)
+  }
 
 }
 

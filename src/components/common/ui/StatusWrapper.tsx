@@ -8,7 +8,7 @@ import {useAuth} from "../../../util/auth/AuthProvider";
 type StatusWrapperProps<T> = {
   children?: React.ReactNode,
   requiredRole?: BenutzerRolle | 'any',
-  dataSync: Partial<UseDataSyncReturn<any>>;
+  dataSync?: Partial<UseDataSyncReturn<any>>;
 }
 
 // @todo weiterleiten zu login? token dauer prüfen? und wie bzgl. PWA?
@@ -25,7 +25,7 @@ type StatusWrapperProps<T> = {
  */
 export function StatusWrapper({
                                 requiredRole,
-                                dataSync: {isLoading, error},
+                                dataSync,
                                 children
                               }: StatusWrapperProps<any>): React.ReactElement {
 
@@ -34,8 +34,8 @@ export function StatusWrapper({
     (requiredRole === 'any' && !isAuthorized()) || (requiredRole !== 'any' && !isAuthorized(requiredRole))
   ) return <ErrorScreen error={{status: 403, message: "Keine Berechtigung"}}/>
 
-  if (isLoading) return <LoadingScreen/>
-  if (error) return <ErrorScreen eror={error}/>
+  if (dataSync?.isLoading) return <LoadingScreen/>
+  if (dataSync?.error) return <ErrorScreen eror={dataSync.error}/>
 
   return <>
     {children}

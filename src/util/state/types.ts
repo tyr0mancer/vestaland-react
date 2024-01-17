@@ -17,7 +17,6 @@ export type RezeptPartial = Pick<Rezept, "_id" | "name" | "bild" | "beschreibung
 export interface GlobalState {
   dataSync: DataSyncNodes,
   rezeptHistory: RezeptPartial[],
-  rezeptSucheQuery: RezeptSucheQuery,
   rezeptCooking?: Rezept,
   kochstatus: Kochstatus,
   rezeptEditing?: Rezept

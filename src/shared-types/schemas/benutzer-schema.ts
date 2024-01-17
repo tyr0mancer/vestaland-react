@@ -40,6 +40,10 @@ export const RegisterSchema = BenutzerSchema.pick({
   name: true, email: true, password: true
 })
 
+export type RegisterType = z.infer<typeof RegisterSchema>;
+
+
+
 
 export const RequestNewPasswordSecretTokenSchema = BenutzerSchema.pick({
   email: true
@@ -68,8 +72,12 @@ export const UpdateProfileSchema = z.object({
     path: ["passwordRepeat"],
   })
 
+
+
 // Benutzer logt sicht ein
 export const LoginSchema = z.object({
   username: z.string({required_error: "Benutzername fehlt."}),
   password: z.string({required_error: "Passwort fehlt."})
 });
+
+export type LoginType = z.infer<typeof LoginSchema>;

@@ -12,7 +12,7 @@ import {useAuth} from "../../../util/auth/AuthProvider";
 
 
 export function FooterMainMobile() {
-  const {isAuthorized,} = useAuth()
+  const {isAuthorized} = useAuth()
 
   return (
     <Box sx={{position: 'fixed', bottom: 0, left: 0, right: 0, display: {xs: 'block', md: 'none'}}}>

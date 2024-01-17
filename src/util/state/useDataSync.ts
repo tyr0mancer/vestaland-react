@@ -7,7 +7,7 @@ import {StateContext} from "./StateProvider";
 import {ActionTypes, CachePayloadTypeKeys} from "./reducers";
 import {ZodError, ZodObject} from "zod";
 
-interface UseDataSyncParams<T> {
+export interface UseDataSyncParams<T> {
   parameterName?: string
   queryFn?: (id?: string) => Promise<T>
   queryKey?: string
@@ -24,6 +24,16 @@ export interface UseDataSyncReturn<T> {
   validateForm: (value: T) => any
 }
 
+/**
+ * Zauberei
+ *
+ * @param parameterName
+ * @param queryFn
+ * @param queryKey
+ * @param contextKey
+ * @param defaultValues
+ * @param validationSchema
+ */
 export function useDataSync<T>({
                                  parameterName,
                                  queryFn,

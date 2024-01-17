@@ -4,16 +4,16 @@ import {StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
 import {Accordion, AccordionDetails, AccordionSummary, Box, Grid, IconButton, Typography} from "@mui/material";
+import Button from "@mui/material/Button";
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import {ShowKochschrittAktion} from "../../common/formatting/ShowKochschrittAktionen";
 import {ShowZutaten} from "../../common/formatting/ShowZutaten";
 import {getDateInFuture} from "./Kochschritte";
-import Button from "@mui/material/Button";
-import {COLOR_PRIMARY, COLOR_SECONDARY} from "../../../assets/style/themeMUI";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
 import {ShowErforderlicheKochschritte} from "../../common/formatting/ShowErforderlicheKochschritte";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
 import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
+import {colors} from "../../../assets/style/themeMUI";
 
 interface KocheRezeptKochschrittProps {
   index: number
@@ -55,8 +55,8 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
   }
 
   const style = (kochstatus.aktuellerKochschrittIndex === index)
-    ? {backgroundColor: COLOR_PRIMARY, color: 'white'}
-    : {backgroundColor: COLOR_SECONDARY}
+    ? {backgroundColor: colors.primary, color: 'white'}
+    : {backgroundColor: colors.secondary}
 
 
   return (<div>
@@ -93,42 +93,42 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
                   </Box>
               }
 
-          </Typography>
+            </Typography>
 
-          {kochschritt.beschreibung &&
-              <Typography variant="body2" border={'1px dotted'} color={'primary'} padding={2} mt={2}>
-                {kochschritt.videoUrl && <a href={kochschritt.videoUrl} target="_blank"
-                                            rel="noreferrer"><IconButton><SmartDisplayIcon/></IconButton></a>}
+            {kochschritt.beschreibung &&
+                <Typography variant="body2" border={'1px dotted'} color={'primary'} padding={2} mt={2}>
+                  {kochschritt.videoUrl && <a href={kochschritt.videoUrl} target="_blank"
+                                              rel="noreferrer"><IconButton><SmartDisplayIcon/></IconButton></a>}
 
-                {kochschritt.beschreibung}
-              </Typography>
-          }
+                  {kochschritt.beschreibung}
+                </Typography>
+            }
 
-          {kochschritt.wartezeit &&
-              <Box textAlign={'center'} mt={1}>
-                  <Button
-                      variant={'contained'}
-                  >{kochschritt.wartezeit} Min</Button>
-              </Box>
-          }
+            {kochschritt.wartezeit &&
+                <Box textAlign={'center'} mt={1}>
+                    <Button
+                        variant={'contained'}
+                    >{kochschritt.wartezeit} Min</Button>
+                </Box>
+            }
 
 
+          </Grid>
         </Grid>
-      </Grid>
 
 
-      {index === (kochstatus.aktuellerKochschrittIndex - 1) &&
-          <Button onClick={() => setIndex(index)}>Reopen</Button>
-      }
-    </AccordionDetails>
-  </Accordion>
-  {
-    index === kochstatus.aktuellerKochschrittIndex && <Box textAlign={'right'}>
-        <Button onClick={() => setIndex(index + 1)}>Abschließen</Button>
-        <hr/>
-    </Box>
-  }
+        {index === (kochstatus.aktuellerKochschrittIndex - 1) &&
+            <Button onClick={() => setIndex(index)}>Reopen</Button>
+        }
+      </AccordionDetails>
+    </Accordion>
+    {
+      index === kochstatus.aktuellerKochschrittIndex && <Box textAlign={'right'}>
+            <Button onClick={() => setIndex(index + 1)}>Abschließen</Button>
+            <hr/>
+        </Box>
+    }
 
-</div>)
+  </div>)
 }
 

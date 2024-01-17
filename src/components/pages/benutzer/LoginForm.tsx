@@ -4,15 +4,15 @@ import {Field, Form, Formik} from "formik";
 import {Alert, AlertTitle, Button, FormGroup, Grid, TextField, Typography} from "@mui/material";
 import {Login as LoginIcon, AppRegistration as AppRegistrationIcon} from '@mui/icons-material';
 
-import {LoginProps, RegisterProps} from "../../../util/auth/types";
 import {useAuth} from "../../../util/auth/AuthProvider";
+import {LoginType, RegisterType} from "../../../shared-types/schemas/benutzer-schema";
 
 
 export function LoginForm() {
   const {login, error} = useAuth()
   const navigate = useNavigate()
 
-  const handleLogin = (loginInfo: LoginProps) => {
+  const handleLogin = (loginInfo: LoginType) => {
     login(loginInfo).then(() => navigate('/user'))
   }
 
@@ -31,7 +31,7 @@ export function LoginForm() {
               {error?.description}
             </Alert>
         }
-        <Formik<LoginProps>
+        <Formik<LoginType>
           initialValues={{username: '', password: ''}}
           onSubmit={handleLogin}
         >
@@ -49,7 +49,7 @@ export function LoginForm() {
       </Grid>
       <Grid item xs={12} md={6}>
         <Typography variant={"h5"} gutterBottom>Oder registrieren Sie sich:</Typography>
-        <Formik<RegisterProps>
+        <Formik<RegisterType>
           initialValues={{name: '', email: '', password: ''}}
           onSubmit={handleRegister}
           enableReinitialize

@@ -1,15 +1,11 @@
 import React, {useReducer} from 'react';
 
 import {DefaultDataSyncNodes, reducer} from "./reducers";
-import {Kochstatus, RezeptPartial, RezeptSucheQuery, GlobalState, StateContextType} from "./types";
+import {Kochstatus, RezeptPartial, GlobalState, StateContextType} from "./types";
 import {Rezept} from "../../shared-types/models/Rezept";
 
-const rezeptSucheQueryDefault: RezeptSucheQuery = {
-  rezeptName: ''
-}
 
 const defaultState: GlobalState = {
-  rezeptSucheQuery: rezeptSucheQueryDefault,
   rezeptHistory: [],
   kochstatus: {
     meta: [],

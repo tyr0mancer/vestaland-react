@@ -1,18 +1,17 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
-import {LoginProps} from "./types";
-import {isAuthError} from "../api/apiClient";
 import {AuthService} from "./AuthService";
 import {config} from "../config";
 
 import {BenutzerRolle} from "../../shared-types/enum";
 import {ApiErrorResponse, LoginResponseType} from "../../shared-types/types";
+import {LoginType} from "../../shared-types/schemas/benutzer-schema";
 
 type AuthContextType = {
   authInfo: LoginResponseType | null,
   isAuthorized: (requiredRole?: BenutzerRolle) => boolean,
   isOwner: (userId?: string) => boolean,
   logout: () => Promise<any>,
-  login: (loginInfo?: LoginProps) => Promise<any>,
+  login: (loginInfo?: LoginType) => Promise<any>,
   error?: ApiErrorResponse | null
 }
 
@@ -27,6 +26,11 @@ const AuthContext = createContext<AuthContextType>({
 
 });
 
+/**
+ * Context Provider um useAuth in darin befindlichen Komponenten bereitzustellen
+ *
+ * @param children
+ */
 export const AuthProvider = ({children}: any) => {
 
   const [authInfo, setAuthInfo] = useState<LoginResponseType | null>(null);
@@ -64,7 +68,7 @@ export const AuthProvider = ({children}: any) => {
   }
 
 
-  async function handleLogin(loginInfo?: LoginProps) {
+  async function handleLogin(loginInfo?: LoginType) {
     AuthService.login(loginInfo)
       .then(res => {
         setAuthInfo(res)
@@ -114,4 +118,18 @@ export const AuthProvider = ({children}: any) => {
   );
 };
 
+/**
+ * Custom Hook um in Komponenten auf den Auth-Status zugreifen zu können
+ *
+ * @example
+ * const {isAuthorized} = useAuth()
+ * { isAuthorized(BenutzerRolle.ADMIN) && <AdminComponent /> }
+  */
 export const useAuth = () => useContext(AuthContext);
+
+
+function isAuthError(obj: any): obj is ApiErrorResponse {
+  return obj
+    && typeof obj.status === 'number'
+    && typeof obj.message === 'string';
+}

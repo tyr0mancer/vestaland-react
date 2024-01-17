@@ -4,13 +4,8 @@ import {Field,} from "formik";
 import { TextField} from "@mui/material";
 import {CustomCheckbox} from "../../../common/form-elements/generic/CustomCheckbox";
 
-interface ZeitangabeFieldsProps {
-  name: string
-}
-
 /**
- * TS Doc Info
- * @component ZeitangabeFields
+ * @component
  */
 export function ZeitangabeFields({name}: ZeitangabeFieldsProps): React.ReactElement {
   return (<Box display="flex" justifyContent="space-between" mt={1}>

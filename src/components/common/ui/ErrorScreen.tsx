@@ -57,6 +57,16 @@ export function ErrorScreen({error}: any) {
           onClick={handleSubmit}
           variant={'contained'} color={'primary'}>Fehler melden</Button>
       </Box>
+
+      <Box mt={2} borderTop={1}>
+        <Typography variant={'body2'}>
+          <a href={'/docs'} target="_blank" rel="noreferrer">zur Dokumentation des Vestaland Frontends</a>
+        </Typography>
+        <Typography variant={'body2'}>
+          <a href={'https://api.vestaland.de/docs'} target="_blank" rel="noreferrer">zur Dokumentation des Vestaland Backends</a>
+        </Typography>
+      </Box>
+
     </Box>)
 
   return (<Box mt={2}>

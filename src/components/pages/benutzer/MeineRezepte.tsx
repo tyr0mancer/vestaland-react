@@ -15,7 +15,7 @@ export function MeineRezepte(): React.ReactElement {
   } = useQuery<Rezept[]>(
     {
       queryKey: ["rezepte-suche", 'meine'],
-      queryFn: () => rezeptSuche({rezeptName: '', myRecipes: true}),
+      queryFn: () => rezeptSuche({name: ''}),
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
 

@@ -21,6 +21,8 @@ export function CustomCheckbox({name, label}: CustomCheckboxProps): React.ReactE
     await helpers.setValue(e.target.checked);
   };
 
+  console.log(field, 'field')
+
   return <Field
     type="checkbox"
     name={name}
