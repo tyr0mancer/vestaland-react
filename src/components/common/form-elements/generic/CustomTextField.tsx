@@ -1,5 +1,5 @@
 import React from "react";
-import {Field, useField} from "formik";
+import {FastField, Field, useField} from "formik";
 import {TextField} from "@mui/material";
 import {CustomTextFieldProps} from "./types";
 
@@ -15,8 +15,23 @@ import {CustomTextFieldProps} from "./types";
  *   type="email"
  * />
  */
-export function CustomTextField({name, label, type = 'text'}: CustomTextFieldProps): React.ReactElement {
+export function CustomTextField({
+                                  name,
+                                  label,
+                                  type = 'text',
+                                  fastField = false
+                                }: CustomTextFieldProps): React.ReactElement {
   const [, meta] = useField(name);
+
+  if (fastField) return (<FastField as={TextField}
+                                type={type}
+                                variant={'outlined'}
+                                name={name}
+                                label={label}
+                                error={meta.touched && !!meta.error}
+                                helperText={meta.touched && meta.error}
+  />)
+
   return (<Field as={TextField}
                  type={type}
                  variant={'outlined'}
@@ -25,4 +40,5 @@ export function CustomTextField({name, label, type = 'text'}: CustomTextFieldPro
                  error={meta.touched && !!meta.error}
                  helperText={meta.touched && meta.error}
   />)
+
 }

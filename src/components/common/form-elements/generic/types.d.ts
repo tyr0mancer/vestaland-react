@@ -161,6 +161,11 @@ type CustomTextFieldProps = {
    * Der Typ des Eingabefeldes. Kann 'text', 'number', 'password' oder 'email' sein.
    */
   type?: 'text' | 'number' | 'email' | 'password',
+
+  /**
+   * Soll das Formik Feld als <FastField /> statt <Fast /> implementiert werden?
+   */
+  fastField?: boolean
 }
 
 
