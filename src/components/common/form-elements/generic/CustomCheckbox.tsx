@@ -25,7 +25,6 @@ export function CustomCheckbox({name, label}: CustomCheckboxProps): React.ReactE
     label={label}
     variant="outlined"
     onChange={handleChange}
-    fullWidth={true}
   />
 
 }

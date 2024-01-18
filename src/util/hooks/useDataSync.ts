@@ -2,9 +2,9 @@ import {useContext, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {useQuery} from "@tanstack/react-query";
 
-import {StateContextType} from "./types";
-import {StateContext} from "./StateProvider";
-import {ActionTypes, CachePayloadTypeKeys} from "./reducers";
+import {StateContextType} from "../state/types";
+import {StateContext} from "../state/StateProvider";
+import {ActionTypes, CachePayloadType, CachePayloadTypeKeys} from "../state/reducers";
 import {ZodError, ZodObject} from "zod";
 
 export interface UseDataSyncParams<T> {
@@ -13,7 +13,8 @@ export interface UseDataSyncParams<T> {
   queryKey?: string
   contextKey?: CachePayloadTypeKeys
   defaultValues: T
-  validationSchema:  ZodObject<any>
+  validationSchema: ZodObject<any>
+  dispatchFn?: (data: T) => CachePayloadType
 }
 
 export interface UseDataSyncReturn<T> {
@@ -22,6 +23,8 @@ export interface UseDataSyncReturn<T> {
   error: unknown
   handleSave: (value: T) => void
   validateForm: (value: T) => any
+  dispatchFn?: (data: T) => CachePayloadType
+  contextKey?: CachePayloadTypeKeys
 }
 
 /**
@@ -32,10 +35,14 @@ export function useDataSync<T>({
                                  queryFn,
                                  queryKey,
                                  contextKey,
+                                 dispatchFn,
                                  defaultValues,
                                  validationSchema
                                }: UseDataSyncParams<T>): UseDataSyncReturn<T> {
 
+  /**
+   * Daten aus API lesen wenn parameter in URL
+   */
   const params = useParams<{ [key: string]: string }>()
   const paramValue = parameterName ? params[parameterName] : undefined
   const {data: apiData, isLoading, error} = useQuery<T>(
@@ -45,27 +52,53 @@ export function useDataSync<T>({
       enabled: !!(paramValue && (paramValue?.length > 0)),
     });
 
+
+  /**
+   * Schreibe Werte in Context, wenn API Daten liefert
+   */
   const {state: {dataSync}, dispatch} = useContext(StateContext) as StateContextType
   useEffect(() => {
-    if (!apiData || !contextKey) return;
-    // @ts-ignore
-    dispatch({type: ActionTypes.UPDATE_CACHE, payload: {key: contextKey, data: apiData}});
+    if (!apiData || !contextKey || !dispatchFn) return;
+    const payload = dispatchFn(apiData)
+    dispatch({type: ActionTypes.UPDATE_CACHE, payload});
   }, [apiData, dispatch, contextKey]);
+
+
+  /**
+   * Daten aus Context lesen
+   */
   const contextData = contextKey ? dataSync[contextKey] : undefined as T | undefined;
 
+
+  /**
+   * Daten aus Local Storage lesen
+   */
   const localStorageData = !contextKey
     ? null
     : localStorage.getItem(contextKey)
       ? JSON.parse(localStorage.getItem(contextKey) || 'null') as T
       : null
 
-  const initialValues = (apiData ?? contextData ?? localStorageData ?? defaultValues) as T;
 
+  /**
+   * Daten in Local Storage schreiben
+   */
   const handleSave = (value: T) => {
     if (!contextKey) return
     localStorage.setItem(contextKey, JSON.stringify(value || null));
   }
 
+
+  /**
+   * initialValues je nach Priorität setzen
+   */
+  const initialValues = (apiData ?? contextData ?? localStorageData ?? defaultValues) as T;
+
+
+  /**
+   * Formik Form Validator
+   * @param values
+   */
   const validateForm = (values: T) => {
     try {
       validationSchema.parse(values);
@@ -76,5 +109,6 @@ export function useDataSync<T>({
     }
   };
 
-  return {initialValues, isLoading, error, handleSave, validateForm};
+
+  return {initialValues, isLoading, error, handleSave, validateForm, dispatchFn, contextKey};
 }

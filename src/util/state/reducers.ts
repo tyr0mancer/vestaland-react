@@ -31,9 +31,13 @@ export type CachePayloadType =
   | { key: 'einkaufslisten', data: Einkaufsliste[] }
 
 export type CachePayloadTypeKeys = CachePayloadType extends { key: infer K } ? K : never;
+export type CachePayloadTypeValues = CachePayloadType['data'];
 
 export type ReducerActionType =
   | { type: ActionTypes.UPDATE_CACHE, payload: CachePayloadType }
+
+
+
 
   | { type: ActionTypes.PUSH_HISTORY, payload: Rezept }
   | { type: ActionTypes.DELETE_HISTORY, payload: string }

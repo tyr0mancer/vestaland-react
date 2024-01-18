@@ -33,7 +33,8 @@ export type RezeptType = z.infer<typeof RezeptSchema>;
 
 export const RezeptSucheSchema = z.object({
   name: z.union([z.string().min(2), z.instanceof(RegExp)]).optional(),
-  zutaten: z.string().optional(),
+  nurEigene: z.boolean().optional(),
+  zutaten: z.array(z.string()).optional(),
   tags: z.array(z.nativeEnum(Tags)).optional()
 })
 export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;

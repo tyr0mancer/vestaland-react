@@ -36,10 +36,8 @@ export function RezeptSucheForm() {
         <Typography variant={"body2"}>Detail-Suche</Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <CustomCheckbox name={''} label={'Tag'}/>
-
         {isAuthorized() &&
-            <CustomCheckbox name={''} label={'nur meine eigenen Rezepte'}/>
+            <CustomCheckbox name={'nurEigene'} label={'nur meine eigenen Rezepte'}/>
         }
       </AccordionDetails>
     </Accordion>

@@ -1,10 +1,9 @@
 import React from "react";
-import {Form, Formik, useField, useFormikContext} from "formik";
+import {useField, useFormikContext} from "formik";
 import {Box, Button} from "@mui/material";
 
 import {APIService} from "../../../util/api/APIService";
-import {useDataSync} from "../../../util/state/useDataSync";
-import {FormCacheState} from "../../../util/state/FormCacheState";
+import {useDataSync} from "../../../util/hooks/useDataSync";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {Zutat} from "../../../shared-types/models/Zutat";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
@@ -20,6 +19,7 @@ import {Einheit} from "../../../shared-types/enum";
 import {EinheitProperties} from "../../../util/format/enum-properties/EinheitProperties";
 import {CustomFileDropper} from "../../common/form-elements/generic/CustomFileDropper";
 import {Datei} from "../../../shared-types/models/Datei";
+import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 
 
 /**
@@ -28,42 +28,38 @@ import {Datei} from "../../../shared-types/models/Datei";
  */
 export function EinkaufslisteView(): React.ReactElement {
 
-  const {initialValues, isLoading, error, handleSave, validateForm} = useDataSync<Rezept>({
+  const dataSync = useDataSync<Rezept>({
     defaultValues: new Rezept(),
     contextKey: 'rezeptEdit',
+    dispatchFn: (data) => {
+      return {key: 'rezeptEdit', data}
+    },
     queryKey: 'rezeptEdit',
     queryFn: (param?: string) => APIService.getById<Rezept>('rezept', param),
     validationSchema: RezeptSchema,
   })
 
+
   const newZutatValue = {"einheit": "ST", "menge": 1, lebensmittel: new Lebensmittel()} as Zutat
 
 
+  const {isLoading, error, handleSave} = dataSync
   return (<ConditionalDisplay restricted status={{isLoading, error}}>
 
-    <Formik<Rezept>
-      initialValues={initialValues}
-      onSubmit={() => {
-      }}
-      validate={validateForm}
-    >
-      {({values}) => {
-        return (<Form>
-          <FormControlBar handleSave={handleSave}/>
-          <FormCacheState payload={{key: 'rezeptEdit', data: values}}/>
+    <CustomForm dataSync={dataSync}>
+      <>
+        <FormControlBar handleSave={handleSave}/>
 
-          <CustomTextField name={`name`} label="Rezeptname" type={'text'}/>
-          <CustomTextField name={`schwierigkeitsgrad`} label="schwierigkeitsgrad" type={'number'}/>
+        <CustomTextField name={`name`} label="Rezeptname" type={'text'}/>
+        <CustomTextField name={`schwierigkeitsgrad`} label="schwierigkeitsgrad" type={'number'}/>
 
-          <CustomFieldArray name={'zutaten'}
-                            child={<ZutatChild/>}
-                            header={<ZutatenHeader/>}
-                            newValue={newZutatValue}
-          />
-          <pre>{JSON.stringify(values, null, 1)}</pre>
-        </Form>)
-      }}
-    </Formik>
+        <CustomFieldArray name={'zutaten'}
+                          child={<ZutatChild/>}
+                          header={<ZutatenHeader/>}
+                          newValue={newZutatValue}
+        />
+      </>
+    </CustomForm>
 
   </ConditionalDisplay>)
 }
