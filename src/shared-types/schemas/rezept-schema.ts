@@ -7,8 +7,10 @@ import {NutrientsSchema} from "./nutrients-schema";
 import {ZutatSchema} from "./zutat-schema";
 import {UtensilSchema} from "./utensil-schema";
 import {DateiSchema} from "./datei-schema";
+import {CustomOwnershipSchema} from "./_custom-ownership-schema";
+import {LebensmittelSchema} from "./lebensmittel-schema";
 
-export const RezeptSchema = z.object({
+export const RezeptSchema = CustomOwnershipSchema.extend({
   name: z.string().min(3, "Rezeptname muss mindestens 3 Zeichen lang sein").describe('Der Name des Rezeptes'),
   beschreibung: z.string().max(150, "Der Text ist viel zu lang. Bitte maximal 150 Zeichen.").optional().describe('Ein kurzer(!) Beschreibungstext'),
   freitext: z.string().optional().describe('Freitext Beschreibung des Rezeptes'),
@@ -31,11 +33,25 @@ export const RezeptSchema = z.object({
 export type RezeptType = z.infer<typeof RezeptSchema>;
 
 
+/**
+ * Schema zur Verarbeitung des Requests auf Serverseite
+ */
 export const RezeptSucheSchema = z.object({
+  name: z.union([z.string().min(2), z.instanceof(RegExp)]).optional(),
+  zutaten: z.string().optional(),
+  tags: z.string().optional(),
+  nurEigene: z.string().optional()
+}).strict()
+
+
+/***
+ * Schema für das zugehörige Client Formular
+ */
+export const RezeptSucheFormSchema = z.object({
   name: z.union([z.string().min(2), z.instanceof(RegExp)]).optional(),
   nurEigene: z.boolean().optional(),
   zutaten: z.array(z.string()).optional(),
   tags: z.array(z.nativeEnum(Tags)).optional()
 })
-export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;
+export type RezeptSucheFormType = z.infer<typeof RezeptSucheFormSchema>;
 

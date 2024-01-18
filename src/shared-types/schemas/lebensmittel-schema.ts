@@ -7,19 +7,19 @@ export const LebensmittelSchema = z.object({
   nameDetail: z.string().optional(),
   nameSingular: z.string().optional(),
   beschreibung: z.string().optional(),
-  defaultEinheit: z.nativeEnum(Einheit),
+  defaultEinheit: z.nativeEnum(Einheit).optional(),
   defaultMenge: z.number().optional(),
   nutrients: NutrientsSchema.optional(),
 
   kategorie: z.nativeEnum(LebensmittelKategorie).optional(),
   defaultAbteilung: z.string().optional(),
 
-  haendlerGruppen: z.array(z.nativeEnum(HaendlerGruppe)),
+  haendlerGruppen: z.array(z.nativeEnum(HaendlerGruppe)).optional(),
   // Austausch: z.array(LebensmittelAustauschSchema),
 
   density: z.number().optional(),
   unitWeight: z.number().optional()
-}).strict()
+})
 export type LebensmittelType = z.infer<typeof LebensmittelSchema>;
 
 

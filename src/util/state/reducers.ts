@@ -3,7 +3,7 @@ import {LocalStorage} from "./StateProvider";
 import {Rezept} from "../../shared-types/models/Rezept";
 import {updateCacheReducer} from "./updateCacheReducer";
 import {Einkaufsliste} from "../../shared-types/models/Einkaufsliste";
-import {RezeptSucheType} from "../../shared-types/schemas/rezept-schema";
+import {RezeptSucheFormType} from "../../shared-types/schemas/rezept-schema";
 
 export enum ActionTypes {
   UPDATE_CACHE = 'UPDATE_CACHE',
@@ -21,13 +21,13 @@ export const DefaultDataSyncNodes: DataSyncNodes = {}
 export interface DataSyncNodes {
   rezeptEdit?: Rezept,
   rezeptView?: Rezept,
-  rezeptSuche?: RezeptSucheType,
+  rezeptSuche?: RezeptSucheFormType,
   einkaufslisten?: Einkaufsliste[],
 }
 
 export type CachePayloadType =
   | { key: 'rezeptEdit', data: Rezept }
-  | { key: 'rezeptSuche', data: RezeptSucheType }
+  | { key: 'rezeptSuche', data: RezeptSucheFormType }
   | { key: 'einkaufslisten', data: Einkaufsliste[] }
 
 export type CachePayloadTypeKeys = CachePayloadType extends { key: infer K } ? K : never;

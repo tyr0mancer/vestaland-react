@@ -5,7 +5,7 @@ import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 import {useTapSearchResults} from "../../../util/hooks/useSearchCollection";
 
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {RezeptSucheType} from "../../../shared-types/schemas/rezept-schema";
+import {RezeptSucheFormType} from "../../../shared-types/schemas/rezept-schema";
 
 import {RezeptCard} from "./RezeptCard";
 import {ZuletztGekocht} from "./ZuletztGekocht";
@@ -14,7 +14,7 @@ export function RezeptSucheAusgabe() {
   //const {state: {dataSync: {rezeptSuche}}} = useContext(StateContext) as StateContextType
   //const {isLoading, error, data} = useTapSearchResults<Rezept, RezeptSucheType>({queryKey: 'rezeptSuche', contextKey: 'rezeptSuche', params:rezeptSuche})
 
-  const {isLoading, error, data} = useTapSearchResults<Rezept, RezeptSucheType>({contextKey: 'rezeptSuche'})
+  const {isLoading, error, data} = useTapSearchResults<Rezept, RezeptSucheFormType>({contextKey: 'rezeptSuche'})
 
   return (<ConditionalDisplay status={{isLoading, error}}>
     {JSON.stringify(data)}

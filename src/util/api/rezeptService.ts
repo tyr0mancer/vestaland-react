@@ -2,9 +2,9 @@ import {apiClient} from "./apiClient";
 import {Rezept} from "../../shared-types/models/Rezept";
 import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 
-import {RezeptSucheType} from "../../shared-types/schemas/rezept-schema";
+import {RezeptSucheFormType} from "../../shared-types/schemas/rezept-schema";
 
-export const rezeptSuche = (query: RezeptSucheType): Promise<Rezept[]> => {
+export const rezeptSuche = (query: RezeptSucheFormType): Promise<Rezept[]> => {
   console.log(query)
   /*
     if (query.zutaten)
