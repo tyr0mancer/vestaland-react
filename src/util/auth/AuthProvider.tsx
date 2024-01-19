@@ -78,14 +78,19 @@ export const AuthProvider = ({children}: any) => {
    * @param loginInfo
    */
   async function handleLogin(loginInfo?: LoginType) {
-    AuthService.login(loginInfo)
-      .then(setAuthInfo)
-      .catch(error => {
-        if (isAuthError(error.response?.data))
-          setError(error.response?.data)
-        else
-          setError(error)
-      })
+    return new Promise<LoginResponseType>((resolve, reject) => {
+      AuthService.login(loginInfo)
+        .then(authInfo => {
+          setAuthInfo(authInfo)
+          resolve(authInfo)
+        })
+        .catch(error => {
+          if (isAuthError(error.response?.data))
+            setError(error.response?.data)
+          else
+            setError(error)
+        })
+    })
   }
 
 
