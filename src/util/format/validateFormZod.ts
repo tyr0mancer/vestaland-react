@@ -1,6 +1,6 @@
 import {ZodError, ZodSchema} from "zod";
 
-export function validateForm<T>(values: T, validationSchema: ZodSchema) {
+export function validateFormZod<T>(values: T, validationSchema: ZodSchema) {
   try {
     validationSchema.parse(values);
   } catch (error) {

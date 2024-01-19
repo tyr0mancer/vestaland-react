@@ -1,24 +1,22 @@
-import React, {useContext, useEffect} from "react";
-import {UseDataSyncReturn} from "../../../../util/hooks/useDataSync";
+import React, {useContext, useEffect, useState} from "react";
 import {Form, Formik, FormikValues} from "formik";
-import {useDebounce} from "@react-hooks-library/core";
+import {ZodObject} from "zod";
+
 import {StateContext} from "../../../../util/state/StateProvider";
 import {StateContextType} from "../../../../util/state/types";
-import {ActionTypes, CachePayloadType} from "../../../../util/state/reducers";
-
-
-export type CustomFormikProps<F> = {
-  initialValues: F,
-  validateForm: (value: F) => any
-  dispatchFn?: (data: F) => CachePayloadType
-}
-//Pick<UseDataSyncReturn<T>, 'initialValues' | 'validateForm' | 'dispatchFn'>
+import {ActionTypes, CachePayloadType, CachePayloadTypeKeys} from "../../../../util/state/reducers";
+import {validateFormZod} from "../../../../util/format/validateFormZod";
+import {useDebounce} from "@react-hooks-library/core";
 
 
 type CustomFormProps<T> = {
-  formikProps: CustomFormikProps<T>,
+  defaultValues: T,
+  validationSchema: ZodObject<any>,
+  contextKey: CachePayloadTypeKeys,
+  dispatchFn: (data: T) => CachePayloadType,
+  onSubmit?: (data: T) => void,
+  onChange?: (data: T) => void,
   children: React.ReactElement
-
 }
 
 
@@ -28,37 +26,48 @@ type CustomFormProps<T> = {
  * @typeParam T - Der Typ des Suchformulars
  */
 export function CustomForm<T extends FormikValues>({
-                                                     formikProps: {initialValues, validateForm, dispatchFn},
+                                                     defaultValues,
+                                                     validationSchema,
+                                                     dispatchFn,
+                                                     contextKey,
+                                                     onSubmit = () => {
+                                                     },
+                                                     onChange,
                                                      children,
                                                    }: CustomFormProps<T>): React.ReactElement {
 
+  const {state: {dataSync}, dispatch} = useContext(StateContext) as StateContextType
+  const contextData = contextKey ? dataSync[contextKey] : undefined as T | undefined;
+  const initialValues = (contextData ?? defaultValues) as T;
+
+  const [validatedValues, setValidatedValues] = useState<T>()
+  const debouncedValues = useDebounce<T | undefined>(validatedValues, 500)
+
+  useEffect(() => {
+    if (!debouncedValues) return
+    if (onChange)
+      onChange(debouncedValues)
+    const payload = dispatchFn(debouncedValues)
+    dispatch({type: ActionTypes.UPDATE_CACHE, payload})
+
+  }, [debouncedValues])
+
+  const handleValidation = (values: T) => {
+    const result = validateFormZod(values, validationSchema)
+    if (result)
+      return result
+    setValidatedValues(values)
+  }
+
   return <Formik<T>
     initialValues={initialValues}
-    onSubmit={() => {
-    }}
-    validate={validateForm}
+    onSubmit={onSubmit}
+    validate={handleValidation}
   >
-    {({values}) => {
+    {() => {
       return (<Form>
-        <SneakyDispatcher<T> dispatchFn={dispatchFn} values={values}/>
         {children}
       </Form>)
     }}
   </Formik>
-}
-
-
-export type SneakyCacheProps<T> = Pick<UseDataSyncReturn<T>, 'dispatchFn'> & { values: T }
-
-function SneakyDispatcher<T>({dispatchFn, values}: SneakyCacheProps<T>) {
-  const debouncedFormValues = useDebounce<T>(values, 500)
-  const {dispatch} = useContext(StateContext) as StateContextType
-
-  useEffect(() => {
-    if (!debouncedFormValues || !dispatchFn) return
-    const payload = dispatchFn(debouncedFormValues)
-    dispatch({type: ActionTypes.UPDATE_CACHE, payload})
-  }, [debouncedFormValues])
-
-  return <></>
 }

@@ -6,8 +6,7 @@ import {StateContextType} from "../state/types";
 import {StateContext} from "../state/StateProvider";
 import {ActionTypes, CachePayloadType, CachePayloadTypeKeys} from "../state/reducers";
 import {ZodObject} from "zod";
-import {validateFormZod} from "./validate-form-zod";
-import {CustomFormikProps} from "../../components/common/form-elements/generic/CustomForm";
+import {validateFormZod} from "../format/validateFormZod";
 
 export interface UseDataSyncParams<T> {
   parameterName?: string
@@ -27,7 +26,6 @@ export interface UseDataSyncReturn<T> {
   validateForm: (value: T) => any
   dispatchFn?: (data: T) => CachePayloadType
   contextKey?: CachePayloadTypeKeys,
-  formikProps: CustomFormikProps<T>
 
 }
 
@@ -114,6 +112,5 @@ export function useDataSync<T>({
     validateForm,
     dispatchFn,
     contextKey,
-    formikProps: {validateForm, initialValues, dispatchFn}
   };
 }

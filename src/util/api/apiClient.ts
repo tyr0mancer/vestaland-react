@@ -26,7 +26,7 @@ export const apiClient = axios.create({
 
 apiClient.interceptors.response.use(
   (response) => {
-    if (config.devMode)
+    if (config.logApi)
       console.log('API Response', response)
     return response;
   },

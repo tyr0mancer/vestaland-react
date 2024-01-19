@@ -49,9 +49,10 @@ export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;
  * Schema für das zugehörige Client Formular
  */
 export const RezeptSucheFormSchema = z.object({
-  name: z.union([z.string().min(2), z.instanceof(RegExp)]).optional(),
+  rezeptName: z.union([z.string().length(0), z.string().min(2)])
+    .optional(),
   nurEigene: z.boolean().optional(),
-  zutaten: z.array(z.string()).optional(),
+  zutaten: z.array(LebensmittelSchema).optional(),
   tags: z.array(z.nativeEnum(Tags)).optional()
 })
 export type RezeptSucheFormType = z.infer<typeof RezeptSucheFormSchema>;

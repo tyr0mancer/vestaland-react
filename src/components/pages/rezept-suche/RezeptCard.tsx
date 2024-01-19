@@ -24,7 +24,7 @@ export function RezeptCard({rezept}: { rezept: Rezept | RezeptPartial }) {
         <CardContent style={{padding: 5}}>
           {rezept &&
               <Typography gutterBottom variant="h5" component="div">
-                {rezept.name}
+                {rezept.name} {rezept.publicVisible &&<>!!</>}
               </Typography>
           }
           <Typography variant="body2" color="text.secondary">

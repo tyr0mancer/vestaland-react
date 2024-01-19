@@ -42,7 +42,7 @@ export function NavbarMainDesktop() {
             <Button component={Link} to={'/einkaufsliste'} color="inherit">Einkaufsliste</Button>
             <Button component={Link} to={'/essensplan'} color="inherit">Essensplan</Button>
             <Button component={Link} to={'/lagerhaltung'} color="inherit">Lagerhaltung</Button>
-          {isAuthorized(BenutzerRolle.BENUTZER) &&
+          {isAuthorized() &&
               <Button component={Link} to={'/rezept-editor'} color="inherit">Rezept Editor</Button>
           }
         </>

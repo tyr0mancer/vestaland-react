@@ -3,6 +3,8 @@
  */
 export type ConfigType = {
   devMode: boolean;
+  logApi: boolean,
+
   apiBaseUrl: string;
   imgBaseUrl: string;
   tokenRefreshUrl: string; // API Route für Refresh-Token call
@@ -21,6 +23,8 @@ if (devMode)
  */
 export const config: ConfigType = {
   devMode,
+  logApi: Boolean(process.env.REACT_APP_DEV_LOG_API) || false,
+
   apiBaseUrl: (devMode ? process.env.REACT_APP_API_BASE_URL_DEV : process.env.REACT_APP_API_BASE_URL) || 'https://api.vestaland.de/api',
   imgBaseUrl: (devMode ? process.env.REACT_APP_IMG_BASE_URL_DEV : process.env.REACT_APP_IMG_BASE_URL) || 'https://api.vestaland.de/public/uploads/',
   tokenRefreshUrl: process.env.REACT_APP_TOKEN_REFRESH_URL || '/auth/refresh',

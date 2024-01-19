@@ -17,19 +17,19 @@ import {CustomTextFieldProps} from "./types";
  */
 export function CustomTextField({
                                   name,
-                                  label,
+                                  label = 'name',
                                   type = 'text',
                                   fastField = false
                                 }: CustomTextFieldProps): React.ReactElement {
   const [, meta] = useField(name);
 
   if (fastField) return (<FastField as={TextField}
-                                type={type}
-                                variant={'outlined'}
-                                name={name}
-                                label={label}
-                                error={meta.touched && !!meta.error}
-                                helperText={meta.touched && meta.error}
+                                    type={type}
+                                    variant={'outlined'}
+                                    name={name}
+                                    label={label}
+                                    error={meta.touched && !!meta.error}
+                                    helperText={meta.touched && meta.error}
   />)
 
   return (<Field as={TextField}

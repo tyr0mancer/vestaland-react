@@ -1,60 +1,56 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {useQuery} from "@tanstack/react-query";
 
+import {StateContext} from "../../../util/state/StateProvider";
+import {StateContextType} from "../../../util/state/types";
 import {APIService} from "../../../util/api/APIService";
-import {useSearchCollection} from "../../../util/hooks/useSearchCollection";
-import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
-import {CustomForm} from "../../common/form-elements/generic/CustomForm";
-
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {
-  RezeptSucheFormType,
-  RezeptSucheFormSchema,
-  RezeptSucheType
-} from "../../../shared-types/schemas/rezept-schema";
-
+import {RezeptSucheFormSchema, RezeptSucheFormType, RezeptSucheType} from "../../../shared-types/schemas/rezept-schema";
+import {CustomForm} from "../../common/form-elements/generic/CustomForm";
+import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
+import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
+import {RezeptSucheForm} from "./RezeptSucheForm";
 
 export function RezeptSuche() {
 
-  function parseParams(params?: RezeptSucheFormType): RezeptSucheType {
-    return {}
-  }
-
-
-  const {formikProps} = useSearchCollection<Rezept, RezeptSucheFormType>({
-    contextKey: 'rezeptSuche',
-    dispatchFn: (data) => {
-      return {key: 'rezeptSuche', data}
-    },
-    queryFn: (param?: RezeptSucheFormType) => APIService.search<Rezept>('rezept', parseParams(param)),
-    enableQuery: (param?: RezeptSucheFormType) => true,
-    defaultValues: {name: '', tags: [], nurEigene: false, zutaten: []},
-    validationSchema: RezeptSucheFormSchema,
+  const {state: {dataSync: {rezeptSuche}}} = useContext(StateContext) as StateContextType
+  const {data, isLoading, error, refetch} = useQuery({
+    queryFn: () => APIService.search<Rezept>('rezept', parseForm(rezeptSuche)),
+    queryKey: ['rezeptSuche', parseForm(rezeptSuche)],
+    enabled: !!rezeptSuche
   })
 
   return (
     <>
-      <h1>Suchen</h1>
-
-      <CustomForm<RezeptSucheFormType> formikProps={formikProps}>
-        <>
-          <CustomTextField name={'name'}/>
-
-        </>
+      <CustomForm<RezeptSucheFormType>
+        onSubmit={() => refetch()}
+        defaultValues={formDefaultValues}
+        validationSchema={RezeptSucheFormSchema}
+        contextKey={'rezeptSuche'}
+        dispatchFn={value => {
+          return {key: 'rezeptSuche', data: value}
+        }}
+      >
+        <RezeptSucheForm/>
       </CustomForm>
+
+      <ConditionalDisplay status={{error, isLoading}}>
+        <RezeptSucheAusgabe result={data}/>
+      </ConditionalDisplay>
     </>
   )
 }
 
 
-/*
-  const dataSync = useDataSync<Rezept>({
-    defaultValues: new Rezept(),
-    contextKey: 'rezeptEdit',
-    dispatchFn: (data) => {
-      return {key: 'rezeptEdit', data}
-    },
-    queryKey: 'rezeptEdit',
-    queryFn: (param?: string) => APIService.getById<Rezept>('rezept', param),
-    validationSchema: RezeptSchema,
-  })
-*/
+
+
+const formDefaultValues = {rezeptName: '', tags: [], nurEigene: false, zutaten: []}
+const parseForm = (values?: RezeptSucheFormType) => {
+  const newParams: RezeptSucheType = {}
+  if (!values) return {}
+  if (values.rezeptName?.length) newParams["name"] = values.rezeptName // @todo add RegExp here instead of express
+  if (values.nurEigene) newParams["nurEigene"] = '1'
+  if (values.tags?.length) newParams["tags"] = values.tags.join(',')
+  if (values.zutaten?.length) newParams["zutaten"] = values.zutaten.map(z => z.name || '').join(',')
+  return newParams
+}

@@ -12,6 +12,7 @@ import {RezeptEditor} from "../pages/rezept-editor";
 import {RezeptDetail} from "../pages/rezept-detail";
 import {KocheRezept} from "../pages/rezept-cooking";
 import {EinkaufslisteView} from "../pages/einkaufsliste";
+import {RezeptEdit} from "../pages/rezept-edit-neu";
 
 
 export function MainRouter() {
@@ -27,7 +28,7 @@ export function MainRouter() {
         <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
 
 
-        <Route path="/einkaufsliste" element={<DefaultView children={<EinkaufslisteView/>}/>}/>
+        <Route path="/einkaufsliste" element={<DefaultView children={<RezeptEdit/>}/>}/>
         <Route path="/einkaufsliste/:rezeptId" element={<DefaultView children={<EinkaufslisteView/>}/>}/>
 
         <Route path="/login" element={<DefaultView children={<LoginRegister/>}/>}/>

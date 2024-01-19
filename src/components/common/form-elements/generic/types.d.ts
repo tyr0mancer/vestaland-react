@@ -1,5 +1,6 @@
 import React from "react";
 import {ZodObject} from "zod";
+import {CustomArrayHelper} from "./CustomFieldArray";
 
 /**
  * Props für CustomCheckbox Komponente.
@@ -116,30 +117,16 @@ type CustomAutocompleteProps<T> = {
  * @typeParam T - Der Typ der Elemente in der FieldArray.
  */
 type CustomFieldArrayProp<T> = {
+  newValue: T,
   /**
    * Der Name des Formularfeldes, verwendet von Formik zur Handhabung der Formulardaten.
    */
   name: string,
 
   /**
-   * Das Kind-Element, welches in der FieldArray für jedes Element gerendert wird.
+   * Renderfunktion
    */
-  child: React.ReactElement,
-
-  /**
-   * Ein optionales Kopfzeilen-Element, das oberhalb der Liste gerendert wird.
-   */
-  header?: React.ReactElement,
-
-  /**
-   * Ein optionales Fußzeilen-Element, das unterhalb der Liste gerendert wird.
-   */
-  footer?: React.ReactElement,
-
-  /**
-   * Der Standardwert für ein neues Element in der Array.
-   */
-  newValue: T
+  render: ((props: CustomArrayHelper, value: T[]) => React.ReactNode)
 }
 
 

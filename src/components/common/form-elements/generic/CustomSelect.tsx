@@ -38,11 +38,12 @@ export function CustomSelect<T>({
                                   options = []
                                 }: CustomSelectProps<T>): React.ReactElement {
 
-  const [{value}, , helpers] = useField(name);
+  const [{value}, , {setValue}] = useField(name);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = options.find(o => getKey(o) === e.target.value)
-    await helpers.setValue(newValue);
+    console.log(newValue)
+    await setValue(newValue);
   }
 
   return (<Field

@@ -1,7 +1,5 @@
 import {apiClient} from "./apiClient";
 import {AxiosResponse} from "axios";
-import {RezeptSucheFormType} from "../../shared-types/schemas/rezept-schema";
-import {Rezept} from "../../shared-types/models/Rezept";
 
 /**
  * Service Klasse um API Anfragen mit Hilfe des apiClients zu realisieren.

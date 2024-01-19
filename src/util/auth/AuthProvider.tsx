@@ -78,7 +78,7 @@ export const AuthProvider = ({children}: any) => {
    * @param loginInfo
    */
   async function handleLogin(loginInfo?: LoginType) {
-    return new Promise<LoginResponseType>((resolve, reject) => {
+    return new Promise<LoginResponseType>((resolve) => {
       AuthService.login(loginInfo)
         .then(authInfo => {
           setAuthInfo(authInfo)

@@ -1,5 +1,4 @@
 import {RezeptType} from "../schemas/rezept-schema";
-import {TimeStamps} from "./_Timestamps";
 import {Ref} from "../types";
 import {Tags} from "../enum";
 
@@ -8,9 +7,10 @@ import {Utensil} from "./Utensil";
 import {Datei} from "./Datei";
 import {Kochschritt} from "./Kochschritt";
 import {Nutrients} from "./Nutrients";
+import {CustomOwnership} from "./_CustomOwnership";
 
 
-export class Rezept extends TimeStamps implements RezeptType {
+export class Rezept extends CustomOwnership implements RezeptType {
   public name: string = '';
   public beschreibung?: string;
   public freitext?: string;

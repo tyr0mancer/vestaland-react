@@ -5,7 +5,7 @@ import React from "react";
  * @component ZuletztGekocht
  */
 export function ZuletztGekocht(): React.ReactElement {
-  return (<>ZuletztGekocht</>)
+  return (<div>ZuletztGekocht</div>)
 }
 
 {/*    {(!data || !data.length) &&

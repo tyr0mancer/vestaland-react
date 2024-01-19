@@ -12,7 +12,7 @@ export interface RezeptSucheQuery {
   zutaten?: string[]
 }
 
-export type RezeptPartial = Pick<Rezept, "_id" | "name" | "bild" | "beschreibung">;
+export type RezeptPartial = Pick<Rezept, "_id" | "name" | "bild" | "beschreibung" | "publicVisible">;
 
 export interface GlobalState {
   dataSync: DataSyncNodes,

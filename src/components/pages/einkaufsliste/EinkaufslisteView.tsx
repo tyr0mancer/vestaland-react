@@ -7,7 +7,6 @@ import {useDataSync} from "../../../util/hooks/useDataSync";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {Zutat} from "../../../shared-types/models/Zutat";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
-import {CustomFieldArray} from "../../common/form-elements/generic/CustomFieldArray";
 import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
 import {CustomAutocomplete} from "../../common/form-elements/generic/CustomAutocomplete";
 import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
@@ -19,7 +18,6 @@ import {Einheit} from "../../../shared-types/enum";
 import {EinheitProperties} from "../../../util/format/enum-properties/EinheitProperties";
 import {CustomFileDropper} from "../../common/form-elements/generic/CustomFileDropper";
 import {Datei} from "../../../shared-types/models/Datei";
-import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 
 
 /**
@@ -28,7 +26,7 @@ import {CustomForm} from "../../common/form-elements/generic/CustomForm";
  */
 export function EinkaufslisteView(): React.ReactElement {
 
-  const {isLoading, error, handleSave, formikProps} = useDataSync<Rezept>({
+  const {isLoading, error, handleSave} = useDataSync<Rezept>({
     defaultValues: new Rezept(),
     contextKey: 'rezeptEdit',
     dispatchFn: (data) => {
@@ -45,7 +43,7 @@ export function EinkaufslisteView(): React.ReactElement {
 
   return (<ConditionalDisplay restricted status={{isLoading, error}}>
 
-    <CustomForm formikProps={formikProps}>
+{/*    <CustomForm formikProps={formikProps}>
       <>
         <FormControlBar handleSave={handleSave}/>
 
@@ -58,7 +56,7 @@ export function EinkaufslisteView(): React.ReactElement {
                           newValue={newZutatValue}
         />
       </>
-    </CustomForm>
+    </CustomForm>*/}
 
   </ConditionalDisplay>)
 }
