@@ -5,7 +5,9 @@ import {useQuery} from "@tanstack/react-query";
 import {StateContextType} from "../state/types";
 import {StateContext} from "../state/StateProvider";
 import {ActionTypes, CachePayloadType, CachePayloadTypeKeys} from "../state/reducers";
-import {ZodError, ZodObject} from "zod";
+import {ZodObject} from "zod";
+import {validateFormZod} from "./validate-form-zod";
+import {CustomFormikProps} from "../../components/common/form-elements/generic/CustomForm";
 
 export interface UseDataSyncParams<T> {
   parameterName?: string
@@ -24,7 +26,9 @@ export interface UseDataSyncReturn<T> {
   handleSave: (value: T) => void
   validateForm: (value: T) => any
   dispatchFn?: (data: T) => CachePayloadType
-  contextKey?: CachePayloadTypeKeys
+  contextKey?: CachePayloadTypeKeys,
+  formikProps: CustomFormikProps<T>
+
 }
 
 /**
@@ -99,16 +103,17 @@ export function useDataSync<T>({
    * Formik Form Validator
    * @param values
    */
-  const validateForm = (values: T) => {
-    try {
-      validationSchema.parse(values);
-    } catch (error) {
-      if (error instanceof ZodError) {
-        return error.formErrors.fieldErrors;
-      }
-    }
+  const validateForm = (values: T) => validateFormZod<T>(values, validationSchema)
+
+
+  return {
+    initialValues,
+    isLoading,
+    error,
+    handleSave,
+    validateForm,
+    dispatchFn,
+    contextKey,
+    formikProps: {validateForm, initialValues, dispatchFn}
   };
-
-
-  return {initialValues, isLoading, error, handleSave, validateForm, dispatchFn, contextKey};
 }

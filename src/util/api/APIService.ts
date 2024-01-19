@@ -1,5 +1,7 @@
 import {apiClient} from "./apiClient";
 import {AxiosResponse} from "axios";
+import {RezeptSucheFormType} from "../../shared-types/schemas/rezept-schema";
+import {Rezept} from "../../shared-types/models/Rezept";
 
 /**
  * Service Klasse um API Anfragen mit Hilfe des apiClients zu realisieren.
@@ -101,6 +103,7 @@ export class APIService {
     formData.append(fileKey, file, file.name);
     return apiClient.post<FormData, AxiosResponse<T>>(routePath, formData, {headers: {"Content-Type": "multipart/form-data",}}).then(res => res.data)
   }
+
 
 }
 

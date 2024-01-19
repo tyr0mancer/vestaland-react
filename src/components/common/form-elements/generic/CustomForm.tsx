@@ -4,18 +4,31 @@ import {Form, Formik, FormikValues} from "formik";
 import {useDebounce} from "@react-hooks-library/core";
 import {StateContext} from "../../../../util/state/StateProvider";
 import {StateContextType} from "../../../../util/state/types";
-import {ActionTypes} from "../../../../util/state/reducers";
+import {ActionTypes, CachePayloadType} from "../../../../util/state/reducers";
+
+
+export type CustomFormikProps<F> = {
+  initialValues: F,
+  validateForm: (value: F) => any
+  dispatchFn?: (data: F) => CachePayloadType
+}
+//Pick<UseDataSyncReturn<T>, 'initialValues' | 'validateForm' | 'dispatchFn'>
+
 
 type CustomFormProps<T> = {
-  dataSync: UseDataSyncReturn<T>,
-  children: React.ReactElement,
+  formikProps: CustomFormikProps<T>,
+  children: React.ReactElement
+
 }
+
 
 /**
  * Formik Form Komponente, die für den useDataSync Hook optimiert ist
+ *
+ * @typeParam T - Der Typ des Suchformulars
  */
 export function CustomForm<T extends FormikValues>({
-                                                     dataSync: {initialValues, validateForm, dispatchFn},
+                                                     formikProps: {initialValues, validateForm, dispatchFn},
                                                      children,
                                                    }: CustomFormProps<T>): React.ReactElement {
 
@@ -27,7 +40,7 @@ export function CustomForm<T extends FormikValues>({
   >
     {({values}) => {
       return (<Form>
-        <SneakyCache<T> dispatchFn={dispatchFn} values={values}/>
+        <SneakyDispatcher<T> dispatchFn={dispatchFn} values={values}/>
         {children}
       </Form>)
     }}
@@ -37,7 +50,7 @@ export function CustomForm<T extends FormikValues>({
 
 export type SneakyCacheProps<T> = Pick<UseDataSyncReturn<T>, 'dispatchFn'> & { values: T }
 
-function SneakyCache<T>({dispatchFn, values}: SneakyCacheProps<T>) {
+function SneakyDispatcher<T>({dispatchFn, values}: SneakyCacheProps<T>) {
   const debouncedFormValues = useDebounce<T>(values, 500)
   const {dispatch} = useContext(StateContext) as StateContextType
 

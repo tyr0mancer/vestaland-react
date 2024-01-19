@@ -42,6 +42,7 @@ export const RezeptSucheSchema = z.object({
   tags: z.string().optional(),
   nurEigene: z.string().optional()
 }).strict()
+export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;
 
 
 /***

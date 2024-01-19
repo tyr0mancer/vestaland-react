@@ -28,7 +28,7 @@ import {CustomForm} from "../../common/form-elements/generic/CustomForm";
  */
 export function EinkaufslisteView(): React.ReactElement {
 
-  const dataSync = useDataSync<Rezept>({
+  const {isLoading, error, handleSave, formikProps} = useDataSync<Rezept>({
     defaultValues: new Rezept(),
     contextKey: 'rezeptEdit',
     dispatchFn: (data) => {
@@ -43,10 +43,9 @@ export function EinkaufslisteView(): React.ReactElement {
   const newZutatValue = {"einheit": "ST", "menge": 1, lebensmittel: new Lebensmittel()} as Zutat
 
 
-  const {isLoading, error, handleSave} = dataSync
   return (<ConditionalDisplay restricted status={{isLoading, error}}>
 
-    <CustomForm dataSync={dataSync}>
+    <CustomForm formikProps={formikProps}>
       <>
         <FormControlBar handleSave={handleSave}/>
 

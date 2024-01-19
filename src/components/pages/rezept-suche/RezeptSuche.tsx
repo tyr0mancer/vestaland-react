@@ -1,49 +1,49 @@
 import React from 'react';
 
-import {useDataSync} from "../../../util/hooks/useDataSync";
+import {APIService} from "../../../util/api/APIService";
+import {useSearchCollection} from "../../../util/hooks/useSearchCollection";
+import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
 import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 
-import {RezeptSucheSchema, RezeptSucheFormType} from "../../../shared-types/schemas/rezept-schema";
-import {RezeptSucheForm} from './RezeptSucheForm';
-import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
-import {useSearchCollection} from "../../../util/hooks/useSearchCollection";
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {APIService} from "../../../util/api/APIService";
+import {
+  RezeptSucheFormType,
+  RezeptSucheFormSchema,
+  RezeptSucheType
+} from "../../../shared-types/schemas/rezept-schema";
 
 
 export function RezeptSuche() {
 
-  const searchCollection = useSearchCollection<Rezept, RezeptSucheFormType>({
-    queryKey: 'rezeptSuche',
-    queryFn: (param?: RezeptSucheFormType) => APIService.search<Rezept>('rezept', param),
-    defaultValues: {name: '', tags: [], nurEigene: false, zutaten: []},
-    validationSchema: RezeptSucheSchema
-  })
+  function parseParams(params?: RezeptSucheFormType): RezeptSucheType {
+    return {}
+  }
 
 
-  const dataSync = useDataSync<RezeptSucheFormType>({
-    defaultValues: {name: '', tags: [], nurEigene: false, zutaten: []},
+  const {formikProps} = useSearchCollection<Rezept, RezeptSucheFormType>({
     contextKey: 'rezeptSuche',
     dispatchFn: (data) => {
       return {key: 'rezeptSuche', data}
     },
-    validationSchema: RezeptSucheSchema,
+    queryFn: (param?: RezeptSucheFormType) => APIService.search<Rezept>('rezept', parseParams(param)),
+    enableQuery: (param?: RezeptSucheFormType) => true,
+    defaultValues: {name: '', tags: [], nurEigene: false, zutaten: []},
+    validationSchema: RezeptSucheFormSchema,
   })
 
   return (
     <>
       <h1>Suchen</h1>
 
-      <CustomForm dataSync={dataSync}>
+      <CustomForm<RezeptSucheFormType> formikProps={formikProps}>
         <>
-          <RezeptSucheForm/>
-          <RezeptSucheAusgabe/>
+          <CustomTextField name={'name'}/>
+
         </>
       </CustomForm>
     </>
   )
 }
-
 
 
 /*

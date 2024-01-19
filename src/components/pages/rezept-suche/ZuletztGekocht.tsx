@@ -1,12 +1,10 @@
 import React from "react";
 
-type ZuletztGekochtProps = {}
-
 /**
  * TS Doc Info
  * @component ZuletztGekocht
  */
-export function ZuletztGekocht({}: ZuletztGekochtProps): React.ReactElement {
+export function ZuletztGekocht(): React.ReactElement {
   return (<>ZuletztGekocht</>)
 }
 
