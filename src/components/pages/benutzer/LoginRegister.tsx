@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Alert, AlertTitle, Box, Button, Grid, Typography} from "@mui/material";
+import {Alert, AlertTitle, Box, Button, Grid, Paper, Typography} from "@mui/material";
 import {LoginScreen} from "../../layout/ConditionalDisplay/LoginScreen";
 import {RegisterType} from "../../../shared-types/schemas/benutzer-schema";
 import {RegisterForm} from "./RegisterForm";
@@ -27,7 +27,7 @@ export function LoginRegister(): React.ReactElement {
       setRegistered(true)
   }, [])
 
-  return (<Grid container spacing={10}>
+  return (<Paper><Grid container spacing={10}>
     <Grid item xs={12} md={6}>
       <LoginScreen redirect={'/user'}/>
     </Grid>
@@ -57,5 +57,6 @@ export function LoginRegister(): React.ReactElement {
       </Box>}
     </Grid>
 
-  </Grid>)
+  </Grid>
+  </Paper>)
 }

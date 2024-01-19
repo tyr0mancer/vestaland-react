@@ -26,7 +26,6 @@ export const customConfirm = ({label, title, confirmLabel, cancelLabel}: CustomC
     };
 
     const handleClose = () => {
-      resolve(false)
       root.unmount()
     };
 

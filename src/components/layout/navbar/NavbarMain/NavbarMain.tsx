@@ -4,14 +4,14 @@ import Box from '@mui/material/Box';
 import {NavbarMainMobile} from "./NavbarMainMobile";
 import {NavbarMainDesktop} from "./NavbarMainDesktop";
 
-export function NavbarMain() {
+export function NavbarMain({controlBar}:{controlBar?: React.ReactNode}) {
 
   return (
     <>
       {/*Handy Bildschirm*/}
       <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
         <AppBar position="fixed" color="secondary" className={'main-nav'}>
-          <NavbarMainMobile/>
+          <NavbarMainMobile controlBar={controlBar} />
         </AppBar>
       </Box>
 

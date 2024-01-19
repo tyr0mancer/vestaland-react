@@ -1,6 +1,6 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Container, Paper} from "@mui/material";
+import {Box, Container, Paper} from "@mui/material";
 
 import {CustomAlerts} from "../../common/ui/CustomAlerts";
 import {NavbarAdmin} from "../navbar/NavbarAdmin";
@@ -13,7 +13,7 @@ export function AdminView() {
   return (<ConditionalDisplay restricted={[BenutzerRolle.ADMIN]}>
     <NavbarAdmin/>
     <Container>
-      <Paper className={'main-content'}>
+      <Box className={'main-content'}>
         <Routes>
           <Route path="/" element={<Navigate replace to="lebensmittel"/>}/>
           <Route path="lebensmittel" element={<LebensmittelAdmin/>}/>
@@ -21,7 +21,7 @@ export function AdminView() {
           <Route path="bilder" element={<BilderAdmin/>}/>
           <Route path="user" element={<UserAdmin/>}/>
         </Routes>
-      </Paper>
+      </Box>
       <CustomAlerts/>
     </Container>
     <FooterMain/>

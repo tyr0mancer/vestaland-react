@@ -10,6 +10,7 @@ import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
 import {RezeptSucheForm} from "./RezeptSucheForm";
+import {Box, Container, Paper} from '@mui/material';
 
 export function RezeptSuche() {
 
@@ -21,27 +22,29 @@ export function RezeptSuche() {
   })
 
   return (
-    <>
-      <CustomForm<RezeptSucheFormType>
-        onSubmit={() => refetch()}
-        defaultValues={formDefaultValues}
-        validationSchema={RezeptSucheFormSchema}
-        contextKey={'rezeptSuche'}
-        dispatchFn={value => {
-          return {key: 'rezeptSuche', data: value}
-        }}
-      >
-        <RezeptSucheForm/>
-      </CustomForm>
+    <Container>
+      <Paper>
+        <CustomForm<RezeptSucheFormType>
+          onSubmit={() => refetch()}
+          defaultValues={formDefaultValues}
+          validationSchema={RezeptSucheFormSchema}
+          contextKey={'rezeptSuche'}
+          dispatchFn={value => {
+            return {key: 'rezeptSuche', data: value}
+          }}
+        >
+          <RezeptSucheForm/>
+        </CustomForm>
+      </Paper>
 
-      <ConditionalDisplay status={{error, isLoading}}>
-        <RezeptSucheAusgabe result={data}/>
-      </ConditionalDisplay>
-    </>
+      <Paper>
+        <ConditionalDisplay status={{error, isLoading}}>
+          <RezeptSucheAusgabe result={data}/>
+        </ConditionalDisplay>
+      </Paper>
+    </Container>
   )
 }
-
-
 
 
 const formDefaultValues = {rezeptName: '', tags: [], nurEigene: false, zutaten: []}

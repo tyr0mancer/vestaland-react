@@ -21,7 +21,7 @@ import {StateContext} from "../../../../util/state/StateProvider";
 import {StateContextType} from "../../../../util/state/types";
 import {BenutzerRolle} from "../../../../shared-types/enum";
 
-export function NavbarMainMobile() {
+export function NavbarMainMobile({controlBar}: { controlBar?: React.ReactNode }) {
   const {isAuthorized} = useAuth()
   const {state: {rezeptCooking}} = useContext(StateContext) as StateContextType
 
@@ -115,6 +115,8 @@ export function NavbarMainMobile() {
           <Button color="secondary" variant="contained" component={Link}
                   to={'/rezept-cooking'}><BlenderIcon/> {rezeptCooking.name}</Button>
       </>}
+
+      {controlBar && <>{controlBar}</>}
     </Toolbar>)
 }
 

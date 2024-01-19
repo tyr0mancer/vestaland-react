@@ -13,12 +13,9 @@ export const colors = {
   disabled: '#aaa'
 }
 
-/**
- * Footer-spezifisches Thema
- * Definiert das Aussehen des Footers, inklusive Hintergrund- und Textfarben.
- */
-export const footerTheme = createTheme({
+export const componentsTheme = createTheme({
   components: {
+
     MuiBottomNavigation: {
       styleOverrides: {
         root: {
@@ -26,6 +23,7 @@ export const footerTheme = createTheme({
         },
       },
     },
+
     MuiBottomNavigationAction: {
       styleOverrides: {
         root: {
@@ -38,6 +36,15 @@ export const footerTheme = createTheme({
         },
       },
     },
+
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          padding: '0px 5px',
+        },
+      },
+    },
+
   },
 })
 
@@ -74,6 +81,6 @@ export const themeMUI = createTheme({
   ...colorTheme,
   components: {
     ...colorTheme.components,
-    ...footerTheme.components,
+    ...componentsTheme.components,
   }
 })

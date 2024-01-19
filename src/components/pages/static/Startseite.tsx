@@ -1,9 +1,9 @@
 import React from "react";
 
-import {Box, Typography} from "@mui/material";
+import {Box, Paper, Typography} from "@mui/material";
 
 export function Startseite() {
-  return (<>
+  return (<Paper style={{padding: 15}}>
 
     <Typography variant="h6" gutterBottom>
       Willkommen bei <strong>"Vestaland"</strong> – Ihrer persönlichen Kochassistenz-App! Diese App ist im Rahmen eines
@@ -57,7 +57,7 @@ export function Startseite() {
       Vestaland – einfach. kochen.
     </Typography>
 
-  </>)
+  </Paper>)
 }
 
 

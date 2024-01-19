@@ -1,25 +1,20 @@
 import React from "react";
 import {Box, Container, Paper} from "@mui/material";
 
-import {useAuth} from "../../../util/auth/AuthProvider";
-import {ErrorScreen} from "../ConditionalDisplay/ErrorScreen";
 import {FooterMain} from "../footer/FooterMain";
 import {NavbarMain} from "../navbar/NavbarMain";
 import {CustomAlerts} from "../../common/ui/CustomAlerts";
-import {BenutzerRolle} from "../../../shared-types/enum";
 
-interface DefaultViewProps {
-  roleRequired?: BenutzerRolle;
-  loginRequired?: boolean;
+interface EditorViewProps {
   children?: React.ReactNode;
-  error?: any
+  controlBar?: React.ReactNode;
 }
 
-export const DefaultView: React.FC<DefaultViewProps> = ({children}) => {
+export const EditorView: React.FC<EditorViewProps> = ({children, controlBar}) => {
   return (
     <>
-      <NavbarMain/>
-      <Container style={{padding:"0 3px"}}>
+      <NavbarMain controlBar={controlBar}/>
+      <Container style={{padding: "0 3px"}}>
         <Box className={'main-content'}>
           {children}
         </Box>

@@ -25,8 +25,8 @@ export function NavbarMainDesktop() {
     setAnchorElNav(event.currentTarget);
   }
 
-  return (<Container>
-    <Toolbar>
+  return (<Container style={{padding:0}}>
+    <Toolbar  style={{padding:0}}>
       <IconButton
         size="large"
         edge="start"

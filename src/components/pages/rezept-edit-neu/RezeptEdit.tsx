@@ -7,6 +7,8 @@ import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 import {RezeptSchema} from "../../../shared-types/schemas/rezept-schema";
 import {RezeptEditForm} from "./RezeptEditForm";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
+import {customConfirm} from "../../common/ui/ConfirmDialog";
+import {Paper} from "@mui/material";
 
 
 /**
@@ -29,22 +31,30 @@ export function RezeptEdit(): React.ReactElement {
 
   const initialValues = rezeptApi ?? localStorageData ?? new Rezept()
 
-  function handleSave(values: Rezept) {
-    localStorage.setItem(localStorageKey, JSON.stringify(values || null))
+  const handlePublish = (values: Rezept) => {
+    customConfirm({
+      label: 'veröffentlichen?'
+    }).then(() => {
+      APIService.post<Rezept>('rezept', values).then(res => {
+        console.log(res)
+      })
+    })
   }
 
   return (<ConditionalDisplay restricted status={{isLoading}}>
-    <CustomForm<Rezept>
-      onSubmit={handleSave}
-      defaultValues={initialValues}
-      validationSchema={RezeptSchema}
-      contextKey={'rezeptEdit'}
-      dispatchFn={value => {
-        return {key: 'rezeptEdit', data: value}
-      }}
-    >
-      <RezeptEditForm/>
-    </CustomForm>
+    <Paper>
+      <CustomForm<Rezept>
+        onSubmit={handlePublish}
+        defaultValues={initialValues}
+        validationSchema={RezeptSchema}
+        contextKey={'rezeptEdit'}
+        dispatchFn={value => {
+          return {key: 'rezeptEdit', data: value}
+        }}
+      >
+        <RezeptEditForm/>
+      </CustomForm>
+    </Paper>
   </ConditionalDisplay>)
 }
 

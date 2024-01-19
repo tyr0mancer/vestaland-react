@@ -14,6 +14,8 @@ type CustomCheckboxProps = {
    * Optionale Beschriftung der Checkbox.
    */
   label: string
+
+  color?: string,
 }
 
 
