@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
 import {config} from "../config";
 import {AUTH_NO_TOKEN_ERROR_MESSAGE} from "../../shared-types/config";
 
@@ -32,33 +32,46 @@ apiClient.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    /*
-        401 bedeutet das Auth Token ist abgelaufen oder es wurde keins mitgesendet
-        (z.B. durch Browser-Refresh oder Fensterwechsel),
-        daher einmaliger Aufruf der myConfig.tokenRefreshUrl.
-    */
-    if (error.response && error.response.status === 401 && !originalRequest._retry) {
-      if (error.response.data.message === AUTH_NO_TOKEN_ERROR_MESSAGE) {
-        return Promise.reject('');
-      }
 
-      // Endlosschleife verhindern
-      originalRequest._retry = true;
-      return tryRefreshToken(originalRequest)
-    }
+    console.log('status', error.response?.status)
 
-    /*
-        400 bedeutet: ZOD Schema wurde nicht validiert. Informiere Enduser
-    */
-    if (error.response?.status === 400) {
-      handleError(error.response.data);
-    }
+    switch (error.response?.status) {
 
-    /*
+      /*
+          401 bedeutet das Auth Token ist abgelaufen oder es wurde keins mitgesendet
+          (z.B. durch Browser-Refresh oder Fensterwechsel),
+          daher einmaliger Aufruf der myConfig.tokenRefreshUrl.
+      */
+      case 401 :
+        if (originalRequest._retry) {
+          handleApiError(error);
+          break
+        }
+
+        if (error.response.data.message === AUTH_NO_TOKEN_ERROR_MESSAGE) {
+          return Promise.reject('');
+        }
+
+        // Endlosschleife verhindern und Token Refresh (führt den Call dann mit neuem Header aus)
+        originalRequest._retry = true;
+        return tryRefreshToken(originalRequest)
+
+      /*
+          400 bedeutet meist ungültige Validierung
+      */
+      case 400 :
+        handleError(error.response?.data);
+        break
+
+
+      /*
         In anderen Fällen lediglich console.error()
-    */
-    console.error(error.response.data)
-    return Promise.reject(error);
+      */
+      default :
+        console.error(error.response.data)
+        return Promise.reject(error);
+    }
+
   }
 );
 
@@ -72,9 +85,15 @@ apiClient.interceptors.response.use(
  *
  * @param error
  */
+export function handleApiError(error: AxiosResponse) {
+  console.error('handleError', error)
+  window.dispatchEvent(new CustomEvent('api-error', {detail: error}));
+}
+
+
 export function handleError(error: any) {
   // @todo sanity checks etc.
-  // console.error('handleError', error)
+  console.error('handleError', error)
   window.dispatchEvent(new CustomEvent('api-error', {detail: error}));
 }
 
@@ -84,7 +103,7 @@ export function handleError(error: any) {
  * Falls ein HTTP-only cookie für den API Server im Browser gesetzt wurde, wird ein neues Auth-Token zurückgesendet.
  *
  * @param originalRequest Ursprüngliche Anfrage, die danach mit neuem Header nochmal gestellt wird
-*/
+ */
 export function tryRefreshToken(originalRequest: any) {
 
   refreshClient.post(config.apiBaseUrl + config.tokenRefreshUrl)

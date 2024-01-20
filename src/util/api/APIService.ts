@@ -22,7 +22,9 @@ export class APIService {
    * @returns Promise<T[]>
    */
   static async search<T>(routePath: string, params?: object): Promise<T[]> {
-    return apiClient.get<T[]>(routePath, {params}).then(res => res.data)
+    return new Promise<T[]>((resolve) =>
+      apiClient.get<T[]>(routePath, {params}).then(res => resolve(res.data)).catch(handleApiError)
+    )
   }
 
   /**
@@ -34,8 +36,10 @@ export class APIService {
    * @returns Promise<T>
    */
   static async getById<T>(routePath: string, id?: string): Promise<T> {
-    if (!id) throw new Error("ID is required");
-    return apiClient.get<T>(joinPaths(routePath, id)).then(res => res.data)
+    return new Promise<T>((resolve, reject) => {
+      if (!id) return reject("ID is required")
+      apiClient.get<T>(joinPaths(routePath, id)).then(res => resolve(res.data)).catch(handleApiError)
+    })
   }
 
   /**
@@ -47,7 +51,9 @@ export class APIService {
    * @returns Promise<R=T>
    */
   static async post<T, R = T>(routePath: string, data: T): Promise<R> {
-    return apiClient.post<R>(routePath, data).then(res => res.data)
+    return new Promise<R>((resolve) =>
+      apiClient.post<R>(routePath, data).then(res => resolve(res.data)).catch(handleApiError)
+    )
   }
 
   /**
@@ -60,7 +66,9 @@ export class APIService {
    * @returns Promise<R=T>
    */
   static async put<T, R = T>(routePath: string, id: string, data: T): Promise<R> {
-    return apiClient.put<R>(joinPaths(routePath, id), data).then(res => res.data)
+    return new Promise<R>((resolve) =>
+      apiClient.put<R>(joinPaths(routePath, id), data).then(res => resolve(res.data)).catch(handleApiError)
+    )
   }
 
   /**
@@ -73,7 +81,9 @@ export class APIService {
    * @returns Promise<R=T>
    */
   static async patch<T, U = Partial<T>, R = T>(routePath: string, id: string, updates: U): Promise<R> {
-    return apiClient.put<R>(joinPaths(routePath, id), updates).then(res => res.data)
+    return new Promise<R>((resolve) =>
+      apiClient.put<R>(joinPaths(routePath, id), updates).then(res => resolve(res.data)).catch(handleApiError)
+    )
   }
 
   /**
@@ -84,7 +94,9 @@ export class APIService {
    * @returns Promise<any>
    */
   static async delete(routePath: string, id: string): Promise<any> {
-    return apiClient.delete(joinPaths(routePath, id))
+    return new Promise<any>((resolve) =>
+      apiClient.delete(joinPaths(routePath, id)).then(res => resolve(res.data)).catch(handleApiError)
+    )
   }
 
 
@@ -99,7 +111,12 @@ export class APIService {
   static async upload<T>(routePath: string, file: File, fileKey: string = 'bild'): Promise<T> {
     const formData = new FormData();
     formData.append(fileKey, file, file.name);
-    return apiClient.post<FormData, AxiosResponse<T>>(routePath, formData, {headers: {"Content-Type": "multipart/form-data",}}).then(res => res.data)
+
+    return new Promise<any>((resolve) =>
+      apiClient.post<FormData, AxiosResponse<T>>(routePath, formData, {headers: {"Content-Type": "multipart/form-data",}})
+        .then(res => resolve(res.data))
+        .catch(handleApiError)
+    )
   }
 
 
@@ -110,4 +127,9 @@ function joinPaths(basePath: string, relativePath: string): string {
   const normalizedBasePath = basePath.replace(/\/+$/, '');
   const normalizedRelativePath = relativePath.replace(/^\/+/, '');
   return `${normalizedBasePath}/${normalizedRelativePath}`;
+}
+
+
+function handleApiError(error: any) {
+  console.log(error)
 }
