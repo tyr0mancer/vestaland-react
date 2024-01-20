@@ -10,7 +10,7 @@ import {RezeptSchema} from "../../../shared-types/schemas/rezept-schema";
 import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 
-import {RezeptEditForm} from "./RezeptEditForm";
+import {MainForm} from "./MainForm";
 
 
 /**
@@ -43,7 +43,7 @@ export function RezeptEdit(): React.ReactElement {
           return {key: 'rezeptEdit', data: value}
         }}
       >
-        <RezeptEditForm/>
+        <MainForm/>
       </CustomForm>
     </Paper>
   </ConditionalDisplay>)

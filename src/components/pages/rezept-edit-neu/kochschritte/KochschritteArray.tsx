@@ -16,7 +16,6 @@ export function KochschritteArray(): React.ReactElement {
 
   const [activeIndex, setActiveIndex] = useState(-1)
 
-
   return (<CustomFieldArray<Kochschritt>
     newValue={new Kochschritt()}
     name={'kochschritte'}

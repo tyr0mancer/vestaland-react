@@ -32,7 +32,6 @@ export const RezeptSchema = CustomOwnershipSchema.extend({
 }).strict()
 export type RezeptType = z.infer<typeof RezeptSchema>;
 
-
 /**
  * Schema zur Verarbeitung des Requests auf Serverseite
  */
@@ -49,11 +48,10 @@ export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;
  * Schema für das zugehörige Client Formular
  */
 export const RezeptSucheFormSchema = z.object({
-  rezeptName: z.union([z.string().length(0), z.string().min(2)])
-    .optional(),
-  nurEigene: z.boolean().optional(),
+  rezeptName: z.string().optional(),
   zutaten: z.array(LebensmittelSchema).optional(),
+  nurEigene: z.boolean().optional(),
   tags: z.array(z.nativeEnum(Tags)).optional()
-})
-export type RezeptSucheFormType = z.infer<typeof RezeptSucheFormSchema>;
+}).strict()
 
+export type RezeptSucheFormType = z.infer<typeof RezeptSucheFormSchema>;

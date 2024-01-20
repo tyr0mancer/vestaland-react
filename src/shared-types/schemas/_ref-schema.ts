@@ -1,4 +1,3 @@
-import {z, ZodType} from "zod";
+import {z, ZodObject} from "zod";
 
-export const RefType = (schema: ZodType) => z.union([z.string(), schema]).optional()
-
+export const RefType = (schema: ZodObject<any>) => z.union([z.string(), schema.partial()]).optional()

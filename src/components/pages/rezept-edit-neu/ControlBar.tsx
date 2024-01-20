@@ -1,6 +1,6 @@
-import React  from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
-import { Grid, IconButton, Switch, Toolbar} from "@mui/material";
+import {Grid, IconButton, Switch, Toolbar} from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import {useFormikContext} from "formik";
 import {
@@ -34,9 +34,9 @@ export function ControlBar(): React.ReactElement {
     customConfirm({
       label: 'veröffentlichen?'
     }).then(() => {
-      APIService.post<Rezept>('rezept', values).then(res => {
-        console.log(res)
-      })
+      if (values._id)
+        return APIService.put<Rezept>('rezept', values._id, values)
+      return APIService.post<Rezept>('rezept', values)
     })
   }
 
