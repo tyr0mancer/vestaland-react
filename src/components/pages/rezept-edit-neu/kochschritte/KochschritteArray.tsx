@@ -21,6 +21,7 @@ export function KochschritteArray(): React.ReactElement {
     name={'kochschritte'}
     render={(arrayHelper, values) => (<>
       <KochschritteArrayHeader arrayHelper={arrayHelper}/>
+      {JSON.stringify(values)}
       {values.map((kochschritt, index) => <Box key={index}>
 
           <KochschrittHeader

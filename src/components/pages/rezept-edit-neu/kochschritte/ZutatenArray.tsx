@@ -17,20 +17,18 @@ type ZutatenArrayProps = {
 export function ZutatenArray({name, variant = 'desktop'}: ZutatenArrayProps): React.ReactElement {
   return (<CustomFieldArray<Zutat>
     newValue={new Zutat()}
-    name={`${name}[zutaten]`}
+    name={`${name}`}
     render={(arrayHelper, values) => (<>
-      {(values?.length) ? values.map((zutat, index) => <Box key={index}>
+      {(values ?? []).map((zutat, index) => <Box key={index}>
 
-          <ZutatPicker name={`${name}[zutaten][${index}]`} variant={variant} arrayHelper={arrayHelper} index={index}/>
-          <Button onClick={() => arrayHelper.handleInsert(index)}>neu</Button>
+          <ZutatPicker name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper} index={index}/>
+          <Button onClick={() => arrayHelper.handleInsert(index + 1)}>neu</Button>
           <Button onClick={() => arrayHelper.handleDelete(index)}>delete</Button>
 
-
         </Box>
-      ) : (<>
-        <Button onClick={() => arrayHelper.handleInsert(0)}>Zutat hinzufügen</Button>
-      </>)}
+      )}
       <hr/>
+      <Button onClick={() => arrayHelper.handleInsert(values?.length)}>Zutat hinzufügen</Button>
     </>)}
   />)
 }

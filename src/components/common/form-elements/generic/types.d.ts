@@ -119,7 +119,7 @@ type CustomAutocompleteProps<T> = {
  * @typeParam T - Der Typ der Elemente in der FieldArray.
  */
 type CustomFieldArrayProp<T> = {
-  newValue: T,
+  newValue?: T,
   /**
    * Der Name des Formularfeldes, verwendet von Formik zur Handhabung der Formulardaten.
    */
@@ -129,6 +129,8 @@ type CustomFieldArrayProp<T> = {
    * Renderfunktion
    */
   render: ((props: CustomArrayHelper, value: T[]) => React.ReactNode)
+
+  TypeClass?: any
 }
 
 

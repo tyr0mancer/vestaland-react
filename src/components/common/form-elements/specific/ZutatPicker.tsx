@@ -24,7 +24,7 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
   }
 
   return (<Grid container>
-    <Grid item xs={7}>
+    <Grid item xs={7}>{name}
       <LebensmittelPicker name={`${name}[lebensmittel]`} handleDelete={handleDelete}/>
     </Grid>
     <Grid item xs={2}>
