@@ -1,9 +1,14 @@
 import React, {useState} from "react";
+import {useQuery} from "@tanstack/react-query";
+
 import {useField} from "formik";
 import {FileUploader} from 'react-drag-drop-files';
-import {Box, Button, Modal, Typography} from "@mui/material";
+import {Box, Button, ImageList, ImageListItem, Modal, Paper, Typography} from "@mui/material";
 import {getFileUrl} from "../../formatting/RezeptBild";
 import {CustomFileDropperProps} from "./types";
+import {APIService} from "../../../../util/api/APIService";
+import {ConditionalDisplay} from "../../../layout/ConditionalDisplay";
+import {Datei} from "../../../../shared-types/models/Datei";
 
 const fileTypes = ["JPG", "PNG", "GIF"];
 
@@ -36,17 +41,11 @@ export function CustomFileDropper<T>({name, label, uploadFn}: CustomFileDropperP
   const handleOpen = () =>
     setOpen(s => !s)
 
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgColor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-  };
+  const handleSelect = (datei: Datei) => {
+    setValue(datei)
+      .then(() => setOpen(false))
+  }
+
 
   return (<Box className="file-picker">
     <Typography variant="h6" borderBottom={1}>{label}</Typography>
@@ -63,20 +62,56 @@ export function CustomFileDropper<T>({name, label, uploadFn}: CustomFileDropperP
     <Modal
       open={open}
       onClose={handleOpen}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
+      aria-labelledby="gallery-modal"
+      aria-describedby="zeige-bildauswahl"
     >
-      <Box sx={style}>
-        <Typography id="modal-modal-title" variant="h6" component="h2">
-          Bild auswählen
-        </Typography>
-        <Typography id="modal-modal-description" sx={{mt: 2}}>
-          Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-        </Typography>
-      </Box>
+      <Gallery onSelect={handleSelect}/>
     </Modal>
 
   </Box>)
 }
 
 
+const Gallery = React.forwardRef(function RefGallery({onSelect}: { onSelect: (datei: Datei) => void },) {
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 400,
+      bgColor: 'white',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
+
+    const {data, isLoading, error} = useQuery(
+      {
+        queryKey: ["datei-auswahl"],
+        queryFn: () => APIService.search<Datei>('datei')
+      });
+
+    return <ConditionalDisplay status={{isLoading, error}}>
+      <Paper sx={style}>
+        <Typography id="modal-modal-title" variant="h5" component="h2">
+          Bild auswählen
+        </Typography>
+        <Typography id="modal-modal-description" sx={{mt: 2}}>
+
+          <ImageList cols={3} rowHeight={150}>
+            {(data ?? []).map(datei => (
+              <ImageListItem key={datei.filename}>
+                <img onClick={() => onSelect(datei)}
+                     srcSet={`${getFileUrl(datei.filename)}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                     src={`${getFileUrl(datei.filename)}?w=164&h=164&fit=crop&auto=format`}
+                     alt={datei.beschreibung}
+                     loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+        </Typography>
+      </Paper>
+    </ConditionalDisplay>
+  }
+)

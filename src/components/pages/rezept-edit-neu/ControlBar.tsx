@@ -1,42 +1,55 @@
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import {Grid, IconButton, Switch, Toolbar} from "@mui/material";
-import SaveIcon from "@mui/icons-material/Save";
+import {useNavigate} from "react-router-dom";
+import {QueryClient} from "@tanstack/react-query";
+
+import {AppBar, Grid, IconButton, Toolbar} from "@mui/material";
 import {useFormikContext} from "formik";
-import {
-  ExitToAppOutlined,
-  UndoRounded
-} from "@mui/icons-material";
-import {Rezept} from "../../../shared-types/models/Rezept";
-import {APIService} from "../../../util/api/APIService";
-import {CustomCheckbox} from "../../common/form-elements/generic/CustomCheckbox";
-import PublishIcon from "@mui/icons-material/Publish";
+import {ExitToAppOutlined as ExitIcn, Publish as PublishIcon, Save as SaveIcon} from "@mui/icons-material";
 import {customConfirm} from "../../common/ui/ConfirmDialog";
+import {APIService} from "../../../util/api/APIService";
+import {Rezept} from "../../../shared-types/models/Rezept";
+import {QueryKey} from "../../../util/config/enums";
+import {CustomSwitch} from "../../common/form-elements/generic/CustomSwitch";
+import {useAuth} from "../../../util/auth/AuthProvider";
+import {BenutzerRolle} from "../../../shared-types/enum";
+
 
 /**
- * TS Doc Info
- * @component ControlBar
+ * Controlbar für Rezept-Editor
  */
 export function ControlBar(): React.ReactElement {
-  const {values, touched, resetForm} = useFormikContext<Rezept>();
-  const handleReset = () => {
-    resetForm()
-    //setValues(new Rezept())
+  const navigate = useNavigate()
+  const queryClient = new QueryClient();
+  const {isAuthorized} = useAuth()
+
+  const {values, touched} = useFormikContext<Rezept>();
+/*
+  const handleReset = () => { // reload aus DB? aus Storage?
+  }
+*/
+
+  const handleExit = () => {
   }
 
   const handleSave = () => {
     localStorage.setItem('rezeptEdit', JSON.stringify(values || null))
-  }
-  const handleExit = () => {
   }
 
   const handlePublish = () => {
     customConfirm({
       label: 'veröffentlichen?'
     }).then(() => {
-      if (values._id)
-        return APIService.put<Rezept>('rezept', values._id, values)
-      return APIService.post<Rezept>('rezept', values)
+
+      const mutateFn = () => (values._id)
+        ? APIService.put<Rezept>('rezept', values._id, values)
+        : APIService.post<Rezept>('rezept', values)
+
+      mutateFn().then(async (res) => {
+        await queryClient.invalidateQueries({queryKey: [QueryKey.REZEPT_SUCHE]})
+        await queryClient.invalidateQueries({queryKey: [QueryKey.REZEPT_DETAIL, res._id]})
+        navigate(`/rezepte/${res._id}`)
+      })
+
     })
   }
 
@@ -44,15 +57,16 @@ export function ControlBar(): React.ReactElement {
   return (<AppBar position={"static"} style={{padding: 0, margin: 0}}>
     <Toolbar style={{padding: 0, margin: 0}} variant="dense">
 
-
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
+          {/*
 
           <IconButton
             onClick={handleReset}
             size="large">
-            <UndoRounded color={'secondary'}/>
+            <ResetIcon color={'secondary'}/>
           </IconButton>
+*/}
 
           <IconButton
             onClick={handleSave}
@@ -65,22 +79,27 @@ export function ControlBar(): React.ReactElement {
             size="large">
             <PublishIcon color={'secondary'}/>
           </IconButton>
-          <Switch defaultChecked/>
-          <CustomCheckbox name={'publicVisible'} label={'öffentlich'}/>
+
+          <CustomSwitch
+            color={'secondary'}
+            name={'publicVisible'}
+            label={'öffentlich'}
+            disabled={!isAuthorized(BenutzerRolle.REDAKTEUR)}
+            />
+
+
         </Grid>
         <Grid item>
 
           <IconButton
             onClick={handleExit}
             size="large">
-            <ExitToAppOutlined color={'secondary'}/>
+            <ExitIcn color={'secondary'}/>
           </IconButton>
 
         </Grid>
       </Grid>
 
-
     </Toolbar>
-
   </AppBar>)
 }

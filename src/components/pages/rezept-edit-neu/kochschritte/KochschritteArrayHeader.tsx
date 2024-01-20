@@ -1,13 +1,18 @@
 import React from "react";
 import {CustomArrayHelper} from "../../../common/form-elements/generic/CustomFieldArray";
-import {Button} from "@mui/material";
+import {AppBar, Button, Toolbar} from "@mui/material";
 
-type KochschrittHeaderProps = {arrayHelper: CustomArrayHelper}
+type KochschrittHeaderProps = { arrayHelper: CustomArrayHelper }
 
 /**
  * TS Doc Info
  * @component KochschrittHeader
  */
 export function KochschritteArrayHeader({arrayHelper: {handleInsert}}: KochschrittHeaderProps) {
-  return <div><h5>KochschrittHeader</h5><Button onClick={() => handleInsert()}>Insert</Button></div>
+  return <AppBar position={"static"} color={'primary'}>
+    <Toolbar variant={'dense'}>
+      <Button color={'secondary'} onClick={() => handleInsert()}>Insert</Button>
+    </Toolbar>
+  </AppBar>
 }
+

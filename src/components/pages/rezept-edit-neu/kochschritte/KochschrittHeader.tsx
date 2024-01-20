@@ -1,5 +1,5 @@
 import React from "react";
-import {AppBar, IconButton, Toolbar} from "@mui/material";
+import {AppBar, Grid, IconButton, Toolbar} from "@mui/material";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
@@ -64,32 +64,42 @@ export function KochschrittHeader({
 
   return (<AppBar position={"static"} color={'secondary'}>
     <Toolbar variant={'dense'}>
-      <IconButton disabled={activeIndex === index}>
-        <ModeEditIcon onClick={() => setActiveIndex(index)}/>
-      </IconButton>
+      <Grid container spacing={0}>
+        <Grid item xs>
+          <IconButton
+            disabled={activeIndex === index}
+            onClick={() => setActiveIndex(index)}
+          ><ModeEditIcon/></IconButton>
 
-      {activeIndex === index &&
-      <IconButton>
-        <CloseIcon onClick={() => setActiveIndex(-1)}/>
-      </IconButton>}
+          {activeIndex === index &&
+              <IconButton
+                  onClick={() => setActiveIndex(-1)}
+              ><CloseIcon/></IconButton>}
+        </Grid>
 
+        <Grid item xs textAlign={'right'}>
 
-      <div style={{ flexGrow: 1 }}></div> {/* Spacer */}
-      <IconButton disabled={0 === index}>
-        <ArrowCircleUpIcon onClick={handleMoveUp}/>
-      </IconButton>
-      <IconButton disabled={maxIndex === index}>
-        <ArrowCircleDownIcon onClick={handleMoveDown}/>
-      </IconButton>
+          <IconButton
+            disabled={0 === index}
+            onClick={handleMoveUp}
+          ><ArrowCircleUpIcon/> </IconButton>
 
-      <IconButton>
-        <AddBoxIcon onClick={handleInsert}/>
-      </IconButton>
+          <IconButton
+            disabled={maxIndex === index}
+            onClick={handleMoveDown}
+          ><ArrowCircleDownIcon/></IconButton>
 
+          <IconButton
+            onClick={handleInsert}
+          ><AddBoxIcon/></IconButton>
 
-      <IconButton>
-        <RemoveCircleIcon onClick={handleDelete}/>
-      </IconButton>
+          <IconButton
+            onClick={handleDelete}
+          ><RemoveCircleIcon/></IconButton>
+
+        </Grid>
+      </Grid>
+
 
     </Toolbar>
   </AppBar>)

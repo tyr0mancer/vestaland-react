@@ -11,6 +11,7 @@ import {LoadingScreen} from "../../layout/ConditionalDisplay/LoadingScreen";
 import {RezeptEditorForm} from "./RezeptEditorForm";
 import {APIService} from "../../../util/api/APIService";
 import {DefaultValues} from "./index";
+import {QueryKey} from "../../../util/config/enums";
 
 
 /**
@@ -30,7 +31,7 @@ export function RezeptEditor(): React.ReactElement {
   const {rezeptId} = useParams();
   const {data: rezeptApi, isFetching} = useQuery( //@todo liefert aktuell noch null falls parameter falsch ist - sollte Fehler werfen -> Express
     {
-      queryKey: ["rezept-detail", rezeptId],
+      queryKey: [QueryKey.REZEPT_DETAIL, rezeptId],
       queryFn: () => APIService.getById<Rezept>('rezept', rezeptId || ''),
       enabled: !!rezeptId
     });

@@ -21,7 +21,7 @@ export function KochschritteArray(): React.ReactElement {
     name={'kochschritte'}
     render={(arrayHelper, values) => (<>
       <KochschritteArrayHeader arrayHelper={arrayHelper}/>
-      {values.map((kochschritt, index) => <Box>
+      {values.map((kochschritt, index) => <Box key={index}>
 
           <KochschrittHeader
             arrayHelper={arrayHelper}
@@ -33,14 +33,12 @@ export function KochschritteArray(): React.ReactElement {
 
           {(activeIndex === index)
             ? <KochschrittForm
-              key={index}
               index={index}
               name={`kochschritte[${index}]`}
               value={kochschritt}
               arrayHelper={arrayHelper}
             />
             : <KochschrittView
-              key={index}
               index={index}
               kochschritt={kochschritt}
             />}

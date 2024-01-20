@@ -25,6 +25,7 @@ import {ShowZutaten} from "../../common/formatting/ShowZutaten";
 import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
 import {RezeptKochschritt} from "./RezeptKochschritt";
 import {ShowNutrients} from "../../common/formatting/ShowNutrients";
+import {QueryKey} from "../../../util/config/enums";
 
 
 /**
@@ -45,10 +46,10 @@ export function RezeptDetail() {
     data: rezept
   } = useQuery(
     {
-      queryKey: ["rezept-detail", rezeptId],
+      queryKey: [QueryKey.REZEPT_DETAIL, rezeptId],
       queryFn: () => APIService.getById<Rezept>('rezept', rezeptId || ''),
       enabled: !!rezeptId,
-      staleTime: 1000 * 60 * 5, // 5 minutes
+      staleTime: 1000 * 10
     });
 
   const [portionen, setPortionen] = useState(rezept?.portionen || 1)
