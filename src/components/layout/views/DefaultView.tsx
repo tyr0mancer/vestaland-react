@@ -1,8 +1,6 @@
 import React from "react";
-import {Box, Container, Paper} from "@mui/material";
+import {Box, Container} from "@mui/material";
 
-import {useAuth} from "../../../util/auth/AuthProvider";
-import {ErrorScreen} from "../ConditionalDisplay/ErrorScreen";
 import {FooterMain} from "../footer/FooterMain";
 import {NavbarMain} from "../navbar/NavbarMain";
 import {CustomAlerts} from "../../common/ui/CustomAlerts";

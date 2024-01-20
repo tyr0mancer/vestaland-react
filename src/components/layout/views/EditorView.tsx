@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Container, Paper} from "@mui/material";
+import {Box, Container} from "@mui/material";
 
 import {FooterMain} from "../footer/FooterMain";
 import {NavbarMain} from "../navbar/NavbarMain";

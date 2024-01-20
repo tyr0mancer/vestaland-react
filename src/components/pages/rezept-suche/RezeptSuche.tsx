@@ -10,7 +10,7 @@ import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
 import {RezeptSucheForm} from "./RezeptSucheForm";
-import {Box, Container, Paper} from '@mui/material';
+import { Container, Paper} from '@mui/material';
 
 export function RezeptSuche() {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Box, Container, Paper} from "@mui/material";
+import {Box, Container} from "@mui/material";
 
 import {CustomAlerts} from "../../common/ui/CustomAlerts";
 import {NavbarAdmin} from "../navbar/NavbarAdmin";
