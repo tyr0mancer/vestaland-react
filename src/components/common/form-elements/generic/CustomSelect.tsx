@@ -31,6 +31,7 @@ import {CustomSelectProps} from "./types";
  */
 export function CustomSelect<T>({
                                   name,
+                                  size='medium',
                                   label,
                                   multiple = false,
                                   getKey = (v => v as string),
@@ -50,6 +51,7 @@ export function CustomSelect<T>({
     fullWidth
     multiple={multiple}
     as={Select}
+    size={size}
     name={name}
     labelId={label}
     value={getKey(value)}

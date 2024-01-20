@@ -11,8 +11,8 @@ import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {LebensmittelNeuForm} from "../../common/form-elements/specific/LebensmittelNeuForm";
-import {AddOptionDialog} from "../../common/form-elements/specific/_AddOptionDialog";
+import {LebensmittelNeuForm} from "../../common/form-elements/_special/LebensmittelNeuForm";
+import {AddOptionDialog} from "../../common/form-elements/_special/_AddOptionDialog";
 import {apiClient} from "../../../util/api/apiClient";
 import {APIService} from "../../../util/api/APIService";
 

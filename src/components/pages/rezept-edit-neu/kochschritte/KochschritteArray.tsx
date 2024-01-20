@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
-import {CustomFieldArray} from "../../../common/form-elements/generic/CustomFieldArray";
+import {CustomFieldArray} from "../../../common/form-elements/generic";
 import {KochschritteArrayHeader} from "./KochschritteArrayHeader";
 import {KochschrittForm} from "./KochschrittForm";
 import {KochschrittView} from "./KochschrittView";
@@ -45,6 +45,7 @@ export function KochschritteArray(): React.ReactElement {
 
         </Box>
       )}
+      <hr/>
     </>)}
   />)
 }

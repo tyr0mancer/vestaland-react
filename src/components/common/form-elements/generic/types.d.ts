@@ -155,6 +155,8 @@ type CustomTextFieldProps = {
    * Soll das Formik Feld als <FastField /> statt <Fast /> implementiert werden?
    */
   fastField?: boolean
+
+  size?: 'small' | 'medium',
 }
 
 
@@ -198,7 +200,12 @@ type CustomSelectProps<T> = {
   /**
    * Optional, ob Mehrfachauswahl im Select-Feld erlaubt sein soll.
    */
-  multiple?: boolean
+  multiple?: boolean,
+
+  /**
+   * Optionale Größe des Feldes.
+   */
+  size?: 'small' | 'medium'
 }
 
 

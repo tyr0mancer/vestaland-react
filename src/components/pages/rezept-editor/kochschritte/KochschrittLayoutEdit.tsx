@@ -1,15 +1,15 @@
 import {CustomFieldProps} from "../../../common/form-elements/types";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {FormGroup, Grid, TextField} from "@mui/material";
-import {ZutatenPicker} from "../../../common/form-elements/specific/ZutatenPicker";
-import {UtensilienPicker} from "../../../common/form-elements/specific/UtensilienPicker";
-import {AktionenPicker} from "../../../common/form-elements/specific/AktionenPicker";
+import {ZutatenPicker} from "../../../common/form-elements/_special/ZutatenPicker";
+import {UtensilienPicker} from "../../../common/form-elements/_special/UtensilienPicker";
+import {AktionenPicker} from "../../../common/form-elements/_special/AktionenPicker";
 import Box from "@mui/material/Box";
 import {Field, useFormikContext} from "formik";
 import React from "react";
 import {ZeitangabeFields} from "./ZeitangabeFields";
 import {BetriebsartFields} from "./BetriebsartFields";
-import {ZwischenergebnisPicker} from "../../../common/form-elements/specific/ZwischenergebnisPicker";
+import {ZwischenergebnisPicker} from "../../../common/form-elements/_special/ZwischenergebnisPicker";
 import {Rezept} from "../../../../shared-types/models/Rezept";
 
 /**

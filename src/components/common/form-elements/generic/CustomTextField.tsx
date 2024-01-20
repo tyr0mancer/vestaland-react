@@ -19,6 +19,7 @@ export function CustomTextField({
                                   name,
                                   label = 'name',
                                   type = 'text',
+                                  size = 'small',
                                   fastField = false
                                 }: CustomTextFieldProps): React.ReactElement {
   const [, meta] = useField(name);
@@ -36,6 +37,7 @@ export function CustomTextField({
                  type={type}
                  variant={'outlined'}
                  name={name}
+                 size={size}
                  label={label}
                  error={meta.touched && !!meta.error}
                  helperText={meta.touched && meta.error}

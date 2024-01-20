@@ -9,7 +9,7 @@ import {customConfirm} from "../../common/ui/ConfirmDialog";
 import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {QueryKey} from "../../../util/config/enums";
-import {CustomSwitch} from "../../common/form-elements/generic/CustomSwitch";
+import {CustomSwitch} from "../../common/form-elements/generic";
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {BenutzerRolle} from "../../../shared-types/enum";
 
@@ -99,6 +99,8 @@ export function ControlBar(): React.ReactElement {
 
         </Grid>
       </Grid>
+
+      <pre>{JSON.stringify(values,null,1)}</pre>
 
     </Toolbar>
   </AppBar>)

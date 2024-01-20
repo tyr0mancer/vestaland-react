@@ -1,9 +1,14 @@
 import React from "react";
 
 import {Box, Paper, Typography} from "@mui/material";
+import {TextSpeech} from "../../common/test2speech/TextSpeech";
 
 export function Startseite() {
   return (<Paper style={{padding: 15}}>
+    <TextSpeech
+      voiceIndex={0}
+      text={'100 gramm Zwiebeln, 2 Zehen Knoblauch und 3 Karotten klein schneiden'}
+    />
 
     <Typography variant="h6" gutterBottom>
       Willkommen bei <strong>"Vestaland"</strong> – Ihrer persönlichen Kochassistenz-App! Diese App ist im Rahmen eines
