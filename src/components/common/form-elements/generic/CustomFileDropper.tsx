@@ -36,7 +36,7 @@ export function CustomFileDropper<T>({name, label, uploadFn}: CustomFileDropperP
     uploadFn(file).then(setValue).catch(console.log)
 
   const handleClear = () =>
-    setValue(null)
+    setValue(undefined)
 
   const handleOpen = () =>
     setOpen(s => !s)
