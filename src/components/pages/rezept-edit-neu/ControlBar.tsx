@@ -1,28 +1,24 @@
-import React, {useEffect, useState} from "react";
+import React  from "react";
 import AppBar from "@mui/material/AppBar";
-import {Box, Button, FormGroup, Grid, IconButton, MenuItem, Switch, Toolbar} from "@mui/material";
+import { Grid, IconButton, Switch, Toolbar} from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
 import {useFormikContext} from "formik";
 import {
-  CloudCircle,
   ExitToAppOutlined,
-  NewReleasesOutlined,
-  RefreshOutlined,
-  UndoOutlined,
   UndoRounded
 } from "@mui/icons-material";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {APIService} from "../../../util/api/APIService";
 import {CustomCheckbox} from "../../common/form-elements/generic/CustomCheckbox";
-import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
 import PublishIcon from "@mui/icons-material/Publish";
+import {customConfirm} from "../../common/ui/ConfirmDialog";
 
 /**
  * TS Doc Info
  * @component ControlBar
  */
 export function ControlBar(): React.ReactElement {
-  const {values, setValues, submitForm, touched, resetForm} = useFormikContext<Rezept>();
+  const {values, touched, resetForm} = useFormikContext<Rezept>();
   const handleReset = () => {
     resetForm()
     //setValues(new Rezept())
@@ -33,10 +29,20 @@ export function ControlBar(): React.ReactElement {
   }
   const handleExit = () => {
   }
-  const handlePublish = () => submitForm()
+
+  const handlePublish = () => {
+    customConfirm({
+      label: 'veröffentlichen?'
+    }).then(() => {
+      APIService.post<Rezept>('rezept', values).then(res => {
+        console.log(res)
+      })
+    })
+  }
+
 
   return (<AppBar position={"static"} style={{padding: 0, margin: 0}}>
-    <Toolbar style={{padding: 0, margin: 0}} variant="dense" >
+    <Toolbar style={{padding: 0, margin: 0}} variant="dense">
 
 
       <Grid container spacing={2} alignItems="center">
@@ -59,7 +65,7 @@ export function ControlBar(): React.ReactElement {
             size="large">
             <PublishIcon color={'secondary'}/>
           </IconButton>
-          <Switch defaultChecked />
+          <Switch defaultChecked/>
           <CustomCheckbox name={'publicVisible'} label={'öffentlich'}/>
         </Grid>
         <Grid item>
@@ -72,8 +78,6 @@ export function ControlBar(): React.ReactElement {
 
         </Grid>
       </Grid>
-
-
 
 
     </Toolbar>

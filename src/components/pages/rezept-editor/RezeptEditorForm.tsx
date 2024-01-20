@@ -9,7 +9,7 @@ import {Form} from "formik";
 
 /**
  * Top-Level Form Layout
- * Tab Navigation zwischen 'Allgemeines' und 'Kochschritte'
+ * Tab Navigation zwischen 'Allgemeines' und 'KochschritteArray'
  *
  * @component RezeptEditorForm
  *
@@ -30,7 +30,7 @@ export function RezeptEditorForm(): React.ReactElement {
         <Grid item xs={7} md={10}>
           <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
             <Tab label="Allgemeines"/>
-            <Tab label="Kochschritte"/>
+            <Tab label="KochschritteArray"/>
           </Tabs>
         </Grid>
         <Grid item xs={5} md={2} textAlign={'right'}>

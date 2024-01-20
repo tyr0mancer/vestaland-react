@@ -24,12 +24,12 @@ export function MainRouter() {
 
         <Route path="/rezepte" element={<DefaultView children={<RezeptSuche/>}/>}/>
         <Route path="/rezepte/:rezeptId" element={<DefaultView children={<RezeptDetail/>}/>}/>
-        <Route path="/rezept-editor" element={<EditorView children={<RezeptEditor/>}/>}/>
-        <Route path="/rezept-editor/:rezeptId" element={<EditorView children={<RezeptEditor/>}/>}/>
+        <Route path="/rezept-editor" element={<EditorView children={<RezeptEdit/>}/>}/>
+        <Route path="/rezept-editor/:rezeptId" element={<EditorView children={<RezeptEdit/>}/>}/>
         <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
 
 
-        <Route path="/einkaufsliste" element={<EditorView children={<RezeptEdit/>}/>}/>
+        <Route path="/einkaufsliste" element={<EditorView children={<RezeptEditor/>}/>}/>
         <Route path="/einkaufsliste/:rezeptId" element={<EditorView children={<EinkaufslisteView/>}/>}/>
 
         <Route path="/login" element={<DefaultView children={<LoginRegister/>}/>}/>

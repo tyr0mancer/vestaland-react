@@ -1,14 +1,16 @@
 import React from "react";
 import {useParams} from "react-router-dom";
 import {useQuery} from "@tanstack/react-query";
+import {Paper} from "@mui/material";
+
 import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 import {RezeptSchema} from "../../../shared-types/schemas/rezept-schema";
-import {RezeptEditForm} from "./RezeptEditForm";
+
+import {CustomForm} from "../../common/form-elements/generic/CustomForm";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
-import {customConfirm} from "../../common/ui/ConfirmDialog";
-import {Paper} from "@mui/material";
+
+import {RezeptEditForm} from "./RezeptEditForm";
 
 
 /**
@@ -25,26 +27,15 @@ export function RezeptEdit(): React.ReactElement {
       enabled: !!rezeptId
     });
 
-  const localStorageData = localStorage.getItem(localStorageKey)
+  const localStorageData = (!rezeptId && localStorage.getItem(localStorageKey))
     ? JSON.parse(localStorage.getItem(localStorageKey) || 'null') as Rezept
     : undefined
 
   const initialValues = rezeptApi ?? localStorageData ?? new Rezept()
 
-  const handlePublish = (values: Rezept) => {
-    customConfirm({
-      label: 'veröffentlichen?'
-    }).then(() => {
-      APIService.post<Rezept>('rezept', values).then(res => {
-        console.log(res)
-      })
-    })
-  }
-
   return (<ConditionalDisplay restricted status={{isLoading}}>
     <Paper>
       <CustomForm<Rezept>
-        onSubmit={handlePublish}
         defaultValues={initialValues}
         validationSchema={RezeptSchema}
         contextKey={'rezeptEdit'}

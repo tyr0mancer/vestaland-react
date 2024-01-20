@@ -36,7 +36,7 @@ export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldPr
 
     </Grid>
 
-    {/* Zutaten /erforderliche Kochschritte/ Utensilien  */}
+    {/* Zutaten /erforderliche KochschritteArray/ Utensilien  */}
     <Grid item xs={12} md={7}>
       <ZutatenPicker name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
       <hr/>

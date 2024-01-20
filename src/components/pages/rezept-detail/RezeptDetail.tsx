@@ -167,7 +167,7 @@ export function RezeptDetail() {
       }
 
 
-      {/* Kochschritte */}
+      {/* KochschritteArray */}
       <Box mt={5}>
         <Typography variant="h3" gutterBottom borderBottom={2}>
           Zubereitung
