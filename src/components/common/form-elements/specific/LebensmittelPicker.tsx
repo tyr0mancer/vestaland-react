@@ -8,14 +8,15 @@ import {DefaultValues} from "../../../../util/default-values";
 
 type LebensmittelPickerProps = {
   name: string,
-  handleDelete?: () => void
+  handleChange: (value: Lebensmittel|null) => void
 }
 
 /**
  * TS Doc Info
  * @component LebensmittelPicker
  */
-export function LebensmittelPicker({name, handleDelete}: LebensmittelPickerProps): React.ReactElement {
+export function LebensmittelPicker({name, handleChange}: LebensmittelPickerProps): React.ReactElement {
+
   return (<CustomAutocomplete<Lebensmittel>
     autoFocus
     size={'small'}
@@ -25,8 +26,7 @@ export function LebensmittelPicker({name, handleDelete}: LebensmittelPickerProps
     idProp={'_id'}
     getLabel={(e) => e.name}
     queryFn={(input?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: input})}
-    onChange={v => (!!handleDelete && !v) ? handleDelete() : {}}
-
+    onChange={handleChange}
 
     label="Lebensmittel"
     newEntryRender={(inputValue) => <LebensmittelForm input={inputValue}/>}

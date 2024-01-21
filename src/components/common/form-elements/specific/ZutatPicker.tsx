@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {LebensmittelPicker} from "./LebensmittelPicker";
 import {CustomArrayHelper, CustomSelect, CustomTextField} from "../generic";
 import {Grid, IconButton} from "@mui/material";
@@ -6,6 +6,7 @@ import {Einheit} from "../../../../shared-types/enum";
 import {EinheitProperties} from "../../../../util/format/enum-properties/EinheitProperties";
 import {useField} from "formik";
 import {Zutat} from "../../../../shared-types/models/Zutat";
+import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 
 type ZutatPickerProps = {
   name: string,
@@ -22,21 +23,21 @@ type ZutatPickerProps = {
 export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React.ReactElement {
   const [{value}, , helpers] = useField<Zutat>(name)
 
-  useEffect(() => {
-    if (!value.lebensmittel?.defaultEinheit) return
-    value.einheit = value.lebensmittel.defaultEinheit
-    helpers.setValue(value).then(() => {
-    })
-  }, [value.lebensmittel?.defaultEinheit])
-
-
-  const handleDelete = () => {
-    arrayHelper.handleDelete(index)
+  const handleChange = (newValue: Lebensmittel | null) => {
+    if (!newValue) {
+      return arrayHelper.handleDelete(index)
+    }
+    value.einheit = newValue.defaultEinheit
+    return helpers.setValue(value)
   }
+
 
   return (<Grid container>
     <Grid item xs={7}>
-      <LebensmittelPicker name={`${name}[lebensmittel]`} handleDelete={handleDelete}/>
+      <LebensmittelPicker
+        name={`${name}[lebensmittel]`}
+        handleChange={handleChange}
+      />
     </Grid>
     <Grid item xs={2}>
       <CustomTextField size={'small'} name={`${name}[menge]`} type={'number'} label={'Menge'}/>
@@ -47,7 +48,8 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
         name={`${name}[einheit]`}
         label={'Einheit'}
         options={Object.values(Einheit)}
-        getLabel={einheit => EinheitProperties[einheit].fullName}
+        getKey={(einheit: Einheit) => einheit}
+        getLabel={(einheit: Einheit) => EinheitProperties[einheit].fullName}
       />
     </Grid>
 

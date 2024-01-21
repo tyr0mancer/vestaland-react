@@ -1,6 +1,6 @@
 import React from "react";
 import {Field, useField} from "formik";
-import {MenuItem, Select} from "@mui/material";
+import {InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {CustomSelectProps} from "./types";
 
 
@@ -29,36 +29,43 @@ import {CustomSelectProps} from "./types";
  *   getLabel={einheit => EinheitProperties[einheit].fullName}
  * />
  */
+
 export function CustomSelect<T>({
                                   name,
-                                  size='medium',
+                                  size = 'medium',
                                   label,
                                   multiple = false,
-                                  getKey = (v => v as string),
-                                  getLabel = (v => v as string),
+                                  getKey = (v: T) => v as unknown as string,
+                                  getLabel = (v: T) => v as unknown as string,
                                   options = []
                                 }: CustomSelectProps<T>): React.ReactElement {
 
-  const [{value}, , {setValue}] = useField(name);
+  const [{value}, , {setValue}] = useField<T>(name);
 
-  const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = options.find(o => getKey(o) === e.target.value)
-    console.log(newValue)
-    await setValue(newValue);
+  const handleChange = async (e: SelectChangeEvent<typeof value>) => {
+    const newValue = options.find(o => getKey(o) === e.target.value);
+    if (newValue)
+      await setValue(newValue)
   }
 
-  return (<Field
-    fullWidth
-    multiple={multiple}
-    as={Select}
-    size={size}
-    name={name}
-    labelId={label}
-    value={getKey(value)}
-    onChange={handleChange}
-  >
-    {options.map((option, index) => {
-      return <MenuItem key={index} value={getKey(option)}>{getLabel(option)}</MenuItem>
-    })}
-  </Field>)
+  return (
+    <>
+      {label && <InputLabel id={`${name}-label`}>{label}</InputLabel>}
+      <Field
+        fullWidth
+        multiple={multiple}
+        as={Select}
+        size={size}
+        name={name}
+        labelId={`${name}-label`}
+        value={getKey(value)}
+        onChange={handleChange}
+      >
+        {options.map((option, index) => (
+          <MenuItem key={index} value={getKey(option)}>{getLabel(option)}</MenuItem>
+        ))}
+      </Field>
+    </>
+  )
 }
+
