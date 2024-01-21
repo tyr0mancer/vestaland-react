@@ -4,6 +4,7 @@ import {Box, Button} from "@mui/material";
 import {CustomFieldArray} from "../../../common/form-elements/generic";
 import {Zutat} from "../../../../shared-types/models/Zutat";
 import {ZutatPicker} from "../../../common/form-elements/specific/ZutatPicker";
+import {ZUTAT} from "../../../../shared-types/models/_default";
 
 type ZutatenArrayProps = {
   name: string,
@@ -16,19 +17,14 @@ type ZutatenArrayProps = {
  */
 export function ZutatenArray({name, variant = 'desktop'}: ZutatenArrayProps): React.ReactElement {
   return (<CustomFieldArray<Zutat>
-    newValue={new Zutat()}
+    newValue={ZUTAT}
     name={`${name}`}
-    render={(arrayHelper, values) => (<>
-      {(values ?? []).map((zutat, index) => <Box key={index}>
-
-          <ZutatPicker name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper} index={index}/>
-          <Button onClick={() => arrayHelper.handleInsert(index + 1)}>neu</Button>
-          <Button onClick={() => arrayHelper.handleDelete(index)}>delete</Button>
-
-        </Box>
+    render={(arrayHelper, values) => (<Box mt={2}>
+      {(values ?? []).map((zutat, index) =>
+        <ZutatPicker key={index} name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper} index={index}/>
       )}
       <hr/>
       <Button onClick={() => arrayHelper.handleInsert(values?.length)}>Zutat hinzufügen</Button>
-    </>)}
+    </Box>)}
   />)
 }

@@ -2,7 +2,7 @@ import React from "react";
 import {useNavigate} from "react-router-dom";
 import {QueryClient} from "@tanstack/react-query";
 
-import {AppBar, Grid, IconButton, Toolbar} from "@mui/material";
+import {AppBar, Grid, IconButton, Toolbar, Tooltip} from "@mui/material";
 import {useFormikContext} from "formik";
 import {ExitToAppOutlined as ExitIcn, Publish as PublishIcon, Save as SaveIcon} from "@mui/icons-material";
 import {customConfirm} from "../../common/ui/ConfirmDialog";
@@ -23,10 +23,10 @@ export function ControlBar(): React.ReactElement {
   const {isAuthorized} = useAuth()
 
   const {values, touched} = useFormikContext<Rezept>();
-/*
-  const handleReset = () => { // reload aus DB? aus Storage?
-  }
-*/
+  /*
+    const handleReset = () => { // reload aus DB? aus Storage?
+    }
+  */
 
   const handleExit = () => {
   }
@@ -68,39 +68,46 @@ export function ControlBar(): React.ReactElement {
           </IconButton>
 */}
 
-          <IconButton
-            onClick={handleSave}
-            size="large">
-            <SaveIcon color={touched ? 'secondary' : 'disabled'}/>
-          </IconButton>
+          <Tooltip title="Lokal speichern">
+            <IconButton
+              onClick={handleSave}
+              size="large">
+              <SaveIcon color={touched ? 'secondary' : 'disabled'}/>
+            </IconButton>
+          </Tooltip>
 
-          <IconButton
-            onClick={handlePublish}
-            size="large">
-            <PublishIcon color={'secondary'}/>
-          </IconButton>
+          <Tooltip title="veröffentlichen">
+            <IconButton
+              onClick={handlePublish}
+              size="large">
+              <PublishIcon color={'secondary'}/>
+            </IconButton>
+          </Tooltip>
 
           <CustomSwitch
             color={'secondary'}
             name={'publicVisible'}
             label={'öffentlich'}
             disabled={!isAuthorized(BenutzerRolle.REDAKTEUR)}
-            />
-
+          />
 
         </Grid>
         <Grid item>
 
-          <IconButton
-            onClick={handleExit}
-            size="large">
-            <ExitIcn color={'secondary'}/>
-          </IconButton>
+          <Tooltip title="Editor verlassen">
+            <IconButton
+              onClick={handleExit}
+              size="large">
+              <ExitIcn color={'secondary'}/>
+            </IconButton>
+          </Tooltip>
 
         </Grid>
       </Grid>
 
-      <pre>{JSON.stringify(values,null,1)}</pre>
+{/*
+      <pre>{JSON.stringify(values, null, 1)}</pre>
+*/}
 
     </Toolbar>
   </AppBar>)

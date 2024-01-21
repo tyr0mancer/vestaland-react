@@ -47,7 +47,7 @@ export function KochschrittForm({
         <ZeitenPicker name={`${name}`} variant={'kochschritt'}/>
         <Box mt={1}>
           <FormGroup>
-            <CustomTextField name={`${name}[freitext]`} label={'Freitext'}/>
+            <CustomTextField name={`${name}[beschreibung]`} label={'Freitext'}/>
           </FormGroup>
         </Box>
         <Box mt={1}>

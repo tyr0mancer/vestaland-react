@@ -5,20 +5,29 @@ import {Betriebsart} from "../enum";
 import {KochschrittAktion} from "./KochschrittAktion";
 import {Zutat} from "./Zutat";
 import {Utensil} from "./Utensil";
+import {createRandomId} from "./_default";
 
 
 export class Kochschritt implements KochschrittType {
   public aktionen: Ref<KochschrittAktion>[] = [];
   public beschreibung?: string;
-  public videoUrl?: string;
+  public quelleUrl?: string;
   public gesamtdauer?: number;
+
   public betriebsart?: Betriebsart;
   public temperatur?: number; //  Grad Celsius
+
   public arbeitszeit?: number;
   public wartezeit?: number;
   public wartenErforderlich?: boolean;
-  public resultatName?: string;
-  public erforderlicheKochschritte?: string[] = [];
   public zutaten: Zutat[] = [];
   public utensilien: Ref<Utensil>[] = [];
+
+  // zwischenergebnisse
+  public _id: string = createRandomId(8);
+  public ergebnisName?: string;
+  public erforderlicheErgebnisse: string[] = [];
+  public totalWeight?: number;
+  public totalVolume?: number;
+
 }

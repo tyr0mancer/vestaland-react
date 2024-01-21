@@ -6,6 +6,7 @@ import {KochschrittForm} from "./KochschrittForm";
 import {KochschrittView} from "./KochschrittView";
 import {Box} from "@mui/material";
 import {KochschrittHeader} from "./KochschrittHeader";
+import {Zutat} from "../../../../shared-types/models/Zutat";
 
 
 /**
@@ -17,11 +18,10 @@ export function KochschritteArray(): React.ReactElement {
   const [activeIndex, setActiveIndex] = useState(-1)
 
   return (<CustomFieldArray<Kochschritt>
-    newValue={new Kochschritt()}
+    newValue={{zutaten: [new Zutat()], utensilien: [], aktionen: []} as Kochschritt}
     name={'kochschritte'}
     render={(arrayHelper, values) => (<>
-      <KochschritteArrayHeader arrayHelper={arrayHelper}/>
-      {JSON.stringify(values)}
+      <KochschritteArrayHeader arrayHelper={arrayHelper} setActiveIndex={setActiveIndex} length={values.length}/>
       {values.map((kochschritt, index) => <Box key={index}>
 
           <KochschrittHeader

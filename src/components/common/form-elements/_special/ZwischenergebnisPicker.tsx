@@ -26,8 +26,8 @@ export function ZwischenergebnisPicker({
       name={`${name}`}
       labelId="Voraussetzung"
     >
-      {options.filter(o => !!o.resultatName).map((option, index) =>
-        <MenuItem key={index} value={option.resultatName}>{option.resultatName}</MenuItem>)}
+      {options.filter(o => !!o.ergebnisName).map((option, index) =>
+        <MenuItem key={index} value={option.ergebnisName}>{option.ergebnisName}</MenuItem>)}
     </Field>
   </Card>)
 }

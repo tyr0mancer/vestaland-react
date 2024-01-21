@@ -1,7 +1,7 @@
 import React from "react";
 import {LebensmittelPicker} from "./LebensmittelPicker";
 import {CustomArrayHelper, CustomSelect, CustomTextField} from "../generic";
-import {Grid} from "@mui/material";
+import { Grid, IconButton} from "@mui/material";
 import {Einheit} from "../../../../shared-types/enum";
 import {EinheitProperties} from "../../../../util/format/enum-properties/EinheitProperties";
 
@@ -24,13 +24,13 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
   }
 
   return (<Grid container>
-    <Grid item xs={7}>{name}
+    <Grid item xs={7}>
       <LebensmittelPicker name={`${name}[lebensmittel]`} handleDelete={handleDelete}/>
     </Grid>
     <Grid item xs={2}>
       <CustomTextField size={'small'} name={`${name}[menge]`} type={'number'} label={'Menge'}/>
     </Grid>
-    <Grid item xs={3}>
+    <Grid item xs={2}>
       <CustomSelect<Einheit>
         size={'small'}
         name={`${name}[einheit]`}
@@ -38,6 +38,20 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
         options={Object.values(Einheit)}
         getLabel={einheit => EinheitProperties[einheit].fullName}
       />
+    </Grid>
+
+    <Grid item xs={1}>
+      <IconButton
+        style={{height: 10}}
+        onClick={() => arrayHelper.handleMoveUp(index )}
+      >/\</IconButton>
+      <br/>
+      <IconButton
+        style={{height: 10}}
+        onClick={() => arrayHelper.handleMoveDown(index )}
+      >\/</IconButton>
+
+
     </Grid>
 
 

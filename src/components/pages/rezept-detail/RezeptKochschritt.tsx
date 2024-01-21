@@ -25,13 +25,13 @@ export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochs
     <Grid container spacing={1}>
 
       <Grid item xs={4} md={2}>
-        {kochschritt.resultatName && <span id={`rezept-${kochschritt.resultatName.toLowerCase().trim()}`}/>}
+        {kochschritt.ergebnisName && <span id={`rezept-${kochschritt.ergebnisName.toLowerCase().trim()}`}/>}
         <ShowKochschrittAktionen aktionen={kochschritt.aktionen}/>
-        {kochschritt.resultatName &&
+        {kochschritt.ergebnisName &&
             <Typography className={'align-vertically'}
                         variant="body2" mt={2} borderTop={1} textAlign={'right'}>
                 <ArrowForwardIcon fontSize={'small'}/>
-              {kochschritt.resultatName}
+              {kochschritt.ergebnisName}
             </Typography>
         }
       </Grid>

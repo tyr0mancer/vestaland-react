@@ -203,8 +203,6 @@ export function CustomAutocomplete<T extends FormikValues>({
             </Formik>
         </Dialog>
     }
-
-    <pre>{JSON.stringify(field.value, null, 1)}</pre>
   </>)
 }
 
