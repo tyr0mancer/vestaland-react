@@ -1,11 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import {Box, Button} from "@mui/material";
 
-import {DefaultValues} from "../../../../util/default-values";
 import {CustomFieldArray} from "../../../common/form-elements/generic";
 import {Zutat} from "../../../../shared-types/models/Zutat";
 import {ZutatPicker} from "../../../common/form-elements/specific/ZutatPicker";
-import {ZutatViewer} from "../../../common/formatting/elements/ZutatenViewer";
 
 type ZutatenArrayProps = {
   name: string,
@@ -17,19 +15,19 @@ type ZutatenArrayProps = {
  * @component ZutatenArray
  */
 export function ZutatenArray({name, variant = 'desktop'}: ZutatenArrayProps): React.ReactElement {
-  const [activeIndex, setActiveIndex] = useState(0)
-
+  //const [activeIndex, setActiveIndex] = useState(0)
+  const newValue = new Zutat()
 
   return (<CustomFieldArray<Zutat>
-    newValue={DefaultValues.zutat}
+    newValue={newValue}
     name={`${name}`}
     render={(arrayHelper, values) => (<Box mt={2}>
       {(values ?? []).map((zutat, index) =>
-
-        (activeIndex === index)
-          ? <ZutatPicker key={index} name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper}
-                         index={index}/>
-          : <div onClick={() => setActiveIndex(index)}><ZutatViewer key={index} zutat={zutat}/></div>
+          <ZutatPicker key={index} name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper}
+                       index={index}/>
+        /*        (activeIndex === index)
+                  ?
+                  : <div key={index} onClick={() => setActiveIndex(index)}><ZutatViewer zutat={zutat}/></div>*/
       )}
       <hr/>
       <Button onClick={() => arrayHelper.handleInsert(values?.length)}>Zutat hinzufügen</Button>

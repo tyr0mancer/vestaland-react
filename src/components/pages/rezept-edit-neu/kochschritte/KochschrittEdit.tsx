@@ -6,7 +6,6 @@ import {
   AktionenPicker,
   UtensilienPicker,
   BetriebsartPicker,
-  ZwischenergebnissePicker,
   ZeitenPicker
 } from "../../../common/form-elements/specific";
 
@@ -15,17 +14,16 @@ import {CustomArrayHelper, CustomTextField} from "../../../common/form-elements/
 import {ZutatenArray} from "./ZutatenArray";
 
 
-interface KochschrittFormProps {
-
+interface KochschrittEditProps {
   name: string,
   index: number,
   value: Kochschritt,
   arrayHelper: CustomArrayHelper
 }
 
-export function KochschrittForm({
+export function KochschrittEdit({
                                   name,
-                                }: KochschrittFormProps) {
+                                }: KochschrittEditProps) {
   return <Grid container spacing={1}>
     <Grid item xs={6} md={3}>
       <Paper elevation={5}>
@@ -38,7 +36,6 @@ export function KochschrittForm({
     <Grid item xs={12} md={6} display={{xs: 'none', md: 'block'}}>
       <Paper elevation={5}>
         <ZutatenArray name={`${name}[zutaten]`} variant={'desktop'}/>
-        <ZwischenergebnissePicker name={`${name}[zutaten]`}/>
       </Paper>
     </Grid>
 
@@ -60,8 +57,11 @@ export function KochschrittForm({
 
     <Grid item xs={12} md={6} display={{xs: 'block', md: 'none'}}>
       <Paper elevation={5}>
+
+{/*
         <ZutatenArray name={`${name}[zutaten]`} variant={'mobile'}/>
-        <ZwischenergebnissePicker name={`${name}[zutaten]`}/>
+*/}
+
       </Paper>
     </Grid>
 

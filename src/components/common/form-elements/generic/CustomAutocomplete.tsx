@@ -118,7 +118,6 @@ export function CustomAutocomplete<T extends FormikValues>({
   const handleInsert = (value: T) => {
     setModalOpen(false)
     if (!insertFn) return
-    console.log(value, 'value')
     insertFn(value).then(val => handleChange(val))
   }
 
@@ -141,6 +140,8 @@ export function CustomAutocomplete<T extends FormikValues>({
 
 
       {...field}
+      value={field.value || null}
+
       open={open}
       onOpen={() => {
         setOpen(true);

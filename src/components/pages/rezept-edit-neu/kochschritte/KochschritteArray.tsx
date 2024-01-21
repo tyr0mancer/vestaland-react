@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {CustomFieldArray} from "../../../common/form-elements/generic";
 import {KochschritteArrayHeader} from "./KochschritteArrayHeader";
-import {KochschrittForm} from "./KochschrittForm";
+import {KochschrittEdit} from "./KochschrittEdit";
 import {KochschrittView} from "./KochschrittView";
 import {Box} from "@mui/material";
 import {KochschrittHeader} from "./KochschrittHeader";
-import {DefaultValues} from "../../../../util/default-values";
+import {Zutat} from "../../../../shared-types/models/Zutat";
 
 
 /**
@@ -17,27 +17,41 @@ export function KochschritteArray(): React.ReactElement {
 
   const [activeIndex, setActiveIndex] = useState(-1)
 
+  const newKochschritt = new Kochschritt()
+  newKochschritt.zutaten = [new Zutat()]
+
   return (<CustomFieldArray<Kochschritt>
-    newValue={DefaultValues.kochschritt}
+    newValue={newKochschritt}
     name={'kochschritte'}
-    render={(arrayHelper, values) => (<>
-      <KochschritteArrayHeader arrayHelper={arrayHelper} setActiveIndex={setActiveIndex} length={values.length}/>
-      {values.map((kochschritt, index) => <Box key={index}>
+    activeIndex={activeIndex}
+    setActiveIndex={setActiveIndex}
+    confirmDelete={{
+      title: 'Wirklich löschen?', label: '', confirmLabel: 'löschen'
+    }}
+    render={(customArrayHelper, kochschritte) => (<Box mt={1} mb={5} borderBottom={1}>
+
+      <KochschritteArrayHeader
+        arrayHelper={customArrayHelper}
+        setActiveIndex={setActiveIndex}
+        length={kochschritte.length}
+      />
+
+      {kochschritte.map((kochschritt, index) => <Box key={index}>
 
           <KochschrittHeader
-            arrayHelper={arrayHelper}
+            arrayHelper={customArrayHelper}
             index={index}
-            maxIndex={values.length - 1}
+            maxIndex={kochschritte.length - 1}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
 
           {(activeIndex === index)
-            ? <KochschrittForm
+            ? <KochschrittEdit
               index={index}
               name={`kochschritte[${index}]`}
               value={kochschritt}
-              arrayHelper={arrayHelper}
+              arrayHelper={customArrayHelper}
             />
             : <KochschrittView
               index={index}
@@ -46,7 +60,8 @@ export function KochschritteArray(): React.ReactElement {
 
         </Box>
       )}
-      <hr/>
-    </>)}
+
+    </Box>)}
   />)
 }
+

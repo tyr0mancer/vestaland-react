@@ -128,11 +128,15 @@ type CustomFieldArrayProp<T> = {
   name: string,
 
   /**
-   * Renderfunktion
+   * Render-Funktion
    */
   render: ((props: CustomArrayHelper, value: T[]) => React.ReactNode)
 
-  TypeClass?: any
+  activeIndex?: number
+
+  setActiveIndex?: (index: number) => void
+
+  confirmDelete?: CustomConfirmProps
 }
 
 

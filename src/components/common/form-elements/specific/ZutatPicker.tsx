@@ -23,12 +23,13 @@ type ZutatPickerProps = {
 export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React.ReactElement {
   const [{value}, , helpers] = useField<Zutat>(name)
 
-  const handleChange = (newValue: Lebensmittel | null) => {
+  const handleChange = async (newValue: Lebensmittel | null) => {
     if (!newValue) {
       return arrayHelper.handleDelete(index)
     }
     value.einheit = newValue.defaultEinheit
-    return helpers.setValue(value)
+    value.lebensmittel = newValue
+    await helpers.setValue(value)
   }
 
 

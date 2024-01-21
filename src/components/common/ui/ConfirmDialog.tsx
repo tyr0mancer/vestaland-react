@@ -6,7 +6,7 @@ import {themeMUI} from "../../../assets/style/themeMUI";
 
 
 interface CustomConfirmProps {
-  label: string
+  label?: string
   title?: string
   confirmLabel?: string
   cancelLabel?: string
@@ -34,7 +34,7 @@ export const customConfirm = ({label, title, confirmLabel, cancelLabel}: CustomC
         <ConfirmDialog
           title={title}
           open={true}
-          label={label}
+          label={label || ''}
           confirmLabel={confirmLabel}
           cancelLabel={cancelLabel}
           onConfirm={handleConfirm}

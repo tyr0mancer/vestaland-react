@@ -7,8 +7,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import CloseIcon from '@mui/icons-material/Close';
 
-import {CustomArrayHelper} from "../../../common/form-elements/generic/CustomFieldArray";
-import {customConfirm} from "../../../common/ui/ConfirmDialog";
+import {CustomArrayHelper} from "../../../common/form-elements/generic";
 
 type KochschrittHeaderProps = {
   index: number,
@@ -28,39 +27,8 @@ export function KochschrittHeader({
                                     maxIndex,
                                     activeIndex,
                                     setActiveIndex,
-                                    arrayHelper
+                                    arrayHelper: {handleInsert, handleMoveUp, handleMoveDown, handleDelete}
                                   }: KochschrittHeaderProps): React.ReactElement {
-
-
-  const handleInsert = () => {
-    arrayHelper.handleInsert(index)
-    setActiveIndex(index)
-  }
-  const handleMoveUp = () => {
-    arrayHelper.handleMoveUp(index)
-    if (index === activeIndex)
-      setActiveIndex(index - 1)
-    else if (index === activeIndex + 1)
-      setActiveIndex(index)
-  }
-  const handleMoveDown = () => {
-    arrayHelper.handleMoveDown(index)
-    if (index === activeIndex)
-      setActiveIndex(index + 1)
-    else if (index === activeIndex - 1)
-      setActiveIndex(index)
-  }
-  const handleDelete = async () => {
-    const confirm = await customConfirm({
-      title: 'Kochschritt löschen?',
-      label: 'Der Vorgang kann nicht rückgängig gemacht werden',
-      confirmLabel: 'Kochschritt löschen',
-    })
-    if (!confirm) return
-    arrayHelper.handleDelete(index)
-    setActiveIndex(-1)
-  }
-
 
   return (<AppBar position={"static"} color={'secondary'}>
     <Toolbar variant={'dense'}>
@@ -81,20 +49,20 @@ export function KochschrittHeader({
 
           <IconButton
             disabled={0 === index}
-            onClick={handleMoveUp}
+            onClick={() => handleMoveUp(index)}
           ><ArrowCircleUpIcon/> </IconButton>
 
           <IconButton
             disabled={maxIndex === index}
-            onClick={handleMoveDown}
+            onClick={() => handleMoveDown(index)}
           ><ArrowCircleDownIcon/></IconButton>
 
           <IconButton
-            onClick={handleInsert}
+            onClick={() => handleInsert(index+1)}
           ><AddBoxIcon/></IconButton>
 
           <IconButton
-            onClick={handleDelete}
+            onClick={() => handleDelete(index, true)}
           ><RemoveCircleIcon/></IconButton>
 
         </Grid>
