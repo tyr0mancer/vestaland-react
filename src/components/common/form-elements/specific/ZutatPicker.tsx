@@ -46,7 +46,6 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
       <CustomSelect<Einheit>
         size={'small'}
         name={`${name}[einheit]`}
-        label={'Einheit'}
         options={Object.values(Einheit)}
         getKey={(einheit: Einheit) => einheit}
         getLabel={(einheit: Einheit) => EinheitProperties[einheit].fullName}
