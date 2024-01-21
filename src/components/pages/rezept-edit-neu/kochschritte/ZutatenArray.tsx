@@ -1,10 +1,10 @@
 import React from "react";
 import {Box, Button} from "@mui/material";
 
+import {DefaultValues} from "../../../../util/default-values";
 import {CustomFieldArray} from "../../../common/form-elements/generic";
 import {Zutat} from "../../../../shared-types/models/Zutat";
 import {ZutatPicker} from "../../../common/form-elements/specific/ZutatPicker";
-import {ZUTAT} from "../../../../shared-types/models/_default";
 
 type ZutatenArrayProps = {
   name: string,
@@ -17,7 +17,7 @@ type ZutatenArrayProps = {
  */
 export function ZutatenArray({name, variant = 'desktop'}: ZutatenArrayProps): React.ReactElement {
   return (<CustomFieldArray<Zutat>
-    newValue={ZUTAT}
+    newValue={DefaultValues.zutat}
     name={`${name}`}
     render={(arrayHelper, values) => (<Box mt={2}>
       {(values ?? []).map((zutat, index) =>

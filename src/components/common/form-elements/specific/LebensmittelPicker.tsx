@@ -4,6 +4,7 @@ import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 import {APIService} from "../../../../util/api/APIService";
 import {LebensmittelSchema} from "../../../../shared-types/schemas/lebensmittel-schema";
 import {LebensmittelForm} from "../form-layouts/LebensmittelForm";
+import {DefaultValues} from "../../../../util/default-values";
 
 type LebensmittelPickerProps = {
   name: string,
@@ -28,8 +29,9 @@ export function LebensmittelPicker({name, handleDelete}: LebensmittelPickerProps
 
 
     label="Lebensmittel"
-    newEntryFormComponent={<LebensmittelForm />}
-    newValueDefault={new Lebensmittel()}
+    newEntryRender={(inputValue) => <LebensmittelForm input={inputValue}/>}
+
+    newValueDefault={DefaultValues.lebensmittel}
     insertFn={(value: Lebensmittel) => APIService.post<Lebensmittel>('lebensmittel', value)}
     validationSchema={LebensmittelSchema}
   />)

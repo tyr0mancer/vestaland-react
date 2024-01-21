@@ -97,11 +97,6 @@ type CustomAutocompleteProps<T> = {
   fullWidth?: boolean,
 
   /**
-   * Eine optionale Komponente, die zur Erstellung eines neuen Eintrags angezeigt wird.
-   */
-  newEntryFormComponent?: React.ReactElement,
-
-  /**
    * Ein optionaler Standardwert für einen neuen Eintrag.
    */
   newValueDefault?: T,
@@ -110,6 +105,13 @@ type CustomAutocompleteProps<T> = {
    * Ein optionales Zod-Schema, verwendet zur Überprüfung der Formulardaten.
    */
   validationSchema?: ZodObject<any>
+
+
+  /**
+   * Eine optionale Render Funktion um eine Komponente zu Erzeugen, die zur Erstellung eines neuen Eintrags angezeigt wird.
+   */
+  newEntryRender?: (inputValue: string) => React.ReactElement,
+
 }
 
 

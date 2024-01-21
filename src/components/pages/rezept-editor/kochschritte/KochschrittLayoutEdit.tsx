@@ -41,7 +41,7 @@ export function KochschrittLayoutEdit({values: kochschritt, name}: CustomFieldPr
       <ZutatenPicker name={`${name}[zutaten]`} values={kochschritt.zutaten}/>
       <hr/>
       <ZwischenergebnisPicker name={`${name}[erforderlicheKochschritte]`}
-                              values={kochschritt.erforderlicheKochschritte || []}
+                              values={kochschritt.erforderlicheErgebnisse || []}
                               options={formik.values.kochschritte}/>
       <hr/>
 

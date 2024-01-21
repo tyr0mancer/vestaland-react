@@ -55,7 +55,7 @@ export function KochschrittView({kochschritt}: KochschrittViewProps): React.Reac
           <FreitextViewer freitext={kochschritt.beschreibung}/>
         </Box>
         <Box mt={1}>
-          <UrlViewer url={kochschritt.videoUrl}/>
+          <UrlViewer url={kochschritt.quelleUrl}/>
         </Box>
       </Paper>
     </Grid>

@@ -66,9 +66,9 @@ export function ControlBar(): React.ReactElement {
             size="large">
             <ResetIcon color={'secondary'}/>
           </IconButton>
-*/}
+          */}
 
-          <Tooltip title="Lokal speichern">
+          <Tooltip title="Lokal speichern" placement={"top-start"}>
             <IconButton
               onClick={handleSave}
               size="large">
@@ -76,7 +76,7 @@ export function ControlBar(): React.ReactElement {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="veröffentlichen">
+          <Tooltip title="veröffentlichen" placement={"top-start"}>
             <IconButton
               onClick={handlePublish}
               size="large">
@@ -94,7 +94,7 @@ export function ControlBar(): React.ReactElement {
         </Grid>
         <Grid item>
 
-          <Tooltip title="Editor verlassen">
+          <Tooltip title="Formulardaten löschen" placement={"top-end"}>
             <IconButton
               onClick={handleExit}
               size="large">

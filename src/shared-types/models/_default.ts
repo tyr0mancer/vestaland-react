@@ -1,22 +1,3 @@
-import {Zutat} from "./Zutat";
-import {Lebensmittel} from "./Lebensmittel";
-import {Einheit} from "../enum";
-
-
-export const LEBENSMITTEL: Lebensmittel = {
-  name: '',
-  defaultEinheit: Einheit.ST,
-  haendlerGruppen: []
-}
-
-export const ZUTAT: Zutat = {
-  lebensmittel: LEBENSMITTEL,
-  einheit: Einheit.ST,
-  menge: 1,
-  freitext: ''
-}
-
-
 export function createRandomId(length: number): string {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

@@ -71,14 +71,14 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
         id="panel1-header"
       >
         {kochschritt?.aktionen.map((aktion, index) => <ShowKochschrittAktion aktion={aktion} key={index}/>)}
-        {kochschritt.resultatName && <span id={`rezept-${kochschritt.resultatName.toLowerCase().trim()}`}/>}
+        {kochschritt?.ergebnisName && <span id={`rezept-${kochschritt.ergebnisName.toLowerCase().trim()}`}/>}
       </AccordionSummary>
       <AccordionDetails>
 
 
         <Grid container spacing={1}>
           <Grid item xs={12} md={6}>
-            <ShowErforderlicheKochschritte erforderlicheKochschritte={kochschritt?.erforderlicheKochschritte}/>
+            <ShowErforderlicheKochschritte erforderlicheKochschritte={kochschritt?.erforderlicheErgebnisse}/>
             <ShowZutaten zutaten={kochschritt.zutaten}/>
           </Grid>
           <Grid item xs={12} md={6}>
@@ -97,8 +97,8 @@ export function KocheRezeptKochschritt({index}: KocheRezeptKochschrittProps): Re
 
             {kochschritt.beschreibung &&
                 <Typography variant="body2" border={'1px dotted'} color={'primary'} padding={2} mt={2}>
-                  {kochschritt.videoUrl && <a href={kochschritt.videoUrl} target="_blank"
-                                              rel="noreferrer"><IconButton><SmartDisplayIcon/></IconButton></a>}
+                  {kochschritt?.quelleUrl && <a href={kochschritt?.quelleUrl} target="_blank"
+                                                rel="noreferrer"><IconButton><SmartDisplayIcon/></IconButton></a>}
 
                   {kochschritt.beschreibung}
                 </Typography>

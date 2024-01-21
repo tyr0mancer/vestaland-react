@@ -37,7 +37,7 @@ export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochs
       </Grid>
 
       <Grid item xs={8} md={4}>
-        <ShowErforderlicheKochschritte erforderlicheKochschritte={kochschritt.erforderlicheKochschritte}/>
+        <ShowErforderlicheKochschritte erforderlicheKochschritte={kochschritt.erforderlicheErgebnisse}/>
         <ShowZutaten zutaten={kochschritt.zutaten} portionsFaktor={portionsFaktor}/>
       </Grid>
 
@@ -47,8 +47,8 @@ export function RezeptKochschritt({kochschritt, portionsFaktor = 1}: RezeptKochs
           <ShowTimes kochschritt={kochschritt} showWartezeit/>
         </Box>
 
-        {kochschritt.videoUrl && <Box mt={2} textAlign={'center'}>
-            <a href={kochschritt.videoUrl} target="_blank"
+        {kochschritt.quelleUrl && <Box mt={2} textAlign={'center'}>
+            <a href={kochschritt.quelleUrl} target="_blank"
                rel="noreferrer"><IconButton><SmartDisplayIcon/></IconButton></a></Box>}
       </Grid>
 

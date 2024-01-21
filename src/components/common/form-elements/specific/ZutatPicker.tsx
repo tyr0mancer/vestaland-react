@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {LebensmittelPicker} from "./LebensmittelPicker";
 import {CustomArrayHelper, CustomSelect, CustomTextField} from "../generic";
-import { Grid, IconButton} from "@mui/material";
+import {Grid, IconButton} from "@mui/material";
 import {Einheit} from "../../../../shared-types/enum";
 import {EinheitProperties} from "../../../../util/format/enum-properties/EinheitProperties";
+import {useField} from "formik";
+import {Zutat} from "../../../../shared-types/models/Zutat";
 
 type ZutatPickerProps = {
   name: string,
@@ -18,6 +20,15 @@ type ZutatPickerProps = {
  * @component ZutatPicker
  */
 export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React.ReactElement {
+  const [{value}, , helpers] = useField<Zutat>(name)
+
+  useEffect(() => {
+    if (!value.lebensmittel?.defaultEinheit) return
+    value.einheit = value.lebensmittel.defaultEinheit
+    helpers.setValue(value).then(() => {
+    })
+  }, [value.lebensmittel?.defaultEinheit])
+
 
   const handleDelete = () => {
     arrayHelper.handleDelete(index)
@@ -43,12 +54,12 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
     <Grid item xs={1}>
       <IconButton
         style={{height: 10}}
-        onClick={() => arrayHelper.handleMoveUp(index )}
+        onClick={() => arrayHelper.handleMoveUp(index)}
       >/\</IconButton>
       <br/>
       <IconButton
         style={{height: 10}}
-        onClick={() => arrayHelper.handleMoveDown(index )}
+        onClick={() => arrayHelper.handleMoveDown(index)}
       >\/</IconButton>
 
 

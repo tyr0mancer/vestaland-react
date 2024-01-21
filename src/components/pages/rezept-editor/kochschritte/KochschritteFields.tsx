@@ -15,7 +15,7 @@ import {Rezept} from "../../../../shared-types/models/Rezept";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 
 /* Helper and Components */
-import {DefaultValues} from "../index";
+import {DefaultValues} from "../../../../util/default-values";
 import {KochschrittLayoutEdit} from "./KochschrittLayoutEdit";
 import {KochschrittLayoutView} from "./KochschrittLayoutView";
 import {customConfirm} from "../../../common/ui/ConfirmDialog";

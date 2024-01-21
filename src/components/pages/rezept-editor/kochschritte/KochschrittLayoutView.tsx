@@ -51,7 +51,7 @@ export function KochschrittLayoutView({kochschritt}: KochschrittLayoutViewProps)
       </Box>
 
       <Box mt={1}>
-        <pre>{JSON.stringify(kochschritt.videoUrl)}</pre>
+        <pre>{JSON.stringify(kochschritt.quelleUrl)}</pre>
       </Box>
 
     </Grid>

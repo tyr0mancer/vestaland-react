@@ -6,11 +6,11 @@ import {Rezept} from "../../../shared-types/models/Rezept";
 import {StateContextType} from "../../../util/state/types";
 import {ActionTypes} from "../../../util/state/reducers";
 
+import {DefaultValues} from "../../../util/default-values";
 import {StateContext} from "../../../util/state/StateProvider";
 import {LoadingScreen} from "../../layout/ConditionalDisplay/LoadingScreen";
 import {RezeptEditorForm} from "./RezeptEditorForm";
 import {APIService} from "../../../util/api/APIService";
-import {DefaultValues} from "./index";
 import {QueryKey} from "../../../util/config/enums";
 
 

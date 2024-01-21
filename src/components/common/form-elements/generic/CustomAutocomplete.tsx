@@ -44,7 +44,7 @@ import {useDebounce} from "@react-hooks-library/core";
  *       queryFn={(param?: string) => APIService.search<Lebensmittel>('lebensmittel', {name: param})}
  *       onChange={v => (!!handleDelete && !v) ? handleDelete() : {}}
  *
- *       newEntryFormComponent={<LebensmittelForm/>}
+ *       newEntryRender={(input)=><LebensmittelForm input={input}/>}
  *       newValueDefault={new Lebensmittel()}
  *       insertFn={(value: Lebensmittel) => APIService.post<Lebensmittel>('lebensmittel', value)}
  *       validationSchema={LebensmittelSchema}
@@ -64,7 +64,7 @@ import {useDebounce} from "@react-hooks-library/core";
  *       onChange={v => (!!handleDelete && !v) ? handleDelete() : {}}
  *
  *       label="Lebensmittel"
- *       newEntryFormComponent={<LebensmittelForm/>}
+ *       newEntryRender={(input)=><LebensmittelForm input={input}/>}
  *       newValueDefault={new Lebensmittel()}
  *       insertFn={(value: Lebensmittel) => APIService.post<Lebensmittel>('lebensmittel', value)}
  *       validationSchema={LebensmittelSchema}
@@ -85,7 +85,7 @@ export function CustomAutocomplete<T extends FormikValues>({
                                                              autoFocus = false,
                                                              fullWidth = false,
 
-                                                             newEntryFormComponent,
+                                                             newEntryRender,
                                                              newValueDefault,
                                                              insertFn,
                                                              validationSchema
@@ -156,7 +156,7 @@ export function CustomAutocomplete<T extends FormikValues>({
       loading={isLoading}
 
 
-      noOptionsText={!!newEntryFormComponent ?
+      noOptionsText={!!newEntryRender ?
         <Button
           onClick={() => setModalOpen(true)}
           color="primary">
@@ -183,9 +183,9 @@ export function CustomAutocomplete<T extends FormikValues>({
     />
 
 
-    {newValueDefault && !!newEntryFormComponent &&
+    {newValueDefault && !!newEntryRender &&
         <Dialog open={modalOpen}>
-            <DialogTitle>Neues {label} anlegen</DialogTitle>
+            <DialogTitle>{label}</DialogTitle>
             <Formik<T>
                 initialValues={newValueDefault}
                 onSubmit={handleInsert}
@@ -193,7 +193,7 @@ export function CustomAutocomplete<T extends FormikValues>({
             >
               {() => <Form>
                 <DialogContent>
-                  {newEntryFormComponent}
+                  {newEntryRender(inputValue)}
                 </DialogContent>
                 <DialogActions>
                   <Button onClick={() => setModalOpen(false)}>Abbrechen</Button>
