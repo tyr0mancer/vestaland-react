@@ -130,7 +130,9 @@ type CustomFieldArrayProp<T> = {
   /**
    * Render-Funktion
    */
-  render: ((props: CustomArrayHelper, value: T[]) => React.ReactNode)
+  renderChild: ((props: CustomArrayHelper, value: T, index: number, length: number) => React.ReactNode)
+  renderHeader?: ((props: CustomArrayHelper, length: number) => React.ReactNode),
+  renderFooter?: ((props: CustomArrayHelper, length: number) => React.ReactNode),
 
   activeIndex?: number
 

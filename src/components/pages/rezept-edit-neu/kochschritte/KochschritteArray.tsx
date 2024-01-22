@@ -20,15 +20,58 @@ export function KochschritteArray(): React.ReactElement {
   const newKochschritt = new Kochschritt()
   newKochschritt.zutaten = [new Zutat()]
 
-  return (<CustomFieldArray<Kochschritt>
-    newValue={newKochschritt}
-    name={'kochschritte'}
-    activeIndex={activeIndex}
-    setActiveIndex={setActiveIndex}
-    confirmDelete={{
-      title: 'Wirklich löschen?', label: '', confirmLabel: 'löschen'
-    }}
-    render={(customArrayHelper, kochschritte) => (<Box mt={1} mb={5} borderBottom={1}>
+  return (<Box mt={1} mb={5} borderBottom={1}>
+    <CustomFieldArray<Kochschritt>
+      newValue={newKochschritt}
+      name={'kochschritte'}
+      activeIndex={activeIndex}
+      setActiveIndex={setActiveIndex}
+      confirmDelete={{
+        title: 'Wirklich löschen?', label: '', confirmLabel: 'löschen'
+      }}
+
+      renderHeader={(customArrayHelper, length) => <KochschritteArrayHeader
+        arrayHelper={customArrayHelper}
+        setActiveIndex={setActiveIndex}
+        length={length}
+      />}
+
+
+      renderChild={(customArrayHelper, kochschritt, index, length) => (
+
+        <Box key={index}>
+
+          <KochschrittHeader
+            arrayHelper={customArrayHelper}
+            index={index}
+            length={length - 1}
+            activeIndex={activeIndex}
+            setActiveIndex={setActiveIndex}
+          />
+
+          {(activeIndex === index)
+            ? <KochschrittEdit
+              index={index}
+              name={`kochschritte[${index}]`}
+              value={kochschritt}
+              arrayHelper={customArrayHelper}
+            />
+            : <KochschrittView
+              index={index}
+              kochschritt={kochschritt}
+            />}
+
+        </Box>
+      )}
+
+    />
+  </Box>)
+
+}
+
+
+/*
+    renderChild={(customArrayHelper, kochschritte) => (<Box mt={1} mb={5} borderBottom={1}>
 
       <KochschritteArrayHeader
         arrayHelper={customArrayHelper}
@@ -62,6 +105,4 @@ export function KochschritteArray(): React.ReactElement {
       )}
 
     </Box>)}
-  />)
-}
-
+*/

@@ -15,22 +15,22 @@ type ZutatenArrayProps = {
  * @component ZutatenArray
  */
 export function ZutatenArray({name, variant = 'desktop'}: ZutatenArrayProps): React.ReactElement {
-  //const [activeIndex, setActiveIndex] = useState(0)
   const newValue = new Zutat()
 
-  return (<CustomFieldArray<Zutat>
-    newValue={newValue}
-    name={`${name}`}
-    render={(arrayHelper, values) => (<Box mt={2}>
-      {(values ?? []).map((zutat, index) =>
-          <ZutatPicker key={index} name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper}
-                       index={index}/>
-        /*        (activeIndex === index)
-                  ?
-                  : <div key={index} onClick={() => setActiveIndex(index)}><ZutatViewer zutat={zutat}/></div>*/
+  return (<Box mt={2}>
+
+    <CustomFieldArray<Zutat>
+      newValue={newValue}
+      name={`${name}`}
+      renderChild={(arrayHelper, values, index) => (
+        <ZutatPicker key={index} name={`${name}[${index}]`} variant={variant} arrayHelper={arrayHelper}
+                     index={index}/>
       )}
-      <hr/>
-      <Button onClick={() => arrayHelper.handleInsert(values?.length)}>Zutat hinzufügen</Button>
-    </Box>)}
-  />)
+
+      renderFooter={(arrayHelper, length) => (
+        <Box><Button onClick={() => arrayHelper.handleInsert(length)}>Zutat hinzufügen</Button></Box>
+      )}
+
+    />
+  </Box>)
 }

@@ -11,7 +11,7 @@ import {CustomArrayHelper} from "../../../common/form-elements/generic";
 
 type KochschrittHeaderProps = {
   index: number,
-  maxIndex: number,
+  length: number,
   activeIndex: number,
   setActiveIndex: (index: number) => void,
   arrayHelper: CustomArrayHelper
@@ -24,7 +24,7 @@ type KochschrittHeaderProps = {
  */
 export function KochschrittHeader({
                                     index,
-                                    maxIndex,
+                                    length,
                                     activeIndex,
                                     setActiveIndex,
                                     arrayHelper: {handleInsert, handleMoveUp, handleMoveDown, handleDelete}
@@ -53,12 +53,12 @@ export function KochschrittHeader({
           ><ArrowCircleUpIcon/> </IconButton>
 
           <IconButton
-            disabled={maxIndex === index}
+            disabled={(length - 1) === index}
             onClick={() => handleMoveDown(index)}
           ><ArrowCircleDownIcon/></IconButton>
 
           <IconButton
-            onClick={() => handleInsert(index+1)}
+            onClick={() => handleInsert(index + 1)}
           ><AddBoxIcon/></IconButton>
 
           <IconButton

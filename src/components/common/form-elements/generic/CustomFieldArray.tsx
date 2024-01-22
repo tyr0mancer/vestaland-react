@@ -2,6 +2,7 @@ import React from "react";
 import {FieldArray, FieldArrayRenderProps, useField} from "formik";
 import {CustomFieldArrayProp} from "./types";
 import {customConfirm} from "../../ui/ConfirmDialog";
+import { DropResult} from "react-beautiful-dnd";
 
 /**
  * CustomFieldArray Komponente - Ein spezialisierter Wrapper um Formik's FieldArray.
@@ -20,7 +21,14 @@ import {customConfirm} from "../../ui/ConfirmDialog";
  * />
  */
 export function CustomFieldArray<T>({
-                                      name, render, newValue, activeIndex, setActiveIndex, confirmDelete,
+                                      name,
+                                      renderChild,
+                                      renderHeader,
+                                      renderFooter,
+                                      newValue,
+                                      activeIndex,
+                                      setActiveIndex,
+                                      confirmDelete,
                                     }: CustomFieldArrayProp<T>): React.ReactElement {
   const [{value}] = useField<T[]>(name);
 
@@ -56,15 +64,47 @@ export function CustomFieldArray<T>({
       setActiveIndex(index)
   }
 
-  return <FieldArray
-    name={name}
-    render={arrayHelper => render({
+  const handleDragEnd = (arrayHelper: FieldArrayRenderProps) => (result: DropResult) => {
+    if (!result.destination) {
+      return;
+    }
+    const sourceIndex = result.source.index;
+    const destinationIndex = result.destination.index;
+    arrayHelper.move(sourceIndex, destinationIndex);
+    if (setActiveIndex) {
+      setActiveIndex(destinationIndex);
+    }
+  }
+
+  const createCustomArrayHelper = (arrayHelper: FieldArrayRenderProps) => {
+    return {
       handleInsert: handleInsert(arrayHelper),
       handleDelete: handleDelete(arrayHelper),
       handleMoveUp: handleMoveUp(arrayHelper),
       handleMoveDown: handleMoveDown(arrayHelper),
-    }, value)}
-  />
+      handleDragEnd: handleDragEnd(arrayHelper)
+    }
+  }
+
+  return <>
+
+
+    <FieldArray
+      name={name}
+      render={arrayHelper => <>
+
+        {renderHeader && renderHeader(createCustomArrayHelper(arrayHelper), value.length)}
+        {value.map((element, index) =>
+          renderChild(createCustomArrayHelper(arrayHelper), element, index, value.length))
+        }
+        {renderFooter && renderFooter(createCustomArrayHelper(arrayHelper), value.length)}
+
+      </>
+      }/>
+
+
+
+  </>
 }
 
 
@@ -73,4 +113,18 @@ export interface CustomArrayHelper {
   handleDelete: (index: number, withConfirm?: boolean) => void,
   handleMoveUp: (index: number) => void,
   handleMoveDown: (index: number) => void,
+  handleDragEnd: (result: DropResult) => void,
+
 }
+
+
+/*
+return <FieldArray
+  name={name}
+  render={arrayHelper => render({
+    handleInsert: handleInsert(arrayHelper),
+    handleDelete: handleDelete(arrayHelper),
+    handleMoveUp: handleMoveUp(arrayHelper),
+    handleMoveDown: handleMoveDown(arrayHelper),
+  }, value)}
+/>*/
