@@ -126,7 +126,7 @@ type CustomAutocompleteProps<T> = {
   multiple?: boolean
   tabIndex?: number
 
-  renderOption?: (props: Object, option: Value, state: Object, ownerState: Object) => ReactNode
+  renderOption?: (props: object, option: Value, state: object, ownerState: object) => ReactNode
 }
 
 
