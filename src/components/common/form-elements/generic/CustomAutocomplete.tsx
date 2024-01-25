@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 import {Form, Formik, FormikValues, useField} from "formik";
 import {
@@ -76,7 +76,7 @@ export function CustomAutocomplete<T extends FormikValues>({
                                                              name,
                                                              label = '',
                                                              getLabel,
-                                                             idProp,
+                                                             idProp = '_id',
                                                              queryFn,
                                                              queryKey,
                                                              onChange,
@@ -84,29 +84,56 @@ export function CustomAutocomplete<T extends FormikValues>({
                                                              autoSelect = true,
                                                              autoFocus = false,
                                                              fullWidth = false,
-
+                                                             initialOptions,
                                                              newEntryRender,
                                                              newValueDefault,
                                                              insertFn,
-                                                             validationSchema
+                                                             validationSchema,
+                                                             onOptionsChange,
+                                                             tabIndex,
+                                                             renderOption
                                                            }: CustomAutocompleteProps<T>): React.ReactElement {
-  const [field, , {setValue}] = useField(name);
-  const [inputValue, setInputValue] = useState('');
+  const [field, , {setValue}] = name
+    ? useField(name)
+    : [{value: null}, null, {
+      setValue: (val: T | null) => new Promise(res => res(val))
+    }]
+
   const [open, setOpen] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
 
+  const [inputValue, setInputValue] = useState('');
   const debouncedInput = useDebounce(inputValue, 500)
+
+  /**
+   * Optionen für das Autocomplete Formular
+   */
+  const [options, setOptions] = useState<T[]>(initialOptions ?? []);
 
   const {
     isLoading,
-    data: options
+    data
   } = useQuery(
     {
       queryKey: [queryKey, debouncedInput],
-      queryFn: queryFn ? () => queryFn(debouncedInput) : undefined,
+      queryFn: queryFn ? () => queryFn(debouncedInput) : () => [],
       enabled: !!debouncedInput && debouncedInput.length > 1,
       staleTime: 1000 * 60 * 5, // 5 minutes
     });
+  useEffect(() => {
+    if (!data) return
+    const idArray = data.filter(d => d[idProp]).map(d => d[idProp])
+
+    const newOptions = options
+      .filter(o => !(!o[idProp] || idArray.includes(o[idProp])))
+      .concat(data)
+
+    if (onOptionsChange)
+      onOptionsChange(newOptions)
+
+    setOptions(newOptions)
+  }, [data])
+
 
   const handleChange = (newValue: T | null) => {
     setValue(newValue).then(() => {
@@ -118,7 +145,10 @@ export function CustomAutocomplete<T extends FormikValues>({
   const handleInsert = (value: T) => {
     setModalOpen(false)
     if (!insertFn) return
-    insertFn(value).then(val => handleChange(val))
+    insertFn(value).then(newValue => {
+      setOptions([...options, newValue])
+      handleChange(newValue)
+    })
   }
 
   const validateForm = (values: T) => {
@@ -134,14 +164,19 @@ export function CustomAutocomplete<T extends FormikValues>({
 
   return (<>
     <Autocomplete<T>
+      {...field}
+      value={field.value || null}
+
       size={size}
       autoSelect={autoSelect}
       fullWidth={fullWidth}
 
+      clearText={'Eintrag entfernen'}
+      closeText={'schließen'}
+      openText={'öffnen'}
 
-      {...field}
-      value={field.value || null}
 
+      multiple={false}
       open={open}
       onOpen={() => {
         setOpen(true);
@@ -149,22 +184,31 @@ export function CustomAutocomplete<T extends FormikValues>({
       onClose={() => {
         setOpen(false);
       }}
-      multiple={false}
       onChange={(e, v) => handleChange(v)}
-      isOptionEqualToValue={(option, value) => value && (option[idProp] === value[idProp])}
+      isOptionEqualToValue={(option, value) => !value[idProp] || (option[idProp] === value[idProp])}
+
       getOptionLabel={getLabel}
-      options={options || []}
+      /* getOptionKey={option => option["idProp"]} */
+
+      options={options}
       loading={isLoading}
+
+      clearOnBlur={true}
+      blurOnSelect={true}
 
 
       noOptionsText={!!newEntryRender ?
         <Button
           onClick={() => setModalOpen(true)}
-          color="primary">
-          Hinzufügen
+          color="secondary"
+          variant={'contained'}
+        >
+          Neuer Eintrag
         </Button>
         : <></>
       }
+
+      renderOption={renderOption}
 
       renderInput={(params) => (<TextField
         autoFocus={autoFocus}
@@ -172,17 +216,17 @@ export function CustomAutocomplete<T extends FormikValues>({
         label={label}
         onChange={(e) => setInputValue(e.target.value)}
         InputProps={{
+          tabIndex: tabIndex,
           ...params.InputProps,
           endAdornment: (
             <React.Fragment>
-              {isLoading ? <CircularProgress color="inherit" size={20}/> : null}
+              {isLoading && <CircularProgress color="inherit" size={20}/>}
               {params.InputProps.endAdornment}
             </React.Fragment>
           ),
         }}
       />)}
     />
-
 
     {newValueDefault && !!newEntryRender &&
         <Dialog open={modalOpen}>

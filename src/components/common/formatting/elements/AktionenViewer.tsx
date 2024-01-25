@@ -1,5 +1,6 @@
 import React from "react";
 import {KochschrittAktion} from "../../../../shared-types/models/KochschrittAktion";
+import {Box} from "@mui/material";
 
 type AktionenViewerProps = {
   aktionen: KochschrittAktion[]
@@ -11,5 +12,14 @@ type AktionenViewerProps = {
  * @see Aktionen
  */
 export function AktionenViewer({aktionen}: AktionenViewerProps): React.ReactElement {
-  return (<pre>{JSON.stringify(aktionen, null, 1)}</pre>)
+  return (<Box>
+    {aktionen.map((aktion, index) => {
+      return <AktionViewer key={index} aktion={aktion}/>
+    })}
+  </Box>)
 }
+
+
+  export function AktionViewer({aktion}: { aktion: KochschrittAktion }): React.ReactElement {
+    return <div>{aktion.aktionName}</div>
+  }

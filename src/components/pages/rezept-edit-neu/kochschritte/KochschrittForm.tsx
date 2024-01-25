@@ -3,7 +3,6 @@ import {Box, FormGroup, Grid, Paper} from "@mui/material";
 
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {
-  AktionenPicker,
   UtensilienPicker,
   BetriebsartPicker,
   ZeitenPicker
@@ -12,33 +11,38 @@ import {
 import {CustomArrayHelper, CustomTextField} from "../../../common/form-elements/generic";
 
 import {ZutatenArray} from "./ZutatenArray";
+import {AktionenArray} from "./AktionenArray";
 
 
-interface KochschrittEditProps {
+interface KochschrittFormProps {
   name: string,
   index: number,
   value: Kochschritt,
   arrayHelper: CustomArrayHelper
 }
 
-export function KochschrittEdit({
+export function KochschrittForm({
                                   name,
-                                }: KochschrittEditProps) {
+                                }: KochschrittFormProps) {
   return <Grid container spacing={1}>
+
+    {/* Aktionen - Utensilien - Betriebsart */}
     <Grid item xs={6} md={3}>
       <Paper elevation={5}>
-        <AktionenPicker name={`${name}[aktionen]`}/>
+        <AktionenArray name={`${name}[aktionen]`}/>
         <UtensilienPicker name={`${name}[utensilien]`}/>
         <BetriebsartPicker name={`${name}`}/>
       </Paper>
     </Grid>
 
+    {/* Zutaten - Desktop Ansicht */}
     <Grid item xs={12} md={6} display={{xs: 'none', md: 'block'}}>
       <Paper elevation={5}>
-        <ZutatenArray name={`${name}[zutaten]`} variant={'desktop'}/>
+        <ZutatenArray name={`${name}[zutaten]`} variant={'desktop'} tabIndex={2}/>
       </Paper>
     </Grid>
 
+    {/* Zeiten - Freitext - Quellen (URL) */}
     <Grid item xs={6} md={3}>
       <Paper elevation={5}>
         <ZeitenPicker name={`${name}`} variant={'kochschritt'}/>
@@ -55,13 +59,10 @@ export function KochschrittEdit({
       </Paper>
     </Grid>
 
+    {/* Zutaten - Mobile Ansicht */}
     <Grid item xs={12} md={6} display={{xs: 'block', md: 'none'}}>
       <Paper elevation={5}>
-
-{/*
-        <ZutatenArray name={`${name}[zutaten]`} variant={'mobile'}/>
-*/}
-
+        <ZutatenArray name={`${name}[zutaten]`} variant={'mobile'} tabIndex={2}/>
       </Paper>
     </Grid>
 

@@ -1,6 +1,6 @@
 import React, {useReducer} from 'react';
 
-import {DefaultDataSyncNodes, reducer} from "./reducers";
+import {ActionTypes, CachePayloadType, DefaultDataSyncNodes, reducer} from "./reducers";
 import {Kochstatus, RezeptPartial, GlobalState, StateContextType} from "./types";
 import {Rezept} from "../../shared-types/models/Rezept";
 
@@ -41,9 +41,13 @@ export const StateProvider = ({children}: any) => {
   };
   const [state, dispatch] = useReducer(reducer, initialState());
 
+  const cache = state.dataSync
+  const update = (payload: CachePayloadType) => {
+    dispatch({type: ActionTypes.UPDATE_CACHE, payload})
+  }
 
   return (
-    <StateContext.Provider value={{state, dispatch}}>
+    <StateContext.Provider value={{state, dispatch, cache, update}}>
       {children}
     </StateContext.Provider>
   );

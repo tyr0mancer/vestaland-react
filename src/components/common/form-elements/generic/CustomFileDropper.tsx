@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ForwardedRef, useState} from "react";
 import {useQuery} from "@tanstack/react-query";
 
 import {useField} from "formik";
@@ -72,7 +72,7 @@ export function CustomFileDropper<T>({name, label, uploadFn}: CustomFileDropperP
 }
 
 
-const Gallery = React.forwardRef(function RefGallery({onSelect}: { onSelect: (datei: Datei) => void },) {
+const Gallery = React.forwardRef(function RefGallery({onSelect}: { onSelect: (datei: Datei) => void }, ref: ForwardedRef<HTMLDivElement>) {
     const style = {
       position: 'absolute',
       top: '50%',
@@ -92,26 +92,28 @@ const Gallery = React.forwardRef(function RefGallery({onSelect}: { onSelect: (da
       });
 
     return <ConditionalDisplay status={{isLoading, error}}>
-      <Paper sx={style}>
-        <Typography id="modal-modal-title" variant="h5" component="h2">
-          Bild auswählen
-        </Typography>
-        <Typography id="modal-modal-description" sx={{mt: 2}}>
+      <div ref={ref}>
+        <Paper sx={style}>
+          <Typography id="modal-modal-title" variant="h5" component="h2">
+            Bild auswählen
+          </Typography>
+          <Typography id="modal-modal-description" sx={{mt: 2}}>
 
-          <ImageList cols={3} rowHeight={150}>
-            {(data ?? []).map(datei => (
-              <ImageListItem key={datei.filename}>
-                <img onClick={() => onSelect(datei)}
-                     srcSet={`${getFileUrl(datei.filename)}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                     src={`${getFileUrl(datei.filename)}?w=164&h=164&fit=crop&auto=format`}
-                     alt={datei.beschreibung}
-                     loading="lazy"
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </Typography>
-      </Paper>
+            <ImageList cols={3} rowHeight={150}>
+              {(data ?? []).map(datei => (
+                <ImageListItem key={datei.filename}>
+                  <img onClick={() => onSelect(datei)}
+                       srcSet={`${getFileUrl(datei.filename)}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                       src={`${getFileUrl(datei.filename)}?w=164&h=164&fit=crop&auto=format`}
+                       alt={datei.beschreibung}
+                       loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Typography>
+        </Paper>
+      </div>
     </ConditionalDisplay>
   }
 )

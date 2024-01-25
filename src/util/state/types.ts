@@ -1,5 +1,5 @@
 import React from "react";
-import {ReducerActionType, DataSyncNodes} from "./reducers";
+import {ReducerActionType, DataSyncNodes, CachePayloadType} from "./reducers";
 import {Rezept} from "../../shared-types/models/Rezept";
 import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 
@@ -28,6 +28,9 @@ export interface GlobalState {
 export interface StateContextType {
   state: GlobalState;
   dispatch: React.Dispatch<ReducerActionType>;
+
+  cache: DataSyncNodes,
+  update: (payload: CachePayloadType) => void
 }
 
 

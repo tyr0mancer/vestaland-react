@@ -4,7 +4,7 @@ import {AUTH_NO_TOKEN_ERROR_MESSAGE} from "../../shared-types/config";
 
 // wird nur verwendet, um das auth token zu erneuern
 const refreshClient = axios.create({
-  baseURL: config.apiBaseUrl,
+  baseURL: config.authBaseUrl,
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export function handleError(error: any) {
  */
 export function tryRefreshToken(originalRequest: any) {
 
-  refreshClient.post(config.apiBaseUrl + config.tokenRefreshUrl)
+  refreshClient.post(config.tokenRefreshPath)
     .then(response => {
       // Neues Auth-Token dann im Header des Axios apiClients setzen
       apiClient.defaults.headers.common['Authorization'] = `Bearer ${response.data.authtoken}`;

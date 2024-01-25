@@ -4,6 +4,7 @@ import {Rezept} from "../../shared-types/models/Rezept";
 import {updateCacheReducer} from "./updateCacheReducer";
 import {Einkaufsliste} from "../../shared-types/models/Einkaufsliste";
 import {RezeptSucheFormType} from "../../shared-types/schemas/rezept-schema";
+import {Lebensmittel} from "../../shared-types/models/Lebensmittel";
 
 export enum ActionTypes {
   UPDATE_CACHE = 'UPDATE_CACHE',
@@ -23,21 +24,20 @@ export interface DataSyncNodes {
   rezeptView?: Rezept,
   rezeptSuche?: RezeptSucheFormType,
   einkaufslisten?: Einkaufsliste[],
+
+  lebensmittel?: Lebensmittel[],
 }
 
 export type CachePayloadType =
-  | { key: 'rezeptEdit', data: Rezept }
-  | { key: 'rezeptSuche', data: RezeptSucheFormType }
-  | { key: 'einkaufslisten', data: Einkaufsliste[] }
+  | { key: 'rezeptEdit', data?: Rezept }
+  | { key: 'rezeptSuche', data?: RezeptSucheFormType }
+  | { key: 'einkaufslisten', data?: Einkaufsliste[] }
+  | { key: 'lebensmittel', data?: Lebensmittel[] }
 
 export type CachePayloadTypeKeys = CachePayloadType extends { key: infer K } ? K : never;
-export type CachePayloadTypeValues = CachePayloadType['data'];
 
 export type ReducerActionType =
   | { type: ActionTypes.UPDATE_CACHE, payload: CachePayloadType }
-
-
-
 
   | { type: ActionTypes.PUSH_HISTORY, payload: Rezept }
   | { type: ActionTypes.DELETE_HISTORY, payload: string }

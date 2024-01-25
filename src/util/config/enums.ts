@@ -4,5 +4,7 @@ export enum QueryKey {
 }
 
 export enum LocalStorageKey {
-    REZEPT_EDIT = 'rezeptEdit'
+  REZEPT_EDIT = 'REZEPT_EDIT',
+  ALREADY_REGISTERED = 'ALREADY_REGISTERED',
 }
+

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useRef} from "react";
 import {FastField, Field, useField} from "formik";
 import {TextField} from "@mui/material";
 import {CustomTextFieldProps} from "./types";
@@ -20,9 +20,29 @@ export function CustomTextField({
                                   label = 'name',
                                   type = 'text',
                                   size = 'small',
-                                  fastField = false
+                                  fastField = false,
+                                  defaultValue,
+                                  autoComplete = "off",
+                                  inputRef,
+                                  autoFocus = false,
+                                  autoSelect = false,
+                                  tabIndex,
                                 }: CustomTextFieldProps): React.ReactElement {
-  const [, meta] = useField(name);
+
+  const [{value}, meta, {setValue}] = useField(name);
+
+  //@todo solect instead focus on text field
+  if (!inputRef && autoSelect)
+    inputRef = useRef<HTMLInputElement>(null);
+
+
+
+
+
+  useEffect(() => {
+    if (value || !defaultValue) return
+    setValue(defaultValue).then()
+  }, [defaultValue])
 
   if (fastField) return (<FastField as={TextField}
                                     type={type}
@@ -34,11 +54,15 @@ export function CustomTextField({
   />)
 
   return (<Field as={TextField}
+                 autoComplete={autoComplete}
+                 autoFocus={autoFocus}
                  type={type}
                  variant={'outlined'}
                  name={name}
                  size={size}
                  label={label}
+                 inputRef={inputRef}
+                 inputProps={{tabIndex: tabIndex}}
                  error={meta.touched && !!meta.error}
                  helperText={meta.touched && meta.error}
   />)

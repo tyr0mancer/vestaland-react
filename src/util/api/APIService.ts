@@ -1,5 +1,6 @@
 import {apiClient} from "./apiClient";
 import {AxiosResponse} from "axios";
+import {ApiRoutePath} from "../../shared-types/config";
 
 /**
  * Service Klasse um API Anfragen mit Hilfe des apiClients zu realisieren.
@@ -21,7 +22,7 @@ export class APIService {
    *
    * @returns Promise<T[]>
    */
-  static async search<T>(routePath: string, params?: object): Promise<T[]> {
+  static async search<T>(routePath: ApiRoutePath, params?: object): Promise<T[]> {
     return new Promise<T[]>((resolve) =>
       apiClient.get<T[]>(routePath, {params}).then(res => resolve(res.data)).catch(handleApiError)
     )
@@ -35,7 +36,7 @@ export class APIService {
    *
    * @returns Promise<T>
    */
-  static async getById<T>(routePath: string, id?: string): Promise<T> {
+  static async getById<T>(routePath: ApiRoutePath, id?: string): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       if (!id) return reject("ID is required")
       apiClient.get<T>(joinPaths(routePath, id)).then(res => resolve(res.data)).catch(handleApiError)
@@ -50,7 +51,7 @@ export class APIService {
    *
    * @returns Promise<R=T>
    */
-  static async post<T, R = T>(routePath: string, data: T): Promise<R> {
+  static async post<T, R = T>(routePath: ApiRoutePath, data: T): Promise<R> {
     return new Promise<R>((resolve) =>
       apiClient.post<R>(routePath, data).then(res => resolve(res.data)).catch(handleApiError)
     )
@@ -65,7 +66,7 @@ export class APIService {
    *
    * @returns Promise<R=T>
    */
-  static async put<T, R = T>(routePath: string, id: string, data: T): Promise<R> {
+  static async put<T, R = T>(routePath: ApiRoutePath, id: string, data: T): Promise<R> {
     return new Promise<R>((resolve) =>
       apiClient.put<R>(joinPaths(routePath, id), data).then(res => resolve(res.data)).catch(handleApiError)
     )
@@ -80,7 +81,7 @@ export class APIService {
    *
    * @returns Promise<R=T>
    */
-  static async patch<T, U = Partial<T>, R = T>(routePath: string, id: string, updates: U): Promise<R> {
+  static async patch<T, U = Partial<T>, R = T>(routePath: ApiRoutePath, id: string, updates: U): Promise<R> {
     return new Promise<R>((resolve) =>
       apiClient.put<R>(joinPaths(routePath, id), updates).then(res => resolve(res.data)).catch(handleApiError)
     )
@@ -93,7 +94,7 @@ export class APIService {
    * @param id - Die ObjectID des Dokuments das gelöscht werden soll
    * @returns Promise<any>
    */
-  static async delete(routePath: string, id: string): Promise<any> {
+  static async delete(routePath: ApiRoutePath, id: string): Promise<any> {
     return new Promise<any>((resolve) =>
       apiClient.delete(joinPaths(routePath, id)).then(res => resolve(res.data)).catch(handleApiError)
     )
@@ -108,7 +109,7 @@ export class APIService {
    * @param fileKey - verwendeter Name für FormData.append()
    * @returns Promise<T>
    */
-  static async upload<T>(routePath: string, file: File, fileKey: string = 'bild'): Promise<T> {
+  static async upload<T>(routePath: ApiRoutePath, file: File, fileKey: string = 'bild'): Promise<T> {
     const formData = new FormData();
     formData.append(fileKey, file, file.name);
 

@@ -1,13 +1,16 @@
 import React from "react";
 import {AppBar, Grid, IconButton, Toolbar} from "@mui/material";
-import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
-import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
-import ArrowCircleDownIcon from '@mui/icons-material/ArrowCircleDown';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  RemoveCircle as DeleteIcon,
+  ArrowCircleUp as MoveUpIcon,
+  ArrowCircleDown as MoveDownIcon,
+  AddBox as InsertIcon,
+  ModeEdit as EditIcon,
+  Check as CloseIcon
+} from "@mui/icons-material";
 
 import {CustomArrayHelper} from "../../../common/form-elements/generic";
+
 
 type KochschrittHeaderProps = {
   index: number,
@@ -37,7 +40,7 @@ export function KochschrittHeader({
           <IconButton
             disabled={activeIndex === index}
             onClick={() => setActiveIndex(index)}
-          ><ModeEditIcon/></IconButton>
+          ><EditIcon/></IconButton>
 
           {activeIndex === index &&
               <IconButton
@@ -50,20 +53,20 @@ export function KochschrittHeader({
           <IconButton
             disabled={0 === index}
             onClick={() => handleMoveUp(index)}
-          ><ArrowCircleUpIcon/> </IconButton>
+          ><MoveUpIcon/> </IconButton>
 
           <IconButton
             disabled={(length - 1) === index}
             onClick={() => handleMoveDown(index)}
-          ><ArrowCircleDownIcon/></IconButton>
+          ><MoveDownIcon/></IconButton>
 
           <IconButton
             onClick={() => handleInsert(index + 1)}
-          ><AddBoxIcon/></IconButton>
+          ><InsertIcon/></IconButton>
 
           <IconButton
             onClick={() => handleDelete(index, true)}
-          ><RemoveCircleIcon/></IconButton>
+          ><DeleteIcon/></IconButton>
 
         </Grid>
       </Grid>

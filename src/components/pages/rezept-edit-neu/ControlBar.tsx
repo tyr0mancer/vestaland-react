@@ -1,10 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {QueryClient} from "@tanstack/react-query";
 
-import {AppBar, Grid, IconButton, Toolbar, Tooltip} from "@mui/material";
+import {AppBar, Grid, IconButton, Tab, Tabs, Toolbar, Tooltip} from "@mui/material";
 import {useFormikContext} from "formik";
-import {CloudUpload as PublishIcon, DeleteForever as ResetIcon, Save as SaveIcon} from "@mui/icons-material";
+
+import {
+  CloudUpload as PublishIcon,
+  DeleteForever as ResetIcon,
+  Save as SaveIcon,
+  ResetTv as LoadIcon
+} from "@mui/icons-material";
 
 
 import {customConfirm} from "../../common/ui/ConfirmDialog";
@@ -14,20 +20,31 @@ import {LocalStorageKey, QueryKey} from "../../../util/config/enums";
 import {CustomSwitch} from "../../common/form-elements/generic";
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {BenutzerRolle} from "../../../shared-types/enum";
+import {StateContext} from "../../../util/state/StateProvider";
+import {StateContextType} from "../../../util/state/types";
+import {useLocalStorage} from "../../../util/hooks/useLocalStorage";
+
+type ControlBarProps = {
+  setTabIndex: (v: number) => void,
+  tabIndex: number
+}
 
 
 /**
  * Controlbar für Rezept-Editor
  */
-export function ControlBar(): React.ReactElement {
+export function ControlBar({tabIndex,setTabIndex}: ControlBarProps): React.ReactElement {
+  const {update} = useContext(StateContext) as StateContextType
+
   const navigate = useNavigate()
   const queryClient = new QueryClient();
   const {isAuthorized} = useAuth()
 
-  const {values, touched, submitForm, validateForm, resetForm} = useFormikContext<Rezept>();
+  const {values, touched, submitForm, validateForm, setValues} = useFormikContext<Rezept>();
 
+  const [, setLocalData, readLocalData] = useLocalStorage<Rezept>(LocalStorageKey.REZEPT_EDIT)
   const [canSave, setCanSave] = useState(false)
-  const [, setCanLoad] = useState(false)
+  const [canLoad, setCanLoad] = useState(false)
 
   useEffect(() => {
     if (Object.keys(touched).length)
@@ -36,38 +53,61 @@ export function ControlBar(): React.ReactElement {
 
 
   const handleReset = async () => {
-    const confirm = await customConfirm({label: 'Formulardaten löschen?'})
+    const confirm = await customConfirm({
+      title: 'Formular zurücksetzen?',
+      label: 'Achtung! Es werden sowohl das aktuelle Formular als auch alle lokal gespeicherten Daten gelöscht.'
+    })
     if (!confirm) return
 
-    localStorage.setItem(LocalStorageKey.REZEPT_EDIT, 'null')
-    await resetForm()
-    setCanLoad(false)
-    setCanSave(false)
-    navigate(`/`)
+    if (confirm) {
+      setLocalData()
+      update({key: "rezeptEdit", data: undefined})
+      setCanLoad(false)
+      setCanSave(false)
+      navigate(`/rezept-editor`)
+      navigate(0)
+    }
   }
 
   const handleSave = () => {
-    localStorage.setItem(LocalStorageKey.REZEPT_EDIT, JSON.stringify(values || null))
+    setLocalData(values)
     setCanLoad(true)
     setCanSave(false)
+    navigate(`/rezept-editor`)
+  }
+
+  const handleLoad = () => {
+    const newValue = readLocalData()
+    if (!newValue) {
+      setCanLoad(false)
+      return
+    }
+
+    customConfirm({
+      title: 'Formulardaten laden?',
+      label: 'Achtung! Das aktuelle Formular wird dabei überschrieben'
+    }).then(() => setValues(newValue).then(() => navigate(`/rezept-editor`)))
+
   }
 
   const handleCopyPaste = () => {
-    console.log(JSON.stringify(values.kochschritte[0]?.zutaten, null, 1))
-    console.log(values.kochschritte[0]?.zutaten)
+    const output = values //.kochschritte.map(k => k.aktionen)
+    console.log(JSON.stringify(output, null, 1))
+    console.log(output)
   }
 
 
   const handlePublish = async () => {
     await submitForm()
     const result = await validateForm(values)
-    if (Object.keys(result).length)
+    if (Object.keys(result).length) {
+      console.log(result) //@todo handle error here
       return
+    }
 
     customConfirm({
       title: values.name + ' veröffentlichen?',
       label: `Das Rezept wird ${values.publicVisible ? 'öffentlich zu finden' : 'nur für dich zu sehen'} sein`
-
     }).then(() => {
 
       const mutateFn = () => (values._id)
@@ -87,8 +127,17 @@ export function ControlBar(): React.ReactElement {
   return (<AppBar position={"static"} style={{padding: 0, margin: 0}}>
     <Toolbar style={{padding: 0, margin: 0}} variant="dense">
 
+
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
+          <Tabs value={tabIndex} onChange={(e,v)=>setTabIndex(v)}
+                textColor={'secondary'} indicatorColor={'secondary'}>
+            <Tab label="Allgemeines" sx={{color: 'white'}} />
+            <Tab label="Kochschritte" sx={{color: 'white'}} />
+          </Tabs>
+
+        </Grid>
+        <Grid item>
 
           <Tooltip title="Copy Pasta" placement={"top-start"}>
             <IconButton
@@ -107,15 +156,6 @@ export function ControlBar(): React.ReactElement {
             </IconButton>
           </Tooltip>
 
-          {/*          <Tooltip title="Lokal speichern" placement={"top-start"}>
-            <IconButton
-              onClick={handleLoad}
-              size="large">
-              <LoadIcon color={canLoad ? 'secondary' : 'disabled'}/>
-            </IconButton>
-          </Tooltip>*/}
-
-
           <Tooltip title="veröffentlichen" placement={"top-start"}>
             <IconButton
               onClick={handlePublish}
@@ -131,8 +171,14 @@ export function ControlBar(): React.ReactElement {
             disabled={!isAuthorized(BenutzerRolle.REDAKTEUR)}
           />
 
-        </Grid>
-        <Grid item>
+          <Tooltip title="Gespeicherte Formulardaten laden" placement={"top-end"}>
+            <IconButton
+              onClick={handleLoad}
+
+              size="large">
+              <LoadIcon color={canLoad ? 'secondary' : 'disabled'}/>
+            </IconButton>
+          </Tooltip>
 
           <Tooltip title="Formulardaten löschen" placement={"top-end"}>
             <IconButton
@@ -144,10 +190,6 @@ export function ControlBar(): React.ReactElement {
 
         </Grid>
       </Grid>
-
-      {/*
-      <pre>{JSON.stringify(values, null, 1)}</pre>
-*/}
 
     </Toolbar>
   </AppBar>)

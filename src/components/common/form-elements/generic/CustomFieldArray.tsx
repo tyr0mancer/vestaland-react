@@ -2,7 +2,7 @@ import React from "react";
 import {FieldArray, FieldArrayRenderProps, useField} from "formik";
 import {CustomFieldArrayProp} from "./types";
 import {customConfirm} from "../../ui/ConfirmDialog";
-import { DropResult} from "react-beautiful-dnd";
+import {DropResult} from "react-beautiful-dnd";
 
 /**
  * CustomFieldArray Komponente - Ein spezialisierter Wrapper um Formik's FieldArray.
@@ -32,8 +32,8 @@ export function CustomFieldArray<T>({
                                     }: CustomFieldArrayProp<T>): React.ReactElement {
   const [{value}] = useField<T[]>(name);
 
-  const handleInsert = (arrayHelper: FieldArrayRenderProps) => (index: number = value.length) => {
-    arrayHelper.insert(index, newValue)
+  const handleInsert = (arrayHelper: FieldArrayRenderProps) => (index: number = value.length, newElement: T | undefined = newValue) => {
+    arrayHelper.insert(index, newElement)
     if (setActiveIndex)
       setActiveIndex(index)
   }
@@ -95,7 +95,7 @@ export function CustomFieldArray<T>({
 
         {renderHeader && renderHeader(createCustomArrayHelper(arrayHelper), value.length)}
         {value.map((element, index) =>
-          renderChild(createCustomArrayHelper(arrayHelper), element, index, value.length))
+          renderChild(createCustomArrayHelper(arrayHelper), index, element, value.length))
         }
         {renderFooter && renderFooter(createCustomArrayHelper(arrayHelper), value.length)}
 
@@ -103,13 +103,12 @@ export function CustomFieldArray<T>({
       }/>
 
 
-
   </>
 }
 
 
-export interface CustomArrayHelper {
-  handleInsert: (index?: number) => void,
+export interface CustomArrayHelper<T = any> {
+  handleInsert: (index?: number, newValue?: T) => void,
   handleDelete: (index: number, withConfirm?: boolean) => void,
   handleMoveUp: (index: number) => void,
   handleMoveDown: (index: number) => void,

@@ -2,11 +2,10 @@ import React, {useState} from "react";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {CustomFieldArray} from "../../../common/form-elements/generic";
 import {KochschritteArrayHeader} from "./KochschritteArrayHeader";
-import {KochschrittEdit} from "./KochschrittEdit";
+import {KochschrittForm} from "./KochschrittForm";
 import {KochschrittView} from "./KochschrittView";
 import {Box} from "@mui/material";
 import {KochschrittHeader} from "./KochschrittHeader";
-import {Zutat} from "../../../../shared-types/models/Zutat";
 
 
 /**
@@ -18,7 +17,6 @@ export function KochschritteArray(): React.ReactElement {
   const [activeIndex, setActiveIndex] = useState(-1)
 
   const newKochschritt = new Kochschritt()
-  newKochschritt.zutaten = [new Zutat()]
 
   return (<Box mt={1} mb={5} borderBottom={1}>
     <CustomFieldArray<Kochschritt>
@@ -37,20 +35,20 @@ export function KochschritteArray(): React.ReactElement {
       />}
 
 
-      renderChild={(customArrayHelper, kochschritt, index, length) => (
+      renderChild={(customArrayHelper, index, kochschritt, length) => (
 
         <Box key={index}>
 
           <KochschrittHeader
             arrayHelper={customArrayHelper}
             index={index}
-            length={length - 1}
+            length={length}
             activeIndex={activeIndex}
             setActiveIndex={setActiveIndex}
           />
 
           {(activeIndex === index)
-            ? <KochschrittEdit
+            ? <KochschrittForm
               index={index}
               name={`kochschritte[${index}]`}
               value={kochschritt}
@@ -90,7 +88,7 @@ export function KochschritteArray(): React.ReactElement {
           />
 
           {(activeIndex === index)
-            ? <KochschrittEdit
+            ? <KochschrittForm
               index={index}
               name={`kochschritte[${index}]`}
               value={kochschritt}

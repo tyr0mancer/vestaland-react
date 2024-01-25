@@ -3,7 +3,7 @@ import {Alert, AlertTitle, Button, FormGroup} from "@mui/material";
 import {Form, Formik} from "formik";
 import {LoginSchema, LoginType} from "../../../shared-types/schemas/benutzer-schema";
 import {validateFormZod} from "../../../util/format/validateFormZod";
-import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
+import {CustomTextField} from "../../common/form-elements/generic";
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
@@ -37,10 +37,10 @@ export function LoginScreen({redirect}: LoginScreeProps): React.ReactElement {
             </Alert>
         }
         <FormGroup>
-          <CustomTextField name={'username'} label={'Email Adresse'} type={'email'}/>
+          <CustomTextField name={'username'} label={'Email Adresse'} type={'email'} autoComplete={'username'}/>
         </FormGroup>
         <FormGroup>
-          <CustomTextField name={'password'} label={'Passwort'} type={'password'}/>
+          <CustomTextField name={'password'} label={'Passwort'} type={'password'} autoComplete={'current-password'}/>
 
           <Button type={'submit'} startIcon={<LoginIcon/>} color={'primary'}
                   variant={'outlined'}>Anmelden</Button>

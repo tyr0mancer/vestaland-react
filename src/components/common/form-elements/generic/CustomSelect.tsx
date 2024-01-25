@@ -69,3 +69,45 @@ export function CustomSelect<T>({
   )
 }
 
+type CustomSelectMultipleProps<T> = {
+  name: string,
+  label?: string,
+  options?: T[],
+  getKey?: (element: T) => string,
+  getLabel?: (element: T) => string | React.ReactElement,
+  multiple?: boolean,
+  size?: 'small' | 'medium'
+}
+
+
+export function CustomSelectMultiple<T>({
+                                          name,
+                                          size = 'medium',
+                                          label,
+                                          getKey = (v: T) => v as unknown as string,
+                                          getLabel = (v: T) => v as unknown as string,
+                                          options = []
+                                        }: CustomSelectMultipleProps<T>): React.ReactElement {
+
+
+  return (
+    <>
+      {label && <InputLabel id={`${name}-label`}>{label}</InputLabel>}
+      <Field
+        size={size}
+        fullWidth
+        as={Select}
+        defaultValue={label}
+
+        multiple={true}
+        name={"tags"}
+        labelId={`${name}-label`}
+      >
+        {options.map((option, index) => (
+          <MenuItem key={index} value={getKey(option)}>{getLabel(option)}</MenuItem>
+        ))}
+      </Field>
+
+    </>
+  )
+}

@@ -6,7 +6,7 @@ import {StateContextType} from "../../../util/state/types";
 import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {RezeptSucheFormSchema, RezeptSucheFormType, RezeptSucheType} from "../../../shared-types/schemas/rezept-schema";
-import {CustomForm} from "../../common/form-elements/generic/CustomForm";
+import {CustomForm} from "../../common/form-elements/generic";
 import {ConditionalDisplay} from "../../layout/ConditionalDisplay";
 import {RezeptSucheAusgabe} from "./RezeptSucheAusgabe";
 import {RezeptSucheForm} from "./RezeptSucheForm";

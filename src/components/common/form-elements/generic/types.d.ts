@@ -28,7 +28,7 @@ type CustomAutocompleteProps<T> = {
   /**
    * Der Name des Formularfeldes, verwendet von Formik zur Handhabung der Formulardaten.
    */
-  name: string,
+  name?: string,
 
   /**
    * Optionale Beschriftung des Autocomplete-Feldes.
@@ -46,7 +46,7 @@ type CustomAutocompleteProps<T> = {
   /**
    * Der Eigenschaftsname des Identifikators in Typ T, verwendet um Optionen in der Autocomplete-Liste zu vergleichen.
    */
-  idProp: keyof T,
+  idProp?: keyof T,
 
   /**
    * Eine optionale Funktion für useQuery zur asynchronen Ermittlung der Autocomplete-Optionen
@@ -112,6 +112,21 @@ type CustomAutocompleteProps<T> = {
    */
   newEntryRender?: (inputValue: string) => React.ReactElement,
 
+
+  /**
+   * Statische Optionen
+   */
+  initialOptions?: T[]
+
+  /**
+   * Callback. Wird aufgerufen, wenn Autocomplete neue Optionen lädt
+   */
+  onOptionsChange?: (options: T[]) => void
+
+  multiple?: boolean
+  tabIndex?: number
+
+  renderOption?: (props: Object, option: Value, state: Object, ownerState: Object) => ReactNode
 }
 
 
@@ -130,9 +145,9 @@ type CustomFieldArrayProp<T> = {
   /**
    * Render-Funktion
    */
-  renderChild: ((props: CustomArrayHelper, value: T, index: number, length: number) => React.ReactNode)
-  renderHeader?: ((props: CustomArrayHelper, length: number) => React.ReactNode),
-  renderFooter?: ((props: CustomArrayHelper, length: number) => React.ReactNode),
+  renderChild: (props: CustomArrayHelper, index: number, value: T, length: number) => React.ReactNode
+  renderHeader?: (props: CustomArrayHelper, length: number) => React.ReactNode,
+  renderFooter?: (props: CustomArrayHelper, length: number) => React.ReactNode,
 
   activeIndex?: number
 
@@ -167,6 +182,16 @@ type CustomTextFieldProps = {
   fastField?: boolean
 
   size?: 'small' | 'medium',
+
+
+  autoComplete?: string,
+  defaultValue?: string,
+  inputRef?: RefObject<HTMLInputElement>,
+
+  autoFocus?: boolean,
+
+  autoSelect?: boolean,
+  tabIndex?: number
 }
 
 
@@ -205,7 +230,7 @@ type CustomSelectProps<T> = {
    * @param element - Das aktuelle Element aus der Options-Liste.
    * @returns Ein String, der das Anzeigelabel des Elements darstellt.
    */
-  getLabel?: (element: T) => string,
+  getLabel?: (element: T) => string | React.ReactElement,
 
   /**
    * Optional, ob Mehrfachauswahl im Select-Feld erlaubt sein soll.

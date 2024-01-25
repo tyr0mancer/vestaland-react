@@ -6,8 +6,9 @@ export type ConfigType = {
   logApi: boolean,
 
   apiBaseUrl: string;
+  authBaseUrl: string;
   imgBaseUrl: string;
-  tokenRefreshUrl: string; // API Route für Refresh-Token call
+  tokenRefreshPath: string; // API Route für Refresh-Token call
   host: string;
   port: number;
 }
@@ -26,8 +27,9 @@ export const config: ConfigType = {
   logApi: Boolean(process.env.REACT_APP_DEV_LOG_API) || false,
 
   apiBaseUrl: (devMode ? process.env.REACT_APP_API_BASE_URL_DEV : process.env.REACT_APP_API_BASE_URL) || 'https://api.vestaland.de/api',
+  authBaseUrl: (devMode ? process.env.REACT_APP_AUTH_BASE_URL_DEV : process.env.REACT_APP_AUTH_BASE_URL) || 'https://api.vestaland.de/auth',
   imgBaseUrl: (devMode ? process.env.REACT_APP_IMG_BASE_URL_DEV : process.env.REACT_APP_IMG_BASE_URL) || 'https://api.vestaland.de/public/uploads/',
-  tokenRefreshUrl: process.env.REACT_APP_TOKEN_REFRESH_URL || '/auth/refresh',
+  tokenRefreshPath: process.env.REACT_APP_TOKEN_REFRESH_PATH || '/refresh',
 
   host: process.env.REACT_APP_HOST || 'https://app.vestaland.de',
   port: Number(process.env.REACT_APP_PORT) || 80,
