@@ -3,7 +3,6 @@ import {Box, FormGroup, Grid, Paper} from "@mui/material";
 
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 import {
-  UtensilienPicker,
   BetriebsartPicker,
   ZeitenPicker
 } from "../../../common/form-elements/specific";
@@ -12,26 +11,37 @@ import {CustomArrayHelper, CustomTextField} from "../../../common/form-elements/
 
 import {ZutatenArray} from "./ZutatenArray";
 import {AktionenArray} from "./AktionenArray";
+import {UtensilienArray} from "./UtensilienArray";
 
 
 interface KochschrittFormProps {
   name: string,
   index: number,
   value: Kochschritt,
-  arrayHelper: CustomArrayHelper
+  arrayHelper: CustomArrayHelper,
 }
 
+/**
+ * @see MainForm
+ */
 export function KochschrittForm({
-                                  name,
-                                }: KochschrittFormProps) {
-  return <Grid container spacing={1}>
+                                     name,
+                                   }: KochschrittFormProps) {
+
+
+  return (<Grid container spacing={1}>
 
     {/* Aktionen - Utensilien - Betriebsart */}
     <Grid item xs={6} md={3}>
       <Paper elevation={5}>
         <AktionenArray name={`${name}[aktionen]`}/>
-        <UtensilienPicker name={`${name}[utensilien]`}/>
-        <BetriebsartPicker name={`${name}`}/>
+        <UtensilienArray name={`${name}[utensilien]`}/>
+        <div className={'form-group'}>
+          <BetriebsartPicker name={`${name}[betriebsart]`}/>
+          <Box mt={2}>
+            <CustomTextField name={`${name}[temperatur]`} label={'Temperatur'} type={'number'} fullWidth/>
+          </Box>
+        </div>
       </Paper>
     </Grid>
 
@@ -45,7 +55,7 @@ export function KochschrittForm({
     {/* Zeiten - Freitext - Quellen (URL) */}
     <Grid item xs={6} md={3}>
       <Paper elevation={5}>
-        <ZeitenPicker name={`${name}`} variant={'kochschritt'}/>
+        <ZeitenPicker variant={'kochschritt'} name={`${name}`} />
         <Box mt={1}>
           <FormGroup>
             <CustomTextField name={`${name}[beschreibung]`} label={'Freitext'}/>
@@ -60,13 +70,11 @@ export function KochschrittForm({
     </Grid>
 
     {/* Zutaten - Mobile Ansicht */}
-    <Grid item xs={12} md={6} display={{xs: 'block', md: 'none'}}>
+    <Grid item xs={12} md={12} display={{xs: 'block', md: 'none'}}>
       <Paper elevation={5}>
         <ZutatenArray name={`${name}[zutaten]`} variant={'mobile'} tabIndex={2}/>
       </Paper>
     </Grid>
 
-  </Grid>
-
+  </Grid>)
 }
-

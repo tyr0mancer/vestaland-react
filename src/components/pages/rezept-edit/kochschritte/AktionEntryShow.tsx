@@ -1,8 +1,9 @@
 import React from "react";
-import {CustomArrayHelper} from "../generic";
+import {CustomArrayHelper} from "../../../common/form-elements/generic";
 import {useField} from "formik";
-import {AktionViewer} from "../../formatting/elements/AktionenViewer";
+import {AktionViewer} from "../../../common/formatting/elements/AktionenViewer";
 import {Box, IconButton} from "@mui/material";
+import {Delete as DeleteIcon} from "@mui/icons-material";
 
 type AktionEntryProps = {
   name: string,
@@ -14,7 +15,7 @@ type AktionEntryProps = {
  * TS Doc Info
  * @component AktionenPicker
  */
-export function AktionEntry({
+export function AktionEntryShow({
                               name,
                               index,
                               arrayHelper,
@@ -26,6 +27,10 @@ export function AktionEntry({
     arrayHelper.handleDelete(index)
   }
 
-  return (<Box mt={1}><IconButton
-  onClick={handleDelete}>x</IconButton><AktionViewer aktion={value}/></Box>)
+  return (<Box mt={1}>
+    <div className={'align-vertically'}>
+      <IconButton
+        onClick={handleDelete}><DeleteIcon/></IconButton><AktionViewer aktion={value}/></div>
+  </Box>)
 }
+

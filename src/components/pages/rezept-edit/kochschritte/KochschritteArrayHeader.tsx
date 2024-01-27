@@ -1,6 +1,7 @@
 import React from "react";
-import {AppBar, Button, Toolbar} from "@mui/material";
+import {Box, IconButton} from "@mui/material";
 import {CustomArrayHelper} from "../../../common/form-elements/generic";
+import {AddBox as InsertIcon} from "@mui/icons-material";
 
 type KochschrittHeaderProps = {
   arrayHelper: CustomArrayHelper,
@@ -18,10 +19,9 @@ export function KochschritteArrayHeader({arrayHelper, setActiveIndex, length}: K
     setActiveIndex(length)
   }
 
-  return <AppBar position={"static"} color={'primary'}>
-    <Toolbar variant={'dense'}>
-      <Button color={'secondary'} onClick={() => handleInsert()}>Insert</Button>
-    </Toolbar>
-  </AppBar>
+  return <Box mt={5} borderTop={1}>
+    <IconButton size={'small'}
+                onClick={() => handleInsert()}><InsertIcon/> Neuen Kochschritt hinzufügen</IconButton>
+  </Box>
 }
 

@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from "react";
-import {FastField, Field, useField} from "formik";
+import React, {useRef} from "react";
+import {Field, useField} from "formik";
 import {TextField} from "@mui/material";
 import {CustomTextFieldProps} from "./types";
 
@@ -20,38 +20,23 @@ export function CustomTextField({
                                   label = 'name',
                                   type = 'text',
                                   size = 'small',
-                                  fastField = false,
-                                  defaultValue,
                                   autoComplete = "off",
                                   inputRef,
                                   autoFocus = false,
                                   autoSelect = false,
                                   tabIndex,
+                                  multiline = false,
+                                  fullWidth = false,
+                                  minRows
                                 }: CustomTextFieldProps): React.ReactElement {
 
-  const [{value}, meta, {setValue}] = useField(name);
 
-  //@todo solect instead focus on text field
+  //@todo select instead focus on text field
   if (!inputRef && autoSelect)
     inputRef = useRef<HTMLInputElement>(null);
 
+  const [, meta,] = useField(name)
 
-
-
-
-  useEffect(() => {
-    if (value || !defaultValue) return
-    setValue(defaultValue).then()
-  }, [defaultValue])
-
-  if (fastField) return (<FastField as={TextField}
-                                    type={type}
-                                    variant={'outlined'}
-                                    name={name}
-                                    label={label}
-                                    error={meta.touched && !!meta.error}
-                                    helperText={meta.touched && meta.error}
-  />)
 
   return (<Field as={TextField}
                  autoComplete={autoComplete}
@@ -61,10 +46,14 @@ export function CustomTextField({
                  name={name}
                  size={size}
                  label={label}
-                 inputRef={inputRef}
+                 ref={inputRef}
+                 multiline={multiline}
+                 minRows={minRows}
+                 fullWidth={fullWidth}
                  inputProps={{tabIndex: tabIndex}}
                  error={meta.touched && !!meta.error}
                  helperText={meta.touched && meta.error}
+
   />)
 
 }

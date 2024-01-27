@@ -28,7 +28,7 @@ export function KochschritteArray(): React.ReactElement {
         title: 'Wirklich löschen?', label: '', confirmLabel: 'löschen'
       }}
 
-      renderHeader={(customArrayHelper, length) => <KochschritteArrayHeader
+      renderFooter={(customArrayHelper, length) => <KochschritteArrayHeader
         arrayHelper={customArrayHelper}
         setActiveIndex={setActiveIndex}
         length={length}
@@ -66,41 +66,3 @@ export function KochschritteArray(): React.ReactElement {
   </Box>)
 
 }
-
-
-/*
-    renderChild={(customArrayHelper, kochschritte) => (<Box mt={1} mb={5} borderBottom={1}>
-
-      <KochschritteArrayHeader
-        arrayHelper={customArrayHelper}
-        setActiveIndex={setActiveIndex}
-        length={kochschritte.length}
-      />
-
-      {kochschritte.map((kochschritt, index) => <Box key={index}>
-
-          <KochschrittHeader
-            arrayHelper={customArrayHelper}
-            index={index}
-            maxIndex={kochschritte.length - 1}
-            activeIndex={activeIndex}
-            setActiveIndex={setActiveIndex}
-          />
-
-          {(activeIndex === index)
-            ? <KochschrittForm
-              index={index}
-              name={`kochschritte[${index}]`}
-              value={kochschritt}
-              arrayHelper={customArrayHelper}
-            />
-            : <KochschrittView
-              index={index}
-              kochschritt={kochschritt}
-            />}
-
-        </Box>
-      )}
-
-    </Box>)}
-*/

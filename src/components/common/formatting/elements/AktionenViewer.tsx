@@ -1,6 +1,7 @@
 import React from "react";
 import {KochschrittAktion} from "../../../../shared-types/models/KochschrittAktion";
 import {Box} from "@mui/material";
+import {AktionIconImage} from "../AktionIconImage";
 
 type AktionenViewerProps = {
   aktionen: KochschrittAktion[]
@@ -20,6 +21,6 @@ export function AktionenViewer({aktionen}: AktionenViewerProps): React.ReactElem
 }
 
 
-  export function AktionViewer({aktion}: { aktion: KochschrittAktion }): React.ReactElement {
-    return <div>{aktion.aktionName}</div>
-  }
+export function AktionViewer({aktion}: { aktion: KochschrittAktion }): React.ReactElement {
+  return <div className={'align-vertically'}><AktionIconImage aktionIcon={aktion.aktionIcon}/> {aktion.aktionName}</div>
+}

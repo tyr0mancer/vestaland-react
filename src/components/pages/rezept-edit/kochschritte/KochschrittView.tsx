@@ -1,9 +1,7 @@
 import {Box, Grid, Paper} from "@mui/material";
 import React from "react";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
-import {
-  ZwischenergebnissePicker
-} from "../../../common/form-elements/specific";
+
 import {AktionenViewer} from "../../../common/formatting/elements/AktionenViewer";
 import {UtensilienViewer} from "../../../common/formatting/elements/UtensilienViewer";
 import {BetriebsartViewer} from "../../../common/formatting/elements/BetriebsartViewer";
@@ -60,8 +58,7 @@ export function KochschrittView({kochschritt}: KochschrittViewProps): React.Reac
 
     <Grid item xs={12} md={6} display={{xs: 'block', md: 'none'}}>
       <Paper elevation={5}>
-        <ZutatenViewer zutaten={kochschritt.zutaten}/>
-        <ZwischenergebnissePicker name={`${name}[zutaten]`}/>
+        <ZutatenViewer zutaten={kochschritt.zutaten} variant={'mobile'}/>
       </Paper>
     </Grid>
 

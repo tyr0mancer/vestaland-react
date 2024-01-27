@@ -10,7 +10,7 @@ type CustomSliderProps = {
   step?: number,
   min?: number,
   max?: number,
-  type: 'number'
+  type: 'number' | 'difficulty'
 }
 
 /**
@@ -32,6 +32,18 @@ export function CustomSlider<T = any>({
 
   const handleChange = async (e: any, value: T) => {
     await setValue(value)
+  }
+
+  if (!marks && type === 'difficulty') {
+    defaultValue = 3
+    step = 1
+    min = 1
+    max = 5
+    marks = [
+      {value: 2, label: "leicht"},
+      {value: 3, label: "mittel"},
+      {value: 4, label: "schwer"},
+    ]
   }
 
 

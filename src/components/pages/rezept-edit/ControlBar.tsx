@@ -9,7 +9,8 @@ import {
   CloudUpload as PublishIcon,
   DeleteForever as ResetIcon,
   Save as SaveIcon,
-  ResetTv as LoadIcon
+  ResetTv as LoadIcon,
+  LogoDev as DevIcon
 } from "@mui/icons-material";
 
 
@@ -143,7 +144,7 @@ export function ControlBar({tabIndex,setTabIndex}: ControlBarProps): React.React
             <IconButton
               onClick={handleCopyPaste}
               size="large">
-              <SaveIcon/>
+              <DevIcon/>
             </IconButton>
           </Tooltip>
 

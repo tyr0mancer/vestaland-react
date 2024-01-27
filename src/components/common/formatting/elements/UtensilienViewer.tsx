@@ -1,5 +1,6 @@
 import React from "react";
 import {Utensil} from "../../../../shared-types/models/Utensil";
+import {Box} from "@mui/material";
 
 type UtensilienViewerProps = {
   utensilien: Utensil[]
@@ -11,5 +12,9 @@ type UtensilienViewerProps = {
  * @see Utensil
  */
 export function UtensilienViewer({utensilien}: UtensilienViewerProps): React.ReactElement {
-  return (<pre>{JSON.stringify(utensilien, null, 1)}</pre>)
+  return (<Box mt={2}>
+    {utensilien.map((utensil, index) => {
+      return <div key={index}><b>{utensil.utensilName}</b></div>
+    })}
+  </Box>)
 }

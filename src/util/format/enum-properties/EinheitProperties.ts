@@ -1,14 +1,16 @@
-import { Einheit } from "../../../shared-types/enum";
+import {Einheit} from "../../../shared-types/enum";
 
+//@Hausarbeit
 export type EinheitProperty = {
   fullName: string;
   shortName: string;
   variant: Einheit;
   base: number;
+  einheit?: Einheit;
 };
 
 export const EinheitProperties: { [key in Einheit]: EinheitProperty } = {
-  [Einheit.ST]: {shortName: '', fullName: 'Stück', variant: Einheit.ST, base: 1},
+  [Einheit.ST]: {shortName: 'St', fullName: 'Stück', variant: Einheit.ST, base: 1},
   [Einheit.DZ]: {shortName: 'Dtzd.', fullName: 'Dutzend', variant: Einheit.ST, base: 12},
   [Einheit.G]: {shortName: 'g', fullName: 'Gram', variant: Einheit.G, base: 1},
   [Einheit.KG]: {shortName: 'kg', fullName: 'Kilogram', variant: Einheit.G, base: 1000},
@@ -20,3 +22,31 @@ export const EinheitProperties: { [key in Einheit]: EinheitProperty } = {
   [Einheit.CP]: {shortName: 'cup', fullName: 'US Cup', variant: Einheit.ML, base: 236},
 } as const
 
+
+export const EinheitenGroups = [
+  {
+    variant: Einheit.ST,
+    gruppenName: 'Anzahl'
+  },
+  {
+    variant: Einheit.G,
+    gruppenName: 'Gewicht'
+  },
+  {
+    variant: Einheit.ML,
+    gruppenName: 'Volumen'
+  },
+]
+
+
+/*
+// (Alternative Approach: generate pseudo Enum from Array)
+const fruits = ['Apple', 'Banana', 'Cherry'] as const;
+type Fruit = typeof fruits[number];
+const FruitEnum = fruits.reduce((obj, fruit) => {
+  obj[fruit] = fruit;
+  return obj;
+}, {} as Record<Fruit, string>);
+console.log(FruitEnum.Apple)
+
+*/

@@ -1,1 +1,0 @@
-type ZeitangabeFieldsProps = { name: string }

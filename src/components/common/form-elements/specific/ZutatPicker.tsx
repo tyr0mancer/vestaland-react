@@ -1,14 +1,15 @@
 import React from "react";
-import {CustomArrayHelper, CustomSelect, CustomTextField} from "../generic";
+import {CustomArrayHelper, CustomTextField} from "../generic";
 import {
-  Delete as DeleteIcon
+  Delete as DeleteIcon,
+  ArrowDropUp as MoveUpIcon,
+  ArrowDropDown as MoveDownIcon
 } from '@mui/icons-material';
 
 import {Grid, IconButton, Typography} from "@mui/material";
-import {Einheit} from "../../../../shared-types/enum";
-import {EinheitProperties} from "../../../../util/format/enum-properties/EinheitProperties";
 import {useField} from "formik";
 import {Zutat} from "../../../../shared-types/models/Zutat";
+import {EinheitPicker} from "./EinheitPicker";
 
 type ZutatPickerProps = {
   name: string,
@@ -23,19 +24,17 @@ type ZutatPickerProps = {
  * @component ZutatPicker
  */
 export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React.ReactElement {
-  const [{value}] = useField<Zutat>(name)
+  const [{value: zutat}] = useField<Zutat>(name)
 
 
-  return (<Grid container spacing={1}>
-    <Grid item xs={1} mt={1}>
+  return (<Grid container spacing={1} mt={1} >
+    <Grid item xs={7} className={'align-vertically'}>
       <IconButton
         onClick={() => arrayHelper.handleDelete(index)}>
         <DeleteIcon/>
       </IconButton>
-    </Grid>
-    <Grid item xs={6}>
       <Typography variant={'body1'}>
-        {value?.lebensmittel?.name}
+        {zutat.lebensmittel?.name}
       </Typography>
     </Grid>
     <Grid item xs={2}>
@@ -50,12 +49,11 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
       />
     </Grid>
     <Grid item xs={2}>
-      <CustomSelect<Einheit>
-        size={'small'}
+      <EinheitPicker
         name={`${name}[einheit]`}
-        options={Object.values(Einheit)}
-        getKey={(einheit: Einheit) => einheit}
-        getLabel={(einheit: Einheit) => EinheitProperties[einheit].fullName}
+        menge={zutat.menge}
+        einheit={zutat.einheit}
+        lebensmittel={zutat.lebensmittel}
       />
     </Grid>
 
@@ -63,12 +61,12 @@ export function ZutatPicker({index, name, arrayHelper}: ZutatPickerProps): React
       <IconButton
         style={{height: 10}}
         onClick={() => arrayHelper.handleMoveUp(index)}
-      >/\</IconButton>
+      ><MoveUpIcon/></IconButton>
       <br/>
       <IconButton
         style={{height: 10}}
         onClick={() => arrayHelper.handleMoveDown(index)}
-      >\/</IconButton>
+      ><MoveDownIcon/></IconButton>
 
 
     </Grid>

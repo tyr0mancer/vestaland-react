@@ -103,7 +103,7 @@ img.startseite.right {
 }
 
 .file-picker .drag-drop-area {
-    background-color: #004400;
+    background-color: #E2FBFB;
     height: 200px;
     padding: 10px;
     border: 1px solid #004400;
@@ -124,7 +124,6 @@ img.startseite.right {
 }
 
 /* Label */
-
 
 .tag-label {
     background-color: #B8F5BA;
@@ -156,5 +155,14 @@ img.startseite.right {
 .align-vertically {
     display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
+}
+
+/* Form Layout */
+.form-group {
+    border: 1px dotted #004400;
+    border-radius: 5px;
+    padding: 8px 5px;
+    margin-bottom: 15px;
+    background-color: #E2FBFB;
 }

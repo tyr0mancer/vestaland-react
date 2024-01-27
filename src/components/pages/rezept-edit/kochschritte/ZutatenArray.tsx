@@ -1,13 +1,21 @@
 import React from "react";
 import {Box, Grid} from "@mui/material";
-
-import {CustomArrayHelper, CustomFieldArray} from "../../../common/form-elements/generic";
-import {Zutat} from "../../../../shared-types/models/Zutat";
-import {ZutatPicker} from "../../../common/form-elements/specific/ZutatPicker";
-import {LebensmittelPicker} from "../../../common/form-elements/specific/LebensmittelPicker";
-import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 import {useField} from "formik";
+
+import {
+  ZutatPicker,
+  LebensmittelPicker
+} from "../../../common/form-elements/specific";
+
+import {
+  CustomArrayHelper,
+  CustomFieldArray
+} from "../../../common/form-elements/generic";
+
+import {Zutat} from "../../../../shared-types/models/Zutat";
+import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 import {Einheit} from "../../../../shared-types/enum";
+
 
 type ZutatenArrayProps = {
   name: string,
@@ -19,7 +27,7 @@ type ZutatenArrayProps = {
  * TS Doc Info
  * @component ZutatenArray
  */
-export function ZutatenArray({name, variant = 'desktop', tabIndex}: ZutatenArrayProps): React.ReactElement {
+export function ZutatenArray({name, variant = 'desktop'}: ZutatenArrayProps): React.ReactElement {
   const newValue = new Zutat()
   const [{value: zutaten}, , {setValue}] = useField<Zutat[]>('zutaten');
 
@@ -62,17 +70,17 @@ export function ZutatenArray({name, variant = 'desktop', tabIndex}: ZutatenArray
       }
 
       renderFooter={
-        (arrayHelper) =>
+        (arrayHelper) =><Box mt={3} borderTop={1} paddingTop={1}>
           <Grid container>
 
-            <Grid item xs={1}></Grid>
-            <Grid item xs={10}>
+            <Grid item xs={(variant === 'desktop') ? 11 : 12}>
               <LebensmittelPicker
                 label={'Lebensmittel hinzufügen'}
-                tabIndex={tabIndex}
+                tabIndex={2}
                 handleChange={v => handleChange(v, arrayHelper)}/>
             </Grid>
           </Grid>
+        </Box>
       }
 
     />

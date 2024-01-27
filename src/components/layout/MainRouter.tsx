@@ -8,11 +8,10 @@ import {Startseite, Impressum} from "../pages/static";
 import {LoginRegister, BenutzerBereich} from "../pages/benutzer";
 
 import {RezeptSuche} from "../pages/rezept-suche";
-import {RezeptEditor} from "../pages/rezept-editor";
 import {RezeptDetail} from "../pages/rezept-detail";
 import {KocheRezept} from "../pages/rezept-cooking";
 import {EinkaufslisteView} from "../pages/einkaufsliste";
-import {RezeptEdit} from "../pages/rezept-edit-neu";
+import {RezeptEdit} from "../pages/rezept-edit";
 import {EditorView} from "./views/EditorView";
 
 
@@ -29,8 +28,7 @@ export function MainRouter() {
         <Route path="/rezept-cooking" element={<DefaultView children={<KocheRezept/>}/>}/>
 
 
-        <Route path="/einkaufsliste" element={<EditorView children={<RezeptEditor/>}/>}/>
-        <Route path="/einkaufsliste/:rezeptId" element={<EditorView children={<EinkaufslisteView/>}/>}/>
+        <Route path="/einkaufsliste" element={<EditorView children={<EinkaufslisteView/>}/>}/>
 
         <Route path="/login" element={<DefaultView children={<LoginRegister/>}/>}/>
         <Route path="/user/*" element={<DefaultView children={<BenutzerBereich/>}/>}/>

@@ -19,12 +19,6 @@ export class Lebensmittel extends CustomOwnership implements LebensmittelType {
   public density?: number
   public unitWeight?: number
   public nutrients?: Nutrients;
-
-  constructor(name?: string) {
-    super();
-    if (name)
-      this.name = name
-  }
 }
 
 

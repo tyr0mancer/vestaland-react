@@ -3,7 +3,15 @@ import {useQuery} from "@tanstack/react-query";
 
 import {useField} from "formik";
 import {FileUploader} from 'react-drag-drop-files';
-import {Box, Button, ImageList, ImageListItem, Modal, Paper, Typography} from "@mui/material";
+import {Box, IconButton, ImageList, ImageListItem, Modal, Paper, Tooltip, Typography} from "@mui/material";
+
+import {
+  Collections as OpenGalleryIcon,
+  HideImage as DeleteIcon,
+} from "@mui/icons-material";
+
+
+
 import {getFileUrl} from "../../formatting/RezeptBild";
 import {CustomFileDropperProps} from "./types";
 import {APIService} from "../../../../util/api/APIService";
@@ -56,8 +64,17 @@ export function CustomFileDropper<T>({name, label, uploadFn}: CustomFileDropperP
       </div>
     </FileUploader>
 
-    <Button onClick={handleOpen}>Aus Galerie</Button>
-    <Button onClick={handleClear}>Entfernen</Button>
+    <Tooltip title={'Aus Galerie auswählen'}>
+    <IconButton
+      onClick={handleOpen}
+    ><OpenGalleryIcon/></IconButton>
+    </Tooltip>
+
+    <Tooltip title={'Kein Bild'}>
+      <IconButton
+        onClick={handleClear}
+      ><DeleteIcon/></IconButton>
+    </Tooltip>
 
     <Modal
       open={open}

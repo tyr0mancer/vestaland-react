@@ -29,5 +29,4 @@ export class Rezept extends CustomOwnership implements RezeptType {
   public schwierigkeitsgrad?: number;
   public portionen: number = 1;
   public nutrients?: Nutrients;
-
 }

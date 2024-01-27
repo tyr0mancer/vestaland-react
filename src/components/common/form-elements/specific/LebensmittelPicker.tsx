@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from "react";
+import React, {useContext} from "react";
 import {CustomAutocomplete} from "../generic";
 import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 import {APIService} from "../../../../util/api/APIService";
@@ -38,8 +38,6 @@ export function LebensmittelPicker({
     })
   }
 
-  useEffect(() => {
-  }, [])
 
 
   return (<CustomAutocomplete<Lebensmittel>

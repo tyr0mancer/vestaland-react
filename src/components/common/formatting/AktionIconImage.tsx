@@ -15,12 +15,11 @@ export function AktionIconImage({aktionIcon, size = 20}: AktionIconImageProps) {
 
   let icon = require('../../../assets/images/icons/dummy.png')
   try {
-    if (!aktionIcon || aktionIcon === AktionIcon.DUMMY)
-      return <></>
     if (aktionIcon)
       icon = require('../../../assets/images/icons/' + AktionIconProperties[aktionIcon].icon)
   } catch (e) {
-    console.log(e)
+    return <div style={{marginRight: 15}}>{icon}</div>
   }
-  return <img loading="lazy" src={icon} height={size} width={size} alt={'Icon'}/>
+
+  return <img loading="lazy" src={icon} height={size} width={size} alt={'Icon'} style={{marginRight: '5px'}} />
 }

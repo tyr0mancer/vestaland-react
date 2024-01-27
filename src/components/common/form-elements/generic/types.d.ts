@@ -25,6 +25,8 @@ type CustomCheckboxProps = {
  * @typeParam T - Der Typ der Elemente in der Autocomplete-Liste.
  */
 type CustomAutocompleteProps<T> = {
+  openOnFocus?: boolean
+
   /**
    * Der Name des Formularfeldes, verwendet von Formik zur Handhabung der Formulardaten.
    */
@@ -153,7 +155,7 @@ type CustomFieldArrayProp<T> = {
 
   setActiveIndex?: (index: number) => void
 
-  confirmDelete?: CustomConfirmProps
+  confirmDelete?: CustomConfirmProps,
 }
 
 
@@ -161,6 +163,7 @@ type CustomFieldArrayProp<T> = {
  * Props für die CustomTextField Komponente.
  */
 type CustomTextFieldProps = {
+  minRows?:number,
   /**
    * Der Name des Formularfeldes, verwendet von Formik zur Handhabung der Formulardaten.
    */
@@ -191,7 +194,9 @@ type CustomTextFieldProps = {
   autoFocus?: boolean,
 
   autoSelect?: boolean,
-  tabIndex?: number
+  tabIndex?: number,
+  multiline?: boolean,
+  fullWidth?: boolean
 }
 
 
@@ -241,6 +246,8 @@ type CustomSelectProps<T> = {
    * Optionale Größe des Feldes.
    */
   size?: 'small' | 'medium'
+
+  groupBy?: (option: T) => string,
 }
 
 

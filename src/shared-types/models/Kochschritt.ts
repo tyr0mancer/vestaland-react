@@ -23,6 +23,7 @@ export class Kochschritt implements KochschrittType {
   public zutaten: Zutat[] = [];
   public utensilien: Ref<Utensil>[] = [];
 
+
   // zwischenergebnisse
   public _id: string = createRandomId(8);
   public ergebnisName?: string;

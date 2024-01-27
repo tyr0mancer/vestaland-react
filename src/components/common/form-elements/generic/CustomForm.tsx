@@ -41,7 +41,7 @@ export function CustomForm<T extends FormikValues>({
   const initialValues = (contextData ?? defaultValues) as T;
 
   const [validatedValues, setValidatedValues] = useState<T>()
-  const debouncedValues = useDebounce<T | undefined>(validatedValues, 500)
+  const debouncedValues = useDebounce<T | undefined>(validatedValues, 300)
 
   useEffect(() => {
     if (!debouncedValues) return

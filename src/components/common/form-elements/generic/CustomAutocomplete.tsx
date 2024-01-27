@@ -9,8 +9,12 @@ import {
   DialogContent,
   DialogTitle,
   Dialog,
-  TextField
+  TextField, IconButton, Tooltip
 } from "@mui/material";
+import {
+  PostAdd as AddIcon
+} from '@mui/icons-material';
+
 import {ZodError} from "zod";
 
 import {CustomAutocompleteProps} from "./types";
@@ -81,7 +85,7 @@ export function CustomAutocomplete<T extends FormikValues>({
                                                              queryKey,
                                                              onChange,
                                                              size = 'small',
-                                                             autoSelect = true,
+                                                             autoSelect = false,
                                                              autoFocus = false,
                                                              fullWidth = false,
                                                              initialOptions,
@@ -91,7 +95,8 @@ export function CustomAutocomplete<T extends FormikValues>({
                                                              validationSchema,
                                                              onOptionsChange,
                                                              tabIndex,
-                                                             renderOption
+                                                             renderOption,
+                                                             openOnFocus = false
                                                            }: CustomAutocompleteProps<T>): React.ReactElement {
   const [field, , {setValue}] = name
     ? useField(name)
@@ -176,6 +181,8 @@ export function CustomAutocomplete<T extends FormikValues>({
       openText={'öffnen'}
 
 
+      openOnFocus={openOnFocus}
+      handleHomeEndKeys={false}
       multiple={false}
       open={open}
       onOpen={() => {
@@ -196,18 +203,6 @@ export function CustomAutocomplete<T extends FormikValues>({
       clearOnBlur={true}
       blurOnSelect={true}
 
-
-      noOptionsText={!!newEntryRender ?
-        <Button
-          onClick={() => setModalOpen(true)}
-          color="secondary"
-          variant={'contained'}
-        >
-          Neuer Eintrag
-        </Button>
-        : <></>
-      }
-
       renderOption={renderOption}
 
       renderInput={(params) => (<TextField
@@ -220,7 +215,17 @@ export function CustomAutocomplete<T extends FormikValues>({
           ...params.InputProps,
           endAdornment: (
             <React.Fragment>
-              {isLoading && <CircularProgress color="inherit" size={20}/>}
+              {isLoading &&
+                  <CircularProgress color="inherit" size={20}/>
+              }
+              {newEntryRender &&
+                  <Tooltip title={'Neue Option für dieses Feld anlegen'}>
+                      <IconButton
+                          onClick={() => setModalOpen(true)}
+                          color="primary"
+                      ><AddIcon/></IconButton>
+                  </Tooltip>
+              }
               {params.InputProps.endAdornment}
             </React.Fragment>
           ),
@@ -229,7 +234,7 @@ export function CustomAutocomplete<T extends FormikValues>({
     />
 
     {newValueDefault && !!newEntryRender &&
-        <Dialog open={modalOpen}>
+        <Dialog open={modalOpen} onClose={() => setModalOpen(false)}>
             <DialogTitle>{label}</DialogTitle>
             <Formik<T>
                 initialValues={newValueDefault}

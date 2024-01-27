@@ -6,35 +6,32 @@ import {KochschrittAktionSchema} from "../../../../shared-types/schemas/kochschr
 import {KochschrittAktionForm} from "../form-layouts/KochschrittAktionForm";
 import {useQuery} from "@tanstack/react-query";
 import {ConditionalDisplay} from "../../../layout/ConditionalDisplay";
+import {Box} from "@mui/material";
+import {AktionViewer} from "../../formatting/elements/AktionenViewer";
 
-type AktionenPickerProps = {
+type AktionPickerProps = {
   name: string,
+  label?: string,
   index: number,
   arrayHelper: CustomArrayHelper
 }
 
 /**
- * TS Doc Info
- * @component AktionenPicker
+ * @see AktionenArray
  */
 export function AktionPicker({
-                                 name,
-                                 index,
-                                 arrayHelper: {handleDelete}
-                               }: AktionenPickerProps): React.ReactElement {
+                               name,
+                               label = 'Aktion wählen'
+                             }: AktionPickerProps): React.ReactElement {
 
   const {data: initialOptions, isLoading, error} = useQuery(
     {
       queryKey: ["aktionen-suche"],
       queryFn: () => APIService.search<KochschrittAktion>('aktion'),
+      staleTime: 1000 * 60 * 5, // 5 minutes
       enabled: true
     });
 
-
-  function handleChange(aktion: KochschrittAktion | null) {
-    if (!aktion?._id)
-      handleDelete(index)
-  }
 
   return (<ConditionalDisplay status={{isLoading, error}}>
     <CustomAutocomplete<KochschrittAktion>
@@ -44,10 +41,15 @@ export function AktionPicker({
 
       name={`${name}`}
       getLabel={(e) => e.aktionName || ''}
-      onChange={handleChange}
-      autoSelect={false}
+      renderOption={(props, aktion: KochschrittAktion) =>
+        <Box component="li" {...props}>
+          <AktionViewer aktion={aktion}/>
+        </Box>
 
-      label="Aktion wählen"
+      }
+
+      autoSelect={false}
+      label={label}
 
       newEntryRender={(inputValue) => <KochschrittAktionForm input={inputValue}/>}
       newValueDefault={new KochschrittAktion()}
