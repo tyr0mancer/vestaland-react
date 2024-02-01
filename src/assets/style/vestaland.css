@@ -158,6 +158,13 @@ img.startseite.right {
     justify-content: flex-start;
 }
 
+.viewer-box {
+    background-color: #E2FBFB;
+    padding: 5px;
+    border: 1px dotted #004400;
+    border-radius: 5px;
+}
+
 /* Form Layout */
 .form-group {
     border: 1px dotted #004400;
@@ -166,3 +173,5 @@ img.startseite.right {
     margin-bottom: 15px;
     background-color: #E2FBFB;
 }
+
+

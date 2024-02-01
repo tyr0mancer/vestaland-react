@@ -1,7 +1,7 @@
 import React from "react";
-import {KochschrittAktion} from "../../../../shared-types/models/KochschrittAktion";
+import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
 import {Box} from "@mui/material";
-import {AktionIconImage} from "../AktionIconImage";
+import {AktionIconImage} from "./AktionIconImage";
 
 type AktionenViewerProps = {
   aktionen: KochschrittAktion[]

@@ -8,8 +8,8 @@ import {useNavigate} from "react-router-dom";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import {Accordion, AccordionDetails, AccordionSummary, Box, Grid, LinearProgress, Typography} from "@mui/material";
-import {ShowZutaten} from "../../common/formatting/ShowZutaten";
-import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
+import {ShowZutaten} from "../../common/viewer/ShowZutaten";
+import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
 import {KocheRezeptKochschritt} from "./KocheRezeptKochschritt";
 import {customConfirm} from "../../common/ui/ConfirmDialog";
 import {getDateInFuture} from "./Kochschritte";

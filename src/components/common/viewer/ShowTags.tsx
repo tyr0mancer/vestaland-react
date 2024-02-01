@@ -1,5 +1,5 @@
 import React from "react";
-import {Tags} from "../../../shared-types/enum/Tags";
+import {Tags} from "../../../shared-types/enum";
 import {TagProperties} from "../../../util/format/enum-properties/TagProperties";
 
 interface ShowTagsProps {

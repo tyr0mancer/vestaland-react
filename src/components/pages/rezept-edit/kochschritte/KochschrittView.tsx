@@ -2,13 +2,13 @@ import {Box, Grid, Paper} from "@mui/material";
 import React from "react";
 import {Kochschritt} from "../../../../shared-types/models/Kochschritt";
 
-import {AktionenViewer} from "../../../common/formatting/elements/AktionenViewer";
-import {UtensilienViewer} from "../../../common/formatting/elements/UtensilienViewer";
-import {BetriebsartViewer} from "../../../common/formatting/elements/BetriebsartViewer";
-import {ZutatenViewer} from "../../../common/formatting/elements/ZutatenViewer";
-import {ZeitenViewer} from "../../../common/formatting/elements/ZeitenViewer";
-import {FreitextViewer} from "../../../common/formatting/elements/FreitextViewer";
-import {UrlViewer} from "../../../common/formatting/elements/UrlViewer";
+import {AktionenViewer} from "../../../common/viewer/AktionenViewer";
+import {UtensilienViewer} from "../../../common/viewer";
+import {BetriebsartViewer} from "../../../common/viewer/BetriebsartViewer";
+import {ZutatenViewer} from "../../../common/viewer/ZutatenViewer";
+import {ZeitenViewer} from "../../../common/viewer/ZeitenViewer";
+import {FreitextViewer} from "../../../common/viewer/FreitextViewer";
+import {UrlViewer} from "../../../common/viewer/UrlViewer";
 
 type KochschrittViewProps = {
   kochschritt: Kochschritt,

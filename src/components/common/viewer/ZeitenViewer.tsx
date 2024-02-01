@@ -1,16 +1,13 @@
 import {Box} from "@mui/material";
 import React from "react";
 
-type ZeitenViewerProps = {
-  arbeitszeit?: number,
-  wartezeit?: number,
-  gesamtdauer?: number,
-}
+import {ZeitenViewerProps} from "./types";
+
 
 /**
- * Formatiert 'Zeiten' zur Darstellung
+ * Formatierte Visualisierung der Zeitangaben
  *
- * @see Zeiten
+ *
  */
 export function ZeitenViewer({arbeitszeit, wartezeit, gesamtdauer}: ZeitenViewerProps): React.ReactElement {
   return (<Box mt={2}>

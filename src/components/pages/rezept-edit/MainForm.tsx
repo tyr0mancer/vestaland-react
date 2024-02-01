@@ -17,9 +17,9 @@ import {
 import {useFormikContext} from "formik";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {getKochschrittSummary} from "../../../util/format/array-reducer/kochschritt-reducer";
-import {ShowNutrients} from "../../common/formatting/ShowNutrients";
-import {ShowZutaten} from "../../common/formatting/ShowZutaten";
-import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
+import {ShowNutrients} from "../../common/viewer/ShowNutrients";
+import {ShowZutaten} from "../../common/viewer/ShowZutaten";
+import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
 
 
 /**

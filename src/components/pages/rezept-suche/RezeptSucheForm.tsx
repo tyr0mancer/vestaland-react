@@ -10,8 +10,7 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import {useAuth} from "../../../util/auth/AuthProvider";
-import {CustomTextField} from "../../common/form-elements/generic/CustomTextField";
-import {CustomCheckbox} from "../../common/form-elements/generic/CustomCheckbox";
+import {CustomTextField, CustomCheckbox} from "../../common/form-elements/generic";
 import {Tags} from "../../../shared-types/enum";
 import {Field} from "formik";
 import {RefreshOutlined} from "@mui/icons-material";
@@ -52,17 +51,6 @@ export function RezeptSucheForm() {
           {Object.entries(Tags).map(([key, value]) =>
             <MenuItem key={key} value={value}>{value}</MenuItem>)}
         </Field>
-
-
-        {/*
-          <CustomSelect<Tags>
-            multiple={false}
-            name={'tags'}
-            label={'Tags'}
-            options={Object.values(Tags)}
-            getLabel={tag => TagProperties[tag].label}
-          />
-        */}
 
 
         {isAuthorized() &&

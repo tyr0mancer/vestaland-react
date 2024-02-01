@@ -1,7 +1,7 @@
 import React from "react";
 import {CustomArrayHelper} from "../../../common/form-elements/generic";
 import {useField} from "formik";
-import {AktionViewer} from "../../../common/formatting/elements/AktionenViewer";
+import {AktionViewer} from "../../../common/viewer/AktionenViewer";
 import {Box, IconButton} from "@mui/material";
 import {Delete as DeleteIcon} from "@mui/icons-material";
 

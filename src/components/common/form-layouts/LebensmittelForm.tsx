@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {Box, Paper} from "@mui/material";
-import {CustomTextField} from "../generic";
+import {CustomTextField} from "../form-elements/generic";
 import {useFormikContext} from "formik";
-import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
-import {EinheitPicker} from "../specific";
+import {Lebensmittel} from "../../../shared-types/models/Lebensmittel";
+import {EinheitPicker} from "../form-elements/specific";
 
 type LebensmittelFormProps = {
   input?: string

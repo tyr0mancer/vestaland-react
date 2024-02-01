@@ -2,7 +2,7 @@ import React from "react";
 import {Field} from "formik";
 import {MenuItem, Select} from "@mui/material";
 import {AktionIcon} from "../../../../shared-types/enum";
-import {AktionIconImage} from "../../formatting/AktionIconImage";
+import {AktionIconImage} from "../../viewer/AktionIconImage";
 
 type IconPickerProps = {
   name: string

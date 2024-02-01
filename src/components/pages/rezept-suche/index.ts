@@ -1,3 +1,1 @@
-import {RezeptSuche} from "./RezeptSuche";
-
-export {RezeptSuche}
+export * from './RezeptSuche'

@@ -16,15 +16,15 @@ import {APIService} from "../../../util/api/APIService";
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {LoadingScreen} from "../../layout/ConditionalDisplay/LoadingScreen";
 import {ErrorScreen} from "../../layout/ConditionalDisplay/ErrorScreen";
-import {ShowTags} from "../../common/formatting/ShowTags";
-import {RezeptBild} from "../../common/formatting/RezeptBild";
-import {ShowTimes} from "../../common/formatting/ShowTimes";
-import {ShowSchwierigkeitsgrad} from "../../common/formatting/ShowSchwierigkeitsgrad";
-import {StartCookingButton} from "../../common/ui/StartCookingButton";
-import {ShowZutaten} from "../../common/formatting/ShowZutaten";
-import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
+import {ShowTags} from "../../common/viewer/ShowTags";
+import {RezeptBild} from "../../common/viewer/RezeptBild";
+import {ShowTimes} from "../../common/viewer/ShowTimes";
+import {ShowSchwierigkeitsgrad} from "../../common/viewer/ShowSchwierigkeitsgrad";
+import {StartCookingButton} from "./StartCookingButton";
+import {ShowZutaten} from "../../common/viewer/ShowZutaten";
+import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
 import {RezeptKochschritt} from "./RezeptKochschritt";
-import {ShowNutrients} from "../../common/formatting/ShowNutrients";
+import {ShowNutrients} from "../../common/viewer/ShowNutrients";
 import {QueryKey} from "../../../util/config/enums";
 
 

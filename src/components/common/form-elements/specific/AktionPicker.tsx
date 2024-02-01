@@ -3,11 +3,11 @@ import {APIService} from "../../../../util/api/APIService";
 import {CustomArrayHelper, CustomAutocomplete} from "../generic";
 import {KochschrittAktion} from "../../../../shared-types/models/KochschrittAktion";
 import {KochschrittAktionSchema} from "../../../../shared-types/schemas/kochschritt-aktion-schema";
-import {KochschrittAktionForm} from "../form-layouts/KochschrittAktionForm";
+import {KochschrittAktionForm} from "../../form-layouts/KochschrittAktionForm";
 import {useQuery} from "@tanstack/react-query";
 import {ConditionalDisplay} from "../../../layout/ConditionalDisplay";
 import {Box} from "@mui/material";
-import {AktionViewer} from "../../formatting/elements/AktionenViewer";
+import {AktionViewer} from "../../viewer/AktionenViewer";
 
 type AktionPickerProps = {
   name: string,

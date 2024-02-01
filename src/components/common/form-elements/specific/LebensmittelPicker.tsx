@@ -3,7 +3,7 @@ import {CustomAutocomplete} from "../generic";
 import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 import {APIService} from "../../../../util/api/APIService";
 import {LebensmittelSchema} from "../../../../shared-types/schemas/lebensmittel-schema";
-import {LebensmittelForm} from "../form-layouts/LebensmittelForm";
+import {LebensmittelForm} from "../../form-layouts/LebensmittelForm";
 
 import {StateContext} from "../../../../util/state/StateProvider";
 import {StateContextType} from "../../../../util/state/types";

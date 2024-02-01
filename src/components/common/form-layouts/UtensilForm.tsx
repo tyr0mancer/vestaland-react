@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import {Box, Paper} from "@mui/material";
-import {CustomTextField} from "../generic";
+import {CustomTextField} from "../form-elements/generic";
 
 type UtensilFormProps = {
   input?: string

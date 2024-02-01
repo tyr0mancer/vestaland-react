@@ -12,7 +12,7 @@ import {
 
 
 
-import {getFileUrl} from "../../formatting/RezeptBild";
+import {getFileUrl} from "../../viewer/RezeptBild";
 import {CustomFileDropperProps} from "./types";
 import {APIService} from "../../../../util/api/APIService";
 import {ConditionalDisplay} from "../../../layout/ConditionalDisplay";

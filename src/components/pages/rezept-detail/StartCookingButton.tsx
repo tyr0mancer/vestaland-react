@@ -7,7 +7,7 @@ import {ActionTypes} from "../../../util/state/reducers";
 
 import {Blender} from "@mui/icons-material";
 import {IconButton} from "@mui/material";
-import {customConfirm} from "./ConfirmDialog";
+import {customConfirm} from "../../common/ui/ConfirmDialog";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 
 interface StartCookingButtonProps {

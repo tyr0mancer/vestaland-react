@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import {Rezept} from "../../../shared-types/models/Rezept";
 import {Link} from "react-router-dom";
 import {RezeptPartial} from "../../../util/state/types";
-import {getFileUrl} from "../../common/formatting/RezeptBild";
+import {getFileUrl} from "../../common/viewer/RezeptBild";
 
 
 export function RezeptCard({rezept}: { rezept: Rezept | RezeptPartial }) {

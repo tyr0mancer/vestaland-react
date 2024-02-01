@@ -1,8 +1,8 @@
 import React from "react";
-import {Zutat} from "../../../../shared-types/models/Zutat";
+import {Zutat} from "../../../shared-types/models/Zutat";
 import {Box, Grid} from "@mui/material";
-import {EinheitProperties} from "../../../../util/format/enum-properties/EinheitProperties";
-import {Einheit} from "../../../../shared-types/enum";
+import {EinheitProperties} from "../../../util/format/enum-properties/EinheitProperties";
+import {Einheit} from "../../../shared-types/enum";
 
 type ZutatenViewerProps = {
   zutaten: Zutat[],

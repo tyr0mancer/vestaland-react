@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {Box, Paper} from "@mui/material";
-import {CustomTextField} from "../generic";
+import {CustomTextField} from "../form-elements/generic";
 import {useFormikContext} from "formik";
-import {KochschrittAktion} from "../../../../shared-types/models/KochschrittAktion";
-import {IconPicker} from "../specific/IconPicker";
+import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
+import {IconPicker} from "../form-elements/specific/IconPicker";
 
 type KochschrittAktionFormProps = {
   input?: string

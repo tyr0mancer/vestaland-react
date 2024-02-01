@@ -3,7 +3,7 @@ import {CustomArrayHelper, CustomAutocomplete} from "../generic";
 import {Utensil} from "../../../../shared-types/models/Utensil";
 import {APIService} from "../../../../util/api/APIService";
 import {Box} from "@mui/material";
-import {UtensilForm} from "../form-layouts/UtensilForm";
+import {UtensilForm} from "../../form-layouts/UtensilForm";
 import {UtensilSchema} from "../../../../shared-types/schemas/utensil-schema";
 
 type UtensilPickerProps = {

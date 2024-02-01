@@ -1,13 +1,13 @@
 import React from "react";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import {Box, Grid, IconButton, Typography} from "@mui/material";
-import {ShowKochschrittAktionen} from "../../common/formatting/ShowKochschrittAktionen";
-import {ShowZutaten} from "../../common/formatting/ShowZutaten";
-import {ShowUtensilien} from "../../common/formatting/ShowUtensilien";
-import {ShowErforderlicheKochschritte} from "../../common/formatting/ShowErforderlicheKochschritte";
+import {ShowKochschrittAktionen} from "../../common/viewer/ShowKochschrittAktionen";
+import {ShowZutaten} from "../../common/viewer/ShowZutaten";
+import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
+import {ShowErforderlicheKochschritte} from "../../common/viewer/ShowErforderlicheKochschritte";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
-import {ShowTimes} from "../../common/formatting/ShowTimes";
+import {ShowTimes} from "../../common/viewer/ShowTimes";
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 
 
