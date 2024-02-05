@@ -1,4 +1,4 @@
-import {Einheit} from "../../../shared-types/enum";
+import {Einheit} from "./index";
 
 //@Hausarbeit
 export type EinheitProperty = {

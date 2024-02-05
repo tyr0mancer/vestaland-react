@@ -12,7 +12,7 @@ import {getDateInFuture} from "./Kochschritte";
 import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
 import {ShowErforderlicheKochschritte} from "../../common/viewer/ShowErforderlicheKochschritte";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
-import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../shared-types/enum/BetriebsartenProperties";
 import {colors} from "../../../assets/style/themeMUI";
 
 interface KocheRezeptKochschrittProps {

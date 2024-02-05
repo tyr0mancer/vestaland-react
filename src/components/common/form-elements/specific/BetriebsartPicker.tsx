@@ -2,7 +2,7 @@ import React from "react";
 import {FormGroup, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {Field, useField} from "formik";
 import {Betriebsart} from "../../../../shared-types/enum";
-import {BetriebsartenProperties} from "../../../../util/format/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../../shared-types/enum/BetriebsartenProperties";
 
 type BetriebsartPickerProps = {
   name: string,

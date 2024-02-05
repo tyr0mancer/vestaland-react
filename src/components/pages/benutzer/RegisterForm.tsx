@@ -1,7 +1,7 @@
 import React from "react";
 import {Form, Formik} from "formik";
 import {RegisterSchema, RegisterType} from "../../../shared-types/schemas/benutzer-schema";
-import {validateFormZod} from "../../../util/format/validateFormZod";
+import {validateZodSchema} from "../../../util/helper/validate-zod";
 import {Button, FormGroup} from "@mui/material";
 import {CustomTextField} from "../../common/form-elements/generic";
 import {AppRegistration as AppRegistrationIcon} from "@mui/icons-material";
@@ -14,7 +14,7 @@ export function RegisterForm({handleRegister}: RegisterFormProps): React.ReactEl
   return (<Formik<RegisterType>
     initialValues={{name: '', email: '', password: ''}}
     onSubmit={handleRegister}
-    validate={v => validateFormZod(v, RegisterSchema)}
+    validate={v => validateZodSchema(v, RegisterSchema)}
   >
     <Form>
       <FormGroup><CustomTextField name={'name'} label={'Benutzername'} autoComplete={'nickname'} /></FormGroup>

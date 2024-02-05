@@ -1,4 +1,4 @@
-import { LebensmittelKategorie } from "../../../shared-types/enum";
+import { LebensmittelKategorie } from "./index";
 
 export type LebensmittelKategorieProperty = {
   fullName: string;

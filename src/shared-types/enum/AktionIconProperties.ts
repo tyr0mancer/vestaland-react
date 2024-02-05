@@ -1,4 +1,4 @@
-import { AktionIcon } from "../../../shared-types/enum";
+import { AktionIcon } from "./index";
 
 export type AktionIconProperty = {
   fullName?: string;

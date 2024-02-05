@@ -1,11 +1,14 @@
-import {Einheit} from './Einheit'
-import {Betriebsart} from './Betriebsart'
-import {AktionIcon} from './AktionIcon'
-import {BenutzerRolle} from "./BenutzerRolle";
-import {Tags} from "./Tags";
-import {HaendlerGruppe} from "./HaendlerGruppe";
-import {LebensmittelKategorie} from "./LebensmittelKategorie";
+export * from './BenutzerRolle'
 
+export * from './Einheit'
+export * from './EinheitProperties'
 
-// langfristig -> config-route
-export {Einheit, Betriebsart, AktionIcon, BenutzerRolle, Tags, HaendlerGruppe, LebensmittelKategorie}
+export * from './Betriebsart'
+export * from './Betriebsart'
+
+export * from './AktionIcon'
+export * from './AktionIcon'
+
+export * from './Tag'
+export * from './HaendlerGruppe'
+export * from './LebensmittelKategorie'

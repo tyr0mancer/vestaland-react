@@ -5,7 +5,7 @@ import {ZodObject} from "zod";
 import {StateContext} from "../../../../util/state/StateProvider";
 import {StateContextType} from "../../../../util/state/types";
 import {ActionTypes, CachePayloadType, CachePayloadTypeKeys} from "../../../../util/state/reducers";
-import {validateFormZod} from "../../../../util/format/validateFormZod";
+import {validateZodSchema} from "../../../../util/helper/validate-zod";
 import {useDebounce} from "@react-hooks-library/core";
 
 
@@ -53,7 +53,7 @@ export function CustomForm<T extends FormikValues>({
   }, [debouncedValues])
 
   const handleValidation = (values: T) => {
-    const result = validateFormZod(values, validationSchema)
+    const result = validateZodSchema(values, validationSchema)
     if (result)
       return result
     setValidatedValues(values)

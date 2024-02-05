@@ -2,15 +2,8 @@ import {Zutat} from "../../../shared-types/models/Zutat";
 import {Utensil} from "../../../shared-types/models/Utensil";
 import {Kochschritt} from "../../../shared-types/models/Kochschritt";
 import {Nutrients} from "../../../shared-types/models/Nutrients";
-
-
-interface KochschrittSummary {
-  berechneteArbeitszeit: number,
-  berechneteGesamtdauer: number,
-  zutaten: Zutat[],
-  utensilien: Utensil[],
-  nutrients: Nutrients
-}
+import {KochschrittSummary} from "./types";
+import {multiplyNutrients} from "./index";
 
 
 const utensilienReducer = (utensilien: Utensil[], utensil: Utensil) => [...utensilien, utensil]
@@ -37,7 +30,7 @@ const nutrientsReducer = (nutrients: Nutrients, zutat: Zutat) => {
   return multiplyNutrients(nutrients, zutat.menge / 100)
 }
 
-function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochschritt) {
+export function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochschritt) {
   const berechneteArbeitszeit = currentValue.berechneteArbeitszeit + (kochschritt?.arbeitszeit || 0)
   const berechneteGesamtdauer = currentValue.berechneteGesamtdauer + (kochschritt?.gesamtdauer || (berechneteArbeitszeit + (kochschritt.wartezeit || 0)))
   const zutaten = kochschritt.zutaten.reduce(zutatenReducer, currentValue.zutaten)
@@ -53,23 +46,4 @@ function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochs
   }
 }
 
-export function getKochschrittSummary(kochschritte: Kochschritt[]): KochschrittSummary {
-  return kochschritte.reduce(kochschrittReducer, {
-    berechneteArbeitszeit: 0,
-    berechneteGesamtdauer: 0,
-    zutaten: [],
-    utensilien: [],
-    nutrients: new Nutrients()
-  })
-}
 
-export function multiplyNutrients(nutrients: Nutrients, factor: number): Nutrients {
-  nutrients.kalorien = nutrients.kalorien * factor
-  nutrients.proteine = nutrients.proteine * factor
-  nutrients.fett = nutrients.fett * factor
-  nutrients.kohlenhydrate = nutrients.kohlenhydrate * factor
-  nutrients.zucker = nutrients.zucker * factor
-  nutrients.ballaststoffe = nutrients.ballaststoffe * factor
-
-  return nutrients
-}

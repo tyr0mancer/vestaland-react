@@ -93,7 +93,7 @@ export function RezeptDetail() {
           {/* Bild oder Platzhalter */}
           <RezeptBild bild={rezept?.bild} alt={rezept?.name}/>
 
-          {/* Tags */}
+          {/* Tag */}
           <Box mt={1}>
             <ShowTags tags={rezept.tags} size={'large'}/>
           </Box>

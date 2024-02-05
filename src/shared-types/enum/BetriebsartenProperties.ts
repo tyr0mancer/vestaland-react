@@ -1,4 +1,4 @@
-import { Betriebsart } from "../../../shared-types/enum";
+import { Betriebsart } from "./index";
 
 export type BetriebsartProperty = {
   fullName: string;

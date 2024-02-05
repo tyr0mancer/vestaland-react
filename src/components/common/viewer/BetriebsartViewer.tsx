@@ -1,7 +1,7 @@
 import {Box} from "@mui/material";
 import React from "react";
 import {Betriebsart} from "../../../shared-types/enum";
-import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../shared-types/enum/BetriebsartenProperties";
 
 type BetriebsartViewerProps = {
   betriebsart?: Betriebsart,

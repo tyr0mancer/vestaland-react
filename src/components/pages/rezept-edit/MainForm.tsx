@@ -16,10 +16,10 @@ import {
 } from "../../common/form-elements/specific";
 import {useFormikContext} from "formik";
 import {Rezept} from "../../../shared-types/models/Rezept";
-import {getKochschrittSummary} from "../../../util/format/array-reducer/kochschritt-reducer";
 import {ShowNutrients} from "../../common/viewer/ShowNutrients";
 import {ShowZutaten} from "../../common/viewer/ShowZutaten";
 import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
+import {getKochschrittSummary} from "../../../util/helper/rezept";
 
 
 /**
@@ -69,7 +69,7 @@ export function MainForm(): React.ReactElement {
         </div>
       </Grid>
 
-      {/* Schwierigkeitsgrad, Tags, Quellen */}
+      {/* Schwierigkeitsgrad, Tag, Quellen */}
       <Grid item xs={12} md={4}>
         <Grid container spacing={1}>
           <Grid item xs={3}>
@@ -93,7 +93,8 @@ export function MainForm(): React.ReactElement {
 
       {/* Zeiten */}
       <Grid item xs={12} md={4}>
-        <ZeitenPicker variant={'rezept'} berechneteArbeitszeit={values.berechneteArbeitszeit} berechneteGesamtdauer={values.berechneteGesamtdauer}/>
+        <ZeitenPicker variant={'rezept'} berechneteArbeitszeit={values.berechneteArbeitszeit}
+                      berechneteGesamtdauer={values.berechneteGesamtdauer}/>
       </Grid>
 
       {/* Zutaten (reduced) */}
@@ -103,19 +104,19 @@ export function MainForm(): React.ReactElement {
 
       {/* Utensilien (reduced) */}
       <Grid item xs={12} md={4}>
-        <ShowUtensilien utensilien={values.utensilien} />
+        <ShowUtensilien utensilien={values.utensilien}/>
       </Grid>
     </Grid>
 
-      {/* Nährwerte (reduced) */}
-      <Box mt={2}>
-        <ShowNutrients nutrients={values.nutrients}/>
-      </Box>
+    {/* Nährwerte (reduced) */}
+    <Box mt={2}>
+      <ShowNutrients nutrients={values.nutrients}/>
+    </Box>
 
-      {/* Freitext */}
-      <Box mt={2} mb={5}>
-        <CustomTextField name={'freitext'} label={'Freitext (optional)'}  multiline minRows={5} fastField fullWidth/>
-      </Box>
+    {/* Freitext */}
+    <Box mt={2} mb={5}>
+      <CustomTextField name={'freitext'} label={'Freitext (optional)'} multiline minRows={5} fastField fullWidth/>
+    </Box>
 
     <hr/>
 

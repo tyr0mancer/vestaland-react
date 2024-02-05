@@ -1,11 +1,11 @@
 import React from "react";
 import {FormGroup, ListSubheader, MenuItem, Select, SelectChangeEvent} from "@mui/material";
 import {Field, useField} from "formik";
-import {Einheit} from "../../../../shared-types/enum";
 import {
+  Einheit,
   EinheitenGroups,
   EinheitProperties
-} from "../../../../util/format/enum-properties/EinheitProperties";
+} from "../../../../shared-types/enum";
 import {Lebensmittel} from "../../../../shared-types/models/Lebensmittel";
 
 type EinheitPickerProps = {

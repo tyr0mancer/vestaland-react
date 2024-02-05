@@ -2,7 +2,7 @@ import React from "react";
 import {Alert, AlertTitle, Button, FormGroup} from "@mui/material";
 import {Form, Formik} from "formik";
 import {LoginSchema, LoginType} from "../../../shared-types/schemas/benutzer-schema";
-import {validateFormZod} from "../../../util/format/validateFormZod";
+import {validateZodSchema} from "../../../util/helper/validate-zod";
 import {CustomTextField} from "../../common/form-elements/generic";
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {useNavigate} from "react-router-dom";
@@ -26,7 +26,7 @@ export function LoginScreen({redirect}: LoginScreeProps): React.ReactElement {
   return (<Formik<LoginType>
     initialValues={{username: '', password: ''}}
     onSubmit={loginAndRedirect}
-    validate={v => validateFormZod(v, LoginSchema)}
+    validate={v => validateZodSchema(v, LoginSchema)}
   >
     {() => {
       return (<Form>

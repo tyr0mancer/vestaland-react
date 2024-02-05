@@ -11,7 +11,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import {useAuth} from "../../../util/auth/AuthProvider";
 import {CustomTextField, CustomCheckbox} from "../../common/form-elements/generic";
-import {Tags} from "../../../shared-types/enum";
+import {Tag} from "../../../shared-types/enum";
 import {Field} from "formik";
 import {RefreshOutlined} from "@mui/icons-material";
 
@@ -46,9 +46,9 @@ export function RezeptSucheForm() {
           as={Select}
           multiple={true}
           name={"tags"}
-          labelId="Tags"
+          labelId="Tag"
         >
-          {Object.entries(Tags).map(([key, value]) =>
+          {Object.entries(Tag).map(([key, value]) =>
             <MenuItem key={key} value={value}>{value}</MenuItem>)}
         </Field>
 

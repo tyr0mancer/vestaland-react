@@ -1,9 +1,9 @@
 import React from "react";
-import {Tags} from "../../../shared-types/enum";
-import {TagProperties} from "../../../util/format/enum-properties/TagProperties";
+import {Tag} from "../../../shared-types/enum";
+import {TagProperties} from "../../../shared-types/enum/TagProperties";
 
 interface ShowTagsProps {
-  tags: Tags[],
+  tags: Tag[],
   size: 'small' | 'large'
 }
 

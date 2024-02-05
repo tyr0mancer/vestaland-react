@@ -6,7 +6,7 @@ import {StateContextType} from "../state/types";
 import {StateContext} from "../state/StateProvider";
 import {ActionTypes, CachePayloadType, CachePayloadTypeKeys} from "../state/reducers";
 import {ZodObject} from "zod";
-import {validateFormZod} from "../format/validateFormZod";
+import {validateZodSchema} from "../helper/validate-zod";
 
 export interface UseDataSyncParams<T> {
   parameterName?: string
@@ -101,7 +101,7 @@ export function useDataSync<T>({
    * Formik Form Validator
    * @param values
    */
-  const validateForm = (values: T) => validateFormZod<T>(values, validationSchema)
+  const validateForm = (values: T) => validateZodSchema<T>(values, validationSchema)
 
 
   return {

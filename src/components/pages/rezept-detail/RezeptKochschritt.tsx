@@ -6,7 +6,7 @@ import {ShowZutaten} from "../../common/viewer/ShowZutaten";
 import {ShowUtensilien} from "../../common/viewer/ShowUtensilien";
 import {ShowErforderlicheKochschritte} from "../../common/viewer/ShowErforderlicheKochschritte";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import {BetriebsartenProperties} from "../../../util/format/enum-properties/BetriebsartenProperties";
+import {BetriebsartenProperties} from "../../../shared-types/enum/BetriebsartenProperties";
 import {ShowTimes} from "../../common/viewer/ShowTimes";
 import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
 

@@ -8,7 +8,7 @@ import {LebensmittelForm} from "../../form-layouts/LebensmittelForm";
 import {StateContext} from "../../../../util/state/StateProvider";
 import {StateContextType} from "../../../../util/state/types";
 import {Box} from "@mui/material";
-import {LebensmittelKategorieProperties} from "../../../../util/format/enum-properties/LebensmittelKategorieProperties";
+import {LebensmittelKategorieProperties} from "../../../../shared-types/enum/LebensmittelKategorieProperties";
 
 
 type LebensmittelPickerProps = {

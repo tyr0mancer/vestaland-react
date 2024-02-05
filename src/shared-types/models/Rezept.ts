@@ -1,13 +1,13 @@
 import {RezeptType} from "../schemas/rezept-schema";
+import {CustomOwnership} from "./_CustomOwnership";
 import {Ref} from "../types";
-import {Tags} from "../enum";
 
+import {Tag} from "../enum";
 import {Zutat} from "./Zutat";
 import {Utensil} from "./Utensil";
 import {Datei} from "./Datei";
 import {Kochschritt} from "./Kochschritt";
 import {Nutrients} from "./Nutrients";
-import {CustomOwnership} from "./_CustomOwnership";
 
 
 export class Rezept extends CustomOwnership implements RezeptType {
@@ -25,7 +25,7 @@ export class Rezept extends CustomOwnership implements RezeptType {
   public zutaten: Zutat[] = [];
   public utensilien: Ref<Utensil>[] = [];
   public kochschritte: Kochschritt[] = [];
-  public tags: Tags[] = [];
+  public tags: Tag[] = [];
   public schwierigkeitsgrad?: number;
   public portionen: number = 1;
   public nutrients?: Nutrients;
