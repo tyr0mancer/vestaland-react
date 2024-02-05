@@ -20,7 +20,7 @@ import {KochschritteArray} from "./kochschritte/KochschritteArray";
 /**
  * Rezept Editor
  */
-export function RezeptEdit(): React.ReactElement {
+export function RezeptEditPage(): React.ReactElement {
   const {rezeptId} = useParams();
   const {data: rezeptApi, isLoading} = useQuery(
     {

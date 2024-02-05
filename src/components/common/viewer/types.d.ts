@@ -1,4 +1,9 @@
 import {Utensil} from "../../../shared-types/models/Utensil";
+import {KochschrittAktion} from "../../../shared-types/models/KochschrittAktion";
+
+type AktionenViewerProps = {
+  aktionen: KochschrittAktion[]
+}
 
 type UrlViewerProps = {
   url?: string
