@@ -8,16 +8,6 @@ import {multiplyNutrients} from "./index";
 
 const utensilienReducer = (utensilien: Utensil[], utensil: Utensil) => [...utensilien, utensil]
 
-const zutatenReducer = (zutaten: Zutat[], zutat: Zutat) => {
-  const zutatGefunden = zutaten.find(z => (z.lebensmittel?._id === zutat.lebensmittel?._id))
-  if (zutatGefunden) {
-    zutatGefunden.menge += zutat.menge;
-  } else {
-    zutaten.push(zutat);
-  }
-  return zutaten
-}
-
 const nutrientsReducer = (nutrients: Nutrients, zutat: Zutat) => {
   if (!zutat.lebensmittel?.nutrients)
     return nutrients
@@ -28,6 +18,23 @@ const nutrientsReducer = (nutrients: Nutrients, zutat: Zutat) => {
   nutrients.zucker += zutat.lebensmittel.nutrients?.zucker || 0
   nutrients.kohlenhydrate += zutat.lebensmittel.nutrients?.kohlenhydrate || 0
   return multiplyNutrients(nutrients, zutat.menge / 100)
+}
+
+const zutatenReducer = (zutaten: Zutat[], zutat: Zutat) => {
+  // @hausarbeit object cloning
+  const neueZutat: Zutat = {
+    lebensmittel: zutat.lebensmittel,
+    menge: zutat.menge,
+    einheit: zutat.einheit,
+  }
+
+  const zutatGefunden = zutaten.find(z => (z.lebensmittel?._id === neueZutat.lebensmittel?._id))
+  if (zutatGefunden) {
+    zutatGefunden.menge += neueZutat.menge;
+  } else {
+    zutaten.push(neueZutat)
+  }
+  return zutaten
 }
 
 export function kochschrittReducer(currentValue: KochschrittSummary, kochschritt: Kochschritt) {
