@@ -24,7 +24,10 @@ export class APIService {
    */
   static async search<T>(routePath: ApiRoutePath, params?: object): Promise<T[]> {
     return new Promise<T[]>((resolve) =>
-      apiClient.get<T[]>(routePath, {params}).then(res => resolve(res.data)).catch(handleApiError)
+      apiClient
+        .get<T[]>(routePath, {params})
+        .then(res => resolve(res?.data || []))
+        .catch(handleApiError)
     )
   }
 
