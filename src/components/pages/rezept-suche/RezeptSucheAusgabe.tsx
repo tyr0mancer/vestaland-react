@@ -14,6 +14,14 @@ export function RezeptSucheAusgabe({result}: { result?: Rezept[] }) {
           <RezeptCard key={rezept._id} rezept={rezept}/>
         </Grid>
       )}
+
+      {(!result || !result.length) && <>
+{/*
+          <Typography gutterBottom variant="h1" component="div">
+              Keine Ergebnisse
+          </Typography>
+*/}
+      </>}
     </Grid>
 
     {!result?.length && <ZuletztGekocht/>}

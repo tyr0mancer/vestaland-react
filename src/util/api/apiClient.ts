@@ -44,6 +44,7 @@ apiClient.interceptors.response.use(
       */
       case 401 :
         if (originalRequest._retry) {
+          console.log('failed twice')
           handleApiError(error);
           break
         }
