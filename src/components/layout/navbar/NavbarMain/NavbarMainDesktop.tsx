@@ -12,8 +12,12 @@ import LoginIcon from '@mui/icons-material/Login';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import PersonIcon from "@mui/icons-material/Person";
-import {BenutzerRolle} from "../../../../shared-types/enum";
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 
+import {BenutzerRolle} from "../../../../shared-types/enum";
+import {useLocalStorage} from "../../../../util/hooks/useLocalStorage";
+import {Rezept} from "../../../../shared-types/models/Rezept";
+import {LocalStorageKey} from "../../../../util/config/enums";
 export function NavbarMainDesktop() {
   const {isAuthorized} = useAuth()
 
@@ -25,8 +29,11 @@ export function NavbarMainDesktop() {
     setAnchorElNav(event.currentTarget);
   }
 
-  return (<Container style={{padding:0}}>
-    <Toolbar  style={{padding:0}}>
+  const [localStorageData] = useLocalStorage<Rezept>(LocalStorageKey.REZEPT_EDIT)
+
+
+  return (<Container style={{padding: 0}}>
+    <Toolbar style={{padding: 0}}>
       <IconButton
         size="large"
         edge="start"
@@ -42,7 +49,7 @@ export function NavbarMainDesktop() {
             <Button component={Link} to={'/einkaufsliste'} color="inherit">Einkaufsliste</Button>
             <Button component={Link} to={'/essensplan'} color="inherit">Essensplan</Button>
             <Button component={Link} to={'/lagerhaltung'} color="inherit">Lagerhaltung</Button>
-          {isAuthorized() &&
+          {isAuthorized() && localStorageData &&
               <Button component={Link} to={'/rezept-editor'} color="inherit">Rezept Editor</Button>
           }
         </>
@@ -89,6 +96,15 @@ export function NavbarMainDesktop() {
                               to={'/user'}><PersonIcon/> <span>Mein Vestaland</span></Typography>
               </MenuItem>
           }
+
+          {isAuthorized() &&
+              <MenuItem onClick={handleCloseNavMenu}>
+                  <Typography className={'menu-item'} component={Link}
+                              to={'/rezept-editor'}><AutoFixHighIcon/> <span>Rezept erfassen</span></Typography>
+              </MenuItem>
+          }
+
+
           {isAuthorized(BenutzerRolle.ADMIN) &&
               <MenuItem onClick={handleCloseNavMenu}>
                   <Typography className={'menu-item'} component={Link}
