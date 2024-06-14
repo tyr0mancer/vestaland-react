@@ -33,6 +33,7 @@ export function BetriebsartPicker({name}: BetriebsartPickerProps): React.ReactEl
       as={Select}
       size={'small'}
       value={value}
+      defaultValue={''}
       onChange={handleChange}
       name={name}
     >
