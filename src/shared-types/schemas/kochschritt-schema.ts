@@ -10,7 +10,10 @@ export const KochschrittSchema = z.object({
   beschreibung: z.string().optional(),
   quelleUrl: z.string().optional(),
   repeating: z.boolean().optional(),
-  gesamtdauer: z.number().optional(),
+  gesamtdauer: z.number({
+    required_error: "gesamtdauer is required",
+    invalid_type_error: "gesamtdauer must be a number",
+  }).optional(),
   arbeitszeit: z.number().optional(),
   wartezeit: z.number().optional(),
   wartenErforderlich: z.boolean().optional(),

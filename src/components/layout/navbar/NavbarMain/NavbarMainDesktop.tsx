@@ -1,23 +1,36 @@
 import * as React from 'react';
 import {Link} from "react-router-dom";
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import {Container, Menu, MenuItem} from "@mui/material";
+
+import {
+  Menu,
+  Container,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  MenuItem
+} from "@mui/material";
+
+
+import {
+  AdminPanelSettings as AdminIcon,
+  Person as UserIcon,
+  AccountCircle as AccountIcon,
+  Login as LoginIcon,
+  EditNote as EditorIcon
+} from '@mui/icons-material';
+
 
 import Logo from "../../../../assets/images/logo.png";
+
 import {useAuth} from "../../../../util/auth/AuthProvider";
-import LoginIcon from '@mui/icons-material/Login';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import PersonIcon from "@mui/icons-material/Person";
-import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
+import {LocalStorageKey} from "../../../../util/config/enums";
+import {useLocalStorage} from "../../../../util/hooks/useLocalStorage";
 
 import {BenutzerRolle} from "../../../../shared-types/enum";
-import {useLocalStorage} from "../../../../util/hooks/useLocalStorage";
 import {Rezept} from "../../../../shared-types/models/Rezept";
-import {LocalStorageKey} from "../../../../util/config/enums";
+
+
 export function NavbarMainDesktop() {
   const {isAuthorized} = useAuth()
 
@@ -30,7 +43,6 @@ export function NavbarMainDesktop() {
   }
 
   const [localStorageData] = useLocalStorage<Rezept>(LocalStorageKey.REZEPT_EDIT)
-
 
   return (<Container style={{padding: 0}}>
     <Toolbar style={{padding: 0}}>
@@ -50,7 +62,7 @@ export function NavbarMainDesktop() {
             <Button component={Link} to={'/essensplan'} color="inherit">Essensplan</Button>
             <Button component={Link} to={'/lagerhaltung'} color="inherit">Lagerhaltung</Button>
           {isAuthorized() && localStorageData &&
-              <Button component={Link} to={'/rezept-editor'} color="inherit">Rezept Editor</Button>
+              <Button component={Link} to={'/rezept-editor'} color="inherit">{localStorageData.name} editieren</Button>
           }
         </>
         }
@@ -64,7 +76,7 @@ export function NavbarMainDesktop() {
           aria-label="menu"
           onClick={handleOpenNavMenu}
         >
-          <AccountCircleIcon/>
+          <AccountIcon/>
         </IconButton>
 
         <Menu
@@ -93,14 +105,14 @@ export function NavbarMainDesktop() {
           {isAuthorized() &&
               <MenuItem onClick={handleCloseNavMenu}>
                   <Typography className={'menu-item'} component={Link}
-                              to={'/user'}><PersonIcon/> <span>Mein Vestaland</span></Typography>
+                              to={'/user'}><UserIcon/> <span>Mein Vestaland</span></Typography>
               </MenuItem>
           }
 
           {isAuthorized() &&
               <MenuItem onClick={handleCloseNavMenu}>
                   <Typography className={'menu-item'} component={Link}
-                              to={'/rezept-editor'}><AutoFixHighIcon/> <span>Rezept erfassen</span></Typography>
+                              to={'/rezept-editor'}><EditorIcon/> <span>Rezept erfassen</span></Typography>
               </MenuItem>
           }
 
@@ -108,7 +120,7 @@ export function NavbarMainDesktop() {
           {isAuthorized(BenutzerRolle.ADMIN) &&
               <MenuItem onClick={handleCloseNavMenu}>
                   <Typography className={'menu-item'} component={Link}
-                              to={'/admin'}><AdminPanelSettingsIcon/> <span>Admin-Bereich</span></Typography>
+                              to={'/admin'}><AdminIcon/> <span>Admin-Bereich</span></Typography>
               </MenuItem>
           }
 
