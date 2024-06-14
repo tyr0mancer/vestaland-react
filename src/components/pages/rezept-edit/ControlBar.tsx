@@ -102,12 +102,14 @@ export function ControlBar({tabIndex,setTabIndex}: ControlBarProps): React.React
     await submitForm()
     const result = await validateForm(values)
     if (Object.keys(result).length) {
-      console.log(result) //@todo handle error here
+      console.error(result)
+      //const resultString = JSON.stringify(result)
+      //window.dispatchEvent(new CustomEvent('api-error', {detail: "resultString"}));
       return
     }
 
     customConfirm({
-      title: values.name + ' veröffentlichen?',
+      title: (values._id) ? values.name + ' aktualisieren?' : values.name + ' als neues Rezept veröffentlichen?',
       label: `Das Rezept wird ${values.publicVisible ? 'öffentlich zu finden' : 'nur für dich zu sehen'} sein`
     }).then(() => {
 
