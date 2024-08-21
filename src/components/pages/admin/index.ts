@@ -1,5 +1,6 @@
-import {BilderAdmin} from "./BilderAdmin";
-import {UserAdmin} from "./UserAdmin";
-import {UtensilAdmin} from "./UtensilAdmin";
+export * from './LebensmittelAdmin'
+export * from './BilderAdmin'
+export * from './UtensilAdmin'
 
-export {BilderAdmin, UserAdmin, UtensilAdmin}
+export * from './UserAdmin'
+
