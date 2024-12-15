@@ -4,8 +4,7 @@ import {Box, Paper, Typography} from "@mui/material";
 export function Startseite() {
   return (<Paper style={{padding: 15}}>
     <Typography variant="h6" gutterBottom>
-      Willkommen bei <strong>"Vestaland"</strong> – Ihrer persönlichen Kochassistenz-App! Diese App ist im Rahmen eines
-      Studienprojekts entstanden und steht Ihnen vollkommen kostenfrei zur Verfügung.
+      Willkommen bei <strong>"Vestaland"</strong> – Ihrer persönlichen Kochassistenz-App!
     </Typography>
 
     <Typography variant="h6" gutterBottom>
@@ -18,9 +17,7 @@ export function Startseite() {
     <Typography variant="h4" mt={2} borderBottom={1}>Das Vesta-Format</Typography>
     <Typography variant="h6">
       Entdecken Sie die Präzision des Vesta-Formats in unseren Rezepten. Jedes Rezept folgt einem klaren, strukturierten
-      Schema, das es einfach macht, die Schritte zu verstehen und nachzukochen. Dieses Format eignet sich hervorragend,
-      um Rezepte zu speichern, zu taggen und zu durchsuchen. Besonders für Menschen mit ADHS oder jene, die Struktur
-      bevorzugen, ist das Vesta-Format ein wahrer Segen.
+      Schema, das es einfach macht, die Schritte zu verstehen und nachzukochen. 
     </Typography>
 
     <Typography variant="h4" mt={2} borderBottom={1}>
