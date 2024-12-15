@@ -24,7 +24,7 @@ export function Startseite() {
       Live-Cooking
     </Typography>
     <Typography variant="h6">
-      Erleben Sie mit unserem Live-Cooking-Modus eine völlig neue Art des Kochens. Hierbei wird jeder Schritt des
+      Erleben Sie mit dem Live-Cooking-Modus eine völlig neue Art des Kochens. Hierbei wird jeder Schritt des
       Rezepts in Echtzeit angezeigt, sodass Sie sich voll und ganz auf das aktuelle Geschehen konzentrieren können.
       Ideal für stressfreies Kochen, bei dem Sie sich nicht mehr fragen müssen, was als Nächstes zu tun ist.
     </Typography>
