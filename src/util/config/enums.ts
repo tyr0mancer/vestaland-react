@@ -6,5 +6,6 @@ export enum QueryKey {
 export enum LocalStorageKey {
   REZEPT_EDIT = 'REZEPT_EDIT',
   ALREADY_REGISTERED = 'ALREADY_REGISTERED',
+  COOKIES_ACCEPTED = 'COOKIES_ACCEPTED',
 }
 
