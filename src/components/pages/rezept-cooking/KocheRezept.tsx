@@ -15,6 +15,10 @@ import {customConfirm} from "../../common/ui/ConfirmDialog";
 import {getDateInFuture} from "./Kochschritte";
 import {getEtdString} from "../../../util/helper/date-format";
 
+
+/**
+ * Darstellung des aktuellen Kochstatus
+ */
 export function KocheRezept() {
   const {state: {rezeptCooking, kochstatus}, dispatch} = useContext(StateContext) as StateContextType
   const [progress, setProgress] = useState(0)

@@ -28,6 +28,7 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
 
     // Confirm falls bereits gekocht wird und das Rezept schon gestartet wurde
     async function startCooking() {
+
         const result = !rezeptCooking || (kochstatus.aktuellerKochschrittIndex === -1) || (kochstatus.aktuellerKochschrittIndex === kochstatus.meta?.length)
             || await customConfirm({
                 title: 'Es wird bereits gekocht.',

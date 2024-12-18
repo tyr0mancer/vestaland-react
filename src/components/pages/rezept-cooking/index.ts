@@ -1,3 +1,2 @@
-import { KocheRezept } from "./KocheRezept";
-
-export {KocheRezept}
+export * from './KocheRezept'
+export * from './KochstatusAnzeige'

@@ -3,14 +3,6 @@ import {ReducerActionType, DataSyncNodes, CachePayloadType} from "./reducers";
 import {Rezept} from "../../shared-types/models/Rezept";
 import {KochschrittAktion} from "../../shared-types/models/KochschrittAktion";
 
-export interface RezeptSucheQuery {
-  rezeptName: string,
-  vegetarisch?: boolean,
-  healthy?: boolean,
-  myRecipes?: boolean,
-  soulfood?: boolean,
-  zutaten?: string[]
-}
 
 export type RezeptPartial = Pick<Rezept, "_id" | "name" | "bild" | "beschreibung" | "publicVisible">;
 
@@ -22,9 +14,6 @@ export interface GlobalState {
   rezeptEditing?: Rezept
 }
 
-
-// Weitere Aktionstypen...
-
 export interface StateContextType {
   state: GlobalState;
   dispatch: React.Dispatch<ReducerActionType>;
@@ -32,6 +21,10 @@ export interface StateContextType {
   cache: DataSyncNodes,
   update: (payload: CachePayloadType) => void
 }
+
+
+
+
 
 
 interface Timer {

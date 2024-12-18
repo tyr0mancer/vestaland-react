@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
@@ -11,19 +10,15 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import PersonIcon from '@mui/icons-material/Person';
 import InfoIcon from '@mui/icons-material/Info';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import BlenderIcon from '@mui/icons-material/Blender';
 
 import {Divider, Menu, MenuItem} from "@mui/material";
 import {Link} from "react-router-dom";
 import {useAuth} from "../../../../util/auth/AuthProvider";
-import {useContext} from "react";
-import {StateContext} from "../../../../util/state/StateProvider";
-import {StateContextType} from "../../../../util/state/types";
 import {BenutzerRolle} from "../../../../shared-types/enum";
+import {KochstatusAnzeigeMobile} from "../../../pages/rezept-cooking";
 
 export function NavbarMainMobile({controlBar}: { controlBar?: React.ReactNode }) {
   const {isAuthorized} = useAuth()
-  const {state: {rezeptCooking}} = useContext(StateContext) as StateContextType
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
 
@@ -111,10 +106,7 @@ export function NavbarMainMobile({controlBar}: { controlBar?: React.ReactNode })
         }
       </Menu>
 
-      {rezeptCooking && <>
-          <Button color="secondary" variant="contained" component={Link}
-                  to={'/rezept-cooking'}><BlenderIcon/> {rezeptCooking.name}</Button>
-      </>}
+      <KochstatusAnzeigeMobile/>
 
       {controlBar && <>{controlBar}</>}
     </Toolbar>)
