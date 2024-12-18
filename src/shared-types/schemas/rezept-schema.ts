@@ -48,7 +48,9 @@ export type RezeptSucheType = z.infer<typeof RezeptSucheSchema>;
  * Schema für das zugehörige Client Formular
  */
 export const RezeptSucheFormSchema = z.object({
-  rezeptName: z.string().optional(),
+  rezeptName: z.string().optional().refine(value => !value || value.length >= 2, {
+    message: "Wenn angegeben, muss der Rezeptname mindestens 2 Zeichen lang sein.",
+  }),
   zutaten: z.array(LebensmittelSchema).optional(),
   nurEigene: z.boolean().optional(),
   tags: z.array(z.nativeEnum(Tag)).optional()
