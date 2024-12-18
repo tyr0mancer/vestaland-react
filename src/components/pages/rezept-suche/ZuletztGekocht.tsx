@@ -12,7 +12,7 @@ import {LocalStorageKey} from "../../../util/config/enums";
  * @component ZuletztGekocht
  */
 export function ZuletztGekocht(): React.ReactElement {
-    const [rezeptHistory, updateHistory] = useLocalStorage<Rezept[]>(LocalStorageKey.REZEPT_HISTORY)
+    const [rezeptHistory, updateHistory] = useLocalStorage<Rezept[]>(LocalStorageKey.REZEPT_HISTORY, [])
 
     function handleDeleteHistory(id: string) {
         if (!rezeptHistory)

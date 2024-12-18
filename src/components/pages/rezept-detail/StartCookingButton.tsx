@@ -21,7 +21,7 @@ interface StartCookingButtonProps {
  * @component StartCookingButton
  */
 export function StartCookingButton({rezept}: StartCookingButtonProps): React.ReactElement {
-    const [rezeptHistory, updateHistory] = useLocalStorage<Rezept[]>(LocalStorageKey.REZEPT_HISTORY)
+    const [rezeptHistory, updateHistory] = useLocalStorage<Rezept[]>(LocalStorageKey.REZEPT_HISTORY, [])
     const navigate = useNavigate();
 
     const {state: {rezeptCooking, kochstatus}, dispatch} = useContext(StateContext) as StateContextType
