@@ -13,14 +13,15 @@ import {useLocalStorage} from "../../../util/hooks/useLocalStorage";
 import {LocalStorageKey} from "../../../util/config/enums";
 
 interface StartCookingButtonProps {
-    rezept: Rezept
+    rezept: Rezept,
+    portionen: number
 }
 
 /**
  * TS Doc Info
  * @component StartCookingButton
  */
-export function StartCookingButton({rezept}: StartCookingButtonProps): React.ReactElement {
+export function StartCookingButton({rezept, portionen}: StartCookingButtonProps): React.ReactElement {
     const [rezeptHistory, updateHistory] = useLocalStorage<Rezept[]>(LocalStorageKey.REZEPT_HISTORY, [])
     const navigate = useNavigate();
 
@@ -70,7 +71,7 @@ export function StartCookingButton({rezept}: StartCookingButtonProps): React.Rea
     }
 
     return (<IconButton aria-label="startCooking" onClick={startCooking} color={'primary'} size={'small'}>
-            <Blender/> Jetzt kochen!
+            <Blender/> Jetzt {portionen} x kochen!
         </IconButton>
     )
 }

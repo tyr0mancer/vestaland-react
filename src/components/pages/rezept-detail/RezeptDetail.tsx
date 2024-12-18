@@ -131,7 +131,7 @@ export function RezeptDetail() {
 
                 {/* "Jetzt Kochen"-Button */}
                 <Grid item xs={4}>
-                  <StartCookingButton rezept={rezept}/>
+                  <StartCookingButton rezept={rezept} portionen={portionen}/>
                 </Grid>
 
               </Grid>
